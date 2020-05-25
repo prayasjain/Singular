@@ -7,16 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { AssetsPageRoutingModule } from './assets-routing.module';
 
 import { AssetsPage } from './assets.page';
-import { AssetComponent } from './asset/asset.component';
-import { AddNewComponent } from '../add-new/add-new.component';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AssetsPageRoutingModule
+    AssetsPageRoutingModule,
+    SharedModule
   ],
-  declarations: [AssetsPage, AssetComponent, AddNewComponent]
+  declarations: [AssetsPage]
 })
 export class AssetsPageModule {}
