@@ -8,6 +8,7 @@ import { AssetsPageRoutingModule } from './assets-routing.module';
 
 import { AssetsPage } from './assets.page';
 import { SharedModule } from '../shared.module';
+import { AssetComponent } from './asset/asset.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { SharedModule } from '../shared.module';
     AssetsPageRoutingModule,
     SharedModule
   ],
-  declarations: [AssetsPage]
+  declarations: [AssetsPage, AssetComponent]
 })
 export class AssetsPageModule {}

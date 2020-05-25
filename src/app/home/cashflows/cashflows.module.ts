@@ -8,6 +8,7 @@ import { CashflowsPageRoutingModule } from './cashflows-routing.module';
 
 import { CashflowsPage } from './cashflows.page';
 import { SharedModule } from '../shared.module';
+import { CashflowComponent } from './cashflow/cashflow.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { SharedModule } from '../shared.module';
     CashflowsPageRoutingModule,
     SharedModule
   ],
-  declarations: [CashflowsPage]
+  declarations: [CashflowsPage, CashflowComponent]
 })
 export class CashflowsPageModule {}
