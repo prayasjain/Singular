@@ -11,4 +11,7 @@ export class AddNewComponent implements OnInit {
 
   ngOnInit() {}
 
+  clickItem() {
+    console.log("here");
+  }
 }

@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { AssetsPageRoutingModule } from './assets-routing.module';
 
 import { AssetsPage } from './assets.page';
+import { AssetComponent } from './asset/asset.component';
+import { AddNewComponent } from '../add-new/add-new.component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,6 @@ import { AssetsPage } from './assets.page';
     IonicModule,
     AssetsPageRoutingModule
   ],
-  declarations: [AssetsPage]
+  declarations: [AssetsPage, AssetComponent, AddNewComponent]
 })
 export class AssetsPageModule {}
