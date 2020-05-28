@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { GoalsPageRoutingModule } from './goals-routing.module';
 
 import { GoalsPage } from './goals.page';
+import { GoalComponent } from './goal/goal.component';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GoalsPageRoutingModule
+    GoalsPageRoutingModule,
+    SharedModule
   ],
-  declarations: [GoalsPage]
+  declarations: [GoalsPage, GoalComponent]
 })
 export class GoalsPageModule {}

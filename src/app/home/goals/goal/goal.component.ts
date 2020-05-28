@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-cashflow',
-  templateUrl: './cashflow.component.html',
-  styleUrls: ['./cashflow.component.scss'],
+  selector: 'app-goal',
+  templateUrl: './goal.component.html',
+  styleUrls: ['./goal.component.scss'],
 })
-export class CashflowComponent implements OnInit {
+export class GoalComponent implements OnInit {
+
   @Input() itemColor: string;
   @Input() title: string;
   @Input() value: number;
@@ -14,5 +15,4 @@ export class CashflowComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
 }
