@@ -6,7 +6,7 @@
     <ion-title>Assets</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content><ion-grid>
+<ion-content><ion-grid color="light">
   <ion-row>
     <ion-col class="ion-text-center" size-md="6" offset-md="3">
       <h3>Assets</h3>
@@ -27,7 +27,7 @@
         title="Savings Account"
         value=123000
         itemColor="primary"
-        itemLink="/home/tabs/cashflows"
+        itemLink="/home/tabs/assets/asset-detail/1"
       ></app-asset>
     </ion-col>
   </ion-row>
@@ -37,7 +37,7 @@
         title="Deposits"
         value=50000
         itemColor="secondary"
-        itemLink="/home/tabs/goals"
+        itemLink="/home/tabs/assets/asset-detail/2"
       ></app-asset>
     </ion-col>
   </ion-row>
@@ -47,7 +47,7 @@
         title="Mutual Funds"
         value=100000
         itemColor="tertiary"
-        itemLink="/home/tabs/cashflows"
+        itemLink="/home/tabs/assets/asset-detail/3"
       ></app-asset>
     </ion-col>
   </ion-row >
@@ -57,7 +57,7 @@
         title="Equity"
         value=10000
         itemColor="warning"
-        itemLink="/home/tabs/cashflows"
+        itemLink="/home/tabs/assets/asset-detail/4"
       ></app-asset>
     </ion-col>
   </ion-row >
@@ -67,12 +67,18 @@
         title="Cash"
         value=1000
         itemColor="danger"
-        itemLink="/home/tabs/cashflows"
+        itemLink="/home/tabs/assets/asset-detail/5"
       ></app-asset>
     </ion-col>
   </ion-row>
 </ion-grid>
 </ion-content>
 <ion-footer>
-  <app-add-new></app-add-new>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <app-add-new></app-add-new>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-footer>

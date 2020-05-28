@@ -1,0 +1,11 @@
+<ion-card class="custom">
+  <span class="title">{{title}}</span>
+  <ion-item>
+    <ion-thumbnail slot="start">
+      <ion-img [src]="imgUrl"></ion-img>
+    </ion-thumbnail>
+    <ion-text>{{content}}</ion-text>
+    <ion-text slot="end"> {{value | currency}}</ion-text>
+  </ion-item>
+  
+</ion-card>

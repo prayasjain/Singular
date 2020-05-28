@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: AssetsPage
+  },
+  {
+    path: 'asset-detail/:assetId',
+    loadChildren: () => import('./asset-detail/asset-detail.module').then( m => m.AssetDetailPageModule)
   }
 ];
 

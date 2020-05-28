@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: CashflowsPage
+  },
+  {
+    path: 'cashflow-detail/:cashflowId',
+    loadChildren: () => import('./cashflow-detail/cashflow-detail.module').then( m => m.CashflowDetailPageModule)
   }
 ];
 

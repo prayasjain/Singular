@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/goals"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{goal.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  ><ion-grid>
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <h3>{{goal.name}}</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <ion-progress-bar
+          class="custom-bar"
+          color="primary"
+          [value]="finishPerc"
+        ></ion-progress-bar>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <span> <b>{{(goal.amountReqd*finishPerc) | currency}}</b> 
+          out of {{goal.amountReqd | currency}}
+        </span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <b>Assets</b>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="3" offset-md="3">
+        <div>
+          Fixed Deposit
+        </div>
+      </ion-col>
+      <ion-col size-md="3">
+        <div>
+          {{goal.amountReqd*finishPerc*0.4 | currency}} ({{goal.amountReqd*finishPerc*0.4*100/goal.amountReqd}}%)
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="3" offset-md="3">
+        <div>
+          Cash
+        </div>
+      </ion-col>
+      <ion-col size-md="3">
+        <div>
+          {{goal.amountReqd*finishPerc*0.6 | currency}} ({{goal.amountReqd*finishPerc*0.6*100/goal.amountReqd}}%)
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+<ion-grid>
+  <ion-row class="ion-no-padding">
+    <ion-col class="ion-text-center ion-no-padding" size-md="6" offset-md="3">
+      Goal Set on Date: 2020/01/01
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-no-padding">
+    <ion-col class="ion-text-center ion-no-padding" size-md="6" offset-md="3">
+      Expected to acheive by Date: 2021/01/01
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-footer>
