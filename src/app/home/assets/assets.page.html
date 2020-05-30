@@ -15,59 +15,17 @@
 
   <ion-row class="ion-no-padding">
     <ion-col  class="ion-no-padding" size-md="6" offset-md="3">
-      <h3>$405,000</h3>
-      <p>as on 31/05/2020</p>
+      <h3>{{totalAmount | currency}}</h3>
+      <p>as on {{currentDate.toDateString()}}</p>
     </ion-col>
   </ion-row>
-
-  <ion-row class="ion-no-padding">
-    <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-      
-      <app-asset
-        title="Savings Account"
-        value=123000
-        itemColor="primary"
-        itemLink="/home/tabs/assets/asset-detail/1"
-      ></app-asset>
-    </ion-col>
-  </ion-row>
-  <ion-row class="ion-no-padding">
+  <ion-row class="ion-no-padding" *ngFor="let assetGroup of assetGroups">
     <ion-col class="ion-no-padding" size-md="6" offset-md="3">
       <app-asset
-        title="Deposits"
-        value=50000
-        itemColor="secondary"
-        itemLink="/home/tabs/assets/asset-detail/2"
-      ></app-asset>
-    </ion-col>
-  </ion-row>
-  <ion-row class="ion-no-padding">
-    <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-      <app-asset
-        title="Mutual Funds"
-        value=100000
-        itemColor="tertiary"
-        itemLink="/home/tabs/assets/asset-detail/3"
-      ></app-asset>
-    </ion-col>
-  </ion-row >
-  <ion-row class="ion-no-padding">
-    <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-      <app-asset
-        title="Equity"
-        value=10000
-        itemColor="warning"
-        itemLink="/home/tabs/assets/asset-detail/4"
-      ></app-asset>
-    </ion-col>
-  </ion-row >
-  <ion-row class="ion-no-padding">
-    <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-      <app-asset
-        title="Cash"
-        value=1000
-        itemColor="danger"
-        itemLink="/home/tabs/assets/asset-detail/5"
+        [title]="assetGroup.assetType.typeName"
+        [value]="assetGroup.amount"
+        itemColor="medium"
+        [itemLink]="'/home/tabs/assets/asset-detail/' + assetGroup.assetType.typeNameSlug"
       ></app-asset>
     </ion-col>
   </ion-row>

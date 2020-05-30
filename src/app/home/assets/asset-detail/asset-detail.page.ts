@@ -1,36 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { AssetType, AssetTypeLayout, Asset } from "../asset.model";
+import { AssetsService } from "../assets.service";
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-asset-detail',
-  templateUrl: './asset-detail.page.html',
-  styleUrls: ['./asset-detail.page.scss'],
+  selector: "app-asset-detail",
+  templateUrl: "./asset-detail.page.html",
+  styleUrls: ["./asset-detail.page.scss"],
 })
-export class AssetDetailPage implements OnInit {
+export class AssetDetailPage implements OnInit, OnDestroy {
+  assetType: AssetTypeLayout;
+  userAssetsForTypeSub: Subscription;
+  userAssetsForType: Asset[];
+  totalAmountForType: number;
+  currentDate: Date;
 
-  title: string = "title";
-
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private assetsService: AssetsService
+  ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(paramMap => {
-      let assetId = paramMap.get('assetId');
-      if (assetId === '1') {
-        this.title = "Savings Account";
-      }
-      if (assetId === '2') {
-        this.title = "Deposits";
-      }
-      if (assetId === '3') {
-        this.title = "Mutual funds";
-      }
-      if (assetId === '4') {
-        this.title = "Equities";
-      }
-      if (assetId === '5') {
-        this.title = "Cash";
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
+      let assetSlug = paramMap.get("assetSlug");
+      Object.keys(AssetType).forEach((key) => {
+        if (AssetType[key].typeNameSlug === assetSlug) {
+          this.assetType = AssetType[key];
+        }
+      });
+      if (this.assetType) {
+        this.userAssetsForTypeSub = this.assetsService
+          .getUserAssetsForAssetType(this.assetType)
+          .subscribe((userassetsForType) => {
+            this.userAssetsForType = userassetsForType;
+            this.totalAmountForType = 0;
+            this.userAssetsForType.forEach(userAsset => {
+              this.totalAmountForType += userAsset.amount;
+            });
+            this.currentDate = new Date();
+          });
       }
     });
   }
 
+  ngOnDestroy() {
+    if (this.userAssetsForTypeSub) {
+      this.userAssetsForTypeSub.unsubscribe();
+    }
+  }
 }
