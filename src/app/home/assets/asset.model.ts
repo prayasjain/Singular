@@ -23,12 +23,3 @@ export const AssetType = {
   Equity: { typeName: "Equity", typeNameSlug: "equity" },
   Cash: { typeName: "Cash", typeNameSlug: "cash" },
 };
-
-export class Contribution {
-  constructor(
-    public id: string,
-    public assetId: string,
-    public goalId: string,
-    public percentageContribution: number
-  ) {}
-}

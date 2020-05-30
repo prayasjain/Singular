@@ -12,23 +12,13 @@
       <h3>Goals</h3>
     </ion-col>
   </ion-row>
-  <ion-row class="ion-no-padding">
+  <ion-row class="ion-no-padding" *ngFor="let goal of userGoals">
     <ion-col class="ion-no-padding" size-md="6" offset-md="3">
       <app-goal
-        title="Bali Vacation"
-        value=0.5
+        [title]="goal.name"
+        [value]="goalCompletionMap.get(goal.id)/goal.amountReqd"
         itemColor="danger"
-        itemLink="/home/tabs/goals/goal-detail/1"
-      ></app-goal>
-    </ion-col>
-  </ion-row>
-  <ion-row class="ion-no-padding">
-    <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-      <app-goal
-        title="Buy the new Iphone 12"
-        value=0.7
-        itemColor="primary"
-        itemLink="/home/tabs/goals/goal-detail/2"
+        [itemLink]="'/home/tabs/goals/goal-detail/' + goal.id"
       ></app-goal>
     </ion-col>
   </ion-row>

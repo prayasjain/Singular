@@ -35,27 +35,15 @@
         <b>Assets</b>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngFor="let asset of assets">
       <ion-col size-md="3" offset-md="3">
         <div>
-          Fixed Deposit
+          {{asset.name}}
         </div>
       </ion-col>
       <ion-col size-md="3">
         <div>
-          {{goal.amountReqd*finishPerc*0.4 | currency}} ({{goal.amountReqd*finishPerc*0.4*100/goal.amountReqd}}%)
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size-md="3" offset-md="3">
-        <div>
-          Cash
-        </div>
-      </ion-col>
-      <ion-col size-md="3">
-        <div>
-          {{goal.amountReqd*finishPerc*0.6 | currency}} ({{goal.amountReqd*finishPerc*0.6*100/goal.amountReqd}}%)
+          {{assetContributionMap.get(asset.id) | currency}} ({{assetContributionMap.get(asset.id)/goal.amountReqd | percent}})
         </div>
       </ion-col>
     </ion-row>
@@ -65,12 +53,12 @@
 <ion-grid>
   <ion-row class="ion-no-padding">
     <ion-col class="ion-text-center ion-no-padding" size-md="6" offset-md="3">
-      Goal Set on Date: 2020/01/01
+      Goal Set on Date: {{goal.creationDate.toDateString()}}
     </ion-col>
   </ion-row>
   <ion-row class="ion-no-padding">
     <ion-col class="ion-text-center ion-no-padding" size-md="6" offset-md="3">
-      Expected to acheive by Date: 2021/01/01
+      Expected to acheive by Date: ???
     </ion-col>
   </ion-row>
 </ion-grid>
