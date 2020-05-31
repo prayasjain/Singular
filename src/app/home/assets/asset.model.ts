@@ -4,7 +4,8 @@ export class Asset {
     public name: string,
     public details: string,
     public amount: number,
-    public assetType: AssetTypeLayout
+    public assetType: AssetTypeLayout,
+    public percent_unallocated: number
   ) {}
 }
 

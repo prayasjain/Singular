@@ -15,8 +15,8 @@
   <ion-row class="ion-no-padding" *ngFor="let goal of userGoals">
     <ion-col class="ion-no-padding" size-md="6" offset-md="3">
       <app-goal
-        [title]="goal.name"
-        [value]="goalCompletionMap.get(goal.id)/goal.amountReqd"
+        [title]="goal.name" 
+        [value]="(goalCompletionMap.get(goal.id) || 0)/goal.amountReqd"
         itemColor="danger"
         [itemLink]="'/home/tabs/goals/goal-detail/' + goal.id"
       ></app-goal>
@@ -28,7 +28,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
-        <app-add-new></app-add-new>
+        <app-add-new isGoal=true></app-add-new>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -3,7 +3,9 @@ import { ModalController } from "@ionic/angular";
 import { AddNewModalComponent } from "./add-new-modal/add-new-modal.component";
 import { AssetTypeLayout, Asset, AssetType } from "../assets/asset.model";
 import { AssetsService } from "../assets/assets.service";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
+import { Goal } from "../goals/goal.model";
+import { GoalsService } from '../goals/goals.service';
 
 @Component({
   selector: "app-add-new",
@@ -19,6 +21,7 @@ export class AddNewComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private assetsService: AssetsService,
+    private goalsService: GoalsService,
     private router: Router
   ) {}
 
@@ -48,10 +51,27 @@ export class AddNewComponent implements OnInit {
               resultData.data.accountDetails,
               resultData.data.amount,
               AssetType[resultData.data.assetType],
+              1
             );
-            this.assetsService.addUserAsset(newAsset).subscribe(res => {
-              this.router.navigate(["/home/tabs/assets/asset-detail/", newAsset.assetType.typeNameSlug])
+            this.assetsService.addUserAsset(newAsset).subscribe((res) => {
+              this.router.navigate([
+                "/home/tabs/assets/asset-detail/",
+                newAsset.assetType.typeNameSlug,
+              ]);
             });
+          } else if (this.isGoal) {
+            let newGoal = new Goal(
+              Math.random().toString(),
+              resultData.data.name,
+              resultData.data.amount,
+              new Date()
+            );
+            this.goalsService.addUserGoal(newGoal).subscribe(res => {
+              this.router.navigate([
+                "/home/tabs/goals/goal-detail/",
+                newGoal.id,
+              ])
+            })
           }
         }
       });

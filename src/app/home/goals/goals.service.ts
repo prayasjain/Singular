@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Goal, Contribution } from "./goal.model";
-import { take, tap, map } from "rxjs/operators";
+import { take, tap, map, switchMap } from "rxjs/operators";
+import { AssetsService } from "../assets/assets.service";
 
 @Injectable({
   providedIn: "root",
@@ -18,7 +19,7 @@ export class GoalsService {
     new Contribution("4", "2", "2", 0.3),
   ]);
 
-  constructor() {}
+  constructor(private assetsService: AssetsService) {}
 
   get userGoals() {
     return this._userGoals.asObservable();
@@ -45,5 +46,25 @@ export class GoalsService {
         this._userGoals.next(userGoals.concat(goal));
       })
     );
+  }
+
+  addUserGoalsContribution(contribution: Contribution) {
+    return this.assetsService
+      .updateAssetAllocation(
+        contribution.assetId,
+        contribution.percentageContribution
+      )
+      .pipe(
+        take(1),
+        switchMap((assets) => {
+          return this.userGoalsContributions;
+        }),
+        take(1),
+        tap((userGoalsContribution) => {
+          this._userGoalsContributions.next(
+            userGoalsContribution.concat(contribution)
+          );
+        })
+      );
   }
 }

@@ -48,6 +48,7 @@ export class GoalsPage implements OnInit, OnDestroy {
     if (!this.userGoals || !this.userGoalsContributions || !this.userAssets) {
       return;
     }
+    this.goalCompletionMap.clear(); 
     this.userGoalsContributions.forEach((userGoalsContribution) => {
       let existingContribution =
         this.goalCompletionMap.get(userGoalsContribution.goalId) || 0;
