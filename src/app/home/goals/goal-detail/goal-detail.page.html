@@ -45,7 +45,7 @@
       <ion-row *ngFor="let asset of assets">
         <ion-col size-md="2" offset-md="3">
           <div>
-            {{asset.name}}
+            {{asset.assetTitle}}
           </div>
         </ion-col>
         <ion-col size-md="2" class="ion-text-right">
@@ -63,7 +63,7 @@
               <ion-select-option
                 *ngFor="let option of remainingAssets"
                 [value]="option.id"
-                >{{ option.name }}</ion-select-option
+                >{{ option.assetTitle }}</ion-select-option
               >
             </ion-select>
           </ion-item>

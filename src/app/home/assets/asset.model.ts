@@ -135,7 +135,7 @@ export class Deposits {
     public depositNumber: string,
     public amount: number,
     public maturityDate: Date,
-    public interestRate: number = 0.06
+    public interestRate: number = 0.04
   ) {}
 }
 

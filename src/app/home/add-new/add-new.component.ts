@@ -49,18 +49,15 @@ export class AddNewComponent implements OnInit {
         })
         .then((resultData) => {
           if (resultData.role === "confirm") {
-            //   AssetType[resultData.data.assetType],
-            let newAsset = new Asset(
-              Math.random().toString(),
-              new SavingsAccount(resultData.data.name, resultData.data.accountDetails, resultData.data.amount),
-              1
-            );
-            this.assetsService.addUserAsset(newAsset).subscribe((res) => {
-              this.router.navigate([
-                "/home/tabs/assets/asset-detail/",
-                AssetTypeUtils.slug(newAsset.assetType),
-              ]);
-            });
+            console.log(resultData.data.asset);
+            if (resultData.data.asset) {
+              this.assetsService.addUserAsset(resultData.data.asset).subscribe((res) => {
+                this.router.navigate([
+                  "/home/tabs/assets/asset-detail/",
+                  AssetTypeUtils.slug(resultData.data.asset.assetType),
+                ]);
+              });
+            }
           }
         });
     }
