@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AssetDetailPageRoutingModule } from './asset-detail-routing.module';
 
 import { AssetDetailPage } from './asset-detail.page';
-import {ItemDetailsComponent} from '../item-details/item-details.component';
+import {ItemDetailsComponent} from '../asset-detail/item-details/item-details.component';
 import { SharedModule } from '../../shared.module';
 
 @NgModule({
