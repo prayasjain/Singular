@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { AssetType, AssetTypeLayout, Asset } from "../asset.model";
+import { AssetType, Asset, AssetTypeUtils } from "../asset.model";
 import { AssetsService } from "../assets.service";
 import { Subscription } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ["./asset-detail.page.scss"],
 })
 export class AssetDetailPage implements OnInit, OnDestroy {
-  assetType: AssetTypeLayout;
+  assetType: AssetType;
   userAssetsForTypeSub: Subscription;
   userAssetsForType: Asset[];
   totalAmountForType: number;
@@ -24,11 +24,9 @@ export class AssetDetailPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       let assetSlug = paramMap.get("assetSlug");
-      Object.keys(AssetType).forEach((key) => {
-        if (AssetType[key].typeNameSlug === assetSlug) {
-          this.assetType = AssetType[key];
-        }
-      });
+      this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);
+      console.log("here");
+      console.log(this.assetType);
       if (this.assetType) {
         this.userAssetsForTypeSub = this.assetsService
           .getUserAssetsForAssetType(this.assetType)
@@ -36,13 +34,15 @@ export class AssetDetailPage implements OnInit, OnDestroy {
             this.userAssetsForType = userassetsForType;
             this.totalAmountForType = 0;
             this.userAssetsForType.forEach(userAsset => {
-              this.totalAmountForType += userAsset.amount;
+              this.totalAmountForType += userAsset.amountForAsset;
             });
             this.currentDate = new Date();
           });
       }
     });
   }
+
+  
 
   ngOnDestroy() {
     if (this.userAssetsForTypeSub) {

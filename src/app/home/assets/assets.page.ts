@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AssetsService } from "./assets.service";
-import { Asset, AssetTypeLayout } from "./asset.model";
+import { Asset, AssetType, AssetTypeUtils } from "./asset.model";
 import { Subscription } from "rxjs";
 
 interface AssetGroup {
-  assetType: AssetTypeLayout;
+  assetType: AssetType;
   amount: number;
 }
 
@@ -39,7 +39,7 @@ export class AssetsPage implements OnInit, OnDestroy {
     this.userAssets.forEach((userAsset) => {
       totalAmountByAssetType.set(
         userAsset.assetType,
-        (totalAmountByAssetType.get(userAsset.assetType) || 0) + userAsset.amount);
+        (totalAmountByAssetType.get(userAsset.assetType) || 0) + userAsset.amountForAsset);
     });
     this.assetGroups = [];
     totalAmountByAssetType.forEach((amount, assetType) => {
@@ -49,6 +49,10 @@ export class AssetsPage implements OnInit, OnDestroy {
       };
       this.assetGroups.push(assetGroup);
     });
+  }
+
+  getSlug(assetType: AssetType) {
+    return AssetTypeUtils.slug(assetType);
   }
 
   ngOnDestroy() {

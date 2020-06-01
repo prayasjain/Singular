@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Asset, AssetType, AssetTypeLayout } from "./asset.model";
+import { Asset, AssetType, SavingsAccount, Deposits, MutualFunds, Equity, Cash } from "./asset.model";
 import { BehaviorSubject } from "rxjs";
 import { take, tap, map, switchMap } from "rxjs/operators";
 
@@ -8,16 +8,20 @@ import { take, tap, map, switchMap } from "rxjs/operators";
 })
 export class AssetsService {
   private _userAssets = new BehaviorSubject<Asset[]>([
-    new Asset("1", "Name1", "Details1", 1000, AssetType.SavingsAccount, 0.8),
-    new Asset("2", "Name2", "Details2", 2000, AssetType.SavingsAccount, 0.7),
-    new Asset("3", "Name3", "Details3", 3000, AssetType.Deposits, 0.8),
-    new Asset("4", "Name4", "Details4", 4000, AssetType.Deposits, 0.6),
-    new Asset("5", "Name5", "Details5", 5000, AssetType.MutualFunds, 1),
-    new Asset("6", "Name6", "Details6", 6000, AssetType.MutualFunds, 1),
-    new Asset("7", "Name7", "Details7", 7000, AssetType.Equity, 1),
-    new Asset("8", "Name8", "Details8", 8000, AssetType.Equity, 1),
-    new Asset("9", "Name9", "Details9", 9000, AssetType.Cash, 1),
-    new Asset("10", "Name10", "Details10", 10000, AssetType.Cash, 1),
+    new Asset("1", new SavingsAccount("Name1", "Details1", 1000), 0.8),
+    new Asset("2", new SavingsAccount("Name2", "Details2", 2000), 0.7),
+
+    new Asset("3", new Deposits("Name3", "Details3", 3000, new Date()), 0.8),
+    new Asset("4", new Deposits("Name4", "Details4", 4000, new Date()), 0.6),
+
+    new Asset("5", new MutualFunds("Name5", 5, 1000), 1),
+    new Asset("6", new MutualFunds("Name6", 5, 1100), 1),
+
+    new Asset("7", new Equity("Name7", 5, 1100), 1),
+    new Asset("8", new Equity("Name8", 5, 1200), 1),
+
+    new Asset("9", new Cash("Name9", 4500), 1),
+    new Asset("10", new Cash("Name10", 4200), 1)
   ]);
 
   constructor() {}
@@ -26,7 +30,7 @@ export class AssetsService {
     return this._userAssets.asObservable();
   }
 
-  getUserAssetsForAssetType(assetType: AssetTypeLayout) {
+  getUserAssetsForAssetType(assetType: AssetType) {
     return this._userAssets.asObservable().pipe(
       map((userAssets) => {
         return userAssets.filter(
@@ -41,7 +45,7 @@ export class AssetsService {
       let index: number = userAssets.findIndex(asset => asset.id === assetId);
       if (index !== -1) {
         let updatedAsset = userAssets[index];
-        updatedAsset.percent_unallocated -= percentageIncrease;
+        updatedAsset.percentUnallocated -= percentageIncrease;
         userAssets[index] = updatedAsset;
         this._userAssets.next(userAssets);
       }

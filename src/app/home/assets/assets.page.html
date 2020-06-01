@@ -22,10 +22,10 @@
   <ion-row class="ion-no-padding" *ngFor="let assetGroup of assetGroups">
     <ion-col class="ion-no-padding" size-md="6" offset-md="3">
       <app-asset
-        [title]="assetGroup.assetType.typeName"
+        [title]="assetGroup.assetType"
         [value]="assetGroup.amount"
         itemColor="medium"
-        [itemLink]="'/home/tabs/assets/asset-detail/' + assetGroup.assetType.typeNameSlug"
+        [itemLink]="'/home/tabs/assets/asset-detail/' + getSlug(assetGroup.assetType)"
       ></app-asset>
     </ion-col>
   </ion-row>

@@ -3,14 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home/tabs/assets"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{assetType.typeName}}</ion-title>
+    <ion-title>{{assetType}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content><ion-grid>
   <ion-row>
     <ion-col class="ion-text-center" size-md="6" offset-md="3">
-      <h3>{{assetType.typeName}}</h3>
+      <h3>{{assetType}}</h3>
     </ion-col>
   </ion-row>
 
@@ -25,9 +25,9 @@
     <ion-col class="ion-no-padding" size-md="6" offset-md="3">
       
       <app-assets-item-details
-        [title]="userAsset.name"
-        [content]="userAsset.details"
-        [value]="userAsset.amount"
+        [title]="userAsset.assetTitle"
+        [content]="userAsset.assetDetails"
+        [value]="userAsset.amountForAsset"
         imgUrl="https://scontent.fdel12-1.fna.fbcdn.net/v/t1.0-9/79324859_2792599334116954_398889753266618368_n.png?_nc_cat=1&_nc_sid=85a577&_nc_ohc=qY7axhZTUZIAX93Fh9D&_nc_ht=scontent.fdel12-1.fna&oh=ae19c854a40915c586cb438c7076ba52&oe=5EF446D5"
       ></app-assets-item-details>
     </ion-col>

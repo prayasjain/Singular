@@ -54,7 +54,7 @@ export class GoalsPage implements OnInit, OnDestroy {
         this.goalCompletionMap.get(userGoalsContribution.goalId) || 0;
       let currentContribution = this.userAssets.find(
         (userAsset) => userAsset.id === userGoalsContribution.assetId
-      ).amount * userGoalsContribution.percentageContribution || 0;
+      ).amountForAsset * userGoalsContribution.percentageContribution || 0;
       this.goalCompletionMap.set(
         userGoalsContribution.goalId,
         existingContribution + currentContribution

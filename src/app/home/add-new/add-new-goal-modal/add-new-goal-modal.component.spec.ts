@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AddNewModalComponent } from './add-new-modal.component';
+import { AddNewGoalModalComponent } from './add-new-goal-modal.component';
 
-describe('AddNewModalComponent', () => {
-  let component: AddNewModalComponent;
-  let fixture: ComponentFixture<AddNewModalComponent>;
+describe('AddNewGoalModalComponent', () => {
+  let component: AddNewGoalModalComponent;
+  let fixture: ComponentFixture<AddNewGoalModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddNewModalComponent ],
+      declarations: [ AddNewGoalModalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddNewModalComponent);
+    fixture = TestBed.createComponent(AddNewGoalModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

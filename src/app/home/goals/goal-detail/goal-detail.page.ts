@@ -69,7 +69,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
               );
               this.assetContributionMap.set(
                 userAsset.id,
-                userAsset.amount * contribution.percentageContribution
+                userAsset.amountForAsset * contribution.percentageContribution
               );
             }
           });
@@ -122,7 +122,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   get remainingAssetPercentage() {
     if (this.remainingAssets && this.selectedAsset) {
       return this.remainingAssets.find((a) => a.id === this.selectedAsset)
-        .percent_unallocated;
+        .percentUnallocated;
     }
   }
 

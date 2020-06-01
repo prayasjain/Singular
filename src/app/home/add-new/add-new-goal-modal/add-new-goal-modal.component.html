@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Add New {{ title }} </ion-title>
+    <ion-title> Add New Goal</ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="onClose()">
         <ion-icon name="close"></ion-icon>
@@ -14,32 +14,8 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating"> {{ title }} Name </ion-label>
+            <ion-label position="floating"> Goal Name </ion-label>
             <ion-input type="text" ngModel name="name" required></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="isAsset">
-        <ion-col size-sm="6" offset-sm="3">
-          <ion-item>
-            <ion-label position="floating">
-              Asset Type
-            </ion-label>
-            <ion-select [ngModel]="assetType?.typeName" name="asset-type">
-              <ion-select-option
-                *ngFor="let option of ASSET_TYPES"
-                [value]="option"
-                >{{ AssetType[option].typeName }}</ion-select-option
-              >
-            </ion-select> 
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size-sm="6" offset-sm="3" *ngIf="isAsset">
-          <ion-item>
-            <ion-label position="floating"> Account Number/Details </ion-label>
-            <ion-input type="text" ngModel name="account-details" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -58,7 +34,7 @@
             color="primary"
             expand="block"
             [disabled]="f.invalid"
-            >Add {{title}}</ion-button
+            >Add Goal</ion-button
           >
         </ion-col>
       </ion-row>

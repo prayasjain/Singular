@@ -3,13 +3,14 @@ import { AddNewComponent } from './add-new/add-new.component';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import { AddNewModalComponent } from './add-new/add-new-modal/add-new-modal.component';
 import { FormsModule } from '@angular/forms';
+import { AddNewGoalModalComponent } from './add-new/add-new-goal-modal/add-new-goal-modal.component';
+import { AddNewAssetModalComponent } from './add-new/add-new-asset-modal/add-new-asset-modal.component';
 
 
 @NgModule({
     imports: [CommonModule, IonicModule, RouterModule, FormsModule],
-  declarations: [ AddNewComponent, AddNewModalComponent ],
-  exports: [ AddNewComponent, AddNewModalComponent]
+  declarations: [ AddNewComponent, AddNewGoalModalComponent, AddNewAssetModalComponent ],
+  exports: [ AddNewComponent, AddNewAssetModalComponent, AddNewGoalModalComponent]
 })
 export class SharedModule {}
