@@ -23,13 +23,6 @@ const routes: Routes = [
           import("./goals/goals.module").then((m) => m.GoalsPageModule),
       },
       {
-        path: "cashflows",
-        loadChildren: () =>
-          import("./cashflows/cashflows.module").then(
-            (m) => m.CashflowsPageModule
-          ),
-      },
-      {
         path: "",
         redirectTo: "/home/tabs/assets",
         pathMatch: "full",

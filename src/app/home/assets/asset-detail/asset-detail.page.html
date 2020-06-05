@@ -16,7 +16,7 @@
 
   <ion-row class="ion-no-padding">
     <ion-col  class="ion-no-padding" size-md="6" offset-md="3">
-      <h3>{{totalAmountForType | currency}}</h3>
+      <h3>{{totalAmountForType | currency:'INR':'symbol':'1.0-0'}}</h3>
       <p>as on {{currentDate.toDateString()}}</p>
     </ion-col>
   </ion-row>

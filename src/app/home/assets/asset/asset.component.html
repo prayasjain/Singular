@@ -1,6 +1,6 @@
 <ion-card class="custom">
   <ion-item [color]="itemColor" [routerLink]="[itemLink]" >
     <ion-text slot="start">{{title}}</ion-text>
-    <ion-text slot="end"> {{value | currency}}</ion-text>
+    <ion-text slot="end"> {{value | currency:'INR':'symbol':'1.0-0'}}</ion-text>
   </ion-item>
 </ion-card>

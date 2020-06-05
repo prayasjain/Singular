@@ -7,7 +7,6 @@ import { map, take, switchMap, tap } from "rxjs/operators";
 import { AssetsService } from "../../assets/assets.service";
 import { Asset } from "../../assets/asset.model";
 import { ModalController } from "@ionic/angular";
-import { ContributionModalComponent } from "../contribution-modal/contribution-modal.component";
 import { NgModel, NgForm } from "@angular/forms";
 
 @Component({
@@ -109,21 +108,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       ) / this.goal.amountReqd;
   }
 
-  updateContribution() {
-    this.modalCtrl
-      .create({
-        component: ContributionModalComponent,
-        componentProps: {},
-      })
-      .then((modalEl) => {
-        modalEl.present();
-        return modalEl.onDidDismiss();
-      })
-      .then((resData) => {
-        if (resData.role === "confirm") {
-        }
-      });
-  }
 
   onSubmit() {
     console.log(this.form.value["percentage"]);

@@ -5,7 +5,7 @@
       <ion-img [src]="imgUrl"></ion-img>
     </ion-thumbnail>
     <ion-text>{{content}}</ion-text>
-    <ion-text slot="end"> {{value | currency}}</ion-text>
+    <ion-text slot="end"> {{value | currency:'INR':'symbol':'1.0-0'}}</ion-text>
   </ion-item>
   
 </ion-card>

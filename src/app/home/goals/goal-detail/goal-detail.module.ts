@@ -8,7 +8,6 @@ import { GoalDetailPageRoutingModule } from './goal-detail-routing.module';
 
 import { GoalDetailPage } from './goal-detail.page';
 import { SharedModule } from '../../shared.module';
-import { ContributionModalComponent } from '../contribution-modal/contribution-modal.component';
 
 @NgModule({
   imports: [
@@ -18,6 +17,6 @@ import { ContributionModalComponent } from '../contribution-modal/contribution-m
     GoalDetailPageRoutingModule,
     SharedModule
   ],
-  declarations: [GoalDetailPage, ContributionModalComponent]
+  declarations: [GoalDetailPage]
 })
 export class GoalDetailPageModule {}
