@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { AssetType, Asset, AssetTypeUtils } from "../asset.model";
 import { AssetsService } from "../assets.service";
-import { Subscription } from 'rxjs';
+import { Subscription, zip } from "rxjs";
+import { switchMap, take, tap } from "rxjs/operators";
 
 @Component({
   selector: "app-asset-detail",
@@ -15,6 +16,7 @@ export class AssetDetailPage implements OnInit, OnDestroy {
   userAssetsForType: Asset[];
   totalAmountForType: number;
   currentDate: Date;
+  assetValueMap = new Map();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,24 +27,33 @@ export class AssetDetailPage implements OnInit, OnDestroy {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       let assetSlug = paramMap.get("assetSlug");
       this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);
-      console.log("here");
       console.log(this.assetType);
+      this.currentDate = new Date();
       if (this.assetType) {
         this.userAssetsForTypeSub = this.assetsService
           .getUserAssetsForAssetType(this.assetType)
-          .subscribe((userassetsForType) => {
-            this.userAssetsForType = userassetsForType;
-            this.totalAmountForType = 0;
-            this.userAssetsForType.forEach(userAsset => {
-              this.totalAmountForType += userAsset.amountForAsset;
-            });
-            this.currentDate = new Date();
-          });
+          .pipe(
+            switchMap((userAssets) => {
+              this.userAssetsForType = userAssets;
+              this.totalAmountForType = 0;
+              this.assetValueMap.clear();
+              return zip(
+                ...userAssets.map((userAsset) =>
+                  userAsset.getAmountForAsset(this.currentDate).pipe(
+                    take(1),
+                    tap((assetValue) => {
+                      this.assetValueMap.set(userAsset.id, assetValue);
+                      this.totalAmountForType += assetValue;
+                    })
+                  )
+                )
+              );
+            })
+          )
+          .subscribe(() => {});
       }
     });
   }
-
-  
 
   ngOnDestroy() {
     if (this.userAssetsForTypeSub) {

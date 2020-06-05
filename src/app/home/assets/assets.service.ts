@@ -11,8 +11,8 @@ export class AssetsService {
     new Asset("1", new SavingsAccount("Name1", "Details1", 1000), 0.8),
     new Asset("2", new SavingsAccount("Name2", "Details2", 2000), 0.7),
 
-    new Asset("3", new Deposits("Name3", "Details3", 3000, new Date()), 0.8),
-    new Asset("4", new Deposits("Name4", "Details4", 4000, new Date()), 0.6),
+    new Asset("3", new Deposits("Name3", "Details3", 3000, new Date(), new Date()), 0.8),
+    new Asset("4", new Deposits("Name4", "Details4", 4000, new Date(), new Date()), 0.6),
 
     new Asset("5", new MutualFunds("Name5", 5, 1000), 1),
     new Asset("6", new MutualFunds("Name6", 5, 1100), 1),

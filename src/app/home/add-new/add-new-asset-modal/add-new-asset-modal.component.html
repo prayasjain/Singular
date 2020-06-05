@@ -74,6 +74,21 @@
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-row *ngIf=" assetType === AssetType.Deposits">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating"> Deposit Date </ion-label>
+            <ion-datetime
+              display-format="MMM DD YYYY"
+              picker-format="YYYY MMM DD"
+              ngModel
+              [max]="maxMaturityDate"
+              name="deposit-date"
+              required
+            ></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
       <ion-row *ngIf="assetType === AssetType.MutualFunds || assetType === AssetType.Equity">
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>

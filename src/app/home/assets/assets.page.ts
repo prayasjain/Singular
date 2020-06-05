@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AssetsService } from "./assets.service";
 import { Asset, AssetType, AssetTypeUtils } from "./asset.model";
-import { Subscription } from "rxjs";
+import { Subscription, zip } from "rxjs";
+import { take, tap, switchMap } from "rxjs/operators";
 
 interface AssetGroup {
   assetType: AssetType;
@@ -19,33 +20,47 @@ export class AssetsPage implements OnInit, OnDestroy {
   assetGroups: AssetGroup[] = [];
   totalAmount: number;
   currentDate: Date;
-
+  totalAmountByAssetType = new Map();
   constructor(private assetsService: AssetsService) {}
 
   ngOnInit() {
-    this.assetsSub = this.assetsService.userAssets.subscribe((userAssets) => {
-      this.userAssets = userAssets;
-      this.getAmountByGroup();
-      this.totalAmount = 0;
-      this.assetGroups.forEach(assetGroup => {
-        this.totalAmount += assetGroup.amount;
+    this.currentDate = new Date();
+    this.assetsSub = this.assetsService.userAssets
+      .pipe(
+        switchMap((userAssets) => {
+          this.userAssets = userAssets;
+          this.totalAmountByAssetType.clear();
+          let observableList = this.userAssets.map((userAsset) =>
+            userAsset.getAmountForAsset(this.currentDate).pipe(
+              take(1),
+              tap((assetValue) => {
+                this.totalAmountByAssetType.set(
+                  userAsset.assetType,
+                  (this.totalAmountByAssetType.get(userAsset.assetType) || 0) +
+                    assetValue
+                );
+              })
+            )
+          );
+          return zip(...observableList);
+        })
+      )
+      .subscribe(() => {
+        this.getAmountByGroup();
+        this.totalAmount = 0;
+        this.assetGroups.forEach((assetGroup) => {
+          this.totalAmount += assetGroup.amount;
+        });
+        
       });
-      this.currentDate = new Date();
-    });
   }
 
   getAmountByGroup() {
-    let totalAmountByAssetType = new Map();
-    this.userAssets.forEach((userAsset) => {
-      totalAmountByAssetType.set(
-        userAsset.assetType,
-        (totalAmountByAssetType.get(userAsset.assetType) || 0) + userAsset.amountForAsset);
-    });
     this.assetGroups = [];
-    totalAmountByAssetType.forEach((amount, assetType) => {
+    this.totalAmountByAssetType.forEach((amount, assetType) => {
       let assetGroup: AssetGroup = {
         assetType: assetType,
-        amount: amount
+        amount: amount,
       };
       this.assetGroups.push(assetGroup);
     });

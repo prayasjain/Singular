@@ -65,6 +65,7 @@ export class AddNewAssetModalComponent implements OnInit {
           this.form.value["name"],
           this.form.value["account-details"],
           +this.form.value["amount"],
+          new Date(this.form.value["deposit-date"]),
           new Date(this.form.value["maturity-date"]),
           interestRate
         ),

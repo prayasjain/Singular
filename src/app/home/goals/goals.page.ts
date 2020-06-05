@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { GoalsService } from "./goals.service";
 import { Goal, Contribution } from "./goal.model";
-import { Subscription } from "rxjs";
+import { Subscription, Observable, of, zip, pipe } from "rxjs";
 import { Asset } from "../assets/asset.model";
 import { AssetsService } from "../assets/assets.service";
+import { mergeMap, tap, take } from "rxjs/operators";
 
 @Component({
   selector: "app-goals",
@@ -13,12 +14,19 @@ import { AssetsService } from "../assets/assets.service";
 export class GoalsPage implements OnInit, OnDestroy {
   userGoals: Goal[];
   userGoalsSub: Subscription;
+
   userGoalsContributions: Contribution[];
   userGoalsContributionsSub: Subscription;
+
   userAssets: Asset[];
   userAssetsSub: Subscription;
+
   // map from goal id to amount allocated for it.
   goalCompletionMap: Map<string, number> = new Map();
+
+  // map from asset to its valuation at the given date;
+  assetValueDate: Date;
+  assetValueMap: Map<string, number> = new Map();
 
   constructor(
     private goalsService: GoalsService,
@@ -29,7 +37,21 @@ export class GoalsPage implements OnInit, OnDestroy {
     this.userAssetsSub = this.assetsService.userAssets.subscribe(
       (userAssets) => {
         this.userAssets = userAssets;
-        this.updateGoalCompletion();
+        this.assetValueDate = new Date();
+        this.assetValueMap.clear();
+        let list = userAssets.map((userAsset) =>
+          userAsset.getAmountForAsset(this.assetValueDate).pipe(
+            take(1),
+            tap((amount) => {
+              this.assetValueMap.set(userAsset.id, amount);
+              console.log("asset " + userAsset.id);
+            })
+          )
+        );
+        zip(...list).subscribe((vals) => {
+          console.log(vals);
+          this.updateGoalCompletion();
+        });
       }
     );
     this.userGoalsSub = this.goalsService.userGoals.subscribe((usergoals) => {
@@ -48,19 +70,20 @@ export class GoalsPage implements OnInit, OnDestroy {
     if (!this.userGoals || !this.userGoalsContributions || !this.userAssets) {
       return;
     }
-    this.goalCompletionMap.clear(); 
+    this.goalCompletionMap.clear();
+
     this.userGoalsContributions.forEach((userGoalsContribution) => {
       let existingContribution =
         this.goalCompletionMap.get(userGoalsContribution.goalId) || 0;
-      let currentContribution = this.userAssets.find(
-        (userAsset) => userAsset.id === userGoalsContribution.assetId
-      ).amountForAsset * userGoalsContribution.percentageContribution || 0;
+      let assetValue = this.assetValueMap.get(userGoalsContribution.assetId) || 0;
+      let currentContribution =
+        assetValue * userGoalsContribution.percentageContribution || 0;
       this.goalCompletionMap.set(
         userGoalsContribution.goalId,
         existingContribution + currentContribution
       );
+      console.log(this.goalCompletionMap);
     });
-    console.log(this.goalCompletionMap);
   }
 
   ngOnDestroy() {

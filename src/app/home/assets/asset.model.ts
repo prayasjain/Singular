@@ -1,3 +1,5 @@
+import { of } from 'rxjs';
+
 export class Asset {
   public id: string;
   public assetType: AssetType;
@@ -42,21 +44,28 @@ export class Asset {
     }
   }
 
-  get amountForAsset() {
+  getAmountForAsset(date: Date) {
+    // compounding quarterly
     if (this.assetType === AssetType.SavingsAccount) {
-      return this.savingsAccount.amount;
+      let daysDiff = Math.floor(
+        (date.getTime() - this.savingsAccount.date.getTime()) / (1000 * 3600 * 24));
+      let amount = this.savingsAccount.amount * Math.pow(1 + (this.savingsAccount.interestRate/4), Math.floor(daysDiff / 90));
+      return of(amount);
     }
     if (this.assetType === AssetType.Deposits) {
-      return this.deposits.amount;
+      let daysDiff = Math.floor(
+        (date.getTime() - this.deposits.depositDate.getTime()) / (1000 * 3600 * 24));
+      let amount = this.deposits.amount * Math.pow(1 + (this.deposits.interestRate/4), Math.floor(daysDiff / 90));
+      return of(amount);
     }
     if (this.assetType === AssetType.MutualFunds) {
-      return this.mutualFunds.units * this.mutualFunds.currentValue;
+      return of(this.mutualFunds.units * this.mutualFunds.currentValue);
     }
     if (this.assetType === AssetType.Equity) {
-      return this.equity.units * this.equity.currentValue;
+      return of(this.equity.units * this.equity.currentValue);
     }
     if (this.assetType === AssetType.Cash) {
-      return this.cash.amount;
+      return of(this.cash.amount);
     }
   }
 
@@ -125,6 +134,7 @@ export class SavingsAccount {
     public bankName: string,
     public accountNumber: string,
     public amount: number,
+    public date: Date = new Date(), // the stored amount is at the given date
     public interestRate: number = 0.04
   ) {}
 }
@@ -134,6 +144,7 @@ export class Deposits {
     public bankName: string,
     public depositNumber: string,
     public amount: number,
+    public depositDate: Date,
     public maturityDate: Date,
     public interestRate: number = 0.04
   ) {}

@@ -27,7 +27,7 @@
       <app-assets-item-details
         [title]="userAsset.assetTitle"
         [content]="userAsset.assetDetails"
-        [value]="userAsset.amountForAsset"
+        [value]="assetValueMap.get(userAsset.id)"
         imgUrl="https://scontent.fdel12-1.fna.fbcdn.net/v/t1.0-9/79324859_2792599334116954_398889753266618368_n.png?_nc_cat=1&_nc_sid=85a577&_nc_ohc=qY7axhZTUZIAX93Fh9D&_nc_ht=scontent.fdel12-1.fna&oh=ae19c854a40915c586cb438c7076ba52&oe=5EF446D5"
       ></app-assets-item-details>
     </ion-col>
