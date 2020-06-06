@@ -53,8 +53,8 @@ export class EditGoalComponent implements OnInit {
         (c) => c.assetId === asset.id && c.goalId === this.goal.id
       );
       if (this.isAssetContributing(asset.id)) {
-        let newPerc: number = this.form.value[`percentage-${asset.id}`];
-        if (newPerc !== contribution.percentageContribution * 100) {
+        let newPerc: number = this.form.value[`percentage-${asset.id}`]/100;
+        if (newPerc !== contribution.percentageContribution) {
           asset.percentUnallocated =
             asset.percentUnallocated +
             contribution.percentageContribution -
@@ -73,7 +73,7 @@ export class EditGoalComponent implements OnInit {
     });
     this.remainingAssets.forEach((asset) => {
       if (this.isAssetContributing(asset.id)) {
-        let newPerc: number = this.form.value[`percentage-${asset.id}`];
+        let newPerc: number = this.form.value[`percentage-${asset.id}`]/100;
         asset.percentUnallocated -= newPerc;
         // edit the asset
         contributingAssets.push(asset);
@@ -113,7 +113,8 @@ export class EditGoalComponent implements OnInit {
     return (
       `checkbox-${assetId}` in this.form.value &&
       this.form.value[`checkbox-${assetId}`] &&
-      `percentage-${assetId}` in this.form.value
+      `percentage-${assetId}` in this.form.value &&
+      this.form.value[`percentage-${assetId}`] > 0
     );
   }
 

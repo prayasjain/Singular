@@ -174,51 +174,53 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       })
       .then((modalData) => {
         if (modalData.role === "confirm") {
-          let getIdFunc = (a) => a.id;
-          if (
-            this.areSameArrays(
-              modalData.data.contributingAssets,
-              this.assets,
-              getIdFunc
-            ) &&
-            this.areSameArrays(
-              modalData.data.nonContributingAssets,
-              this.remainingAssets,
-              getIdFunc
-            ) &&
-            this.areSameArrays(
-              modalData.data.contributions,
-              this.contributions,
-              getIdFunc
-            )
-          ) {
+          if (!this.changeInContributionArray(modalData.data.contributions)) {
             console.log("same");
             return;
           }
           // update the assets.
-          this.assetsService.updateUserAssets(
-            modalData.data.contributingAssets.concat(
-              modalData.data.nonContributingAssets
+          this.assetsService
+            .updateUserAssets(
+              modalData.data.contributingAssets.concat(
+                modalData.data.nonContributingAssets
+              )
             )
-          ).pipe(take(1), switchMap((userAssets) => {
-            // update the contributions
-            return this.goalsService.updateContributions(modalData.data.contributions, this.goal.id);
-          })).subscribe(() => {
-            console.log("done");
-
-          });
-          
+            .pipe(
+              take(1),
+              switchMap((userAssets) => {
+                // update the contributions
+                return this.goalsService.updateContributions(
+                  modalData.data.contributions,
+                  this.goal.id
+                );
+              })
+            )
+            .subscribe(() => {
+              console.log("done");
+            });
         }
       });
   }
 
-  // can pass function which maps later to id
-  areSameArrays(arr1: any[], arr2: any[], func) {
-    let a: any[] = arr1.map(func).sort();
-    let b: any[] = arr2.map(func).sort();
-    let isEqual: boolean = true;
-    a.forEach((x, i) => isEqual && x === b[i]);
-    return isEqual;
+  isSameContribution(a: Contribution, b: Contribution) {
+    return a.id === b.id &&
+      a.assetId === b.assetId &&
+      a.goalId === b.goalId &&
+      Math.abs(a.percentageContribution - b.percentageContribution) < 0.000001
+  }
+
+  changeInContributionArray(contributions: Contribution[]) {
+    if (contributions.length !== this.contributions.length) {
+      return true;
+    }
+    let oldContributions = [...this.contributions].sort();
+    let newContributions = [...contributions].sort();
+    oldContributions.forEach((contribution,index) => {
+      if (!this.isSameContribution(contribution, newContributions[index])) {
+        return true;
+      }
+    })
+    return false;
   }
 
   onDeleteGoal() {
