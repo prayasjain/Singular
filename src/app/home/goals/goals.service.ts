@@ -67,4 +67,39 @@ export class GoalsService {
         })
       );
   }
+
+  deleteGoal(goalId: string) {
+    // delete all contributions for the goal
+    return this.userGoalsContributions.pipe(
+      take(1),
+      switchMap((goalContributions) => {
+        this._userGoalsContributions.next(
+          goalContributions.filter(
+            (contribution) => contribution.goalId === goalId
+          )
+        );
+        return this.userGoals;
+      }),
+      take(1),
+      // remove the goal
+      tap((goals) => {
+        console.log("deleting goal");
+        this._userGoals.next(goals.filter((g) => g.id === goalId));
+      })
+    );
+  }
+
+  updateContributions(contributions: Contribution[], goalId: string) {
+    return this.userGoalsContributions.pipe(
+      take(1),
+      map((oldContributions) => {
+        return oldContributions
+          .filter((c) => c.goalId !== goalId)
+          .concat(contributions);
+      }),
+      tap(contributions => {
+        this._userGoalsContributions.next(contributions);
+      })
+    );
+  }
 }

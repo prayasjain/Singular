@@ -3,10 +3,18 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home/tabs/goals"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button [matMenuTriggerFor]="belowMenu">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>{{goal.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<mat-menu #belowMenu="matMenu" yPosition="below">
+  <button mat-menu-item (click)="onEditGoal()">Edit</button>
+  <button mat-menu-item (click)="onDeleteGoal()">Delete</button>
+</mat-menu>
 <ion-content>
   <form (ngSubmit)="onSubmit()" #f="ngForm">
     <ion-grid>

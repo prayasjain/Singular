@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Edit {{ goal.name }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onClose()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form #f="ngForm">
+    <ion-grid>
+      <ion-row class="ion-no-padding">
+        <ion-col class="ion-text-center" size-md="6" offset-md="3">
+          <h3>
+            {{goal.name}} <br>
+            <b>{{(totalContributionAmount) | currency:'INR':'symbol':'1.0-0'}}</b>
+            out of {{goal.amountReqd | currency:'INR':'symbol':'1.0-0'}}
+          </h3>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding" *ngFor="let asset of assets">
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <div class="flex-container">
+            <div class="ion-padding">
+              <ion-checkbox
+                name="checkbox-{{ asset.id }}"
+                [ngModel]="true"
+                #checkbox="ngModel"
+              ></ion-checkbox>
+            </div>
+            <div class="flex-card">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-text class="ion-no-padding" slot="start">{{
+                  asset.assetTitle
+                }}</ion-text>
+                <ion-text class="ion-no-padding" slot="end">{{
+                  (checkbox.value ? (range.value / 100) * assetValueMap.get(asset.id) : 0)
+                    | currency: "INR":"symbol":"1.0-0"
+                }}</ion-text>
+              </ion-item>
+              <ion-range
+                  class="ion-no-padding"
+                  [ngModel]="assetContributionPercentage(asset.id)"
+                  #range="ngModel"
+                  name="percentage-{{ asset.id }}"
+                  min="0"
+                  [max]="
+                    assetContributionPercentage(asset.id) +
+                    100 * asset.percentUnallocated
+                  "
+                  pin
+                  color="tertiary"
+                  [disabled]="!checkbox.value"
+                >
+                  <ion-label slot="start">0</ion-label>
+                  <ion-label slot="end">{{
+                    assetContributionPercentage(asset.id) / 100 +
+                      asset.percentUnallocated | percent
+                  }}</ion-label>
+                </ion-range>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding" *ngFor="let asset of remainingAssets">
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <div class="flex-container">
+            <div class="ion-padding">
+            <ion-checkbox
+              name="checkbox-{{ asset.id }}"
+              [ngModel]="false"
+              #checkbox="ngModel"
+            ></ion-checkbox>
+          </div>
+            <div class="flex-card">
+                <ion-item lines="none" class="ion-no-padding">
+                  <ion-text class="ion-no-padding" slot="start">{{ asset.assetTitle }}</ion-text>
+                  <ion-text class="ion-no-padding" slot="end">{{
+                    (checkbox.value ? (range.value / 100) * remainingAssetValueMap.get(asset.id) : 0)
+                      | currency: "INR":"symbol":"1.0-0"
+                  }}</ion-text>
+                </ion-item>
+                <ion-range
+                  class="ion-no-padding"
+                  [ngModel]="0"
+                  #range="ngModel"
+                  name="percentage-{{ asset.id }}"
+                  min="0"
+                  [max]="100 * asset.percentUnallocated"
+                  pin
+                  color="tertiary"
+                  [disabled]="!checkbox.value"
+                >
+                  <ion-label slot="start">0</ion-label>
+                  <ion-label slot="end">{{
+                    asset.percentUnallocated | percent
+                  }}</ion-label>
+                </ion-range>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-button
+    color="primary"
+    expand="block"
+    [disabled]="f.invalid"
+    (click)="onSubmit()"
+    >Add Contributions</ion-button
+  >
+</ion-footer>
