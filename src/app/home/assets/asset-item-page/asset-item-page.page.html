@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/assets"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{asset?.assetTitle}}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button [matMenuTriggerFor]="belowMenu">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<mat-menu #belowMenu="matMenu" yPosition="below">
+  <button mat-menu-item (click)="onEditAsset()">Edit</button>
+  <button mat-menu-item (click)="onDeleteAsset()">Delete</button>
+</mat-menu>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <h3>{{asset?.assetTitle}} ({{asset?.assetType}})</h3>
+        <ion-text>{{asset?.assetDetails}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <h2>{{assetValue | currency:'INR':'symbol':'1.0-0'}}</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <ion-text>as on {{date.toDateString()}}</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

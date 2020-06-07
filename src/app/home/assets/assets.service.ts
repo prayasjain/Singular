@@ -98,4 +98,10 @@ export class AssetsService {
       })
     );
   }
+
+  deleteAsset(assetId: string) {
+    return this.userAssets.pipe(take(1), tap(assets => {
+      this._userAssets.next(assets.filter(a => a.id !== assetId));
+    }))
+  } 
 }

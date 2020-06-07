@@ -27,7 +27,6 @@ export class AssetDetailPage implements OnInit, OnDestroy {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       let assetSlug = paramMap.get("assetSlug");
       this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);
-      console.log(this.assetType);
       this.currentDate = new Date();
       if (this.assetType) {
         this.userAssetsForTypeSub = this.assetsService

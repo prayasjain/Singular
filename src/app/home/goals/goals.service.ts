@@ -89,6 +89,12 @@ export class GoalsService {
     );
   }
 
+  deleteContributionsOfAsset(assetId: string) {
+    return this.userGoalsContributions.pipe(take(1), tap(contributions => {
+      this._userGoalsContributions.next(contributions.filter(c => c.assetId !== assetId));
+    }))
+  }
+
   updateContributions(contributions: Contribution[], goalId: string) {
     return this.userGoalsContributions.pipe(
       take(1),

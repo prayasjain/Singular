@@ -11,10 +11,10 @@ export class ItemDetailsComponent implements OnInit {
   @Input() content: string;
   @Input() value: number;
   @Input() imgUrl: string;
+  @Input() id: string;
 
   constructor() { }
 
   ngOnInit() {}
-
 
 }
