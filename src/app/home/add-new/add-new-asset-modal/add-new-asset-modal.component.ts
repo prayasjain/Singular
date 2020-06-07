@@ -18,6 +18,8 @@ import { ModalController } from "@ionic/angular";
 })
 export class AddNewAssetModalComponent implements OnInit {
   @Input() assetType: AssetType;
+  @Input() asset: Asset;
+  @Input() assetValue: number;
   @ViewChild("f", { static: true }) form: NgForm;
 
   maxMaturityDate = new Date(
@@ -36,22 +38,29 @@ export class AddNewAssetModalComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    if (this.form.pristine) {
+      this.modalCtrl.dismiss(null, "cancel");
+      return;
+    }
     let assetType: AssetType = this.form.value["asset-type"];
     let asset: Asset;
+    let percentUnAlloc: number = this.asset? this.asset.percentUnallocated : 1;
+    let assetId: string = this.asset? this.asset.id: Math.random().toString();
     if (assetType as AssetType === AssetType.SavingsAccount as AssetType) {
       let interestRate;
       if (this.form.value["interest-rate"]) {
         interestRate = this.form.value["interest-rate"]/100;
       }
       asset = new Asset(
-        Math.random().toString(),
+        assetId,
         new SavingsAccount(
           this.form.value["name"],
           this.form.value["account-details"],
           +this.form.value["amount"],
+          new Date(),
           interestRate
         ),
-        1
+        percentUnAlloc
       );
     }
     if (assetType === AssetType.Deposits) {
@@ -60,7 +69,7 @@ export class AddNewAssetModalComponent implements OnInit {
         interestRate = this.form.value["interest-rate"]/100;
       }
       asset = new Asset(
-        Math.random().toString(),
+        assetId,
         new Deposits(
           this.form.value["name"],
           this.form.value["account-details"],
@@ -69,7 +78,7 @@ export class AddNewAssetModalComponent implements OnInit {
           new Date(this.form.value["maturity-date"]),
           interestRate
         ),
-        1
+        percentUnAlloc
       );
     }
     if (assetType === AssetType.MutualFunds) {
@@ -78,14 +87,14 @@ export class AddNewAssetModalComponent implements OnInit {
         currentVal = +this.form.value["current-value"];
       }
       asset = new Asset(
-        Math.random().toString(),
+        assetId,
         new MutualFunds(
           this.form.value["name"],
           +this.form.value["units"],
           +this.form.value["price"],
           currentVal
         ),
-        1
+        percentUnAlloc
       );
     }
     if (assetType === AssetType.Equity) {
@@ -94,21 +103,21 @@ export class AddNewAssetModalComponent implements OnInit {
         currentVal = +this.form.value["current-value"];
       }
       asset = new Asset(
-        Math.random().toString(),
+        assetId,
         new Equity(
           this.form.value["name"],
           +this.form.value["units"],
           +this.form.value["price"],
           currentVal
         ),
-        1
+        percentUnAlloc
       );
     }
     if (assetType === AssetType.Cash) {
       asset = new Asset(
-        Math.random().toString(),
+        assetId,
         new Cash(this.form.value["name"], +this.form.value["amount"]),
-        1
+        percentUnAlloc
       );
     }
     this.modalCtrl.dismiss(
@@ -121,5 +130,64 @@ export class AddNewAssetModalComponent implements OnInit {
 
   onClose() {
     this.modalCtrl.dismiss(null, "cancel");
+  }
+
+  get accountNumber() {
+    if (this.asset.assetType === AssetType.SavingsAccount) {
+      return this.asset.savingsAccount.accountNumber;
+    }
+
+    if (this.asset.assetType === AssetType.Deposits) {
+      return this.asset.deposits.depositNumber;
+    }
+  }
+
+  get interestRate() {
+    if (this.asset.assetType === AssetType.SavingsAccount) {
+      return this.asset.savingsAccount.interestRate;
+    }
+
+    if (this.asset.assetType === AssetType.Deposits) {
+      return this.asset.deposits.interestRate;
+    }
+  }
+
+  get maturityDate() {
+    if (this.asset.assetType === AssetType.Deposits) {
+      return this.asset.deposits.maturityDate.toISOString();
+    }
+  }
+
+  get depositDate() {
+    if (this.asset.assetType === AssetType.Deposits) {
+      return this.asset.deposits.depositDate.toISOString();
+    }
+  }
+
+  get units() {
+    if (this.asset.assetType === AssetType.Equity) {
+      return this.asset.equity.units;
+    }
+    if (this.asset.assetType === AssetType.MutualFunds) {
+      return this.asset.mutualFunds.units;
+    }
+  }
+
+  get price() {
+    if (this.asset.assetType === AssetType.Equity) {
+      return this.asset.equity.price;
+    }
+    if (this.asset.assetType === AssetType.MutualFunds) {
+      return this.asset.mutualFunds.price;
+    }
+  }
+
+  get currentValue() {
+    if (this.asset.assetType === AssetType.Equity) {
+      return this.asset.equity.currentValue;
+    }
+    if (this.asset.assetType === AssetType.MutualFunds) {
+      return this.asset.mutualFunds.currentValue;
+    }
   }
 }

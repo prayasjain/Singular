@@ -8,6 +8,7 @@ import { AssetItemPagePageRoutingModule } from './asset-item-page-routing.module
 
 import { AssetItemPagePage } from './asset-item-page.page';
 import { MatMenuModule } from '@angular/material/menu';
+import { SharedModule } from '../../shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MatMenuModule } from '@angular/material/menu';
     FormsModule,
     IonicModule,
     MatMenuModule,
-    AssetItemPagePageRoutingModule
+    AssetItemPagePageRoutingModule,
+    SharedModule
   ],
   declarations: [AssetItemPagePage]
 })

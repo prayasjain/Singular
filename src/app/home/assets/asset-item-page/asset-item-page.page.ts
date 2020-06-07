@@ -4,6 +4,8 @@ import { AssetsService } from "../assets.service";
 import { Asset } from "../asset.model";
 import { switchMap, take } from "rxjs/operators";
 import { GoalsService } from "../../goals/goals.service";
+import { ModalController } from '@ionic/angular';
+import { AddNewAssetModalComponent } from '../../add-new/add-new-asset-modal/add-new-asset-modal.component';
 
 @Component({
   selector: "app-asset-item-page",
@@ -19,7 +21,8 @@ export class AssetItemPagePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private assetsService: AssetsService,
     private router: Router,
-    private goalsService: GoalsService
+    private goalsService: GoalsService,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -44,7 +47,27 @@ export class AssetItemPagePage implements OnInit {
     });
   }
 
-  onEditAsset() {}
+  onEditAsset() {
+
+    this.modalCtrl.create({component: AddNewAssetModalComponent, componentProps: {
+      asset: this.asset,
+      assetValue: this.assetValue,
+      assetType: this.asset.assetType
+    }}).then(modalEl => {
+      modalEl.present();
+      return modalEl.onDidDismiss();
+    }).then(modalData => {
+      if (modalData.role === "confirm") {
+        let newAsset = modalData.data.asset;
+        console.log(newAsset);
+        return this.assetsService.updateUserAssets([newAsset]).toPromise();
+      }
+      console.log("same");
+    }).then((updatedAssets) => {
+      console.log(updatedAssets);
+      this.router.navigateByUrl("/home/tabs/assets");
+    })
+  }
 
   onDeleteAsset() {
     this.goalsService

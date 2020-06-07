@@ -82,7 +82,7 @@ export class AssetsService {
     );
   }
 
-  // this is strictly to update asset percentage contributions (no new asset is added or deleted)
+  // this is strictly to update asset (no new asset is added or deleted)
   updateUserAssets(assets: Asset[]) {
     return this.userAssets.pipe(
       take(1),

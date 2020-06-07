@@ -31,7 +31,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
             <ion-label position="floating">Name </ion-label>
-            <ion-input type="text" ngModel name="name" required></ion-input>
+            <ion-input type="text" [ngModel]="asset?.assetTitle" name="name" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -39,7 +39,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
             <ion-label position="floating"> Account Number/Details </ion-label>
-            <ion-input type="text" ngModel name="account-details" required></ion-input>
+            <ion-input type="text" [ngModel]="accountNumber" name="account-details" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -47,7 +47,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
             <ion-label position="floating"> Amount </ion-label>
-            <ion-input type="number" ngModel name="amount" required></ion-input>
+            <ion-input type="number" [ngModel]="assetValue" name="amount" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -55,7 +55,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
             <ion-label position="floating"> Interest Rate (Default 4%) </ion-label>
-            <ion-input type="number" ngModel name="interest-rate"></ion-input>
+            <ion-input type="number" [ngModel]="interestRate" name="interest-rate"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -66,7 +66,7 @@
             <ion-datetime
               display-format="MMM DD YYYY"
               picker-format="YYYY MMM DD"
-              ngModel
+              [ngModel]="maturityDate"
               [max]="maxMaturityDate"
               name="maturity-date"
               required
@@ -81,7 +81,7 @@
             <ion-datetime
               display-format="MMM DD YYYY"
               picker-format="YYYY MMM DD"
-              ngModel
+              [ngModel]="depositDate"
               [max]="maxMaturityDate"
               name="deposit-date"
               required
@@ -93,7 +93,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
             <ion-label position="floating"> Units </ion-label>
-            <ion-input type="number" ngModel name="units" required></ion-input>
+            <ion-input type="number" [ngModel]="units" name="units" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -101,7 +101,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
             <ion-label position="floating"> Price (per unit) </ion-label>
-            <ion-input type="number" ngModel name="price" required></ion-input>
+            <ion-input type="number" [ngModel]="price" name="price" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -109,7 +109,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
             <ion-label position="floating"> Current Value (per unit) </ion-label>
-            <ion-input type="number" ngModel name="current-value" ></ion-input>
+            <ion-input type="number" [ngModel]="currentValue" name="current-value" ></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
