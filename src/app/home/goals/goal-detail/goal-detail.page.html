@@ -16,7 +16,6 @@
   <button mat-menu-item (click)="onDeleteGoal()">Delete</button>
 </mat-menu>
 <ion-content>
-  <form (ngSubmit)="onSubmit()" #f="ngForm">
     <ion-grid>
       <ion-row class="ion-no-padding">
         <ion-col class="ion-text-center" size-md="6" offset-md="3">
@@ -58,41 +57,7 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col size-md="2" offset-md="3">
-          <ion-item>
-            <ion-label position="floating">Asset</ion-label>
-            <ion-select [(ngModel)]="selectedAsset" name="asset">
-              <ion-select-option
-                *ngFor="let option of remainingAssets"
-                [value]="option.id"
-                >{{ option.assetTitle }}</ion-select-option
-              >
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col size-md="3">
-          <ion-item>
-            <ion-label position="floating"> Asset Name </ion-label>
-            <ion-range ngModel name="percentage" min="0" [max]="100 * (selectedAsset? remainingAssetPercentage: 1)" color="secondary">
-              <ion-label slot="start">0</ion-label>
-              <ion-label slot="end">{{(selectedAsset? remainingAssetPercentage: 1) | percent}}</ion-label>
-            </ion-range>
-          </ion-item>
-          
-        </ion-col>
-        <ion-col size-md="1">
-          <ion-button
-            type="submit"
-            color="primary"
-            expand="block"
-            [disabled]="f.invalid"
-            >Add</ion-button
-          >
-        </ion-col>
-      </ion-row>
     </ion-grid>
-  </form>
 </ion-content>
 <ion-footer>
   <ion-grid>

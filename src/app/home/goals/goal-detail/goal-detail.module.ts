@@ -20,6 +20,6 @@ import { EditGoalComponent } from "../edit-goal/edit-goal.component";
     GoalDetailPageRoutingModule,
     SharedModule,
   ],
-  declarations: [GoalDetailPage, EditGoalComponent],
+  declarations: [GoalDetailPage],
 })
 export class GoalDetailPageModule {}

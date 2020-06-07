@@ -133,21 +133,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       ) / this.goal.amountReqd;
   }
 
-  onSubmit() {
-    this.goalsService
-      .addUserGoalsContribution(
-        new Contribution(
-          Math.random().toString(),
-          this.form.value["asset"],
-          this.goal.id,
-          +this.form.value["percentage"] / 100
-        )
-      )
-      .subscribe((res) => {
-        this.form.reset();
-      });
-  }
-
   get remainingAssetPercentage() {
     if (this.remainingAssets && this.selectedAsset) {
       return this.remainingAssets.find((a) => a.id === this.selectedAsset)
