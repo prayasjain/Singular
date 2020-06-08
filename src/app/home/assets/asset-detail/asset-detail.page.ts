@@ -4,6 +4,7 @@ import { AssetType, Asset, AssetTypeUtils } from "../asset.model";
 import { AssetsService } from "../assets.service";
 import { Subscription, zip } from "rxjs";
 import { switchMap, take, tap } from "rxjs/operators";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-asset-detail",
@@ -11,6 +12,7 @@ import { switchMap, take, tap } from "rxjs/operators";
   styleUrls: ["./asset-detail.page.scss"],
 })
 export class AssetDetailPage implements OnInit, OnDestroy {
+  user: firebase.User;
   assetType: AssetType;
   userAssetsForTypeSub: Subscription;
   userAssetsForType: Asset[];
@@ -20,7 +22,8 @@ export class AssetDetailPage implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private assetsService: AssetsService
+    private assetsService: AssetsService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -29,9 +32,15 @@ export class AssetDetailPage implements OnInit, OnDestroy {
       this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);
       this.currentDate = new Date();
       if (this.assetType) {
-        this.userAssetsForTypeSub = this.assetsService
-          .getUserAssetsForAssetType(this.assetType)
+        this.userAssetsForTypeSub = this.authService.authInfo
           .pipe(
+            take(1),
+            switchMap((user) => {
+              this.user = user;
+              return this.assetsService.getUserAssetsForAssetType(
+                this.assetType
+              );
+            }),
             switchMap((userAssets) => {
               this.userAssetsForType = userAssets;
               this.totalAmountForType = 0;

@@ -8,7 +8,11 @@
       <ion-button [matMenuTriggerFor]="belowMenu">
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
+      <ion-avatar class="ion-padding">
+        <img [src]="user?.photoURL" />
+      </ion-avatar>
     </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 <mat-menu #belowMenu="matMenu" yPosition="below">

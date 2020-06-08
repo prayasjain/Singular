@@ -3,6 +3,7 @@ import { AssetsService } from "./assets.service";
 import { Asset, AssetType, AssetTypeUtils } from "./asset.model";
 import { Subscription, zip } from "rxjs";
 import { take, tap, switchMap } from "rxjs/operators";
+import { AuthService } from "src/app/auth/auth.service";
 
 interface AssetGroup {
   assetType: AssetType;
@@ -15,18 +16,27 @@ interface AssetGroup {
   styleUrls: ["./assets.page.scss"],
 })
 export class AssetsPage implements OnInit, OnDestroy {
+  user: firebase.User;
   userAssets: Asset[] = [];
   assetsSub: Subscription;
   assetGroups: AssetGroup[] = [];
   totalAmount: number;
   currentDate: Date;
   totalAmountByAssetType = new Map();
-  constructor(private assetsService: AssetsService) {}
+  constructor(
+    private assetsService: AssetsService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.currentDate = new Date();
-    this.assetsSub = this.assetsService.userAssets
+    this.assetsSub = this.authService.authInfo
       .pipe(
+        take(1),
+        switchMap((user) => {
+          this.user = user;
+          return this.assetsService.userAssets;
+        }),
         switchMap((userAssets) => {
           this.userAssets = userAssets;
           this.totalAmountByAssetType.clear();
@@ -51,7 +61,6 @@ export class AssetsPage implements OnInit, OnDestroy {
         this.assetGroups.forEach((assetGroup) => {
           this.totalAmount += assetGroup.amount;
         });
-        
       });
   }
 

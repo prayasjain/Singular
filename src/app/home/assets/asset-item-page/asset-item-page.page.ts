@@ -4,8 +4,9 @@ import { AssetsService } from "../assets.service";
 import { Asset } from "../asset.model";
 import { switchMap, take } from "rxjs/operators";
 import { GoalsService } from "../../goals/goals.service";
-import { ModalController } from '@ionic/angular';
-import { AddNewAssetModalComponent } from '../../add-new/add-new-asset-modal/add-new-asset-modal.component';
+import { ModalController } from "@ionic/angular";
+import { AddNewAssetModalComponent } from "../../add-new/add-new-asset-modal/add-new-asset-modal.component";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-asset-item-page",
@@ -13,6 +14,7 @@ import { AddNewAssetModalComponent } from '../../add-new/add-new-asset-modal/add
   styleUrls: ["./asset-item-page.page.scss"],
 })
 export class AssetItemPagePage implements OnInit {
+  user: firebase.User;
   asset: Asset;
   assetValue: number = 0;
   date: Date;
@@ -22,15 +24,21 @@ export class AssetItemPagePage implements OnInit {
     private assetsService: AssetsService,
     private router: Router,
     private goalsService: GoalsService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.date = new Date();
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       let itemId = paramMap.get("itemId");
-      this.assetsService.userAssets
+      this.authService.authInfo
         .pipe(
+          take(1),
+          switchMap((user) => {
+            this.user = user;
+            return this.assetsService.userAssets;
+          }),
           take(1),
           switchMap((assets) => {
             this.asset = assets.find((a) => a.id === itemId);
@@ -48,25 +56,31 @@ export class AssetItemPagePage implements OnInit {
   }
 
   onEditAsset() {
-
-    this.modalCtrl.create({component: AddNewAssetModalComponent, componentProps: {
-      asset: this.asset,
-      assetValue: this.assetValue,
-      assetType: this.asset.assetType
-    }}).then(modalEl => {
-      modalEl.present();
-      return modalEl.onDidDismiss();
-    }).then(modalData => {
-      if (modalData.role === "confirm") {
-        let newAsset = modalData.data.asset;
-        console.log(newAsset);
-        return this.assetsService.updateUserAssets([newAsset]).toPromise();
-      }
-      console.log("same");
-    }).then((updatedAssets) => {
-      console.log(updatedAssets);
-      this.router.navigateByUrl("/home/tabs/assets");
-    })
+    this.modalCtrl
+      .create({
+        component: AddNewAssetModalComponent,
+        componentProps: {
+          asset: this.asset,
+          assetValue: this.assetValue,
+          assetType: this.asset.assetType,
+        },
+      })
+      .then((modalEl) => {
+        modalEl.present();
+        return modalEl.onDidDismiss();
+      })
+      .then((modalData) => {
+        if (modalData.role === "confirm") {
+          let newAsset = modalData.data.asset;
+          console.log(newAsset);
+          return this.assetsService.updateUserAssets([newAsset]).toPromise();
+        }
+        console.log("same");
+      })
+      .then((updatedAssets) => {
+        console.log(updatedAssets);
+        this.router.navigateByUrl("/home/tabs/assets");
+      });
   }
 
   onDeleteAsset() {

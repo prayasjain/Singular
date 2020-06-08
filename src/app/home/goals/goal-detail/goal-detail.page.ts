@@ -10,6 +10,7 @@ import { NgModel, NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { EditGoalComponent } from "../edit-goal/edit-goal.component";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-goal-detail",
@@ -17,6 +18,7 @@ import { EditGoalComponent } from "../edit-goal/edit-goal.component";
   styleUrls: ["./goal-detail.page.scss"],
 })
 export class GoalDetailPage implements OnInit, OnDestroy {
+  user: firebase.User;
   goal: Goal;
   goalSub: Subscription;
   //contributions to the goal
@@ -37,7 +39,8 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     private goalsService: GoalsService,
     private assetsService: AssetsService,
     private router: Router,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -46,8 +49,13 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       if (!goalId) {
         return;
       }
-      this.goalSub = this.goalsService.userGoals
+      this.goalSub = this.authService.authInfo
         .pipe(
+          take(1),
+          switchMap((user) => {
+            this.user = user;
+            return this.goalsService.userGoals;
+          }),
           map((goals) => goals.find((goal) => goal.id === goalId)),
           switchMap((goal) => {
             this.goal = goal;
@@ -188,10 +196,12 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   }
 
   isSameContribution(a: Contribution, b: Contribution) {
-    return a.id === b.id &&
+    return (
+      a.id === b.id &&
       a.assetId === b.assetId &&
       a.goalId === b.goalId &&
       Math.abs(a.percentageContribution - b.percentageContribution) < 0.000001
+    );
   }
 
   changeInContributionArray(contributions: Contribution[]) {
@@ -200,11 +210,11 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     }
     let oldContributions = [...this.contributions].sort();
     let newContributions = [...contributions].sort();
-    oldContributions.forEach((contribution,index) => {
+    oldContributions.forEach((contribution, index) => {
       if (!this.isSameContribution(contribution, newContributions[index])) {
         return true;
       }
-    })
+    });
     return false;
   }
 

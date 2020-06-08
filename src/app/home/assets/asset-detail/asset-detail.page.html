@@ -3,6 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home/tabs/assets"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-avatar class="ion-padding">
+        <img [src]="user?.photoURL" />
+      </ion-avatar>
+    </ion-buttons>
     <ion-title>{{assetType}}</ion-title>
   </ion-toolbar>
 </ion-header>

@@ -4,7 +4,8 @@ import { Goal, Contribution } from "./goal.model";
 import { Subscription, Observable, of, zip, pipe } from "rxjs";
 import { Asset } from "../assets/asset.model";
 import { AssetsService } from "../assets/assets.service";
-import { mergeMap, tap, take } from "rxjs/operators";
+import { mergeMap, tap, take, switchMap } from "rxjs/operators";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-goals",
@@ -12,6 +13,7 @@ import { mergeMap, tap, take } from "rxjs/operators";
   styleUrls: ["./goals.page.scss"],
 })
 export class GoalsPage implements OnInit, OnDestroy {
+  user: firebase.User;
   userGoals: Goal[];
   userGoalsSub: Subscription;
 
@@ -30,12 +32,20 @@ export class GoalsPage implements OnInit, OnDestroy {
 
   constructor(
     private goalsService: GoalsService,
-    private assetsService: AssetsService
+    private assetsService: AssetsService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.userAssetsSub = this.assetsService.userAssets.subscribe(
-      (userAssets) => {
+    this.userAssetsSub = this.authService.authInfo
+      .pipe(
+        take(1),
+        switchMap((user) => {
+          this.user = user;
+          return this.assetsService.userAssets;
+        })
+      )
+      .subscribe((userAssets) => {
         this.userAssets = userAssets;
         this.assetValueDate = new Date();
         this.assetValueMap.clear();
@@ -52,8 +62,7 @@ export class GoalsPage implements OnInit, OnDestroy {
           console.log(vals);
           this.updateGoalCompletion();
         });
-      }
-    );
+      });
     this.userGoalsSub = this.goalsService.userGoals.subscribe((usergoals) => {
       this.userGoals = usergoals;
       this.updateGoalCompletion();
@@ -75,7 +84,8 @@ export class GoalsPage implements OnInit, OnDestroy {
     this.userGoalsContributions.forEach((userGoalsContribution) => {
       let existingContribution =
         this.goalCompletionMap.get(userGoalsContribution.goalId) || 0;
-      let assetValue = this.assetValueMap.get(userGoalsContribution.assetId) || 0;
+      let assetValue =
+        this.assetValueMap.get(userGoalsContribution.assetId) || 0;
       let currentContribution =
         assetValue * userGoalsContribution.percentageContribution || 0;
       this.goalCompletionMap.set(
