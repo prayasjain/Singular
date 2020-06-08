@@ -34,6 +34,8 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   selectedAsset;
   @ViewChild("f", { static: true }) form: NgForm;
 
+  isLoading: boolean = false;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private goalsService: GoalsService,
@@ -49,6 +51,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       if (!goalId) {
         return;
       }
+      this.isLoading = true;
       this.goalSub = this.authService.authInfo
         .pipe(
           take(1),
@@ -81,6 +84,9 @@ export class GoalDetailPage implements OnInit, OnDestroy {
         )
         .subscribe(() => {
           this.setFinishPercentage();
+          this.isLoading = false;
+        }, (error) => {
+          this.isLoading = false;
         });
     });
   }

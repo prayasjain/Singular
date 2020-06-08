@@ -5,6 +5,7 @@ import { AssetsService } from "../assets.service";
 import { Subscription, zip } from "rxjs";
 import { switchMap, take, tap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
+import { LoadingController } from "@ionic/angular";
 
 @Component({
   selector: "app-asset-detail",
@@ -23,7 +24,8 @@ export class AssetDetailPage implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private assetsService: AssetsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -32,33 +34,45 @@ export class AssetDetailPage implements OnInit, OnDestroy {
       this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);
       this.currentDate = new Date();
       if (this.assetType) {
-        this.userAssetsForTypeSub = this.authService.authInfo
-          .pipe(
-            take(1),
-            switchMap((user) => {
-              this.user = user;
-              return this.assetsService.getUserAssetsForAssetType(
-                this.assetType
+        this.loadingCtrl
+          .create({ message: "Fetching Your Assets..." })
+          .then((loadingEl) => {
+            loadingEl.present();
+            this.userAssetsForTypeSub = this.authService.authInfo
+              .pipe(
+                take(1),
+                switchMap((user) => {
+                  this.user = user;
+                  return this.assetsService.getUserAssetsForAssetType(
+                    this.assetType
+                  );
+                }),
+                switchMap((userAssets) => {
+                  this.userAssetsForType = userAssets;
+                  this.totalAmountForType = 0;
+                  this.assetValueMap.clear();
+                  return zip(
+                    ...userAssets.map((userAsset) =>
+                      userAsset.getAmountForAsset(this.currentDate).pipe(
+                        take(1),
+                        tap((assetValue) => {
+                          this.assetValueMap.set(userAsset.id, assetValue);
+                          this.totalAmountForType += assetValue;
+                        })
+                      )
+                    )
+                  );
+                })
+              )
+              .subscribe(
+                () => {
+                  loadingEl.dismiss();
+                },
+                (error) => {
+                  loadingEl.dismiss();
+                }
               );
-            }),
-            switchMap((userAssets) => {
-              this.userAssetsForType = userAssets;
-              this.totalAmountForType = 0;
-              this.assetValueMap.clear();
-              return zip(
-                ...userAssets.map((userAsset) =>
-                  userAsset.getAmountForAsset(this.currentDate).pipe(
-                    take(1),
-                    tap((assetValue) => {
-                      this.assetValueMap.set(userAsset.id, assetValue);
-                      this.totalAmountForType += assetValue;
-                    })
-                  )
-                )
-              );
-            })
-          )
-          .subscribe(() => {});
+          });
       }
     });
   }

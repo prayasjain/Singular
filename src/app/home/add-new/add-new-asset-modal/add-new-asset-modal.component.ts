@@ -44,12 +44,12 @@ export class AddNewAssetModalComponent implements OnInit {
     }
     let assetType: AssetType = this.form.value["asset-type"];
     let asset: Asset;
-    let percentUnAlloc: number = this.asset? this.asset.percentUnallocated : 1;
-    let assetId: string = this.asset? this.asset.id: Math.random().toString();
-    if (assetType as AssetType === AssetType.SavingsAccount as AssetType) {
+    let percentUnAlloc: number = this.asset ? this.asset.percentUnallocated : 1;
+    let assetId: string = this.asset ? this.asset.id : Math.random().toString();
+    if ((assetType as AssetType) === (AssetType.SavingsAccount as AssetType)) {
       let interestRate;
       if (this.form.value["interest-rate"]) {
-        interestRate = this.form.value["interest-rate"]/100;
+        interestRate = this.form.value["interest-rate"] / 100;
       }
       asset = new Asset(
         assetId,
@@ -66,7 +66,7 @@ export class AddNewAssetModalComponent implements OnInit {
     if (assetType === AssetType.Deposits) {
       let interestRate;
       if (this.form.value["interest-rate"]) {
-        interestRate = this.form.value["interest-rate"]/100;
+        interestRate = this.form.value["interest-rate"] / 100;
       }
       asset = new Asset(
         assetId,
@@ -122,7 +122,7 @@ export class AddNewAssetModalComponent implements OnInit {
     }
     this.modalCtrl.dismiss(
       {
-        asset: asset
+        asset: asset,
       },
       "confirm"
     );
@@ -133,6 +133,9 @@ export class AddNewAssetModalComponent implements OnInit {
   }
 
   get accountNumber() {
+    if (!this.asset) {
+      return;
+    }
     if (this.asset.assetType === AssetType.SavingsAccount) {
       return this.asset.savingsAccount.accountNumber;
     }
@@ -143,6 +146,9 @@ export class AddNewAssetModalComponent implements OnInit {
   }
 
   get interestRate() {
+    if (!this.asset) {
+      return;
+    }
     if (this.asset.assetType === AssetType.SavingsAccount) {
       return this.asset.savingsAccount.interestRate;
     }
@@ -153,18 +159,27 @@ export class AddNewAssetModalComponent implements OnInit {
   }
 
   get maturityDate() {
+    if (!this.asset) {
+      return;
+    }
     if (this.asset.assetType === AssetType.Deposits) {
       return this.asset.deposits.maturityDate.toISOString();
     }
   }
 
   get depositDate() {
+    if (!this.asset) {
+      return;
+    }
     if (this.asset.assetType === AssetType.Deposits) {
       return this.asset.deposits.depositDate.toISOString();
     }
   }
 
   get units() {
+    if (!this.asset) {
+      return;
+    }
     if (this.asset.assetType === AssetType.Equity) {
       return this.asset.equity.units;
     }
@@ -174,6 +189,9 @@ export class AddNewAssetModalComponent implements OnInit {
   }
 
   get price() {
+    if (!this.asset) {
+      return;
+    }
     if (this.asset.assetType === AssetType.Equity) {
       return this.asset.equity.price;
     }
@@ -183,6 +201,9 @@ export class AddNewAssetModalComponent implements OnInit {
   }
 
   get currentValue() {
+    if (!this.asset) {
+      return;
+    }
     if (this.asset.assetType === AssetType.Equity) {
       return this.asset.equity.currentValue;
     }

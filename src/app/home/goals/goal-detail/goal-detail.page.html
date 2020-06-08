@@ -5,7 +5,11 @@
     </ion-buttons>
     <ion-buttons slot="primary">
       <ion-button [matMenuTriggerFor]="belowMenu">
-        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+        <ion-icon
+          slot="icon-only"
+          ios="ellipsis-horizontal"
+          md="ellipsis-vertical"
+        ></ion-icon>
       </ion-button>
       <ion-avatar class="ion-padding">
         <img [src]="user?.photoURL" />
@@ -19,51 +23,62 @@
   <button mat-menu-item (click)="onDeleteGoal()">Delete</button>
 </mat-menu>
 <ion-content>
-    <ion-grid>
-      <ion-row class="ion-no-padding">
-        <ion-col class="ion-text-center" size-md="6" offset-md="3">
-          <h3>{{goal.name}}</h3>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-no-padding">
-        <ion-col class="ion-text-center" size-md="6" offset-md="3">
-          <ion-progress-bar
-            class="custom-bar"
-            color="primary"
-            [value]="finishPerc"
-          ></ion-progress-bar>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-no-padding">
-        <ion-col class="ion-text-center" size-md="6" offset-md="3">
-          <span>
-            <b>{{(goal.amountReqd*finishPerc) | currency:'INR':'symbol':'1.0-0'}}</b>
-            out of {{goal.amountReqd | currency:'INR':'symbol':'1.0-0'}}
-          </span>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size-md="6" offset-md="3">
-          <b>Assets</b>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngFor="let asset of assets">
-        <ion-col size-md="2" offset-md="3">
-          <div>
-            {{asset.assetTitle}}
-          </div>
-        </ion-col>
-        <ion-col size-md="2" class="ion-text-right">
-          <div>
-            {{assetContributionMap.get(asset.id) | currency:'INR':'symbol':'1.0-0'}}
-            ({{assetContributionMap.get(asset.id)/goal.amountReqd | percent}})
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <ion-grid *ngIf="isLoading">
+    <ion-row>
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+          <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!isLoading">
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <h3>{{goal.name}}</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <ion-progress-bar
+          class="custom-bar"
+          color="primary"
+          [value]="finishPerc"
+        ></ion-progress-bar>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <span>
+          <b
+            >{{(goal.amountReqd*finishPerc) |
+            currency:'INR':'symbol':'1.0-0'}}</b
+          >
+          out of {{goal.amountReqd | currency:'INR':'symbol':'1.0-0'}}
+        </span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <b>Assets</b>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let asset of assets">
+      <ion-col size-md="2" offset-md="3">
+        <div>
+          {{asset.assetTitle}}
+        </div>
+      </ion-col>
+      <ion-col size-md="2" class="ion-text-right">
+        <div>
+          {{assetContributionMap.get(asset.id) |
+          currency:'INR':'symbol':'1.0-0'}}
+          ({{assetContributionMap.get(asset.id)/goal.amountReqd | percent}})
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 <ion-footer>
-  <ion-grid>
+  <ion-grid *ngIf="!isLoading">
     <ion-row class="ion-no-padding">
       <ion-col class="ion-text-center ion-no-padding" size-md="6" offset-md="3">
         Goal Set on Date: {{goal.creationDate.toDateString()}}

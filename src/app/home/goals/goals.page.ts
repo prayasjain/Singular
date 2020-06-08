@@ -6,6 +6,7 @@ import { Asset } from "../assets/asset.model";
 import { AssetsService } from "../assets/assets.service";
 import { mergeMap, tap, take, switchMap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: "app-goals",
@@ -30,6 +31,8 @@ export class GoalsPage implements OnInit, OnDestroy {
   assetValueDate: Date;
   assetValueMap: Map<string, number> = new Map();
 
+  isLoading: boolean = false;
+
   constructor(
     private goalsService: GoalsService,
     private assetsService: AssetsService,
@@ -37,6 +40,7 @@ export class GoalsPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.userAssetsSub = this.authService.authInfo
       .pipe(
         take(1),
@@ -93,6 +97,7 @@ export class GoalsPage implements OnInit, OnDestroy {
         existingContribution + currentContribution
       );
       console.log(this.goalCompletionMap);
+      this.isLoading = false;
     });
   }
 

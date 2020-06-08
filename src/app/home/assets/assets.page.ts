@@ -4,6 +4,7 @@ import { Asset, AssetType, AssetTypeUtils } from "./asset.model";
 import { Subscription, zip } from "rxjs";
 import { take, tap, switchMap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
+import { LoadingController } from "@ionic/angular";
 
 interface AssetGroup {
   assetType: AssetType;
@@ -25,42 +26,51 @@ export class AssetsPage implements OnInit, OnDestroy {
   totalAmountByAssetType = new Map();
   constructor(
     private assetsService: AssetsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
     this.currentDate = new Date();
-    this.assetsSub = this.authService.authInfo
-      .pipe(
-        take(1),
-        switchMap((user) => {
-          this.user = user;
-          return this.assetsService.userAssets;
-        }),
-        switchMap((userAssets) => {
-          this.userAssets = userAssets;
-          this.totalAmountByAssetType.clear();
-          let observableList = this.userAssets.map((userAsset) =>
-            userAsset.getAmountForAsset(this.currentDate).pipe(
-              take(1),
-              tap((assetValue) => {
-                this.totalAmountByAssetType.set(
-                  userAsset.assetType,
-                  (this.totalAmountByAssetType.get(userAsset.assetType) || 0) +
-                    assetValue
-                );
-              })
-            )
-          );
-          return zip(...observableList);
-        })
-      )
-      .subscribe(() => {
-        this.getAmountByGroup();
-        this.totalAmount = 0;
-        this.assetGroups.forEach((assetGroup) => {
-          this.totalAmount += assetGroup.amount;
-        });
+    this.loadingCtrl
+      .create({ message: "Fetching Your Assets..." })
+      .then((loadingEl) => {
+        loadingEl.present();
+        this.assetsSub = this.authService.authInfo
+          .pipe(
+            take(1),
+            switchMap((user) => {
+              this.user = user;
+              return this.assetsService.userAssets;
+            }),
+            switchMap((userAssets) => {
+              this.userAssets = userAssets;
+              this.totalAmountByAssetType.clear();
+              let observableList = this.userAssets.map((userAsset) =>
+                userAsset.getAmountForAsset(this.currentDate).pipe(
+                  take(1),
+                  tap((assetValue) => {
+                    this.totalAmountByAssetType.set(
+                      userAsset.assetType,
+                      (this.totalAmountByAssetType.get(userAsset.assetType) ||
+                        0) + assetValue
+                    );
+                  })
+                )
+              );
+              return zip(...observableList);
+            })
+          )
+          .subscribe(() => {
+            this.getAmountByGroup();
+            this.totalAmount = 0;
+            this.assetGroups.forEach((assetGroup) => {
+              this.totalAmount += assetGroup.amount;
+            });
+            loadingEl.dismiss();
+          }, (error) => {
+            loadingEl.dismiss();
+          });
       });
   }
 
