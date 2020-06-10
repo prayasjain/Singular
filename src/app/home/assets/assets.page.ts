@@ -41,6 +41,7 @@ export class AssetsPage implements OnInit, OnDestroy {
             take(1),
             switchMap((user) => {
               this.user = user;
+              console.log(user.uid);
               return this.assetsService.userAssets;
             }),
             switchMap((userAssets) => {

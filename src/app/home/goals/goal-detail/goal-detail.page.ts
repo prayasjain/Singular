@@ -174,7 +174,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       .then((modalData) => {
         if (modalData.role === "confirm") {
           if (!this.changeInContributionArray(modalData.data.contributions)) {
-            console.log("same");
+
             return;
           }
           // update the assets.
@@ -195,7 +195,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
               })
             )
             .subscribe(() => {
-              console.log("done");
             });
         }
       });

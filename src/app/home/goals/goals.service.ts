@@ -75,7 +75,7 @@ export class GoalsService {
       switchMap((goalContributions) => {
         this._userGoalsContributions.next(
           goalContributions.filter(
-            (contribution) => contribution.goalId === goalId
+            (contribution) => contribution.goalId !== goalId
           )
         );
         return this.userGoals;
@@ -84,7 +84,7 @@ export class GoalsService {
       // remove the goal
       tap((goals) => {
         console.log("deleting goal");
-        this._userGoals.next(goals.filter((g) => g.id === goalId));
+        this._userGoals.next(goals.filter((g) => g.id !== goalId));
       })
     );
   }

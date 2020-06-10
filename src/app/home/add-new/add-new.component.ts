@@ -56,7 +56,6 @@ export class AddNewComponent implements OnInit {
             .then((resultData) => {
               if (resultData.role === "confirm") {
                 loadingEl.present();
-                console.log(resultData.data.asset);
                 if (resultData.data.asset) {
                   this.assetsService
                     .addUserAsset(resultData.data.asset)
@@ -114,25 +113,29 @@ export class AddNewComponent implements OnInit {
                   .toPromise();
               }
             })
-            .then(() => {
-              return this.modalCtrl.create({
-                component: EditGoalComponent,
-                componentProps: {
-                  goal: newGoal,
-                  contributions: [],
-                  assets: [],
-                  remainingAssets: assets,
-                  assetContributionMap: [],
-                  remainingAssetValueMap: assetValueMap,
-                },
-              });
+            .then((data) => {
+              if (data) {
+                return this.modalCtrl.create({
+                  component: EditGoalComponent,
+                  componentProps: {
+                    goal: newGoal,
+                    contributions: [],
+                    assets: [],
+                    remainingAssets: assets,
+                    assetContributionMap: [],
+                    remainingAssetValueMap: assetValueMap,
+                  },
+                });
+              }
             })
             .then((modalEl) => {
-              modalEl.present();
-              return modalEl.onDidDismiss();
+              if (modalEl) {
+                modalEl.present();
+                return modalEl.onDidDismiss();
+              }
             })
             .then((modalData) => {
-              if (modalData.role === "confirm") {
+              if (modalData && modalData.role === "confirm") {
                 loadingEl.present();
                 return this.assetsService
                   .updateUserAssets(
@@ -157,13 +160,17 @@ export class AddNewComponent implements OnInit {
                   .toPromise();
               }
             })
-            .then(() => {
-              loadingEl.dismiss();
+            .then((data) => {
+              if (data) {
+                loadingEl.dismiss();
+                return this.router.navigate([
+                  "/home/tabs/goals/goal-detail/",
+                  newGoal.id,
+                ]);
+              }
               this.router.navigate([
-                "/home/tabs/goals/goal-detail/",
-                newGoal.id,
+                "/home/tabs/goals",
               ]);
-              console.log("done");
             });
         }
       });

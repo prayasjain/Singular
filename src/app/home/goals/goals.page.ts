@@ -58,12 +58,10 @@ export class GoalsPage implements OnInit, OnDestroy {
             take(1),
             tap((amount) => {
               this.assetValueMap.set(userAsset.id, amount);
-              console.log("asset " + userAsset.id);
             })
           )
         );
         zip(...list).subscribe((vals) => {
-          console.log(vals);
           this.updateGoalCompletion();
         });
       });
@@ -96,7 +94,6 @@ export class GoalsPage implements OnInit, OnDestroy {
         userGoalsContribution.goalId,
         existingContribution + currentContribution
       );
-      console.log(this.goalCompletionMap);
       this.isLoading = false;
     });
   }

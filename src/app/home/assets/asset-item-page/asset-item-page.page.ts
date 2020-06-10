@@ -88,15 +88,12 @@ export class AssetItemPagePage implements OnInit {
             if (modalData.role === "confirm") {
               loadingEl.present();
               let newAsset = modalData.data.asset;
-              console.log(newAsset);
               return this.assetsService
                 .updateUserAssets([newAsset])
                 .toPromise();
             }
-            console.log("same");
           })
           .then((updatedAssets) => {
-            console.log(updatedAssets);
             loadingEl.dismiss();
             this.router.navigateByUrl("/home/tabs/assets");
           });
