@@ -32,51 +32,55 @@ export class AssetsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentDate = new Date();
+    this.assetsSub = this.authService.authInfo
+      .pipe(
+        take(1),
+        switchMap((user) => {
+          this.user = user;
+          console.log(user.uid);
+          return this.assetsService.userAssets;
+        }),
+        switchMap((userAssets) => {
+          this.userAssets = userAssets;
+          this.totalAmountByAssetType.clear();
+          this.assetGroups = [];
+
+          this.totalAmount = 0;
+          let observableList = this.userAssets.map((userAsset) =>
+            userAsset.getAmountForAsset(this.currentDate).pipe(
+              take(1),
+              tap((assetValue) => {
+                this.totalAmountByAssetType.set(
+                  userAsset.assetType,
+                  (this.totalAmountByAssetType.get(userAsset.assetType) || 0) +
+                    assetValue
+                );
+              })
+            )
+          );
+          return zip(...observableList);
+        })
+      )
+      .subscribe(() => {
+        this.getAmountByGroup();
+        this.assetGroups.forEach((assetGroup) => {
+          this.totalAmount += assetGroup.amount;
+        });
+      });
+  }
+
+  ionViewWillEnter() {
     this.loadingCtrl
       .create({ message: "Fetching Your Assets..." })
       .then((loadingEl) => {
         loadingEl.present();
-        this.assetsSub = this.authService.authInfo
-          .pipe(
-            take(1),
-            switchMap((user) => {
-              this.user = user;
-              console.log(user.uid);
-              return this.assetsService.userAssets;
-            }),
-            switchMap((userAssets) => {
-              this.userAssets = userAssets;
-              this.totalAmountByAssetType.clear();
-              let observableList = this.userAssets.map((userAsset) =>
-                userAsset.getAmountForAsset(this.currentDate).pipe(
-                  take(1),
-                  tap((assetValue) => {
-                    this.totalAmountByAssetType.set(
-                      userAsset.assetType,
-                      (this.totalAmountByAssetType.get(userAsset.assetType) ||
-                        0) + assetValue
-                    );
-                  })
-                )
-              );
-              return zip(...observableList);
-            })
-          )
-          .subscribe(() => {
-            this.getAmountByGroup();
-            this.totalAmount = 0;
-            this.assetGroups.forEach((assetGroup) => {
-              this.totalAmount += assetGroup.amount;
-            });
-            loadingEl.dismiss();
-          }, (error) => {
-            loadingEl.dismiss();
-          });
+        this.assetsService.fetchUserAssets().subscribe((data) => {
+          loadingEl.dismiss();
+        });
       });
   }
 
   getAmountByGroup() {
-    this.assetGroups = [];
     this.totalAmountByAssetType.forEach((amount, assetType) => {
       let assetGroup: AssetGroup = {
         assetType: assetType,

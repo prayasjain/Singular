@@ -3,6 +3,8 @@ import { BehaviorSubject } from "rxjs";
 import { Goal, Contribution } from "./goal.model";
 import { take, tap, map, switchMap } from "rxjs/operators";
 import { AssetsService } from "../assets/assets.service";
+import { AuthService } from "src/app/auth/auth.service";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
@@ -19,7 +21,11 @@ export class GoalsService {
     new Contribution("4", "2", "2", 0.3),
   ]);
 
-  constructor(private assetsService: AssetsService) {}
+  constructor(
+    private assetsService: AssetsService,
+    private authService: AuthService,
+    private http: HttpClient
+  ) {}
 
   get userGoals() {
     return this._userGoals.asObservable();
@@ -40,32 +46,59 @@ export class GoalsService {
   }
 
   addUserGoal(goal: Goal) {
-    return this.userGoals.pipe(
+    return this.authService.authInfo.pipe(
+      take(1),
+      switchMap((authInfo) => {
+        goal.userId = authInfo.uid;
+        return this.http.post<{ name: string }>(
+          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-goals.json`,
+          { ...goal, id: null }
+        );
+      }),
+      take(1),
+      switchMap((resData) => {
+        goal.id = resData.name;
+        return this.userGoals;
+      }),
       take(1),
       tap((userGoals) => {
         this._userGoals.next(userGoals.concat(goal));
+      }),
+      map(userGoals => {
+        return goal;
       })
     );
   }
 
   addUserGoalsContribution(contribution: Contribution) {
-    return this.assetsService
-      .updateAssetAllocation(
-        contribution.assetId,
-        contribution.percentageContribution
-      )
-      .pipe(
-        take(1),
-        switchMap((assets) => {
-          return this.userGoalsContributions;
-        }),
-        take(1),
-        tap((userGoalsContribution) => {
-          this._userGoalsContributions.next(
-            userGoalsContribution.concat(contribution)
-          );
-        })
-      );
+    return this.authService.authInfo.pipe(
+      take(1),
+      switchMap((authInfo) => {
+        contribution.userId = authInfo.uid;
+        return this.http.post<{ name: string }>(
+          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-contributions.json`,
+          { ...contribution, id: null }
+        );
+      }),
+      take(1),
+      switchMap((resData) => {
+        contribution.id = resData.name;
+        return this.assetsService.updateAssetAllocation(
+          contribution.assetId,
+          contribution.percentageContribution
+        );
+      }),
+      take(1),
+      switchMap((assets) => {
+        return this.userGoalsContributions;
+      }),
+      take(1),
+      tap((userGoalsContribution) => {
+        this._userGoalsContributions.next(
+          userGoalsContribution.concat(contribution)
+        );
+      })
+    );
   }
 
   deleteGoal(goalId: string) {
@@ -90,9 +123,14 @@ export class GoalsService {
   }
 
   deleteContributionsOfAsset(assetId: string) {
-    return this.userGoalsContributions.pipe(take(1), tap(contributions => {
-      this._userGoalsContributions.next(contributions.filter(c => c.assetId !== assetId));
-    }))
+    return this.userGoalsContributions.pipe(
+      take(1),
+      tap((contributions) => {
+        this._userGoalsContributions.next(
+          contributions.filter((c) => c.assetId !== assetId)
+        );
+      })
+    );
   }
 
   updateContributions(contributions: Contribution[], goalId: string) {
@@ -103,7 +141,8 @@ export class GoalsService {
           .filter((c) => c.goalId !== goalId)
           .concat(contributions);
       }),
-      tap(contributions => {
+      tap((contributions) => {
+        console.log(contributions);
         this._userGoalsContributions.next(contributions);
       })
     );

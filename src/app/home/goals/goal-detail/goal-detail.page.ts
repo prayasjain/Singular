@@ -82,12 +82,15 @@ export class GoalDetailPage implements OnInit, OnDestroy {
             return this.setAssetContributionMap();
           })
         )
-        .subscribe(() => {
-          this.setFinishPercentage();
-          this.isLoading = false;
-        }, (error) => {
-          this.isLoading = false;
-        });
+        .subscribe(
+          () => {
+            this.setFinishPercentage();
+            this.isLoading = false;
+          },
+          (error) => {
+            this.isLoading = false;
+          }
+        );
     });
   }
 
@@ -174,7 +177,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       .then((modalData) => {
         if (modalData.role === "confirm") {
           if (!this.changeInContributionArray(modalData.data.contributions)) {
-
             return;
           }
           // update the assets.
@@ -194,8 +196,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
                 );
               })
             )
-            .subscribe(() => {
-            });
+            .subscribe(() => {});
         }
       });
   }
@@ -233,5 +234,12 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     if (this.goalSub) {
       this.goalSub.unsubscribe();
     }
+  }
+
+  ionViewWillEnter() {
+    this.isLoading = true;
+    this.assetsService.fetchUserAssets().subscribe((data) => {
+      this.isLoading = false;
+    });
   }
 }

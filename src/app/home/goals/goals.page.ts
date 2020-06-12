@@ -6,7 +6,7 @@ import { Asset } from "../assets/asset.model";
 import { AssetsService } from "../assets/assets.service";
 import { mergeMap, tap, take, switchMap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
-import { LoadingController } from '@ionic/angular';
+import { LoadingController } from "@ionic/angular";
 
 @Component({
   selector: "app-goals",
@@ -108,5 +108,12 @@ export class GoalsPage implements OnInit, OnDestroy {
     if (this.userAssetsSub) {
       this.userAssetsSub.unsubscribe();
     }
+  }
+
+  ionViewWillEnter() {
+    this.isLoading = true;
+    this.assetsService.fetchUserAssets().subscribe((data) => {
+      this.isLoading = false;
+    });
   }
 }

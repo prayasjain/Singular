@@ -2,6 +2,7 @@ import { of } from 'rxjs';
 
 export class Asset {
   public id: string;
+  public userId: string;
   public assetType: AssetType;
   public notes: string;
 
@@ -137,6 +138,10 @@ export class SavingsAccount {
     public date: Date = new Date(), // the stored amount is at the given date
     public interestRate: number = 0.04
   ) {}
+
+  static toObject(data) {
+    return new SavingsAccount(data.bankName, data.accountNumber, data.amount, data.date, data.interestRate);
+  } 
 }
 
 export class Deposits {
@@ -148,6 +153,10 @@ export class Deposits {
     public maturityDate: Date,
     public interestRate: number = 0.04
   ) {}
+
+  static toObject(data) {
+    return new Deposits(data.bankName, data.depositNumber, data.amount, data.depositDate, data.maturityDate, data.interestRate);
+  } 
 }
 
 export class MutualFunds {
@@ -157,6 +166,10 @@ export class MutualFunds {
     public price: number,
     public currentValue: number = price
   ) {}
+
+  static toObject(data) {
+    return new MutualFunds(data.fundName, data.units, data.price, data.currentValue);
+  } 
 }
 
 export class Equity {
@@ -166,8 +179,16 @@ export class Equity {
     public price: number,
     public currentValue: number = price
   ) {}
+
+  static toObject(data) {
+    return new Equity(data.stockName, data.units, data.price, data.currentValue);
+  }
 }
 
 export class Cash {
   constructor(public name: string, public amount: number) {}
+
+  static toObject(data) {
+    return new Cash(data.name, data.amount);
+  }
 }

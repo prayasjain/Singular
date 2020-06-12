@@ -1,4 +1,5 @@
 export class Goal {
+  public userId: string;
   constructor(
     public id: string,
     public name: string,
@@ -8,6 +9,7 @@ export class Goal {
 }
 
 export class Contribution {
+  public userId: string;
   constructor(
     public id: string,
     public assetId: string,

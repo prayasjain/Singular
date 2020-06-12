@@ -8,7 +8,7 @@ import {
 } from "../assets/asset.model";
 import { AssetsService } from "../assets/assets.service";
 import { Router } from "@angular/router";
-import { Goal } from "../goals/goal.model";
+import { Goal, Contribution } from "../goals/goal.model";
 import { GoalsService } from "../goals/goals.service";
 import { AddNewAssetModalComponent } from "./add-new-asset-modal/add-new-asset-modal.component";
 import { AddNewGoalModalComponent } from "./add-new-goal-modal/add-new-goal-modal.component";
@@ -146,15 +146,21 @@ export class AddNewComponent implements OnInit {
                   .pipe(
                     take(1),
                     switchMap((userAssets) => {
-                      // update the contributions
-                      return this.goalsService.updateContributions(
-                        modalData.data.contributions,
-                        newGoal.id
-                      );
+                      return this.goalsService.addUserGoal(newGoal);
                     }),
                     take(1),
-                    switchMap((contributions) => {
-                      return this.goalsService.addUserGoal(newGoal);
+                    switchMap((goal) => {
+                      console.log(goal);
+                      // update the contributions
+                      let contributions: Contribution[] =
+                        modalData.data.contributions;
+                      console.log(contributions);
+                      contributions.forEach((c) => (c.goalId = goal.id));
+                      console.log(contributions);
+                      return this.goalsService.updateContributions(
+                        contributions,
+                        goal.id
+                      );
                     })
                   )
                   .toPromise();
@@ -168,11 +174,21 @@ export class AddNewComponent implements OnInit {
                   newGoal.id,
                 ]);
               }
-              this.router.navigate([
-                "/home/tabs/goals",
-              ]);
+              this.router.navigate(["/home/tabs/goals"]);
             });
         }
       });
   }
+
+  ionViewWillEnter() {
+    this.loadingCtrl
+      .create({ message: "Fetching Your Assets..." })
+      .then((loadingEl) => {
+        loadingEl.present();
+        this.assetsService.fetchUserAssets().subscribe((data) => {
+          loadingEl.dismiss();
+        });
+      });
+  }
+
 }
