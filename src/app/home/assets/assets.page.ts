@@ -31,7 +31,7 @@ export class AssetsPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("a" === "a");
+    console.log("a-bc".split("-bc")[0] === "a");
     this.currentDate = new Date();
     this.assetsSub = this.authService.authInfo
       .pipe(
