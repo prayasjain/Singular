@@ -28,11 +28,17 @@ export class GoalsService {
   }
 
   fetchUserGoals() {
+    let auth;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
+        auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
         return this.http.get(
-          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-goals.json`
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-goals.json?auth=${token}`
         );
       }),
       map((resData) => {
@@ -58,11 +64,17 @@ export class GoalsService {
   }
 
   fetchUserGoalsContributions() {
+    let auth;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
+        auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
         return this.http.get(
-          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-contributions.json`
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions.json?auth=${token}`
         );
       }),
       map((resData) => {
@@ -98,12 +110,18 @@ export class GoalsService {
   }
 
   addUserGoal(goal: Goal) {
+    let auth;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
-        goal.userId = authInfo.uid;
+        auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
+        goal.userId = auth.uid;
         return this.http.post<{ name: string }>(
-          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-goals.json`,
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-goals.json?auth=${token}`,
           { ...goal, id: null }
         );
       }),
@@ -123,12 +141,18 @@ export class GoalsService {
   }
 
   addUserGoalsContribution(contribution: Contribution) {
+    let auth;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
-        contribution.userId = authInfo.uid;
+        auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
+        contribution.userId = auth.uid;
         return this.http.post<{ name: string }>(
-          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-contributions.json`,
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions.json?auth=${token}`,
           { ...contribution, id: null }
         );
       }),
@@ -155,13 +179,19 @@ export class GoalsService {
 
   // note we are not updating user goals subject here as this is purely internal
   addUserGoalsContributionWithoutUpdateAsset(contribution: Contribution) {
+    let auth;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
+        auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
         console.log(contribution);
-        contribution.userId = authInfo.uid;
+        contribution.userId = auth.uid;
         return this.http.post<{ name: string }>(
-          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-contributions.json`,
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions.json?auth=${token}`,
           { ...contribution, id: null }
         );
       }),
@@ -174,17 +204,21 @@ export class GoalsService {
 
   deleteGoal(goalId: string) {
     let auth;
+    let authToken;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-
+        return authInfo.getIdToken();     
+      }),
+      switchMap((token) => {
+        authToken = token;
         return this.deleteContributionsOfGoal(goalId);
       }),
       take(1),
       switchMap(() => {
         return this.http.delete(
-          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-goals/${goalId}.json`
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-goals/${goalId}.json?auth=${authToken}`
         );
       }),
       switchMap(() => {
@@ -207,11 +241,17 @@ export class GoalsService {
 
   deleteContributionsOfGoal(goalId: string) {
     let auth;
+    let authToken;
     let updatedContributions;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
+        authToken = token;
         return this.userGoalsContributions;
       }),
       take(1),
@@ -228,7 +268,7 @@ export class GoalsService {
         );
         let observableList = updatedContributions.map((gc) => {
           return this.http.delete(
-            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json`
+            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json?auth=${authToken}`
           );
         });
         if (observableList.length === 0) {
@@ -245,11 +285,17 @@ export class GoalsService {
 
   deleteContributionsOfAsset(assetId: string) {
     let auth;
+    let authToken;
     let updatedContributions;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
+        authToken = token;
         return this.userGoalsContributions;
       }),
       take(1),
@@ -267,7 +313,7 @@ export class GoalsService {
         );
         let observableList = updatedContributions.map((gc) => {
           return this.http.delete(
-            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json`
+            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json?auth=${authToken}`
           );
         });
         if (observableList.length === 0) {
@@ -285,6 +331,7 @@ export class GoalsService {
   updateContributions(contributions: Contribution[], goalId: string) {
     console.log("here");
     let auth;
+    let authToken;
     let newContributions: Contribution[] = []; // this just contains the new one (not updated or deleted)
     let deletedContributions: Contribution[] = [];
     let updatedContributions: Contribution[] = [];
@@ -296,6 +343,11 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
+        authToken = token;
         return this.userGoalsContributions;
       }),
       take(1),
@@ -329,20 +381,16 @@ export class GoalsService {
         let deleteContributionsObservableList : Observable<Object>[]= deletedContributions.map(
           (gc) => {
             return this.http.delete(
-              `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json`
+              `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json?auth=${authToken}`
             );
           }
         );
         let updateContributionsObservableList : Observable<Object>[]= updatedContributions.map((gc) => {
-          console.log(`https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json`);
           return this.http.put(
-            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json`,
+            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json?auth=${authToken}`,
             { ...gc, id: null }
           );
         });
-        console.log(newContributionsObservableList);
-        console.log(updateContributionsObservableList);
-        console.log(deleteContributionsObservableList);
         if (newContributionsObservableList.length + deleteContributionsObservableList.length + updateContributionsObservableList.length === 0) {
           return of([]);
         } else {

@@ -26,11 +26,17 @@ export class AssetsService {
   }
 
   fetchUserAssets() {
+    let auth;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
+        auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap(token => {
         return this.http.get(
-          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-assets.json`
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets.json?auth=${token}`
         );
       }),
       map((resData) => {
@@ -40,7 +46,7 @@ export class AssetsService {
             let data = resData[key] as any;
             let assetType = data.assetType;
             let assetTypeCC =
-              assetType.charAt(0).toLowerCase() + assetType.slice(1);
+              (assetType.charAt(0).toLowerCase() + assetType.slice(1).replace(" ", ""));
             let asset: Asset;
             switch (assetType) {
               case AssetType.SavingsAccount: {
@@ -108,11 +114,17 @@ export class AssetsService {
 
   updateAssetAllocation(assetId: string, percentageIncrease: number) {
     let auth: firebase.User;
+    let authToken;
     let userAssetsUpdated: Asset[];
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap(token => {
+        authToken = token;
         return this.userAssets;
       }),
       take(1),
@@ -131,8 +143,9 @@ export class AssetsService {
           updatedAsset.percentUnallocated -= percentageIncrease;
           userAssets[index] = updatedAsset;
           userAssetsUpdated = userAssets;
+          
           return this.http.put(
-            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${assetId}.json`,
+            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${assetId}.json?auth=${authToken}`,
             { ...updatedAsset, id: null }
           );
         }
@@ -144,12 +157,18 @@ export class AssetsService {
   }
 
   addUserAsset(userAsset: Asset) {
+    let auth;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
-        userAsset.userId = authInfo.uid;
+        auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
+        userAsset.userId = auth.uid;
         return this.http.post<{ name: string }>(
-          `https://moneyapp-63c7a.firebaseio.com/${authInfo.uid}-assets.json`,
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets.json?auth=${token}`,
           { ...userAsset, id: null }
         );
       }),
@@ -168,11 +187,17 @@ export class AssetsService {
   // this is strictly to update asset (no new asset is added or deleted)
   updateUserAssets(newAssets: Asset[]) {
     let auth;
+    let authToken;
     let updatedUserAssets;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
+        authToken = token;
         return this.userAssets;
       }),
       take(1),
@@ -194,7 +219,7 @@ export class AssetsService {
         let observableList = assets.map((asset) => {
           return this.http
             .put(
-              `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${asset.id}.json`,
+              `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${asset.id}.json?auth=${authToken}`,
               { ...asset, id: null }
             )
         });
@@ -216,8 +241,12 @@ export class AssetsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
+        return authInfo.getIdToken();     
+      }),
+      take(1),
+      switchMap((token) => {
         return this.http.delete(
-          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${assetId}.json`
+          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${assetId}.json?auth=${token}`
         );
       }),
       switchMap(() => {

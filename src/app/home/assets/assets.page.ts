@@ -80,6 +80,9 @@ export class AssetsPage implements OnInit, OnDestroy {
         loadingEl.present();
         this.assetsService.fetchUserAssets().subscribe((data) => {
           loadingEl.dismiss();
+        }, (error) => {
+          console.log(error);
+          loadingEl.dismiss();
         });
       });
   }
