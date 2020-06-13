@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AssetsService } from "./assets.service";
 import { Asset, AssetType, AssetTypeUtils } from "./asset.model";
-import { Subscription, zip } from "rxjs";
+import { Subscription, zip, of } from "rxjs";
 import { take, tap, switchMap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
@@ -58,6 +58,9 @@ export class AssetsPage implements OnInit, OnDestroy {
               })
             )
           );
+          if (observableList.length === 0) {
+            return of([]);
+          }
           return zip(...observableList);
         })
       )

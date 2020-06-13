@@ -16,4 +16,10 @@ export class Contribution {
     public goalId: string,
     public percentageContribution: number
   ) {}
+
+  static deepCopy(c: Contribution) {
+    let newO = new Contribution(c.id, c.assetId, c.goalId, c.percentageContribution);
+    newO.userId = c.userId;
+    return newO;
+  }
 }

@@ -140,7 +140,7 @@ export class SavingsAccount {
   ) {}
 
   static toObject(data) {
-    return new SavingsAccount(data.bankName, data.accountNumber, data.amount, data.date, data.interestRate);
+    return new SavingsAccount(data.bankName, data.accountNumber, data.amount, new Date(data.date), data.interestRate);
   } 
 }
 
@@ -155,7 +155,7 @@ export class Deposits {
   ) {}
 
   static toObject(data) {
-    return new Deposits(data.bankName, data.depositNumber, data.amount, data.depositDate, data.maturityDate, data.interestRate);
+    return new Deposits(data.bankName, data.depositNumber, data.amount, new Date(data.depositDate), new Date(data.maturityDate), data.interestRate);
   } 
 }
 

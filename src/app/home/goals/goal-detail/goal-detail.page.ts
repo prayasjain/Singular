@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { Goal, Contribution } from "../goal.model";
 import { ActivatedRoute } from "@angular/router";
 import { GoalsService } from "../goals.service";
-import { Subscription, zip } from "rxjs";
+import { Subscription, zip, of } from "rxjs";
 import { map, take, switchMap, tap } from "rxjs/operators";
 import { AssetsService } from "../../assets/assets.service";
 import { Asset } from "../../assets/asset.model";
@@ -36,6 +36,8 @@ export class GoalDetailPage implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
 
+  goalId: string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private goalsService: GoalsService,
@@ -46,52 +48,64 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((paramMap) => {
-      let goalId = paramMap.get("goalId");
-      if (!goalId) {
-        return;
-      }
-      this.isLoading = true;
-      this.goalSub = this.authService.authInfo
-        .pipe(
-          take(1),
-          switchMap((user) => {
-            this.user = user;
-            return this.goalsService.userGoals;
-          }),
-          map((goals) => goals.find((goal) => goal.id === goalId)),
-          switchMap((goal) => {
-            this.goal = goal;
+    this.isLoading = true;
+    this.goalSub = this.activatedRoute.paramMap
+      .pipe(
+        switchMap((paramMap) => {
+          this.goalId = paramMap.get("goalId");
+          if (!this.goalId) {
+            return;
+          }
+          return this.authService.authInfo;
+        }),
+        switchMap((user) => {
+          this.user = user;
+          return this.goalsService.userGoals;
+        }),
+        map((goals) => {
+          console.log("goals updated");
+          return goals.find((goal) => goal.id === this.goalId);
+        }),
+        switchMap((goal) => {
+          this.goal = goal;
+          if (this.goal) {
             return this.goalsService.getUserGoalsContributionforGoal(
               this.goal.id
             );
-          }),
-          switchMap((contributions) => {
-            this.contributions = contributions;
-            return this.assetsService.userAssets; // returns all the assets
-          }),
-          switchMap((userAssets) => {
-            this.assetValueDate = new Date();
-            // we separate the user assets into assets (contributing to goal), and remaining assets
-            this.divideAssetsToContributingAndRemaining(userAssets);
-            // assign values of the remaining asset to value map
-            return this.setRemainingAssetValueMap();
-          }),
-          switchMap(() => {
-            // set the asset contribution map which is contribution of each asset to the goal
-            return this.setAssetContributionMap();
-          })
-        )
-        .subscribe(
-          () => {
-            this.setFinishPercentage();
-            this.isLoading = false;
-          },
-          (error) => {
-            this.isLoading = false;
+          }else {
+            return of([]);
           }
-        );
-    });
+          
+        }),
+        switchMap((contributions) => {
+          this.contributions = contributions;
+          if (this.contributions) {
+            return this.assetsService.userAssets; // returns all the assets
+          } else {
+            return of([]);
+          }
+        }),
+        switchMap((userAssets) => {
+          this.assetValueDate = new Date();
+          // we separate the user assets into assets (contributing to goal), and remaining assets
+          this.divideAssetsToContributingAndRemaining(userAssets);
+          // assign values of the remaining asset to value map
+          return this.setRemainingAssetValueMap();
+        }),
+        switchMap(() => {
+          // set the asset contribution map which is contribution of each asset to the goal
+          return this.setAssetContributionMap();
+        })
+      )
+      .subscribe(
+        () => {
+          this.setFinishPercentage();
+          this.isLoading = false;
+        },
+        (error) => {
+          this.isLoading = false;
+        }
+      );
   }
 
   divideAssetsToContributingAndRemaining(userAssets: Asset[]) {
@@ -120,6 +134,9 @@ export class GoalDetailPage implements OnInit, OnDestroy {
         })
       )
     );
+    if (observableList.length === 0) {
+      return of([]);
+    }
     return zip(...observableList);
   }
 
@@ -139,15 +156,20 @@ export class GoalDetailPage implements OnInit, OnDestroy {
           })
         );
     });
+    if (observableList.length === 0) {
+      return of([]);
+    }
     return zip(...observableList);
   }
 
   setFinishPercentage() {
-    this.finishPerc =
+    if (this.goal) {
+      this.finishPerc =
       Array.from(this.assetContributionMap.values()).reduce(
         (a, b) => a + b,
         0
       ) / this.goal.amountReqd;
+    }
   }
 
   get remainingAssetPercentage() {
@@ -158,12 +180,15 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   }
 
   onEditGoal() {
+    let oldContributions:Contribution[] = [];
+    this.contributions.forEach(c => oldContributions.push(Contribution.deepCopy(c)));
+    console.log(oldContributions);
     this.modalCtrl
       .create({
         component: EditGoalComponent,
         componentProps: {
           goal: this.goal,
-          contributions: this.contributions,
+          contributions: [...this.contributions],
           assets: this.assets,
           remainingAssets: this.remainingAssets,
           assetContributionMap: this.assetContributionMap,
@@ -176,7 +201,12 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       })
       .then((modalData) => {
         if (modalData.role === "confirm") {
-          if (!this.changeInContributionArray(modalData.data.contributions)) {
+          this.isLoading = true;
+          console.log(oldContributions);
+          console.log(modalData.data.contributions);
+          if (!this.changeInContributionArray(modalData.data.contributions, oldContributions)) {
+            console.log("fail!!");
+            this.isLoading = false;
             return;
           }
           // update the assets.
@@ -189,6 +219,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
             .pipe(
               take(1),
               switchMap((userAssets) => {
+                console.log("in here");
                 // update the contributions
                 return this.goalsService.updateContributions(
                   modalData.data.contributions,
@@ -196,7 +227,10 @@ export class GoalDetailPage implements OnInit, OnDestroy {
                 );
               })
             )
-            .subscribe(() => {});
+            .subscribe((data) => {
+              this.isLoading = false;
+              console.log(data);
+            });
         }
       });
   }
@@ -210,22 +244,26 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     );
   }
 
-  changeInContributionArray(contributions: Contribution[]) {
-    if (contributions.length !== this.contributions.length) {
+  changeInContributionArray(contributions: Contribution[], oldContributions:Contribution[]) {
+    if (contributions.length !== oldContributions.length) {
       return true;
     }
-    let oldContributions = [...this.contributions].sort();
+    oldContributions = oldContributions.sort();
     let newContributions = [...contributions].sort();
+    let flag = false;
     oldContributions.forEach((contribution, index) => {
       if (!this.isSameContribution(contribution, newContributions[index])) {
+        flag = true;
         return true;
       }
     });
-    return false;
+    return flag;
   }
 
   onDeleteGoal() {
+    this.isLoading = true;
     this.goalsService.deleteGoal(this.goal.id).subscribe(() => {
+      this.isLoading = false;
       this.router.navigateByUrl("/home/tabs/goals");
     });
   }
@@ -238,8 +276,18 @@ export class GoalDetailPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.isLoading = true;
-    this.assetsService.fetchUserAssets().subscribe((data) => {
-      this.isLoading = false;
-    });
+    this.assetsService
+      .fetchUserAssets()
+      .pipe(
+        switchMap(() => {
+          return this.goalsService.fetchUserGoals();
+        }),
+        switchMap(() => {
+          return this.goalsService.fetchUserGoalsContributions();
+        })
+      )
+      .subscribe((data) => {
+        this.isLoading = false;
+      });
   }
 }

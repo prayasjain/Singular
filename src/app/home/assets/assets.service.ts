@@ -192,18 +192,19 @@ export class AssetsService {
       }),
       switchMap((assets) => {
         let observableList = assets.map((asset) => {
-          console.log(asset);
           return this.http
             .put(
               `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${asset.id}.json`,
               { ...asset, id: null }
             )
         });
+        if (observableList.length === 0) {
+          return of([]);
+        }
         return zip(...observableList);
       }),
       tap(() => {
         console.log("Assets were updated");
-        console.log(updatedUserAssets);
         this._userAssets.next(updatedUserAssets);
       })
     );

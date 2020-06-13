@@ -33,7 +33,7 @@
   <ion-grid *ngIf="!isLoading">
     <ion-row class="ion-no-padding">
       <ion-col class="ion-text-center" size-md="6" offset-md="3">
-        <h3>{{goal.name}}</h3>
+        <h3>{{goal?.name}}</h3>
       </ion-col>
     </ion-row>
     <ion-row class="ion-no-padding">
@@ -49,10 +49,10 @@
       <ion-col class="ion-text-center" size-md="6" offset-md="3">
         <span>
           <b
-            >{{(goal.amountReqd*finishPerc) |
+            >{{(goal?.amountReqd*finishPerc) |
             currency:'INR':'symbol':'1.0-0'}}</b
           >
-          out of {{goal.amountReqd | currency:'INR':'symbol':'1.0-0'}}
+          out of {{goal?.amountReqd | currency:'INR':'symbol':'1.0-0'}}
         </span>
       </ion-col>
     </ion-row>
@@ -64,7 +64,7 @@
     <ion-row *ngFor="let asset of assets">
       <ion-col size-md="2" offset-md="3">
         <div>
-          {{asset.assetTitle}}
+          {{asset?.assetTitle}}
         </div>
       </ion-col>
       <ion-col size-md="2" class="ion-text-right">
@@ -81,7 +81,7 @@
   <ion-grid *ngIf="!isLoading">
     <ion-row class="ion-no-padding">
       <ion-col class="ion-text-center ion-no-padding" size-md="6" offset-md="3">
-        Goal Set on Date: {{goal.creationDate.toDateString()}}
+        Goal Set on Date: {{goal?.creationDate.toDateString()}}
       </ion-col>
     </ion-row>
     <ion-row class="ion-no-padding">

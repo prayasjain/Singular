@@ -14,7 +14,7 @@ import { AddNewAssetModalComponent } from "./add-new-asset-modal/add-new-asset-m
 import { AddNewGoalModalComponent } from "./add-new-goal-modal/add-new-goal-modal.component";
 import { EditGoalComponent } from "../goals/edit-goal/edit-goal.component";
 import { take, switchMap, tap } from "rxjs/operators";
-import { zip } from "rxjs";
+import { zip, of } from "rxjs";
 
 @Component({
   selector: "app-add-new",
@@ -107,6 +107,9 @@ export class AddNewComponent implements OnInit {
                           })
                         )
                       );
+                      if (observableList.length === 0) {
+                        return of([]);
+                      }
                       return zip(...observableList);
                     })
                   )
@@ -150,13 +153,11 @@ export class AddNewComponent implements OnInit {
                     }),
                     take(1),
                     switchMap((goal) => {
-                      console.log(goal);
                       // update the contributions
                       let contributions: Contribution[] =
                         modalData.data.contributions;
-                      console.log(contributions);
                       contributions.forEach((c) => (c.goalId = goal.id));
-                      console.log(contributions);
+                      console.log("here");
                       return this.goalsService.updateContributions(
                         contributions,
                         goal.id
@@ -167,6 +168,7 @@ export class AddNewComponent implements OnInit {
               }
             })
             .then((data) => {
+              console.log("here")
               if (data) {
                 loadingEl.dismiss();
                 return this.router.navigate([
