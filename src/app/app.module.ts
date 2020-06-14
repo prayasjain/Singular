@@ -14,6 +14,8 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { environment } from "../environments/environment";
 
+import { AvatarModule } from "ngx-avatar";
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -25,6 +27,7 @@ import { environment } from "../environments/environment";
     NoopAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AvatarModule
   ],
   providers: [
     StatusBar,

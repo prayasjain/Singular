@@ -1,8 +1,8 @@
 <ion-card class="custom">
   <span class="title">{{title}}</span>
   <ion-item [routerLink]="['/home/tabs/assets/asset-item/', id]">
-    <ion-thumbnail slot="start">
-      <ion-img [src]="imgUrl"></ion-img>
+    <ion-thumbnail>
+      <ngx-avatar [name]="title" initialsSize="2" [round]="false"></ngx-avatar>
     </ion-thumbnail>
     <ion-text>{{content}}</ion-text>
     <ion-text slot="end"> {{value | currency:'INR':'symbol':'1.0-0'}}</ion-text>
