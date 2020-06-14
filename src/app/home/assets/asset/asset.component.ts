@@ -14,6 +14,10 @@ export class AssetComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.itemColor) {
+      this.itemColor = "tertiary";
+    }
+  }
 
 }

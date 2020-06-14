@@ -8,9 +8,6 @@
       <ion-button [matMenuTriggerFor]="belowMenu">
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
-      <ion-avatar class="ion-padding">
-        <img [src]="user?.photoURL" />
-      </ion-avatar>
     </ion-buttons>
     
   </ion-toolbar>
@@ -20,23 +17,117 @@
   <button mat-menu-item (click)="onDeleteAsset()">Delete</button>
 </mat-menu>
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col class="ion-text-center" size-md="6" offset-md="3">
-        <h3>{{asset?.assetTitle}} ({{asset?.assetType}})</h3>
-        <ion-text>{{asset?.assetDetails}}</ion-text>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="ion-text-center" size-md="6" offset-md="3">
-        <h2>{{assetValue | currency:'INR':'symbol':'1.0-0'}}</h2>
-      </ion-col>
-    </ion-row>
 
-    <ion-row>
+  <ion-grid>
+    <!-- <ion-row>
+      <ion-col class="ion-text-center" size-md="6" offset-md="3">
+        <h3>{{asset?.assetTitle}}</h3>
+         <ion-text>{{asset?.assetDetails}}</ion-text> 
+      </ion-col>
+    </ion-row> -->
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <h3>{{assetValue | currency:'INR':'symbol':'1.0-0'}}</h3>
+        <!-- <p>as on {{currentDate.toDateString()}}</p> -->
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <ion-item>     
+          <ion-label position="floating" color="medium">
+            ASSET TYPE
+          </ion-label>
+          <h4 class="item-details">{{asset?.assetType}}</h4>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding"
+        *ngIf="
+        asset?.assetType === AssetType.SavingsAccount ||
+        asset?.assetType === AssetType.Deposits
+        "
+      >
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <ion-item>
+            <ion-label position="floating" color="medium"> ACCOUNT NUMBER/DETAILS </ion-label>
+            <h4 class="item-details">{{accountNumber}}</h4>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding"
+        *ngIf="
+        asset?.assetType === AssetType.SavingsAccount ||
+        asset?.assetType === AssetType.Deposits
+        "
+      >
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <ion-item>
+            <ion-label position="floating" color="medium">
+              INTEREST RATE
+            </ion-label>
+            <h4 class="item-details">{{interestRate}}</h4>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding" *ngIf="asset?.assetType === AssetType.Deposits">
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <ion-item>
+            <ion-label position="floating" color="medium"> MATURITY DATE </ion-label>
+            <h4 class="item-details">{{maturityDate}}</h4>
+            
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding" *ngIf="asset?.assetType === AssetType.Deposits">
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <ion-item>
+            <ion-label position="floating" color="medium"> DEPOSIT DATE </ion-label>
+            <h4 class="item-details">{{depositDate}}</h4>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding"
+        *ngIf="
+        asset?.assetType === AssetType.MutualFunds || asset?.assetType === AssetType.Equity
+        "
+      >
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <ion-item>
+            <ion-label position="floating" color="medium"> UNITS </ion-label>
+            <h4 class="item-details">{{units}}</h4>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding"
+        *ngIf="
+        asset?.assetType === AssetType.MutualFunds || asset?.assetType === AssetType.Equity
+        "
+      >
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <ion-item>
+            <ion-label position="floating" color="medium"> PRICE (per unit) </ion-label>
+            <h4 class="item-details">{{price}}</h4>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding"
+        *ngIf="
+        asset?.assetType === AssetType.MutualFunds || asset?.assetType === AssetType.Equity
+        "
+      >
+        <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+          <ion-item>
+            <ion-label position="floating" color="medium">
+              CURRENT VALUE (per unit)
+            </ion-label>
+            <h4 class="item-details">{{currentValue}}</h4>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    <!-- <ion-row>
       <ion-col class="ion-text-center" size-md="6" offset-md="3">
         <ion-text>as on {{date.toDateString()}}</ion-text>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
 </ion-content>

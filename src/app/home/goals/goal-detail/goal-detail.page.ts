@@ -63,7 +63,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
           return this.goalsService.userGoals;
         }),
         map((goals) => {
-          console.log("goals updated");
           return goals.find((goal) => goal.id === this.goalId);
         }),
         switchMap((goal) => {
@@ -182,7 +181,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   onEditGoal() {
     let oldContributions:Contribution[] = [];
     this.contributions.forEach(c => oldContributions.push(Contribution.deepCopy(c)));
-    console.log(oldContributions);
     this.modalCtrl
       .create({
         component: EditGoalComponent,
@@ -202,10 +200,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
       .then((modalData) => {
         if (modalData.role === "confirm") {
           this.isLoading = true;
-          console.log(oldContributions);
-          console.log(modalData.data.contributions);
           if (!this.changeInContributionArray(modalData.data.contributions, oldContributions)) {
-            console.log("fail!!");
             this.isLoading = false;
             return;
           }
@@ -219,7 +214,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
             .pipe(
               take(1),
               switchMap((userAssets) => {
-                console.log("in here");
                 // update the contributions
                 return this.goalsService.updateContributions(
                   modalData.data.contributions,
@@ -229,7 +223,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
             )
             .subscribe((data) => {
               this.isLoading = false;
-              console.log(data);
             });
         }
       });

@@ -31,6 +31,8 @@ export class GoalsPage implements OnInit, OnDestroy {
   assetValueDate: Date;
   assetValueMap: Map<string, number> = new Map();
 
+  allocatedAmount: number = 0;
+
   isLoading: boolean = false;
 
   private initGoal: boolean = false;
@@ -85,12 +87,12 @@ export class GoalsPage implements OnInit, OnDestroy {
   }
 
   updateGoalCompletion() {
-    
     if (!this.initAsset || !this.initGoal || !this.initContributions) {
       return;
     }
     this.goalCompletionMap.clear();
 
+    this.allocatedAmount = 0;
     this.userGoalsContributions.forEach((userGoalsContribution) => {
       let existingContribution =
         this.goalCompletionMap.get(userGoalsContribution.goalId) || 0;
@@ -98,6 +100,9 @@ export class GoalsPage implements OnInit, OnDestroy {
         this.assetValueMap.get(userGoalsContribution.assetId) || 0;
       let currentContribution =
         assetValue * userGoalsContribution.percentageContribution || 0;
+      this.allocatedAmount +=
+        userGoalsContribution.percentageContribution *
+        this.assetValueMap.get(userGoalsContribution.assetId);
       this.goalCompletionMap.set(
         userGoalsContribution.goalId,
         existingContribution + currentContribution

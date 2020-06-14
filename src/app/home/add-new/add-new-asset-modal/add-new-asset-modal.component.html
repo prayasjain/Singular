@@ -30,11 +30,31 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label position="floating">Name </ion-label>
+            <ion-label position="floating">Name* </ion-label>
             <ion-input
               type="text"
               [ngModel]="asset?.assetTitle"
               name="name"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row
+        *ngIf="
+          assetType === AssetType.SavingsAccount ||
+          assetType === AssetType.Deposits ||
+          assetType === AssetType.Cash ||
+          assetType === AssetType.Others
+        "
+      >
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"> Amount* </ion-label>
+            <ion-input
+              type="number"
+              [ngModel]="assetValue"
+              name="amount"
               required
             ></ion-input>
           </ion-item>
@@ -53,26 +73,6 @@
               type="text"
               [ngModel]="accountNumber"
               name="account-details"
-              required
-            ></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row
-        *ngIf="
-          assetType === AssetType.SavingsAccount ||
-          assetType === AssetType.Deposits ||
-          assetType === AssetType.Cash
-        "
-      >
-        <ion-col>
-          <ion-item>
-            <ion-label position="floating"> Amount </ion-label>
-            <ion-input
-              type="number"
-              [ngModel]="assetValue"
-              name="amount"
-              required
             ></ion-input>
           </ion-item>
         </ion-col>
@@ -106,7 +106,6 @@
               [ngModel]="maturityDate"
               [max]="maxMaturityDate"
               name="maturity-date"
-              required
             ></ion-datetime>
           </ion-item>
         </ion-col>
@@ -121,7 +120,6 @@
               [ngModel]="depositDate"
               [max]="maxMaturityDate"
               name="deposit-date"
-              required
             ></ion-datetime>
           </ion-item>
         </ion-col>
@@ -133,7 +131,7 @@
       >
         <ion-col>
           <ion-item>
-            <ion-label position="floating"> Units </ion-label>
+            <ion-label position="floating"> Units* </ion-label>
             <ion-input
               type="number"
               [ngModel]="units"
@@ -150,7 +148,7 @@
       >
         <ion-col>
           <ion-item>
-            <ion-label position="floating"> Price (per unit) </ion-label>
+            <ion-label position="floating"> Price (per unit)* </ion-label>
             <ion-input
               type="number"
               [ngModel]="price"

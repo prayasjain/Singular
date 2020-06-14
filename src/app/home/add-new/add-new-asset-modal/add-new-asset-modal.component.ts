@@ -7,6 +7,7 @@ import {
   MutualFunds,
   Equity,
   Cash,
+  Others,
 } from "../../assets/asset.model";
 import { NgForm } from "@angular/forms";
 import { ModalController } from "@ionic/angular";
@@ -51,12 +52,16 @@ export class AddNewAssetModalComponent implements OnInit {
       if (this.form.value["interest-rate"]) {
         interestRate = this.form.value["interest-rate"] / 100;
       }
+      let accountDetails;
+      if (this.form.value["account-details"]) {
+        accountDetails = this.form.value["account-details"];
+      }
       asset = new Asset(
         assetId,
         new SavingsAccount(
           this.form.value["name"],
-          this.form.value["account-details"],
           +this.form.value["amount"],
+          accountDetails,
           new Date(),
           interestRate
         ),
@@ -68,14 +73,26 @@ export class AddNewAssetModalComponent implements OnInit {
       if (this.form.value["interest-rate"]) {
         interestRate = this.form.value["interest-rate"] / 100;
       }
+      let maturityDate;
+      if (this.form.value["maturity-date"]) {
+        maturityDate = new Date(this.form.value["maturity-date"]);
+      }
+      let depositDate;
+      if (this.form.value["deposit-date"]) {
+        depositDate = new Date(this.form.value["deposit-date"]);
+      }
+      let accountDetails;
+      if (this.form.value["account-details"]) {
+        accountDetails = this.form.value["account-details"];
+      }
       asset = new Asset(
         assetId,
         new Deposits(
           this.form.value["name"],
-          this.form.value["account-details"],
           +this.form.value["amount"],
-          new Date(this.form.value["deposit-date"]),
-          new Date(this.form.value["maturity-date"]),
+          accountDetails,
+          depositDate,
+          maturityDate,
           interestRate
         ),
         percentUnAlloc
@@ -117,6 +134,13 @@ export class AddNewAssetModalComponent implements OnInit {
       asset = new Asset(
         assetId,
         new Cash(this.form.value["name"], +this.form.value["amount"]),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.Others) {
+      asset = new Asset(
+        assetId,
+        new Others(this.form.value["name"], +this.form.value["amount"]),
         percentUnAlloc
       );
     }

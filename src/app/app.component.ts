@@ -4,6 +4,7 @@ import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AuthService } from "./auth/auth.service";
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: "app-root",
@@ -11,6 +12,7 @@ import { AuthService } from "./auth/auth.service";
   styleUrls: ["app.component.scss"],
 })
 export class AppComponent {
+  user: firebase.User;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -25,6 +27,10 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+    this.authService.authInfo.pipe(take(1)).subscribe(user => {
+      this.user = user;
+    })
   }
 
   onLogout() {

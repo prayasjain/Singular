@@ -7,6 +7,7 @@ import {
   MutualFunds,
   Equity,
   Cash,
+  Others,
 } from "./asset.model";
 import { BehaviorSubject, of, Observable, zip } from "rxjs";
 import { take, tap, map, switchMap } from "rxjs/operators";
@@ -90,6 +91,14 @@ export class AssetsService {
                 asset = new Asset(
                   key,
                   Cash.toObject(data[assetTypeCC]),
+                  data.percentUnallocated
+                );
+                break;
+              }
+              case AssetType.Others: {
+                asset = new Asset(
+                  key,
+                  Others.toObject(data[assetTypeCC]),
                   data.percentUnallocated
                 );
                 break;
@@ -234,7 +243,6 @@ export class AssetsService {
         return zip(...observableList);
       }),
       tap(() => {
-        console.log("Assets were updated");
         this._userAssets.next(updatedUserAssets);
       })
     );

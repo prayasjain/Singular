@@ -200,7 +200,6 @@ export class GoalsService {
       }),
       take(1),
       switchMap((token) => {
-        console.log(contribution);
         contribution.userId = auth.uid;
         return this.http.post<{ name: string }>(
           `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions.json?auth=${token}`,
@@ -245,7 +244,6 @@ export class GoalsService {
       }),
       take(1),
       tap((goals) => {
-        console.log("deleting goal");
         this._userGoals.next(goals.filter((g) => g.id !== goalId));
       })
     );
@@ -289,7 +287,6 @@ export class GoalsService {
         return zip(...observableList);
       }),
       tap(() => {
-        console.log("herelast");
         this._userGoalsContributions.next(updatedContributions);
       })
     );
@@ -319,7 +316,6 @@ export class GoalsService {
       }),
       take(1),
       switchMap((goalContributions) => {
-        console.log("heree");
         updatedContributions = goalContributions.filter(
           (contribution) => contribution.assetId !== assetId
         );
@@ -341,7 +337,6 @@ export class GoalsService {
 
   // there will be some new contributions, and some old contributions that are updated, and some contributions that are deleted!
   updateContributions(contributions: Contribution[], goalId: string) {
-    console.log("here");
     let auth;
     let authToken;
     let newContributions: Contribution[] = []; // this just contains the new one (not updated or deleted)
@@ -364,7 +359,6 @@ export class GoalsService {
       }),
       take(1),
       switchMap((oldContributions) => {
-        console.log("here");
         oldAllContributions = oldContributions;
         // get contributions of the goal
         oldContributions = oldContributions.filter((c) => c.goalId === goalId);
@@ -374,8 +368,6 @@ export class GoalsService {
         deletedContributions = oldContributions.filter(
           (c) => !newIdsSet.has(c.id)
         );
-        console.log(oldIdsSet);
-        console.log(newIdsSet);
 
         // we want the new copy of the updated contributions
         updatedContributions = contributions.filter((c) => oldIdsSet.has(c.id));
@@ -385,7 +377,6 @@ export class GoalsService {
           .map((gc) => {
             return this.addUserGoalsContributionWithoutUpdateAsset(gc).pipe(
               tap((contribution) => {
-                console.log(contribution);
                 newContributions.push(contribution as Contribution);
               })
             );
@@ -413,16 +404,12 @@ export class GoalsService {
         
       }),
       map((resData) => {
-        console.log("here");
-        console.log(resData);
         return oldAllContributions
           .filter((oc) => oc.goalId !== goalId)
           .concat(newContributions)
           .concat(updatedContributions);
       }),
       tap((contributions) => {
-        console.log("here");
-        console.log(contributions);
         this._userGoalsContributions.next(contributions);
       })
     );

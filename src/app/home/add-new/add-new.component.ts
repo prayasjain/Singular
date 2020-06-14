@@ -25,7 +25,6 @@ export class AddNewComponent implements OnInit {
   @Input() assetType: AssetType;
   @Input() isAsset: boolean = false;
   @Input() isGoal: boolean = false;
-  @Input() isCashflow: boolean = false;
 
   constructor(
     private modalCtrl: ModalController,
@@ -76,6 +75,18 @@ export class AddNewComponent implements OnInit {
           let newGoal;
           let assets: Asset[];
           let assetValueMap: Map<string, number> = new Map();
+          let redirectMethod = (data) => {
+            if (data) {
+              loadingEl.dismiss();
+              return this.router.navigate([
+                "/home/tabs/goals/goal-detail/",
+                newGoal.id,
+              ]);
+            }
+            this.router.navigate(["/home/tabs/goals"]);
+          };
+
+          let noAssets: boolean = false;
           this.modalCtrl
             .create({
               component: AddNewGoalModalComponent,
@@ -118,6 +129,9 @@ export class AddNewComponent implements OnInit {
             })
             .then((data) => {
               if (data) {
+                if (!assets || assets.length === 0) {
+                  noAssets = true;
+                }
                 return this.modalCtrl.create({
                   component: EditGoalComponent,
                   componentProps: {
@@ -132,13 +146,17 @@ export class AddNewComponent implements OnInit {
               }
             })
             .then((modalEl) => {
-              if (modalEl) {
+              if (modalEl && !noAssets) {
                 modalEl.present();
                 return modalEl.onDidDismiss();
               }
             })
             .then((modalData) => {
-              if (modalData && modalData.role === "confirm") {
+              if (noAssets) {
+                return this.goalsService
+                  .addUserGoal(newGoal)
+                  .subscribe(redirectMethod);
+              } else if (modalData && modalData.role === "confirm") {
                 loadingEl.present();
                 return this.assetsService
                   .updateUserAssets(
@@ -157,26 +175,14 @@ export class AddNewComponent implements OnInit {
                       let contributions: Contribution[] =
                         modalData.data.contributions;
                       contributions.forEach((c) => (c.goalId = goal.id));
-                      console.log("here");
                       return this.goalsService.updateContributions(
                         contributions,
                         goal.id
                       );
                     })
                   )
-                  .toPromise();
+                  .subscribe(redirectMethod);
               }
-            })
-            .then((data) => {
-              console.log("here")
-              if (data) {
-                loadingEl.dismiss();
-                return this.router.navigate([
-                  "/home/tabs/goals/goal-detail/",
-                  newGoal.id,
-                ]);
-              }
-              this.router.navigate(["/home/tabs/goals"]);
             });
         }
       });
@@ -192,5 +198,4 @@ export class AddNewComponent implements OnInit {
   //       });
   //     });
   // }
-
 }

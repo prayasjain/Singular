@@ -3,27 +3,23 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home/tabs/assets"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-avatar class="ion-padding">
-        <img [src]="user?.photoURL" />
-      </ion-avatar>
-    </ion-buttons>
+    
     <ion-title>{{assetType}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content
   ><ion-grid>
-    <ion-row>
+    <!-- <ion-row>
       <ion-col class="ion-text-center" size-md="6" offset-md="3">
         <h3>{{assetType}}</h3>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <ion-row class="ion-no-padding">
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
         <h3>{{totalAmountForType | currency:'INR':'symbol':'1.0-0'}}</h3>
-        <p>as on {{currentDate.toDateString()}}</p>
+        <!-- <p>as on {{currentDate.toDateString()}}</p> -->
       </ion-col>
     </ion-row>
 

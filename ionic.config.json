@@ -1,5 +1,7 @@
 {
   "name": "moneyApp",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

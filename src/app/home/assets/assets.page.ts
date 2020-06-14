@@ -30,15 +30,17 @@ export class AssetsPage implements OnInit, OnDestroy {
     private loadingCtrl: LoadingController
   ) {}
 
+  OTHERS = AssetType.Others;
+
+  colorNo = 0;
+
   ngOnInit() {
-    console.log("a-bc".split("-bc")[0] === "a");
     this.currentDate = new Date();
     this.assetsSub = this.authService.authInfo
       .pipe(
         take(1),
         switchMap((user) => {
           this.user = user;
-          console.log(user.uid);
           return this.assetsService.userAssets;
         }),
         switchMap((userAssets) => {
@@ -91,14 +93,38 @@ export class AssetsPage implements OnInit, OnDestroy {
     this.totalAmountByAssetType.forEach((amount, assetType) => {
       let assetGroup: AssetGroup = {
         assetType: assetType,
-        amount: amount,
+        amount: amount
       };
       this.assetGroups.push(assetGroup);
     });
+    this.assetGroups.sort();
   }
 
   getSlug(assetType: AssetType) {
     return AssetTypeUtils.slug(assetType);
+  }
+
+  color(chars: string) {
+    
+      if (chars === AssetType.SavingsAccount) {
+      return "tertiary";
+    }
+    if (chars === AssetType.Deposits) {
+      return "tertiary";
+    }
+    if (chars === AssetType.MutualFunds) {
+      return "primary";
+    }
+    if (chars === AssetType.Equity) {
+      return "secondary";
+    }
+    if (chars === AssetType.Cash) {
+      return "secondary";
+    }
+    if (chars === AssetType.Others) {
+      return "primary";
+    }
+    return "primary";
   }
 
   ngOnDestroy() {

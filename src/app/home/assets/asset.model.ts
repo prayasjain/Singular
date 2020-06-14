@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { of } from "rxjs";
 
 export class Asset {
   public id: string;
@@ -11,12 +11,13 @@ export class Asset {
   public mutualFunds: MutualFunds;
   public equity: Equity;
   public cash: Cash;
+  public others: Others;
 
   public percentUnallocated: number;
 
   constructor(
     id: string,
-    asset: SavingsAccount | Deposits | MutualFunds | Equity | Cash,
+    asset: SavingsAccount | Deposits | MutualFunds | Equity | Cash| Others,
     percentUnallocated: number,
     notes?: string
   ) {
@@ -43,20 +44,38 @@ export class Asset {
       this.assetType = AssetType.Cash;
       this.cash = asset;
     }
+    if (asset instanceof Others) {
+      this.assetType = AssetType.Others;
+      this.others = asset;
+    }
   }
 
   getAmountForAsset(date: Date) {
     // compounding quarterly
     if (this.assetType === AssetType.SavingsAccount) {
       let daysDiff = Math.floor(
-        (date.getTime() - this.savingsAccount.date.getTime()) / (1000 * 3600 * 24));
-      let amount = this.savingsAccount.amount * Math.pow(1 + (this.savingsAccount.interestRate/4), Math.floor(daysDiff / 90));
+        (date.getTime() - this.savingsAccount.date.getTime()) /
+          (1000 * 3600 * 24)
+      );
+      let amount =
+        this.savingsAccount.amount *
+        Math.pow(
+          1 + this.savingsAccount.interestRate / 4,
+          Math.floor(daysDiff / 90)
+        );
       return of(amount);
     }
     if (this.assetType === AssetType.Deposits) {
+      if (!this.deposits.depositDate || !this.deposits.maturityDate) {
+        return of(this.deposits.amount);
+      }
       let daysDiff = Math.floor(
-        (date.getTime() - this.deposits.depositDate.getTime()) / (1000 * 3600 * 24));
-      let amount = this.deposits.amount * Math.pow(1 + (this.deposits.interestRate/4), Math.floor(daysDiff / 90));
+        (date.getTime() - this.deposits.depositDate.getTime()) /
+          (1000 * 3600 * 24)
+      );
+      let amount =
+        this.deposits.amount *
+        Math.pow(1 + this.deposits.interestRate / 4, Math.floor(daysDiff / 90));
       return of(amount);
     }
     if (this.assetType === AssetType.MutualFunds) {
@@ -67,6 +86,9 @@ export class Asset {
     }
     if (this.assetType === AssetType.Cash) {
       return of(this.cash.amount);
+    }
+    if (this.assetType === AssetType.Others) {
+      return of(this.others.amount);
     }
   }
 
@@ -85,6 +107,9 @@ export class Asset {
     }
     if (this.assetType === AssetType.Cash) {
       return this.cash.name;
+    }
+    if (this.assetType === AssetType.Others) {
+      return this.others.name;
     }
   }
 
@@ -105,6 +130,7 @@ export enum AssetType {
   MutualFunds = "Mutual Funds",
   Equity = "Equity",
   Cash = "Cash",
+  Others = "Others"
 }
 
 export namespace AssetTypeUtils {
@@ -127,36 +153,65 @@ export namespace AssetTypeUtils {
     if (slug === "cash") {
       return AssetType.Cash;
     }
+    if (slug === "others") {
+      return AssetType.Others;
+    }
   }
 }
 
 export class SavingsAccount {
   constructor(
     public bankName: string,
-    public accountNumber: string,
     public amount: number,
+    public accountNumber?: string,
     public date: Date = new Date(), // the stored amount is at the given date
     public interestRate: number = 0.04
   ) {}
 
   static toObject(data) {
-    return new SavingsAccount(data.bankName, data.accountNumber, data.amount, new Date(data.date), data.interestRate);
-  } 
+    let date: Date;
+    if (data.date) {
+      date = new Date(data.date);
+    }
+    return new SavingsAccount(
+      data.bankName,
+      data.amount,
+      data.accountNumber,
+      date,
+      data.interestRate
+    );
+  }
 }
 
 export class Deposits {
   constructor(
     public bankName: string,
-    public depositNumber: string,
     public amount: number,
-    public depositDate: Date,
-    public maturityDate: Date,
+    public depositNumber?: string,
+    public depositDate?: Date,
+    public maturityDate?: Date,
     public interestRate: number = 0.04
   ) {}
 
   static toObject(data) {
-    return new Deposits(data.bankName, data.depositNumber, data.amount, new Date(data.depositDate), new Date(data.maturityDate), data.interestRate);
-  } 
+    let depositDate: Date;
+    let maturityDate: Date;
+    if (data.depositDate) {
+      depositDate = new Date(data.depositDate);
+    }
+    if (data.maturityDate) {
+      maturityDate = new Date(data.maturityDate);
+    }
+    
+    return new Deposits(
+      data.bankName,
+      data.amount,
+      data.depositNumber,
+      depositDate,
+      maturityDate,
+      data.interestRate
+    );
+  }
 }
 
 export class MutualFunds {
@@ -168,8 +223,13 @@ export class MutualFunds {
   ) {}
 
   static toObject(data) {
-    return new MutualFunds(data.fundName, data.units, data.price, data.currentValue);
-  } 
+    return new MutualFunds(
+      data.fundName,
+      data.units,
+      data.price,
+      data.currentValue
+    );
+  }
 }
 
 export class Equity {
@@ -181,7 +241,12 @@ export class Equity {
   ) {}
 
   static toObject(data) {
-    return new Equity(data.stockName, data.units, data.price, data.currentValue);
+    return new Equity(
+      data.stockName,
+      data.units,
+      data.price,
+      data.currentValue
+    );
   }
 }
 
@@ -190,5 +255,13 @@ export class Cash {
 
   static toObject(data) {
     return new Cash(data.name, data.amount);
+  }
+}
+
+export class Others {
+  constructor(public name: string, public amount: number) {}
+
+  static toObject(data) {
+    return new Others(data.name, data.amount);
   }
 }

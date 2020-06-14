@@ -2,9 +2,15 @@
   <ion-menu side="start" menuId="mainMenu">
     <ion-header>
       <ion-toolbar>
-        <ion-title>
-          Money Saver App
-        </ion-title>
+        <ion-buttons slot="start">
+          <ion-menu-button menu="mainMenu"></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="primary">
+          <ion-avatar class="ion-padding">
+            <img [src]="user?.photoURL" />
+          </ion-avatar>
+        </ion-buttons>
+        <ion-title>Singular</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>

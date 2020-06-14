@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AssetsService } from "../assets.service";
-import { Asset } from "../asset.model";
+import { AssetType, Asset } from "../asset.model";
 import { switchMap, take } from "rxjs/operators";
 import { GoalsService } from "../../goals/goals.service";
 import { ModalController, LoadingController } from "@ionic/angular";
@@ -18,6 +18,9 @@ export class AssetItemPagePage implements OnInit {
   asset: Asset;
   assetValue: number = 0;
   date: Date;
+
+  // The following two are only for the html file
+  AssetType = AssetType; // this is used specifically for angular html component
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -50,11 +53,9 @@ export class AssetItemPagePage implements OnInit {
           }),
           take(1)
         )
-        .subscribe(
-          (value) => {
-            this.assetValue = value;
-          },
-        );
+        .subscribe((value) => {
+          this.assetValue = value;
+        });
     });
   }
 
@@ -120,5 +121,86 @@ export class AssetItemPagePage implements OnInit {
             this.router.navigateByUrl("/home/tabs/assets");
           });
       });
+  }
+
+  //TODO Refactor, dates are changed
+  get accountNumber() {
+    if (!this.asset) {
+      return;
+    }
+    if (this.asset.assetType === AssetType.SavingsAccount) {
+      return this.asset.savingsAccount.accountNumber;
+    }
+
+    if (this.asset.assetType === AssetType.Deposits) {
+      return this.asset.deposits.depositNumber;
+    }
+  }
+
+  get interestRate() {
+    if (!this.asset) {
+      return;
+    }
+    if (this.asset.assetType === AssetType.SavingsAccount) {
+      return this.asset.savingsAccount.interestRate;
+    }
+
+    if (this.asset.assetType === AssetType.Deposits) {
+      return this.asset.deposits.interestRate;
+    }
+  }
+  
+  get maturityDate() {
+    if (!this.asset) {
+      return;
+    }
+    if (this.asset.assetType === AssetType.Deposits && this.asset.deposits.maturityDate) {
+      return this.asset.deposits.maturityDate.toDateString();
+    }
+  }
+
+  get depositDate() {
+    if (!this.asset) {
+      return;
+    }
+    if (this.asset.assetType === AssetType.Deposits && this.asset.deposits.depositDate) {
+      return this.asset.deposits.depositDate.toDateString();
+    }
+  }
+
+  get units() {
+    if (!this.asset) {
+      return;
+    }
+    if (this.asset.assetType === AssetType.Equity) {
+      return this.asset.equity.units;
+    }
+    if (this.asset.assetType === AssetType.MutualFunds) {
+      return this.asset.mutualFunds.units;
+    }
+  }
+
+  get price() {
+    if (!this.asset) {
+      return;
+    }
+    if (this.asset.assetType === AssetType.Equity) {
+      return this.asset.equity.price;
+    }
+    if (this.asset.assetType === AssetType.MutualFunds) {
+      return this.asset.mutualFunds.price;
+    }
+  }
+
+  get currentValue() {
+    if (!this.asset) {
+      return;
+    }
+    if (this.asset.assetType === AssetType.Equity) {
+      return this.asset.equity.currentValue;
+    }
+    if (this.asset.assetType === AssetType.MutualFunds) {
+      return this.asset.mutualFunds.currentValue;
+    }
   }
 }
