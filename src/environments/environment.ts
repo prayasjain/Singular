@@ -13,7 +13,9 @@ export const environment = {
     messagingSenderId: "684119432471",
     appId: "1:684119432471:web:ab7614e37bfdc3082a6b52",
     measurementId: "G-G9ZWD0PCZD"
-  }
+  },
+  webclientId: '684119432471-3r6alaao97u3i7t11c81u1t4q6ss0cb9.apps.googleusercontent.com'
+  //'65201493470-tbmjfjkp3uj2vk3aaabdfos2o5ifsv70.apps.googleusercontent.com',
 };
 
 /*

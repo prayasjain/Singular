@@ -16,6 +16,8 @@ import { environment } from "../environments/environment";
 
 import { AvatarModule } from "ngx-avatar";
 
+import {GooglePlus} from "@ionic-native/google-plus/ngx";
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -31,6 +33,7 @@ import { AvatarModule } from "ngx-avatar";
   ],
   providers: [
     StatusBar,
+    GooglePlus,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
