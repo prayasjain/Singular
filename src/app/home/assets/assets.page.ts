@@ -73,19 +73,19 @@ export class AssetsPage implements OnInit, OnDestroy {
       });
   }
 
-  ionViewWillEnter() {
-    this.loadingCtrl
-      .create({ message: "Fetching Your Assets..." })
-      .then((loadingEl) => {
-        loadingEl.present();
-        this.assetsService.fetchUserAssets().subscribe((data) => {
-          loadingEl.dismiss();
-        }, (error) => {
-          console.log(error);
-          loadingEl.dismiss();
-        });
-      });
-  }
+  // ionViewWillEnter() {
+  //   this.loadingCtrl
+  //     .create({ message: "Fetching Your Assets..." })
+  //     .then((loadingEl) => {
+  //       loadingEl.present();
+  //       this.assetsService.fetchUserAssets().subscribe((data) => {
+  //         loadingEl.dismiss();
+  //       }, (error) => {
+  //         console.log(error);
+  //         loadingEl.dismiss();
+  //       });
+  //     });
+  // }
 
   getAmountByGroup() {
     this.totalAmountByAssetType.forEach((amount, assetType) => {

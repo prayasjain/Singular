@@ -12,6 +12,8 @@ import { HttpClient } from "@angular/common/http";
 export class GoalsService {
   private _userGoals = new BehaviorSubject<Goal[]>([]);
   private _userGoalsContributions = new BehaviorSubject<Contribution[]>([]);
+  private initializedGoals : boolean = false;
+  private initializedContribution : boolean = false;
 
   constructor(
     private assetsService: AssetsService,
@@ -20,10 +22,20 @@ export class GoalsService {
   ) {}
 
   get userGoals() {
+    if (!this.initializedGoals) {
+      this.fetchUserGoals().pipe(take(1)).subscribe(() => {
+        this.initializedGoals = true;
+      });
+    }
     return this._userGoals.asObservable();
   }
 
   get userGoalsContributions() {
+    if (!this.initializedContribution) {
+      this.fetchUserGoalsContributions().pipe(take(1)).subscribe(() => {
+        this.initializedContribution = true;
+      });
+    }
     return this._userGoalsContributions.asObservable();
   }
 

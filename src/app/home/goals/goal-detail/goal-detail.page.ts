@@ -274,20 +274,20 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     }
   }
 
-  ionViewWillEnter() {
-    this.isLoading = true;
-    this.assetsService
-      .fetchUserAssets()
-      .pipe(
-        switchMap(() => {
-          return this.goalsService.fetchUserGoals();
-        }),
-        switchMap(() => {
-          return this.goalsService.fetchUserGoalsContributions();
-        })
-      )
-      .subscribe((data) => {
-        this.isLoading = false;
-      });
-  }
+  // ionViewWillEnter() {
+  //   this.isLoading = true;
+  //   this.assetsService
+  //     .fetchUserAssets()
+  //     .pipe(
+  //       switchMap(() => {
+  //         return this.goalsService.fetchUserGoals();
+  //       }),
+  //       switchMap(() => {
+  //         return this.goalsService.fetchUserGoalsContributions();
+  //       })
+  //     )
+  //     .subscribe((data) => {
+  //       this.isLoading = false;
+  //     });
+  // }
 }

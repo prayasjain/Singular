@@ -33,6 +33,10 @@ export class GoalsPage implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
 
+  private initGoal: boolean = false;
+  private initAsset: boolean = false;
+  private initContributions: boolean = false;
+
   constructor(
     private goalsService: GoalsService,
     private assetsService: AssetsService,
@@ -51,6 +55,7 @@ export class GoalsPage implements OnInit, OnDestroy {
       )
       .subscribe((userAssets) => {
         this.userAssets = userAssets;
+        this.initAsset = true;
         this.assetValueDate = new Date();
         this.assetValueMap.clear();
         let list = userAssets.map((userAsset) =>
@@ -67,18 +72,21 @@ export class GoalsPage implements OnInit, OnDestroy {
       });
     this.userGoalsSub = this.goalsService.userGoals.subscribe((usergoals) => {
       this.userGoals = usergoals;
+      this.initGoal = true;
       this.updateGoalCompletion();
     });
     this.userGoalsContributionsSub = this.goalsService.userGoalsContributions.subscribe(
       (userGoalsContributions) => {
         this.userGoalsContributions = userGoalsContributions;
+        this.initContributions = true;
         this.updateGoalCompletion();
       }
     );
   }
 
   updateGoalCompletion() {
-    if (!this.userGoals || !this.userGoalsContributions || !this.userAssets) {
+    
+    if (!this.initAsset || !this.initGoal || !this.initContributions) {
       return;
     }
     this.goalCompletionMap.clear();
@@ -94,8 +102,8 @@ export class GoalsPage implements OnInit, OnDestroy {
         userGoalsContribution.goalId,
         existingContribution + currentContribution
       );
-      this.isLoading = false;
     });
+    this.isLoading = false;
   }
 
   ngOnDestroy() {
@@ -110,20 +118,20 @@ export class GoalsPage implements OnInit, OnDestroy {
     }
   }
 
-  ionViewWillEnter() {
-    this.isLoading = true;
-    this.assetsService
-      .fetchUserAssets()
-      .pipe(
-        switchMap(() => {
-          return this.goalsService.fetchUserGoals();
-        }),
-        switchMap(() => {
-          return this.goalsService.fetchUserGoalsContributions();
-        })
-      )
-      .subscribe((data) => {
-        this.isLoading = false;
-      });
-  }
+  // ionViewWillEnter() {
+  //   this.isLoading = true;
+  //   this.assetsService
+  //     .fetchUserAssets()
+  //     .pipe(
+  //       switchMap(() => {
+  //         return this.goalsService.fetchUserGoals();
+  //       }),
+  //       switchMap(() => {
+  //         return this.goalsService.fetchUserGoalsContributions();
+  //       })
+  //     )
+  //     .subscribe((data) => {
+  //       this.isLoading = false;
+  //     });
+  // }
 }

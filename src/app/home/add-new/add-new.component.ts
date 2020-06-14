@@ -182,15 +182,15 @@ export class AddNewComponent implements OnInit {
       });
   }
 
-  ionViewWillEnter() {
-    this.loadingCtrl
-      .create({ message: "Fetching Your Assets..." })
-      .then((loadingEl) => {
-        loadingEl.present();
-        this.assetsService.fetchUserAssets().subscribe((data) => {
-          loadingEl.dismiss();
-        });
-      });
-  }
+  // ionViewWillEnter() {
+  //   this.loadingCtrl
+  //     .create({ message: "Fetching Your Assets..." })
+  //     .then((loadingEl) => {
+  //       loadingEl.present();
+  //       this.assetsService.fetchUserAssets().subscribe((data) => {
+  //         loadingEl.dismiss();
+  //       });
+  //     });
+  // }
 
 }

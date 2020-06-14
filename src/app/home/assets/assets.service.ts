@@ -18,10 +18,15 @@ import { AuthService } from "src/app/auth/auth.service";
 })
 export class AssetsService {
   private _userAssets = new BehaviorSubject<Asset[]>([]);
-
+  private initializedAssets: boolean = false;
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   get userAssets(): Observable<Asset[]> {
+    if (!this.initializedAssets) {
+      this.fetchUserAssets().pipe(take(1)).subscribe(() => {
+        this.initializedAssets = true;
+      });
+    }
     return this._userAssets.asObservable();
   }
 
