@@ -6,7 +6,7 @@
           <ion-menu-button menu="mainMenu"></ion-menu-button>
         </ion-buttons>
         <ion-buttons slot="primary">
-          <ion-avatar class="ion-padding">
+          <ion-avatar class="ion-padding" *ngIf="user">
             <img [src]="user?.photoURL" />
           </ion-avatar>
         </ion-buttons>

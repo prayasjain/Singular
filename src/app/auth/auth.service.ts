@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 
 import { Platform } from "@ionic/angular";
-import {GooglePlus} from "@ionic-native/google-plus/ngx";
+import { GooglePlus } from "@ionic-native/google-plus/ngx";
 import { environment } from "../../environments/environment";
 
 @Injectable({
@@ -21,15 +21,30 @@ export class AuthService {
 
   constructor(
     private platform: Platform,
-    private gPlus: GooglePlus, 
+    private gPlus: GooglePlus,
     private afAuth: AngularFireAuth,
     private router: Router
   ) {
     this.authInfo = this.afAuth.authState;
+    let user = this.gPlus
+      .trySilentLogin({
+        webClientId: environment.webclientId,
+        offline: true,
+        scopes: "profile email",
+      })
+      .then((data) => {
+        if (data) {
+          return this.afAuth.auth.signInWithCredential(
+            firebase.auth.GoogleAuthProvider.credential(user.idToken)
+          );
+        }
+      })
+      .then(() => {
+        this.router.navigateByUrl("/home/tabs/assets");
+      });
   }
 
   login() {
-    
     if (this.platform.is("desktop")) {
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider())
@@ -37,37 +52,47 @@ export class AuthService {
           this.router.navigateByUrl("/home/tabs/assets");
         });
     } else {
-      console.log("here");
-      this.nativeGoogleLogin().then(() => {
-        this.router.navigateByUrl("/home/tabs/assets");
-      })
+      this.nativeGoogleLogin().then((data) => {
+        if (data) {
+          this.router.navigateByUrl("/home/tabs/assets");
+        }
+      });
     }
   }
 
   async nativeGoogleLogin() {
     try {
       const gplusUser = await this.gPlus.login({
-        'webClientId': environment.webclientId,
-        
-        'offline': true,
-        'scopes': 'profile email'
+        webClientId: environment.webclientId,
+        offline: true,
+        scopes: "profile email",
       });
       return await this.afAuth.auth.signInWithCredential(
         firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
-      )
+      );
     } catch (err) {
       console.log(err);
     }
-    
   }
 
   logout() {
-    this.afAuth.auth.signOut().then(() => {
-      this.router.navigateByUrl("/auth");
-    });
-    if (!this.platform.is("desktop")) {
-      this.gPlus.logout().then(() => {})
-    } 
-    
+    if (this.platform.is("desktop")) {
+      this.afAuth.auth.signOut().then(() => {
+        this.router.navigateByUrl("/auth");
+      });
+    } else {
+      this.afAuth.auth.signOut().then(() => {
+        return this.gPlus.trySilentLogin({
+          webClientId: environment.webclientId,
+          offline: true,
+          scopes: "profile email",
+        })
+      }).then(() => {
+        return this.gPlus.logout();
+      })
+      .then(() => {
+        this.router.navigateByUrl("/auth");
+      })
+    }
   }
 }

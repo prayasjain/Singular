@@ -5,6 +5,7 @@ import { take, tap, map, switchMap } from "rxjs/operators";
 import { AssetsService } from "../assets/assets.service";
 import { AuthService } from "src/app/auth/auth.service";
 import { HttpClient } from "@angular/common/http";
+import { Asset } from "../assets/asset.model";
 
 @Injectable({
   providedIn: "root",
@@ -12,8 +13,8 @@ import { HttpClient } from "@angular/common/http";
 export class GoalsService {
   private _userGoals = new BehaviorSubject<Goal[]>([]);
   private _userGoalsContributions = new BehaviorSubject<Contribution[]>([]);
-  private initializedGoals : boolean = false;
-  private initializedContribution : boolean = false;
+  private initializedGoals: boolean = false;
+  private initializedContribution: boolean = false;
 
   constructor(
     private assetsService: AssetsService,
@@ -23,18 +24,22 @@ export class GoalsService {
 
   get userGoals() {
     if (!this.initializedGoals) {
-      this.fetchUserGoals().pipe(take(1)).subscribe(() => {
-        this.initializedGoals = true;
-      });
+      this.fetchUserGoals()
+        .pipe(take(1))
+        .subscribe(() => {
+          this.initializedGoals = true;
+        });
     }
     return this._userGoals.asObservable();
   }
 
   get userGoalsContributions() {
     if (!this.initializedContribution) {
-      this.fetchUserGoalsContributions().pipe(take(1)).subscribe(() => {
-        this.initializedContribution = true;
-      });
+      this.fetchUserGoalsContributions()
+        .pipe(take(1))
+        .subscribe(() => {
+          this.initializedContribution = true;
+        });
     }
     return this._userGoalsContributions.asObservable();
   }
@@ -45,7 +50,7 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -81,7 +86,7 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -127,7 +132,7 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -158,7 +163,7 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -196,7 +201,7 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -220,7 +225,7 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       switchMap((token) => {
         authToken = token;
@@ -253,11 +258,13 @@ export class GoalsService {
     let auth;
     let authToken;
     let updatedContributions;
+    let updatedAssets: Asset[] = [];
+    let originalContributions: Contribution[];
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -273,18 +280,50 @@ export class GoalsService {
       }),
       take(1),
       switchMap((goalContributions) => {
-        updatedContributions = goalContributions.filter(
+        originalContributions = goalContributions;
+        return this.assetsService.userAssets;
+      }),
+      take(1),
+      switchMap((userAssets) => {
+        if (!userAssets || userAssets.length <= 0) {
+          return this.assetsService.fetchUserAssets();
+        }
+        return of(userAssets);
+      }),
+      take(1),
+      switchMap((userAssets: Asset[]) => {
+        updatedContributions = originalContributions.filter(
           (contribution) => contribution.goalId !== goalId
         );
-        let observableList = updatedContributions.map((gc) => {
+        let deletedContributions = originalContributions.filter(
+          (c) => c.goalId === goalId
+        );
+        deletedContributions.forEach((c) => {
+          let updAsset = userAssets.find((a) => a.id === c.assetId);
+          updAsset.percentUnallocated += c.percentageContribution;
+          updatedAssets.push(updAsset);
+        });
+        let contributionObservableList = updatedContributions.map((gc) => {
           return this.http.delete(
             `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json?auth=${authToken}`
           );
         });
-        if (observableList.length === 0) {
+        let assetObservableList = updatedAssets.map((a) => {
+          return this.http.put(
+            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${a.id}.json?auth=${authToken}`,
+            { ...a, id: null }
+          );
+        });
+        if (
+          contributionObservableList.length + assetObservableList.length ===
+          0
+        ) {
           return of([]);
         }
-        return zip(...observableList);
+        return zip(...contributionObservableList, ...assetObservableList);
+      }),
+      switchMap(() => {
+        return this.assetsService.fetchUserAssets();
       }),
       tap(() => {
         this._userGoalsContributions.next(updatedContributions);
@@ -300,7 +339,7 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -350,7 +389,7 @@ export class GoalsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -372,7 +411,9 @@ export class GoalsService {
         // we want the new copy of the updated contributions
         updatedContributions = contributions.filter((c) => oldIdsSet.has(c.id));
         // these are the new contributions
-        let newContributionsObservableList : Observable<Contribution | Object>[]= contributions
+        let newContributionsObservableList: Observable<
+          Contribution | Object
+        >[] = contributions
           .filter((c) => !oldIdsSet.has(c.id))
           .map((gc) => {
             return this.addUserGoalsContributionWithoutUpdateAsset(gc).pipe(
@@ -381,27 +422,35 @@ export class GoalsService {
               })
             );
           });
-        let deleteContributionsObservableList : Observable<Object>[]= deletedContributions.map(
-          (gc) => {
-            return this.http.delete(
-              `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json?auth=${authToken}`
-            );
-          }
-        );
-        let updateContributionsObservableList : Observable<Object>[]= updatedContributions.map((gc) => {
+        let deleteContributionsObservableList: Observable<
+          Object
+        >[] = deletedContributions.map((gc) => {
+          return this.http.delete(
+            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json?auth=${authToken}`
+          );
+        });
+        let updateContributionsObservableList: Observable<
+          Object
+        >[] = updatedContributions.map((gc) => {
           return this.http.put(
             `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-contributions/${gc.id}.json?auth=${authToken}`,
             { ...gc, id: null }
           );
         });
-        if (newContributionsObservableList.length + deleteContributionsObservableList.length + updateContributionsObservableList.length === 0) {
+        if (
+          newContributionsObservableList.length +
+            deleteContributionsObservableList.length +
+            updateContributionsObservableList.length ===
+          0
+        ) {
           return of([]);
         } else {
-          
-          return zip(...newContributionsObservableList, ...deleteContributionsObservableList, ...updateContributionsObservableList);
-
+          return zip(
+            ...newContributionsObservableList,
+            ...deleteContributionsObservableList,
+            ...updateContributionsObservableList
+          );
         }
-        
       }),
       map((resData) => {
         return oldAllContributions
