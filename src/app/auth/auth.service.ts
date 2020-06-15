@@ -82,12 +82,6 @@ export class AuthService {
       });
     } else {
       this.afAuth.auth.signOut().then(() => {
-        return this.gPlus.trySilentLogin({
-          webClientId: environment.webclientId,
-          offline: true,
-          scopes: "profile email",
-        })
-      }).then(() => {
         return this.gPlus.logout();
       })
       .then(() => {
