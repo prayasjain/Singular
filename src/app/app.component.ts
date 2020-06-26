@@ -1,10 +1,12 @@
 import { Component } from "@angular/core";
 
-import { Platform } from "@ionic/angular";
+import { Platform, LoadingController } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AuthService } from "./auth/auth.service";
-import { take } from 'rxjs/operators';
+import { take } from "rxjs/operators";
+import { SmsService } from "./sms/sms.service";
+import { SavingsAccount } from "./home/assets/asset.model";
 
 @Component({
   selector: "app-root",
@@ -17,7 +19,9 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthService
+    private authService: AuthService,
+    private smsService: SmsService,
+    private loadingCtrl: LoadingController
   ) {
     this.initializeApp();
   }
@@ -28,12 +32,35 @@ export class AppComponent {
       this.splashScreen.hide();
     });
 
-    this.authService.authInfo.pipe(take(1)).subscribe(user => {
+    this.authService.authInfo.pipe(take(1)).subscribe((user) => {
       this.user = user;
-    })
+    });
   }
 
   onLogout() {
     this.authService.logout();
+  }
+
+  readAccountFromSMS() {
+    this.loadingCtrl
+      .create({ message: "Updating your Savings Account" })
+      .then((loadingEl) => {
+        loadingEl.present();
+        this.smsService.convertSMSToAccount().then((savingsAccounts) => {
+          if (!savingsAccounts || savingsAccounts.length == 0) {
+            loadingEl.dismiss();
+            return;
+          }
+          this.smsService.saveSavingsAccounts(savingsAccounts).subscribe(
+            (data) => {
+              loadingEl.dismiss();
+            },
+            (err) => {
+              console.log(err);
+              loadingEl.dismiss();
+            }
+          );
+        });
+      });
   }
 }

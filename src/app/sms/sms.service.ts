@@ -1,0 +1,119 @@
+import { Injectable } from "@angular/core";
+import { Plugins } from "@capacitor/core";
+import { Asset, SavingsAccount, AssetType } from "../home/assets/asset.model";
+import { AssetsService } from "../home/assets/assets.service";
+import { take, switchMap } from "rxjs/operators";
+import { of, Observable, zip } from "rxjs";
+import { LoadingController } from "@ionic/angular";
+const { SMSPlugin } = Plugins;
+
+@Injectable({
+  providedIn: "root",
+})
+export class SmsService {
+  constructor(
+    private assetsService: AssetsService,
+    private loadingCtrl: LoadingController
+  ) {}
+
+  async convertSMSToAccount() {
+    let savingsAccounts: SavingsAccount[] = [];
+    try {
+      let data = await this.fetchSms(null, null, null);
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          let accountInfo = data[key];
+          const savingAccount: SavingsAccount = new SavingsAccount(
+            accountInfo["bankName"],
+            +accountInfo["amount"],
+            accountInfo["account"],
+            new Date(accountInfo["date"])
+          );
+          savingsAccounts.push(savingAccount);
+        }
+      }
+      if (savingsAccounts.length === 0) {
+        return;
+      }
+      return savingsAccounts;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  saveSavingsAccounts(savingsAccounts) {
+    return this.assetsService.userAssets.pipe(
+      take(1),
+      switchMap((userAssets) => {
+        if (!userAssets) {
+          return this.assetsService.fetchUserAssets();
+        }
+        return of(userAssets);
+      }),
+      switchMap((userAssets) => {
+        let observableList: Observable<any>[] = [];
+        savingsAccounts.forEach((newAccount) => {
+          let isNewAccount: boolean = true;
+          let updatedAsset: Asset;
+          for (let oldAccount of userAssets) {
+            if (oldAccount.assetType !== AssetType.SavingsAccount) {
+              continue;
+            }
+            if (
+              oldAccount.savingsAccount.accountNumber ===
+              newAccount.accountNumber
+            ) {
+              isNewAccount = false;
+              updatedAsset = oldAccount;
+              updatedAsset.savingsAccount.amount = newAccount.amount;
+              updatedAsset.savingsAccount.date = newAccount.date;
+              break;
+            }
+          }
+          if (isNewAccount) {
+            observableList.push(
+              this.assetsService.addUserAsset(
+                new Asset(Math.random().toString(), newAccount, 1)
+              )
+            );
+          } else {
+            // just update the amount of the asset, date
+            let assets: Asset[] = [];
+            assets.push(updatedAsset);
+            observableList.push(this.assetsService.updateUserAssets(assets));
+          }
+        });
+        if (observableList.length === 0) {
+          return of([]);
+        } else {
+          return zip(...observableList);
+        }
+      })
+    );
+  }
+
+  async fetchSms(since, searchtexts, senderids) {
+    let _senderids = [];
+    let _searchtexts = [];
+    let _since = 0;
+    if (senderids && senderids.length) {
+      _senderids = senderids;
+    }
+    if (searchtexts && searchtexts.length) {
+      _searchtexts = searchtexts;
+    }
+    if (since) {
+      _since = +new Date(since);
+    }
+
+    return SMSPlugin.ensurePermissions().then(
+      (success) => {
+        return SMSPlugin.fetchSMS();
+      },
+      (err) => {
+        console.log(err);
+        return Promise.reject(err);
+      }
+    );
+  }
+}

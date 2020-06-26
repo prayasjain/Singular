@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Singular</string>
+    <string name="title_activity_main">Singular</string>
+    <string name="package_name">com.startup.Singular</string>
+    <string name="custom_url_scheme">com.startup.Singular</string>
+</resources>
