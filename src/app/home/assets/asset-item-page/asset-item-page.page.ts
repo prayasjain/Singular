@@ -155,7 +155,7 @@ export class AssetItemPagePage implements OnInit {
       return;
     }
     if (this.asset.assetType === AssetType.Deposits && this.asset.deposits.maturityDate) {
-      return this.asset.deposits.maturityDate.toDateString();
+      return new Intl.DateTimeFormat('en-GB').format(this.asset.deposits.maturityDate);
     }
   }
 
@@ -164,7 +164,7 @@ export class AssetItemPagePage implements OnInit {
       return;
     }
     if (this.asset.assetType === AssetType.Deposits && this.asset.deposits.depositDate) {
-      return this.asset.deposits.depositDate.toDateString();
+      return new Intl.DateTimeFormat('en-GB').format(this.asset.deposits.depositDate);
     }
   }
 

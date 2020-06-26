@@ -104,28 +104,31 @@ export class AddNewComponent implements OnInit {
                   resultData.data.amount,
                   date
                 );
-
-                return this.assetsService.userAssets
-                  .pipe(
-                    take(1),
-                    switchMap((userAssets) => {
-                      assets = userAssets;
-                      let observableList = assets.map((a) =>
-                        a.getAmountForAsset(date).pipe(
-                          take(1),
-                          tap((assetValue) => {
-                            assetValueMap.set(a.id, assetValue);
-                          })
-                        )
-                      );
-                      if (observableList.length === 0) {
-                        return of([]);
-                      }
-                      return zip(...observableList);
-                    })
-                  )
-                  .toPromise();
+                return this.goalsService.addUserGoal(newGoal).toPromise();
+                
               }
+            })
+            .then(data => {
+              return this.assetsService.userAssets
+              .pipe(
+                take(1),
+                switchMap((userAssets) => {
+                  assets = userAssets;
+                  let observableList = assets.map((a) =>
+                    a.getAmountForAsset(date).pipe(
+                      take(1),
+                      tap((assetValue) => {
+                        assetValueMap.set(a.id, assetValue);
+                      })
+                    )
+                  );
+                  if (observableList.length === 0) {
+                    return of([]);
+                  }
+                  return zip(...observableList);
+                })
+              )
+              .toPromise();
             })
             .then((data) => {
               if (data) {
@@ -153,9 +156,8 @@ export class AddNewComponent implements OnInit {
             })
             .then((modalData) => {
               if (noAssets) {
-                return this.goalsService
-                  .addUserGoal(newGoal)
-                  .subscribe(redirectMethod);
+                redirectMethod(modalData);
+                return;
               } else if (modalData && modalData.role === "confirm") {
                 loadingEl.present();
                 return this.assetsService
