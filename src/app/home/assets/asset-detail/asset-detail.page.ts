@@ -6,6 +6,7 @@ import { Subscription, zip } from "rxjs";
 import { switchMap, take, tap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
+import { CurrencyService } from '../../currency/currency.service';
 
 @Component({
   selector: "app-asset-detail",
@@ -20,15 +21,31 @@ export class AssetDetailPage implements OnInit, OnDestroy {
   totalAmountForType: number;
   currentDate: Date;
   assetValueMap = new Map();
+  
+  currency: string;
+  currencyLocale: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private assetsService: AssetsService,
     private authService: AuthService,
+    private currencyService: CurrencyService,
     private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
+    this.currencyService
+      .fetchCurrency()
+      .pipe(
+        take(1),
+        switchMap(() => this.currencyService.currency)
+      )
+      .subscribe((currency) => {
+        this.currency = currency;
+        this.currencyLocale = this.currencyService.getLocaleForCurrency(
+          this.currency
+        );
+      });
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       let assetSlug = paramMap.get("assetSlug");
       this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);

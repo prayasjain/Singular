@@ -7,6 +7,7 @@ import { AssetsService } from "../assets/assets.service";
 import { mergeMap, tap, take, switchMap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
+import { CurrencyService } from '../currency/currency.service';
 
 @Component({
   selector: "app-goals",
@@ -39,13 +40,21 @@ export class GoalsPage implements OnInit, OnDestroy {
   private initAsset: boolean = false;
   private initContributions: boolean = false;
 
+  currency: string;
+  currencyLocale: string;
+
   constructor(
     private goalsService: GoalsService,
     private assetsService: AssetsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private currencyService: CurrencyService
   ) {}
 
   ngOnInit() {
+    this.currencyService.fetchCurrency().pipe(take(1),switchMap(() => this.currencyService.currency)).subscribe(currency => {
+      this.currency = currency;
+      this.currencyLocale = this.currencyService.getLocaleForCurrency(this.currency);
+    })
     this.isLoading = true;
     this.userAssetsSub = this.authService.authInfo
       .pipe(

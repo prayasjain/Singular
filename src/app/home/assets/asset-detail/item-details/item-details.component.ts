@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CurrencyService } from 'src/app/home/currency/currency.service';
+import { take, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-assets-item-details',
@@ -13,8 +15,24 @@ export class ItemDetailsComponent implements OnInit {
 //  @Input() imgUrl: string;
   @Input() id: string;
 
-  constructor() { }
+  currency: string;
+  currencyLocale: string;
 
-  ngOnInit() {}
+  constructor(private currencyService: CurrencyService) { }
+
+  ngOnInit() {
+    this.currencyService
+      .fetchCurrency()
+      .pipe(
+        take(1),
+        switchMap(() => this.currencyService.currency)
+      )
+      .subscribe((currency) => {
+        this.currency = currency;
+        this.currencyLocale = this.currencyService.getLocaleForCurrency(
+          this.currency
+        );
+      });
+  }
 
 }

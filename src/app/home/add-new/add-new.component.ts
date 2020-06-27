@@ -109,6 +109,9 @@ export class AddNewComponent implements OnInit {
               }
             })
             .then(data => {
+              if (!data) {
+                return;
+              }
               return this.assetsService.userAssets
               .pipe(
                 take(1),

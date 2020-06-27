@@ -1,12 +1,17 @@
 import { Component } from "@angular/core";
 
-import { Platform, LoadingController } from "@ionic/angular";
+import {
+  Platform,
+  LoadingController,
+  ActionSheetController,
+} from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AuthService } from "./auth/auth.service";
-import { take } from "rxjs/operators";
+import { take, switchMap } from "rxjs/operators";
 import { SmsService } from "./sms/sms.service";
-import { SavingsAccount } from "./home/assets/asset.model";
+import { Plugins } from "@capacitor/core";
+import { CurrencyService } from "./home/currency/currency.service";
 
 @Component({
   selector: "app-root",
@@ -22,7 +27,9 @@ export class AppComponent {
     private statusBar: StatusBar,
     private authService: AuthService,
     private smsService: SmsService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private actionSheetCtrl: ActionSheetController,
+    private currencyService: CurrencyService
   ) {
     this.initializeApp();
   }
@@ -63,6 +70,49 @@ export class AppComponent {
             }
           );
         });
+      });
+  }
+
+  changeCurrency() {
+    let pickedCurrency;
+    this.actionSheetCtrl
+      .create({
+        header: "Choose Your Currency",
+        buttons: [
+          {
+            text: "INR",
+            handler: () => {
+              pickedCurrency = "INR";
+            },
+          },
+          {
+            text: "USD",
+            handler: () => {
+              pickedCurrency = "USD";
+            },
+          },
+          {
+            text: "SGD",
+            handler: () => {
+              pickedCurrency = "SGD";
+            },
+          },
+          {
+            text: "Cancel",
+            role: "cancel",
+            handler: () => {},
+          },
+        ],
+      })
+      .then((actionSheetEl) => {
+        actionSheetEl.present();
+        return actionSheetEl.onDidDismiss();
+      })
+      .then((data) => {
+        if (data.role === "cancel" || data.role === "backdrop") {
+          return;
+        }
+        this.currencyService.setCurrency(pickedCurrency);
       });
   }
 }

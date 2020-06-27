@@ -5,6 +5,6 @@
   </ion-thumbnail>
   <ion-text>{{ title }}</ion-text>
   <ion-text slot="end">
-    {{ value | currency: "INR":"symbol":"1.0-0" }}</ion-text
+    {{value?.toLocaleString(currencyLocale, {style: 'currency', currency: currency, maximumFractionDigits: 0, minimumFractionDigits: 0})}}</ion-text
   >
 </ion-item>

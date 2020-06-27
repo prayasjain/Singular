@@ -3,6 +3,8 @@ import { ModalController } from "@ionic/angular";
 import { Goal, Contribution } from "../goal.model";
 import { Asset } from "../../assets/asset.model";
 import { NgForm } from "@angular/forms";
+import { CurrencyService } from '../../currency/currency.service';
+import { take, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: "app-edit-goal",
@@ -21,9 +23,16 @@ export class EditGoalComponent implements OnInit {
 
   @ViewChild("f", { static: true }) form: NgForm;
 
-  constructor(private modalCtrl: ModalController) {}
+  currency: string;
+  currencyLocale: string;
+
+  constructor(private modalCtrl: ModalController, private currencyService: CurrencyService) {}
 
   ngOnInit() {
+    this.currencyService.fetchCurrency().pipe(take(1),switchMap(() => this.currencyService.currency)).subscribe(currency => {
+      this.currency = currency;
+      this.currencyLocale = this.currencyService.getLocaleForCurrency(this.currency);
+    })
     this.assetValueMap.clear();
     this.assetContributionMap.forEach((value, key) => {
       this.assetValueMap.set(

@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { EditGoalComponent } from "../edit-goal/edit-goal.component";
 import { AuthService } from "src/app/auth/auth.service";
+import { CurrencyService } from '../../currency/currency.service';
 
 @Component({
   selector: "app-goal-detail",
@@ -38,16 +39,24 @@ export class GoalDetailPage implements OnInit, OnDestroy {
 
   goalId: string;
 
+  currency: string;
+  currencyLocale: string;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private goalsService: GoalsService,
     private assetsService: AssetsService,
     private router: Router,
     private modalCtrl: ModalController,
-    private authService: AuthService
+    private authService: AuthService,
+    private currencyService: CurrencyService
   ) {}
 
   ngOnInit() {
+    this.currencyService.fetchCurrency().pipe(take(1),switchMap(() => this.currencyService.currency)).subscribe(currency => {
+      this.currency = currency;
+      this.currencyLocale = this.currencyService.getLocaleForCurrency(this.currency);
+    })
     this.isLoading = true;
     this.goalSub = this.activatedRoute.paramMap
       .pipe(

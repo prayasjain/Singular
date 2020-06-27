@@ -5,6 +5,7 @@ import { Subscription, zip, of } from "rxjs";
 import { take, tap, switchMap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
+import { CurrencyService } from '../currency/currency.service';
 
 interface AssetGroup {
   assetType: AssetType;
@@ -24,10 +25,13 @@ export class AssetsPage implements OnInit, OnDestroy {
   totalAmount: number;
   currentDate: Date;
   totalAmountByAssetType = new Map();
+  currency: string;
+  currencyLocale: string;
   constructor(
     private assetsService: AssetsService,
     private authService: AuthService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private currencyService: CurrencyService
   ) {}
 
   OTHERS = AssetType.Others;
@@ -36,6 +40,10 @@ export class AssetsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentDate = new Date();
+    this.currencyService.fetchCurrency().pipe(take(1),switchMap(() => this.currencyService.currency)).subscribe(currency => {
+      this.currency = currency;
+      this.currencyLocale = this.currencyService.getLocaleForCurrency(this.currency);
+    })
     this.assetsSub = this.authService.authInfo
       .pipe(
         take(1),
