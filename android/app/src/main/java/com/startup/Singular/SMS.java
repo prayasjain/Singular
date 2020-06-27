@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 public class SMS {
 
-    public static final Pattern amountPattern = Pattern.compile("avl\\s+bal\\s*:?\\s*inr\\s*([\\d,]+\\.\\d{0,2})");
-    public static final Pattern accountPattern = Pattern.compile("a/?c\\s*[a-z]+(\\d{4})");
+    public static final Pattern amountPattern = Pattern.compile("(?:balance\\sis\\snow\\s|(?:avb?l\\s+)?bal\\s*:?-?)\\s*(?:inr|rs\\.)\\s*([\\d,]+\\.\\d{0,2})"); //amount is group 1
+    public static final Pattern accountPattern = Pattern.compile("(?:acct|a/?c)\\s*([a-z])\\1+(\\d{3,})"); // account number is group 2
 
     public int id;
     public String address;
@@ -78,20 +78,25 @@ public class SMS {
         if (!amountMatcher.find() || !accountMatcher.find()) {
             return null;
         }
-        String rawAmount = amountMatcher.group(1);
-        if (rawAmount == null) {
+        try {
+            String rawAmount = amountMatcher.group(1);
+            if (rawAmount == null || rawAmount.isEmpty()) {
+                return null;
+            }
+            String account = accountMatcher.group(2);
+            if (account == null || account.isEmpty()) {
+                return null;
+            }
+            double amount = Double.parseDouble(rawAmount.replaceAll(",",""));
+            accountInfo.put("account", account);
+            accountInfo.put("amount", amount);
+            accountInfo.put("id", this.id);
+            accountInfo.put("date", this.date);
+            accountInfo.put("bankName", this.address);
+        } catch(IndexOutOfBoundsException e) {
             return null;
         }
-        String account = accountMatcher.group(1);
-        if (account == null) {
-            return null;
-        }
-        double amount = Double.parseDouble(rawAmount.replaceAll(",",""));
-        accountInfo.put("account", account);
-        accountInfo.put("amount", amount);
-        accountInfo.put("id", this.id);
-        accountInfo.put("date", this.date);
-        accountInfo.put("bankName", this.address);
+
 
         return accountInfo;
     }

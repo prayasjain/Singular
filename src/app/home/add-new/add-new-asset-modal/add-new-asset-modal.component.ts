@@ -174,11 +174,11 @@ export class AddNewAssetModalComponent implements OnInit {
       return;
     }
     if (this.asset.assetType === AssetType.SavingsAccount) {
-      return this.asset.savingsAccount.interestRate;
+      return this.asset.savingsAccount.interestRate*100;
     }
 
     if (this.asset.assetType === AssetType.Deposits) {
-      return this.asset.deposits.interestRate;
+      return this.asset.deposits.interestRate*100;
     }
   }
 

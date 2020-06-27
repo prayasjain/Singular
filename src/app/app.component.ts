@@ -15,6 +15,7 @@ import { SavingsAccount } from "./home/assets/asset.model";
 })
 export class AppComponent {
   user: firebase.User;
+  displaySMSRead: boolean = false;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -30,6 +31,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.displaySMSRead = !this.platform.is("desktop");
     });
 
     this.authService.authInfo.pipe(take(1)).subscribe((user) => {
