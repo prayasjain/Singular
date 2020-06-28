@@ -26,6 +26,8 @@ export class AddNewComponent implements OnInit {
   @Input() isAsset: boolean = false;
   @Input() isGoal: boolean = false;
 
+  date: Date;
+
   constructor(
     private modalCtrl: ModalController,
     private assetsService: AssetsService,
@@ -37,157 +39,156 @@ export class AddNewComponent implements OnInit {
   ngOnInit() {}
 
   clickItem() {
-    this.loadingCtrl
-      .create({ message: "Saving Your Data..." })
-      .then((loadingEl) => {
-        if (this.isAsset) {
-          this.modalCtrl
-            .create({
-              component: AddNewAssetModalComponent,
-              componentProps: {
-                assetType: this.assetType,
-              },
-            })
-            .then((modalEl) => {
-              modalEl.present();
-              return modalEl.onDidDismiss();
-            })
-            .then((resultData) => {
-              if (resultData.role === "confirm") {
-                loadingEl.present();
-                if (resultData.data.asset) {
-                  this.assetsService
-                    .addUserAsset(resultData.data.asset)
-                    .subscribe((res) => {
-                      loadingEl.dismiss();
-                      this.router.navigate([
-                        "/home/tabs/assets/asset-detail/",
-                        AssetTypeUtils.slug(resultData.data.asset.assetType),
-                      ]);
-                    });
-                }
-              }
-            });
-        }
+    this.date = new Date();
+    this.saveData().then(() => {});
+  }
 
-        if (this.isGoal) {
-          let date = new Date();
-          let newGoal;
-          let assets: Asset[];
-          let assetValueMap: Map<string, number> = new Map();
-          let redirectMethod = (data) => {
-            if (data) {
-              loadingEl.dismiss();
-              return this.router.navigate([
-                "/home/tabs/goals/goal-detail/",
-                newGoal.id,
-              ]);
-            }
-            this.router.navigate(["/home/tabs/goals"]);
-          };
+  async saveData() {
+    if (this.isAsset) {
+      let asset: Asset = await this.saveAsset();
+      if (asset) {
+        this.router.navigate([
+          "/home/tabs/assets/asset-detail/",
+          AssetTypeUtils.slug(asset.assetType),
+        ]);
+      }
+    } else if (this.isGoal) {
+      let goal: Goal = await this.saveGoal();
+      await this.saveContributions(goal);
+      if (goal) {
+        this.router.navigate(["/home/tabs/goals/goal-detail/", goal.id]);
+      }
+    }
+  }
 
-          let noAssets: boolean = false;
-          this.modalCtrl
-            .create({
-              component: AddNewGoalModalComponent,
-              componentProps: {},
-            })
-            .then((modalEl) => {
-              modalEl.present();
-              return modalEl.onDidDismiss();
-            })
-            .then((resultData) => {
-              if (resultData.role === "confirm") {
-                newGoal = new Goal(
-                  Math.random().toString(),
-                  resultData.data.name,
-                  resultData.data.amount,
-                  date
-                );
-                return this.goalsService.addUserGoal(newGoal).toPromise();
-                
-              }
-            })
-            .then(goal => {
-              if (!goal) {
-                return;
-              }
-              newGoal = goal;
-              return this.assetsService.userAssets
-              .pipe(
-                take(1),
-                switchMap((userAssets) => {
-                  assets = userAssets;
-                  let observableList = assets.map((a) =>
-                    a.getAmountForAsset(date).pipe(
-                      take(1),
-                      tap((assetValue) => {
-                        assetValueMap.set(a.id, assetValue);
-                      })
-                    )
-                  );
-                  if (observableList.length === 0) {
-                    return of([]);
-                  }
-                  return zip(...observableList);
-                })
-              )
-              .toPromise();
-            })
-            .then((data) => {
-              if (data) {
-                if (!assets || assets.length === 0) {
-                  noAssets = true;
-                }
-                return this.modalCtrl.create({
-                  component: EditGoalComponent,
-                  componentProps: {
-                    goal: newGoal,
-                    contributions: [],
-                    assets: [],
-                    remainingAssets: assets,
-                    assetContributionMap: [],
-                    remainingAssetValueMap: assetValueMap,
-                  },
-                });
-              }
-            })
-            .then((modalEl) => {
-              if (modalEl && !noAssets) {
-                modalEl.present();
-                return modalEl.onDidDismiss();
-              }
-            })
-            .then((modalData) => {
-              if (noAssets) {
-                redirectMethod(modalData);
-                return;
-              } else if (modalData && modalData.role === "confirm") {
-                loadingEl.present();
-                return this.assetsService
-                  .updateUserAssets(
-                    modalData.data.contributingAssets.concat(
-                      modalData.data.nonContributingAssets
-                    )
-                  )
-                  .pipe(
-                    take(1),
-                    switchMap(() => {
-                      // update the contributions
-                      let contributions: Contribution[] =
-                        modalData.data.contributions;
-                      contributions.forEach((c) => (c.goalId = newGoal.id));
-                      return this.goalsService.updateContributions(
-                        contributions,
-                        newGoal.id
-                      );
-                    })
-                  )
-                  .subscribe(redirectMethod);
-              }
-            });
-        }
-      });
+  async saveAsset(): Promise<Asset> {
+    let loadingEl = await this.loadingCtrl.create({
+      message: "Saving Your Data...",
+    });
+    let modalEl = await this.modalCtrl.create({
+      component: AddNewAssetModalComponent,
+      componentProps: {
+        assetType: this.assetType,
+      },
+    });
+    modalEl.present();
+    let resultData = await modalEl.onDidDismiss();
+    if (resultData.role === "confirm" && resultData.data.asset) {
+      loadingEl.present();
+      let asset: Asset = await this.assetsService
+        .addUserAsset(resultData.data.asset)
+        .toPromise();
+      loadingEl.dismiss();
+      return asset;
+    }
+  }
+
+  async saveGoal(): Promise<Goal> {
+    let loadingEl = await this.loadingCtrl.create({
+      message: "Saving Your Data...",
+    });
+    let modalEl = await this.modalCtrl.create({
+      component: AddNewGoalModalComponent,
+      componentProps: {},
+    });
+    modalEl.present();
+    let resultData = await modalEl.onDidDismiss();
+    if (resultData.role !== "confirm") {
+      return;
+    }
+    loadingEl.present();
+    let newGoal = await this.goalsService
+      .addUserGoal(
+        new Goal(
+          Math.random().toString(),
+          resultData.data.name,
+          resultData.data.amount,
+          this.date
+        )
+      )
+      .toPromise();
+    loadingEl.dismiss();
+    return newGoal;
+  }
+
+  async saveContributions(newGoal: Goal): Promise<Contribution[]> {
+    let loadingEl = await this.loadingCtrl.create({
+      message: "Saving Your Data...",
+    });
+    console.log("hhhh11");
+    let assets: Asset[] = await this.assetsService.userAssets.pipe(take(1)).toPromise();
+    console.log("hhhh");
+    let assetValueMap: Map<string, number> = await this.getAssetValueMap(assets);
+
+    if (!assets || assets.length === 0) {
+      return;
+    }
+    let contributionModalEl = await this.modalCtrl.create({
+      component: EditGoalComponent,
+      componentProps: {
+        goal: newGoal,
+        contributions: [],
+        assets: [],
+        remainingAssets: assets,
+        assetContributionMap: [],
+        remainingAssetValueMap: assetValueMap,
+      },
+    });
+    contributionModalEl.present();
+    let contributionsData = await contributionModalEl.onDidDismiss();
+    if (contributionsData.role !== "confirm") {
+      return;
+    }
+    loadingEl.present();
+    let contributions: Contribution[] = await this.assetsService
+      .updateUserAssets(
+        contributionsData.data.contributingAssets.concat(
+          contributionsData.data.nonContributingAssets
+        )
+      )
+      .pipe(
+        take(1),
+        switchMap(() => {
+          // update the contributions
+          let contributions: Contribution[] =
+            contributionsData.data.contributions;
+          contributions.forEach((c) => (c.goalId = newGoal.id));
+          return this.goalsService.updateContributions(
+            contributions,
+            newGoal.id
+          );
+        })
+      )
+      .toPromise();
+    loadingEl.dismiss();
+    return contributions;
+  }
+
+  async getAssetValueMap(assets: Asset[]) {
+
+    console.log("here?");
+    let assetValueMap: Map<string, number> = new Map();
+    await this.assetsService.userAssets
+      .pipe(
+        take(1),
+        switchMap((userAssets) => {
+          assets.concat(userAssets);
+          let observableList = userAssets.map((a) =>
+            a.getAmountForAsset(this.date).pipe(
+              take(1),
+              tap((assetValue) => {
+                assetValueMap.set(a.id, assetValue);
+              })
+            )
+          );
+          if (observableList.length === 0) {
+            return of([]);
+          }
+          return zip(...observableList);
+        })
+      )
+      .toPromise();
+    return assetValueMap;
   }
 
   // ionViewWillEnter() {

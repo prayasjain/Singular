@@ -453,13 +453,11 @@ export class GoalsService {
         }
       }),
       map((resData) => {
-        return oldAllContributions
+        this._userGoalsContributions.next(oldAllContributions
           .filter((oc) => oc.goalId !== goalId)
           .concat(newContributions)
-          .concat(updatedContributions);
-      }),
-      tap((contributions) => {
-        this._userGoalsContributions.next(contributions);
+          .concat(updatedContributions));
+        return newContributions.concat(updatedContributions);
       })
     );
   }

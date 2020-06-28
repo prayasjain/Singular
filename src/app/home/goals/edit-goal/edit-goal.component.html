@@ -16,18 +16,18 @@
           <h3>
             {{ goal.name }} <br />
             <b>{{
-              totalContributionAmount?.toLocaleString(currencyLocale, {
+              totalContributionAmount?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
                 style: "currency",
-                currency: currency,
+                currency: currencyService.currency | async,
                 maximumFractionDigits: 0,
                 minimumFractionDigits: 0
               })
             }}</b>
             out of
             {{
-              goal?.amountReqd?.toLocaleString(currencyLocale, {
+              goal?.amountReqd?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
                 style: "currency",
-                currency: currency,
+                currency: currencyService.currency | async,
                 maximumFractionDigits: 0,
                 minimumFractionDigits: 0
               })
@@ -55,9 +55,9 @@
                     (checkbox.value
                       ? (range.value / 100) * assetValueMap.get(asset.id)
                       : 0
-                    )?.toLocaleString(currencyLocale, {
+                    )?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
                       style: "currency",
-                      currency: currency,
+                      currency: currencyService.currency | async,
                       maximumFractionDigits: 0,
                       minimumFractionDigits: 0
                     })
@@ -107,9 +107,9 @@
                   (checkbox.value
                     ? (range.value / 100) * remainingAssetValueMap.get(asset.id)
                     : 0
-                  )?.toLocaleString(currencyLocale, {
+                  )?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
                     style: "currency",
-                    currency: currency,
+                    currency: currencyService.currency | async,
                     maximumFractionDigits: 0,
                     minimumFractionDigits: 0
                   })

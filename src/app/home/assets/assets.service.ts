@@ -192,8 +192,9 @@ export class AssetsService {
         return this.userAssets;
       }),
       take(1),
-      tap((userAssets) => {
+      map(userAssets => {
         this._userAssets.next(userAssets.concat(userAsset));
+        return userAsset;
       })
     );
   }
