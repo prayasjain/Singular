@@ -108,10 +108,11 @@ export class AddNewComponent implements OnInit {
                 
               }
             })
-            .then(data => {
-              if (!data) {
+            .then(goal => {
+              if (!goal) {
                 return;
               }
+              newGoal = goal;
               return this.assetsService.userAssets
               .pipe(
                 take(1),
@@ -171,18 +172,14 @@ export class AddNewComponent implements OnInit {
                   )
                   .pipe(
                     take(1),
-                    switchMap((userAssets) => {
-                      return this.goalsService.addUserGoal(newGoal);
-                    }),
-                    take(1),
-                    switchMap((goal) => {
+                    switchMap(() => {
                       // update the contributions
                       let contributions: Contribution[] =
                         modalData.data.contributions;
-                      contributions.forEach((c) => (c.goalId = goal.id));
+                      contributions.forEach((c) => (c.goalId = newGoal.id));
                       return this.goalsService.updateContributions(
                         contributions,
-                        goal.id
+                        newGoal.id
                       );
                     })
                   )
