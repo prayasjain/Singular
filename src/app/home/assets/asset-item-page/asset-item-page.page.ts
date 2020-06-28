@@ -23,9 +23,6 @@ export class AssetItemPagePage implements OnInit {
   // The following two are only for the html file
   AssetType = AssetType; // this is used specifically for angular html component
 
-  currency: string;
-  currencyLocale: string;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private assetsService: AssetsService,
@@ -33,23 +30,11 @@ export class AssetItemPagePage implements OnInit {
     private goalsService: GoalsService,
     private modalCtrl: ModalController,
     private authService: AuthService,
-    private currencyService: CurrencyService,
+    public currencyService: CurrencyService,
     private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
-    this.currencyService
-      .fetchCurrency()
-      .pipe(
-        take(1),
-        switchMap(() => this.currencyService.currency)
-      )
-      .subscribe((currency) => {
-        this.currency = currency;
-        this.currencyLocale = this.currencyService.getLocaleForCurrency(
-          this.currency
-        );
-      });
     this.date = new Date();
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       let itemId = paramMap.get("itemId");

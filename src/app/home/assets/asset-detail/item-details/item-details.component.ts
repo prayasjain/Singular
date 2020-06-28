@@ -15,24 +15,9 @@ export class ItemDetailsComponent implements OnInit {
 //  @Input() imgUrl: string;
   @Input() id: string;
 
-  currency: string;
-  currencyLocale: string;
-
-  constructor(private currencyService: CurrencyService) { }
+  constructor(public currencyService: CurrencyService) { }
 
   ngOnInit() {
-    this.currencyService
-      .fetchCurrency()
-      .pipe(
-        take(1),
-        switchMap(() => this.currencyService.currency)
-      )
-      .subscribe((currency) => {
-        this.currency = currency;
-        this.currencyLocale = this.currencyService.getLocaleForCurrency(
-          this.currency
-        );
-      });
   }
 
 }

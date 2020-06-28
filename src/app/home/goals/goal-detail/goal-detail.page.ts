@@ -38,9 +38,6 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   goalId: string;
-
-  currency: string;
-  currencyLocale: string;
   
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -49,14 +46,10 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     private router: Router,
     private modalCtrl: ModalController,
     private authService: AuthService,
-    private currencyService: CurrencyService
+    public currencyService: CurrencyService
   ) {}
 
   ngOnInit() {
-    this.currencyService.fetchCurrency().pipe(take(1),switchMap(() => this.currencyService.currency)).subscribe(currency => {
-      this.currency = currency;
-      this.currencyLocale = this.currencyService.getLocaleForCurrency(this.currency);
-    })
     this.isLoading = true;
     this.goalSub = this.activatedRoute.paramMap
       .pipe(

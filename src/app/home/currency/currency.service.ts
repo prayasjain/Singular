@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Plugins } from "@capacitor/core";
 import { BehaviorSubject, from } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, take } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -10,8 +10,16 @@ export class CurrencyService {
   constructor() {}
 
   private _currency = new BehaviorSubject<string>("INR");
+  private _initializedCurrency = false;
 
   get currency() {
+    if (!this._initializedCurrency) {
+      this.fetchCurrency()
+        .pipe(take(1))
+        .subscribe(() => {
+          this._initializedCurrency = true;
+        });
+    }
     return this._currency.asObservable();
   }
 

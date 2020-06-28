@@ -1,6 +1,9 @@
 <ion-card class="custom">
   <ion-item [color]="itemColor" [routerLink]="[itemLink]" >
     <ion-text slot="start">{{title}}</ion-text>
-    <ion-text slot="end"> {{value?.toLocaleString(currencyLocale, {style: 'currency', currency: currency, maximumFractionDigits: 0, minimumFractionDigits: 0})}}</ion-text>
+    <ion-text slot="end"> {{value?.toLocaleString(currencyService.getLocaleForCurrency(
+          currencyService.currency | async ), {style: 'currency', currency:
+          currencyService.currency | async, maximumFractionDigits: 0,
+          minimumFractionDigits: 0})}}</ion-text>
   </ion-item>
 </ion-card>

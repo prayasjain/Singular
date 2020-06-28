@@ -27,7 +27,10 @@
     </ion-row> -->
     <ion-row class="ion-no-padding">
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-        <h3>{{assetValue?.toLocaleString(currencyLocale, {style: 'currency', currency: currency, maximumFractionDigits: 0, minimumFractionDigits: 0})}}</h3>
+        <h3>{{assetValue?.toLocaleString(currencyService.getLocaleForCurrency(
+          currencyService.currency | async ), {style: 'currency', currency:
+          currencyService.currency | async, maximumFractionDigits: 0,
+          minimumFractionDigits: 0})}}</h3>
         <!-- <p>as on {{currentDate.toDateString()}}</p> -->
       </ion-col>
     </ion-row>

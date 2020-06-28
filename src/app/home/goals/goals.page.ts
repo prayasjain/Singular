@@ -40,21 +40,14 @@ export class GoalsPage implements OnInit, OnDestroy {
   private initAsset: boolean = false;
   private initContributions: boolean = false;
 
-  currency: string;
-  currencyLocale: string;
-
   constructor(
     private goalsService: GoalsService,
     private assetsService: AssetsService,
     private authService: AuthService,
-    private currencyService: CurrencyService
+    public currencyService: CurrencyService
   ) {}
 
   ngOnInit() {
-    this.currencyService.fetchCurrency().pipe(take(1),switchMap(() => this.currencyService.currency)).subscribe(currency => {
-      this.currency = currency;
-      this.currencyLocale = this.currencyService.getLocaleForCurrency(this.currency);
-    })
     this.isLoading = true;
     this.userAssetsSub = this.authService.authInfo
       .pipe(

@@ -45,49 +45,25 @@ export class SmsService {
     return this.assetsService.userAssets.pipe(
       take(1),
       switchMap((userAssets) => {
-        if (!userAssets) {
-          return this.assetsService.fetchUserAssets();
-        }
-        return of(userAssets);
-      }),
-      switchMap((userAssets) => {
         let observableList: Observable<any>[] = [];
         savingsAccounts.forEach((newAccount) => {
-          let isNewAccount: boolean = true;
-          let updatedAsset: Asset;
-          for (let oldAccount of userAssets) {
-            if (oldAccount.assetType !== AssetType.SavingsAccount) {
-              continue;
-            }
-            if (
-              oldAccount.savingsAccount.accountNumber ===
-              newAccount.accountNumber
-            ) {
-              isNewAccount = false;
-              updatedAsset = oldAccount;
-              updatedAsset.savingsAccount.amount = newAccount.amount;
-              updatedAsset.savingsAccount.date = newAccount.date;
-              break;
-            }
-          }
-          if (isNewAccount) {
+          let updatedAsset = this.findOldSavingsAccount(userAssets, newAccount);
+          if (updatedAsset) {
+            // just update the amount of the asset, date
+            updatedAsset.savingsAccount.amount = newAccount.amount;
+            updatedAsset.savingsAccount.date = newAccount.date;
+            observableList.push(
+              this.assetsService.updateUserAssets([updatedAsset])
+            );
+          } else {
             observableList.push(
               this.assetsService.addUserAsset(
                 new Asset(Math.random().toString(), newAccount, 1)
               )
             );
-          } else {
-            // just update the amount of the asset, date
-            let assets: Asset[] = [];
-            assets.push(updatedAsset);
-            observableList.push(this.assetsService.updateUserAssets(assets));
           }
         });
-        if (observableList.length === 0) {
-          return of([]);
-        } else {
-          return zip(...observableList);
-        }
+        return observableList.length === 0 ? of([]) : zip(...observableList);
       })
     );
   }
@@ -115,5 +91,18 @@ export class SmsService {
         return Promise.reject(err);
       }
     );
+  }
+
+  findOldSavingsAccount(userAssets: Asset[], smsAccount: SavingsAccount) {
+    for (let oldAccount of userAssets) {
+      if (oldAccount.assetType !== AssetType.SavingsAccount) {
+        continue;
+      }
+      if (
+        oldAccount.savingsAccount.accountNumber === smsAccount.accountNumber
+      ) {
+        return oldAccount;
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 
 import {
   Platform,
@@ -10,15 +10,15 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AuthService } from "./auth/auth.service";
 import { take, switchMap } from "rxjs/operators";
 import { SmsService } from "./sms/sms.service";
-import { Plugins } from "@capacitor/core";
 import { CurrencyService } from "./home/currency/currency.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
   styleUrls: ["app.component.scss"],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy{
   user: firebase.User;
   displaySMSRead: boolean = false;
   constructor(
@@ -29,10 +29,12 @@ export class AppComponent {
     private smsService: SmsService,
     private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
-    private currencyService: CurrencyService
+    public currencyService: CurrencyService
   ) {
     this.initializeApp();
   }
+
+  authSub: Subscription;
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -41,7 +43,7 @@ export class AppComponent {
       this.displaySMSRead = !this.platform.is("desktop");
     });
 
-    this.authService.authInfo.pipe(take(1)).subscribe((user) => {
+    this.authSub = this.authService.authInfo.pipe(take(1)).subscribe((user) => {
       this.user = user;
     });
   }
@@ -73,7 +75,7 @@ export class AppComponent {
       });
   }
 
-  changeCurrency() {
+  async changeCurrency() {
     let pickedCurrency;
     this.actionSheetCtrl
       .create({
@@ -114,5 +116,11 @@ export class AppComponent {
         }
         this.currencyService.setCurrency(pickedCurrency);
       });
+  }
+
+  ngOnDestroy() {
+    if (!this.authSub) {
+      this.authSub.unsubscribe();
+    }
   }
 }

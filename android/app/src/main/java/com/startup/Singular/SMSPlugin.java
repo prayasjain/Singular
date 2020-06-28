@@ -26,8 +26,6 @@ public class SMSPlugin extends Plugin {
     JSObject ret = new JSObject();
     ret.put("success", true);
     if (hasRequiredPermissions()) {
-      System.out.println("inside permission");
-      System.out.println(ret);
       call.resolve(ret);
       return;
     }

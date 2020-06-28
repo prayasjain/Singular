@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, OnDestroy } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Goal, Contribution } from "../goal.model";
 import { Asset } from "../../assets/asset.model";
 import { NgForm } from "@angular/forms";
 import { CurrencyService } from '../../currency/currency.service';
 import { take, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-edit-goal",
   templateUrl: "./edit-goal.component.html",
   styleUrls: ["./edit-goal.component.scss"],
 })
-export class EditGoalComponent implements OnInit {
+export class EditGoalComponent implements OnInit, OnDestroy {
   @Input() goal: Goal;
   @Input() contributions: Contribution[];
   @Input() assets: Asset[];
@@ -23,16 +24,10 @@ export class EditGoalComponent implements OnInit {
 
   @ViewChild("f", { static: true }) form: NgForm;
 
-  currency: string;
-  currencyLocale: string;
 
-  constructor(private modalCtrl: ModalController, private currencyService: CurrencyService) {}
+  constructor(private modalCtrl: ModalController, public currencyService: CurrencyService) {}
 
   ngOnInit() {
-    this.currencyService.fetchCurrency().pipe(take(1),switchMap(() => this.currencyService.currency)).subscribe(currency => {
-      this.currency = currency;
-      this.currencyLocale = this.currencyService.getLocaleForCurrency(this.currency);
-    })
     this.assetValueMap.clear();
     this.assetContributionMap.forEach((value, key) => {
       this.assetValueMap.set(
@@ -142,5 +137,8 @@ export class EditGoalComponent implements OnInit {
       contributingAmount(asset, this.remainingAssetValueMap)
     );
     return amount;
+  }
+
+  ngOnDestroy() {
   }
 }

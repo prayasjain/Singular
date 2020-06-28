@@ -46,9 +46,15 @@
       <ion-col class="ion-text-center" size-md="6" offset-md="3">
         <span>
           <b>
-            {{(goal?.amountReqd*finishPerc)?.toLocaleString(currencyLocale, {style: 'currency', currency: currency, maximumFractionDigits: 0, minimumFractionDigits: 0})}}
+            {{(goal?.amountReqd*finishPerc)?.toLocaleString(currencyService.getLocaleForCurrency(
+          currencyService.currency | async ), {style: 'currency', currency:
+          currencyService.currency | async, maximumFractionDigits: 0,
+          minimumFractionDigits: 0})}}
           </b>
-          out of {{goal?.amountReqd?.toLocaleString(currencyLocale, {style: 'currency', currency: currency, maximumFractionDigits: 0, minimumFractionDigits: 0})}}
+          out of {{goal?.amountReqd?.toLocaleString(currencyService.getLocaleForCurrency(
+          currencyService.currency | async ), {style: 'currency', currency:
+          currencyService.currency | async, maximumFractionDigits: 0,
+          minimumFractionDigits: 0})}}
         </span>
       </ion-col>
     </ion-row>
@@ -65,7 +71,10 @@
       </ion-col>
       <ion-col size-md="2" class="ion-text-right">
         <div>
-          {{assetContributionMap.get(asset.id)?.toLocaleString(currencyLocale, {style: 'currency', currency: currency, maximumFractionDigits: 0, minimumFractionDigits: 0})}}
+          {{assetContributionMap.get(asset.id)?.toLocaleString(currencyService.getLocaleForCurrency(
+          currencyService.currency | async ), {style: 'currency', currency:
+          currencyService.currency | async, maximumFractionDigits: 0,
+          minimumFractionDigits: 0})}}
           ({{assetContributionMap.get(asset.id)/goal.amountReqd | percent}})
         </div>
       </ion-col>

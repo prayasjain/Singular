@@ -12,26 +12,11 @@ export class AssetComponent implements OnInit {
   @Input() title: string;
   @Input() value: number;
   @Input() itemLink: string;
-
-  currency: string;
-  currencyLocale: string;
-  constructor(private currencyService: CurrencyService) {}
+  constructor(public currencyService: CurrencyService) {}
 
   ngOnInit() {
     if (!this.itemColor) {
       this.itemColor = "tertiary";
     }
-    this.currencyService
-      .fetchCurrency()
-      .pipe(
-        take(1),
-        switchMap(() => this.currencyService.currency)
-      )
-      .subscribe((currency) => {
-        this.currency = currency;
-        this.currencyLocale = this.currencyService.getLocaleForCurrency(
-          this.currency
-        );
-      });
   }
 }
