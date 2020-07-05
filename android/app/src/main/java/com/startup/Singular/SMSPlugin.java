@@ -20,7 +20,7 @@ import java.util.Map;
 import android.util.Log;
 
 @NativePlugin(
-  permissionRequestCode = 1,
+  permissionRequestCode = 187,
   permissions = { Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS,
     Manifest.permission.SEND_SMS })
 public class SMSPlugin extends Plugin {
