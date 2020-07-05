@@ -63,7 +63,13 @@ export class SmsService {
             );
           }
         });
-        return observableList.length === 0 ? of([]) : zip(...observableList);
+        return observableList.length === 0
+          ? of([])
+          : zip(...observableList).pipe(
+              switchMap(() => {
+                return this.assetsService.fetchUserAssets();
+              })
+            );
       })
     );
   }

@@ -27,10 +27,16 @@
           <ion-label>Logout</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <ion-menu-toggle menu="mainMenu" *ngIf="displaySMSRead">
+      <ion-menu-toggle menu="mainMenu" *ngIf="mobileApp">
         <ion-item lines="none" (click)="readAccountFromSMS()" button>
           <ion-icon name="mail-open-outline" slot="start"></ion-icon>
           <ion-label>Read My SMS</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle menu="mainMenu">
+        <ion-item lines="none" (click)="filePicker.click()" button>
+          <ion-icon name="document-outline" slot="start"></ion-icon>
+          <ion-label>Upload CAMS Statement</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle menu="mainMenu">
@@ -43,4 +49,6 @@
     </ion-content>
   </ion-menu>
   <ion-router-outlet main></ion-router-outlet>
+  <input type="file" #filePicker (change)="onCAMSPicked($event)"> 
+  <!-- <input type="file" #filePicker (change)="onCAMSPicked($event)" accept=".pdf"> doesnt work with ionic -->
 </ion-app>

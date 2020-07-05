@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 
 import {
   Platform,
@@ -8,19 +8,23 @@ import {
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AuthService } from "./auth/auth.service";
-import { take, switchMap } from "rxjs/operators";
+import { take } from "rxjs/operators";
 import { SmsService } from "./sms/sms.service";
 import { CurrencyService } from "./home/currency/currency.service";
-import { Subscription } from 'rxjs';
+import { Subscription } from "rxjs";
+import { PdfService } from "./pdf/pdf.service";
+import { MutualFunds } from "./home/assets/asset.model";
 
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
   styleUrls: ["app.component.scss"],
 })
-export class AppComponent implements OnDestroy{
+export class AppComponent implements OnDestroy {
   user: firebase.User;
-  displaySMSRead: boolean = false;
+  mobileApp: boolean = false;
+  @ViewChild("filePicker", { static: false }) filepicker: ElementRef;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -29,6 +33,7 @@ export class AppComponent implements OnDestroy{
     private smsService: SmsService,
     private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
+    private pdfService: PdfService,
     public currencyService: CurrencyService
   ) {
     this.initializeApp();
@@ -40,7 +45,7 @@ export class AppComponent implements OnDestroy{
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.displaySMSRead = !this.platform.is("desktop");
+      this.mobileApp = !this.platform.is("desktop");
     });
 
     this.authSub = this.authService.authInfo.pipe(take(1)).subscribe((user) => {
@@ -117,6 +122,45 @@ export class AppComponent implements OnDestroy{
         this.currencyService.setCurrency(pickedCurrency);
       });
   }
+
+  onCAMSPicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+
+    this.loadingCtrl
+      .create({ message: "Updating your Mutual Funds" })
+      .then((loadingEl) => {
+        reader.onload = () => {
+          this.filepicker.nativeElement.value = ""; //reset the input
+          this.pdfService
+            .readPdf(reader.result)
+            .then((data) => {
+              loadingEl.present();
+              let mutualFunds: MutualFunds[] = this.pdfService.parseCAMSStatement(
+                data
+              );
+              if (!mutualFunds || mutualFunds.length == 0) {
+                loadingEl.dismiss();
+                return;
+              }
+              this.pdfService.saveMutualFunds(mutualFunds).subscribe(
+                (data) => {
+                  loadingEl.dismiss();
+                },
+                (err) => {
+                  console.log(err);
+                  loadingEl.dismiss();
+                }
+              );
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+      });
+  }
+  
 
   ngOnDestroy() {
     if (!this.authSub) {
