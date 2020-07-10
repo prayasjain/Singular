@@ -103,13 +103,18 @@ export class AddNewAssetModalComponent implements OnInit {
       if (this.form.value["current-value"]) {
         currentVal = +this.form.value["current-value"];
       }
+      let folioNo;
+      if (this.form.value["folio-no"]) {
+        folioNo = this.form.value["folio-no"];
+      }
       asset = new Asset(
         assetId,
         new MutualFunds(
           this.form.value["name"],
           +this.form.value["units"],
           +this.form.value["price"],
-          currentVal
+          currentVal,
+          folioNo
         ),
         percentUnAlloc
       );

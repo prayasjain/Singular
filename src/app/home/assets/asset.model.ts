@@ -166,6 +166,12 @@ export class Asset {
     }
   }
 
+  get folioNo() {
+    if (this.assetType === AssetType.MutualFunds) {
+      return this.mutualFunds.folioNo;
+    }
+  }
+
   get units() {
     if (this.assetType === AssetType.Equity) {
       return this.equity.units;
@@ -290,7 +296,7 @@ export class MutualFunds {
     public units: number,
     public price: number,
     public currentValue: number = price,
-    public folioNo?: number
+    public folioNo?: string
   ) {}
 
   static toObject(data) {
