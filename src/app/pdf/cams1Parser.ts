@@ -1,8 +1,8 @@
-import {CAMSJSON, Utils} from './utils'
+import {PDFJSON, Utils} from './utils'
 import { MutualFunds } from '../home/assets/asset.model';
 
 export class CAMS1Parser {
-  public static parseCAMSFormat(jsonData: CAMSJSON[]): MutualFunds[] {
+  public static parseCAMSFormat(jsonData: PDFJSON[]): MutualFunds[] {
     let mutualFunds: MutualFunds[] = [];
     for (let i = 0; i < jsonData.length; i++) {
       let data = jsonData[i];
@@ -53,7 +53,7 @@ export class CAMS1Parser {
     return mutualFunds;
   }
 
-  public static getFundName(jsonData: CAMSJSON[], endIndex: number): string {
+  public static getFundName(jsonData: PDFJSON[], endIndex: number): string {
     let fundName: string = "";
     let j = endIndex;
     while (
@@ -68,7 +68,7 @@ export class CAMS1Parser {
   }
 
   public static getFundPricePerUnitAndDate(
-    jsonData: CAMSJSON[],
+    jsonData: PDFJSON[],
     startIndex: number
   ): { pricePerUnit: number; date: Date; index: number } {
     let j = startIndex;
@@ -98,7 +98,7 @@ export class CAMS1Parser {
   }
 
   public static getFundQty(
-    jsonData: CAMSJSON[],
+    jsonData: PDFJSON[],
     startIndex: number
   ): { qty: number; index: number } {
     let j = startIndex;
@@ -119,7 +119,7 @@ export class CAMS1Parser {
   }
 
   public static getFolioNo(
-    jsonData: CAMSJSON[],
+    jsonData: PDFJSON[],
     startIndex: number
   ): { folioNo: string; index: number } {
     let j = startIndex;

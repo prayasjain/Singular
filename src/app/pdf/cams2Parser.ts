@@ -1,9 +1,8 @@
-import { CAMSJSON, Utils } from "./utils";
+import { PDFJSON, Utils } from "./utils";
 import { MutualFunds } from "../home/assets/asset.model";
-import { isNumber } from "util";
 
 export class CAMS2Parser {
-  public static parseCAMSFormat(jsonData: CAMSJSON[]): MutualFunds[] {
+  public static parseCAMSFormat(jsonData: PDFJSON[]): MutualFunds[] {
     let mutualFunds: MutualFunds[] = [];
     let tableHeadingIndex: number = jsonData.findIndex((data) =>
       data.str.trim().startsWith("Summary of Transacted Folios as on")
@@ -38,7 +37,7 @@ export class CAMS2Parser {
   }
 
   public static getCAMSFormat2Headings(
-    jsonData: CAMSJSON[],
+    jsonData: PDFJSON[],
     startIndex: number
   ): { headings: string[]; index: number } {
     let headings: string[] = [];
@@ -67,7 +66,7 @@ export class CAMS2Parser {
   }
 
   public static extractMutualFunds(
-    jsonData: CAMSJSON[],
+    jsonData: PDFJSON[],
     headings: string[],
     startIndex: number,
     endIndex: number
@@ -148,7 +147,7 @@ export class CAMS2Parser {
   }
 
   public static getSchemeName(
-    jsonData: CAMSJSON[],
+    jsonData: PDFJSON[],
     folioIndex: number,
     nameOffset
   ): { schemeName: string; schemeExtraFields: number } {

@@ -119,6 +119,17 @@
     </ion-row>
     <ion-row
       class="ion-no-padding"
+      *ngIf="asset?.assetType === AssetType.Equity"
+    >
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <ion-item>
+          <ion-label position="floating" color="medium"> ISIN </ion-label>
+          <h4 class="item-details">{{asset?.isin}}</h4>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      class="ion-no-padding"
       *ngIf="
         asset?.assetType === AssetType.MutualFunds || asset?.assetType === AssetType.Equity
         "

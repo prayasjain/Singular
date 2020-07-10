@@ -34,9 +34,15 @@
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle menu="mainMenu">
-        <ion-item lines="none" (click)="filePicker.click()" button>
+        <ion-item lines="none" (click)="camsFilePicker.click()" button>
           <ion-icon name="document-outline" slot="start"></ion-icon>
           <ion-label>Upload CAMS Statement</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle menu="mainMenu">
+        <ion-item lines="none" (click)="nsdlFilePicker.click()" button>
+          <ion-icon name="document-outline" slot="start"></ion-icon>
+          <ion-label>Upload NSDL Statement</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle menu="mainMenu">
@@ -49,6 +55,7 @@
     </ion-content>
   </ion-menu>
   <ion-router-outlet main></ion-router-outlet>
-  <input type="file" #filePicker (change)="onCAMSPicked($event)"> 
+  <input type="file" #nsdlFilePicker (change)="onNSDLPicked($event)"> 
+  <input type="file" #camsFilePicker (change)="onCAMSPicked($event)"> 
   <!-- <input type="file" #filePicker (change)="onCAMSPicked($event)" accept=".pdf"> doesnt work with ionic -->
 </ion-app>

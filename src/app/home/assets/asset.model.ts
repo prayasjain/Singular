@@ -156,13 +156,15 @@ export class Asset {
 
   get maturityDateDisplay() {
     if (this.assetType === AssetType.Deposits && this.deposits.maturityDate) {
-      return new Intl.DateTimeFormat('en-GB').format(this.deposits.maturityDate);
+      return new Intl.DateTimeFormat("en-GB").format(
+        this.deposits.maturityDate
+      );
     }
   }
 
   get depositDateDisplay() {
     if (this.assetType === AssetType.Deposits && this.deposits.depositDate) {
-      return new Intl.DateTimeFormat('en-GB').format(this.deposits.depositDate);
+      return new Intl.DateTimeFormat("en-GB").format(this.deposits.depositDate);
     }
   }
 
@@ -196,6 +198,12 @@ export class Asset {
     }
     if (this.assetType === AssetType.MutualFunds) {
       return this.mutualFunds.currentValue;
+    }
+  }
+
+  get isin() {
+    if (this.assetType === AssetType.Equity) {
+      return this.equity.isin;
     }
   }
 }
@@ -315,7 +323,8 @@ export class Equity {
     public stockName: string,
     public units: number,
     public price: number,
-    public currentValue: number = price
+    public currentValue: number = price,
+    public isin?: string
   ) {}
 
   static toObject(data) {
@@ -323,7 +332,8 @@ export class Equity {
       data.stockName,
       data.units,
       data.price,
-      data.currentValue
+      data.currentValue,
+      data.isin
     );
   }
 }

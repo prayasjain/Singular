@@ -13,7 +13,7 @@ import { SmsService } from "./sms/sms.service";
 import { CurrencyService } from "./home/currency/currency.service";
 import { Subscription } from "rxjs";
 import { PdfService } from "./pdf/pdf.service";
-import { MutualFunds } from "./home/assets/asset.model";
+import { MutualFunds, Equity } from "./home/assets/asset.model";
 
 @Component({
   selector: "app-root",
@@ -23,7 +23,8 @@ import { MutualFunds } from "./home/assets/asset.model";
 export class AppComponent implements OnDestroy {
   user: firebase.User;
   mobileApp: boolean = false;
-  @ViewChild("filePicker", { static: false }) filepicker: ElementRef;
+  @ViewChild("camsFilePicker", { static: false }) camsFilePicker: ElementRef;
+  @ViewChild("nsdlFilePicker", { static: false }) nsdlFilepicker: ElementRef;
 
   constructor(
     private platform: Platform,
@@ -131,7 +132,7 @@ export class AppComponent implements OnDestroy {
       .create({ message: "Updating your Mutual Funds" })
       .then((loadingEl) => {
         reader.onload = () => {
-          this.filepicker.nativeElement.value = ""; //reset the input
+          this.camsFilePicker.nativeElement.value = ""; //reset the input
           this.pdfService
             .readPdf(reader.result)
             .then((data) => {
@@ -160,8 +161,45 @@ export class AppComponent implements OnDestroy {
         reader.readAsArrayBuffer(file);
       });
   }
-  
 
+  onNSDLPicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+
+    this.loadingCtrl
+      .create({ message: "Updating your Equities Funds" })
+      .then((loadingEl) => {
+        reader.onload = () => {
+          this.nsdlFilepicker.nativeElement.value = ""; //reset the input
+          this.pdfService
+            .readPdf(reader.result)
+            .then((data) => {
+              loadingEl.present();
+              let equities: Equity[] = this.pdfService.parseNSDLStatement(
+                data
+              );
+              if (!equities || equities.length == 0) {
+                loadingEl.dismiss();
+                return;
+              }
+              this.pdfService.saveEquities(equities).subscribe(
+                (data) => {
+                  loadingEl.dismiss();
+                },
+                (err) => {
+                  console.log(err);
+                  loadingEl.dismiss();
+                }
+              );
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+      });
+  }
+  
   ngOnDestroy() {
     if (!this.authSub) {
       this.authSub.unsubscribe();

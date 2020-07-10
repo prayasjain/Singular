@@ -121,6 +121,10 @@ export class AddNewAssetModalComponent implements OnInit {
     }
     if (assetType === AssetType.Equity) {
       let currentVal;
+      let isin;
+      if (this.form.value["isin"]) {
+        isin = this.form.value["isin"];
+      }
       if (this.form.value["current-value"]) {
         currentVal = +this.form.value["current-value"];
       }
@@ -130,7 +134,8 @@ export class AddNewAssetModalComponent implements OnInit {
           this.form.value["name"],
           +this.form.value["units"],
           +this.form.value["price"],
-          currentVal
+          currentVal,
+          isin
         ),
         percentUnAlloc
       );
