@@ -1,0 +1,7232 @@
+[
+    {
+        "str": " ",
+        "dir": "ltr",
+        "width": 3.3360000000000003,
+        "height": 12,
+        "transform": [
+            12,
+            0,
+            0,
+            12,
+            43,
+            810
+        ],
+        "fontName": "Helvetica"
+    },
+    {
+        "str": "67357 - Page 1 of 4",
+        "dir": "ltr",
+        "width": 70.008,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            481.31,
+            32.48
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mutual Fund Consolidated Account Statement",
+        "dir": "ltr",
+        "width": 367.53599999999983,
+        "height": 16,
+        "transform": [
+            16,
+            0,
+            0,
+            16,
+            113.87,
+            780.61
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Financial Transactions during the period 01-April-2020 to 30-April-2020",
+        "dir": "ltr",
+        "width": 313.5899999999998,
+        "height": 10,
+        "transform": [
+            10,
+            0,
+            0,
+            10,
+            140.84,
+            768.73
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1.1.00067357.30042020-M01-0054",
+        "dir": "ltr",
+        "width": 90.72000000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            49.15,
+            736.32
+        ],
+        "fontName": "g_d1_f3"
+    },
+    {
+        "str": "Aayush Garg",
+        "dir": "ltr",
+        "width": 57.132,
+        "height": 9,
+        "transform": [
+            9,
+            0,
+            0,
+            9,
+            51.07,
+            720.29
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "H.NO. 16A COMISSIONER LANE",
+        "dir": "ltr",
+        "width": 142.596,
+        "height": 9,
+        "transform": [
+            9,
+            0,
+            0,
+            9,
+            51.07,
+            709.43
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "NEAR MOTHER TERESA HOME",
+        "dir": "ltr",
+        "width": 134.80200000000002,
+        "height": 9,
+        "transform": [
+            9,
+            0,
+            0,
+            9,
+            51.07,
+            698.57
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "CIVIL LINES",
+        "dir": "ltr",
+        "width": 56.196,
+        "height": 9,
+        "transform": [
+            9,
+            0,
+            0,
+            9,
+            51.07,
+            687.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "DELHI - 110054",
+        "dir": "ltr",
+        "width": 72.19800000000002,
+        "height": 9,
+        "transform": [
+            9,
+            0,
+            0,
+            9,
+            51.07,
+            676.84
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "New Delhi India",
+        "dir": "ltr",
+        "width": 72.71100000000001,
+        "height": 9,
+        "transform": [
+            9,
+            0,
+            0,
+            9,
+            51.07,
+            665.98
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "eCAS: CAS via email is live now. **Important**",
+        "dir": "ltr",
+        "width": 215.00799999999998,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            190.25,
+            617.84
+        ],
+        "fontName": "g_d1_f4"
+    },
+    {
+        "str": "SEBI  has  mandated  all  Mutual  Funds  to  issue  Monthly",
+        "dir": "ltr",
+        "width": 207.35157000000007,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            723.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Consolidated Account Statement (CAS) based on PAN of unit",
+        "dir": "ltr",
+        "width": 207.02163000000002,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            715.38
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "holders. For the purpose of issuance of CAS, the folios that have",
+        "dir": "ltr",
+        "width": 206.84933000000004,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            707.33
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "a) financial transactions in a month and, b) identical unit holders,",
+        "dir": "ltr",
+        "width": 207.67455999999993,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            699.28
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "identified based on valid PAN have been considered and",
+        "dir": "ltr",
+        "width": 207.22349999999994,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            691.23
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "consolidated. Folios held in the name of minors are not",
+        "dir": "ltr",
+        "width": 207.24339000000003,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            683.18
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "considered. If any folio, satisfying above conditions is missing,",
+        "dir": "ltr",
+        "width": 207.79133,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            675.13
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "kindly revert to the respective RTA or the Mutual Fund for",
+        "dir": "ltr",
+        "width": 207.10517999999993,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            667.08
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "inclusion in future CAS.",
+        "dir": "ltr",
+        "width": 71.645,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            332.65,
+            659.03
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "CAS is now via email to Investors. It is sent either to the email id mentioned in KYC records or to the email id of the last transacted folio.",
+        "dir": "ltr",
+        "width": 484.7289999999998,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            46.35,
+            608.88
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "",
+        "dir": "ltr",
+        "width": 0,
+        "height": 12,
+        "transform": [
+            12,
+            0,
+            0,
+            12,
+            295.72,
+            596.41
+        ],
+        "fontName": "g_d1_f6"
+    },
+    {
+        "str": "",
+        "dir": "ltr",
+        "width": 0,
+        "height": 3,
+        "transform": [
+            3,
+            0,
+            0,
+            3,
+            295.72,
+            593.29
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "Kindly review and update your KYC records with latest email id to ensure quick and appropriate delivery of your consolidated account",
+        "dir": "ltr",
+        "width": 498.88679999999994,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            46.35,
+            586.02
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "statements. Also please ensure to register a common email with all Mutual Funds. A duplicate CAS or account statement may be obtained",
+        "dir": "ltr",
+        "width": 498.7975999999998,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            46.35,
+            578.74
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "from the website of any of the Mutual Fund’s Registrar, based on email ID.",
+        "dir": "ltr",
+        "width": 264.01199999999994,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            46.35,
+            571.47
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "Investor Name",
+        "dir": "ltr",
+        "width": 52.352999999999994,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            46.55,
+            559.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ": Aayush Garg",
+        "dir": "ltr",
+        "width": 49.020999999999994,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            123.09,
+            559.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Date",
+        "dir": "ltr",
+        "width": 16.541,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            49.48,
+            543.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Transaction",
+        "dir": "ltr",
+        "width": 41.265,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            83.4,
+            543.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Amount",
+        "dir": "ltr",
+        "width": 27.643,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            347.98,
+            543.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "(`)",
+        "dir": "ltr",
+        "width": 10.24,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            376.14,
+            543.21
+        ],
+        "fontName": "g_d1_f7"
+    },
+    {
+        "str": "Price",
+        "dir": "ltr",
+        "width": 17.576999999999998,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            443.34,
+            543.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "(`)",
+        "dir": "ltr",
+        "width": 10.24,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            462.72,
+            543.21
+        ],
+        "fontName": "g_d1_f7"
+    },
+    {
+        "str": "Units",
+        "dir": "ltr",
+        "width": 18.256,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            527.54,
+            543.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Nav",
+        "dir": "ltr",
+        "width": 13.622,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            401.64,
+            543.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "(`)",
+        "dir": "ltr",
+        "width": 10.24,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            417.36,
+            543.21
+        ],
+        "fontName": "g_d1_f7"
+    },
+    {
+        "str": "HDFC Mutual Fund",
+        "dir": "ltr",
+        "width": 74.64,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            49.72,
+            523.48
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "LFGN-HDFC Liquid Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 169.33700000000005,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            52.27,
+            508.27
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Folio No",
+        "dir": "ltr",
+        "width": 26.624,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            497.69
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "14419187",
+        "dir": "ltr",
+        "width": 28.340000000000003,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            497.69
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            497.69
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Nominee",
+        "dir": "ltr",
+        "width": 29.0355,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            486.35
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            486.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Please Nominate",
+        "dir": "ltr",
+        "width": 47.644999999999996,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            486.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mobile No",
+        "dir": "ltr",
+        "width": 32.5975,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            475.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            475.01
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "XXXXXX9010",
+        "dir": "ltr",
+        "width": 36.790000000000006,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            475.01
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mode of Holding",
+        "dir": "ltr",
+        "width": 53.274,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            497.69
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Single",
+        "dir": "ltr",
+        "width": 17.212,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            497.69
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            497.69
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "ISIN",
+        "dir": "ltr",
+        "width": 15.398499999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            486.35
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            486.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "INF179KB1HK0",
+        "dir": "ltr",
+        "width": 43.706,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            486.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Email Id",
+        "dir": "ltr",
+        "width": 27.118,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            475.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            475.01
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "gargaayush1122@gmail.com",
+        "dir": "ltr",
+        "width": 82.537,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            475.01
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "KYC of Investor/s",
+        "dir": "ltr",
+        "width": 58.37000000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            406.55,
+            497.69
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "KYC OK",
+        "dir": "ltr",
+        "width": 21.8985,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            477.42,
+            497.69
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            471.75,
+            497.69
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "UCC",
+        "dir": "ltr",
+        "width": 13.468,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            406.55,
+            486.35
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            471.75,
+            486.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "MFHDFC0004",
+        "dir": "ltr",
+        "width": 38.6425,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            477.42,
+            486.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Opening Balance :",
+        "dir": "ltr",
+        "width": 59.09799999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            461.69
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "10.859",
+        "dir": "ltr",
+        "width": 22.698,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            521.75,
+            463.67
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "14.04.20",
+        "dir": "ltr",
+        "width": 25.181000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            450.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Purchase - via Distributor",
+        "dir": "ltr",
+        "width": 72.475,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            450.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3.855",
+        "dir": "ltr",
+        "width": 16.133000000000003,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            528.31,
+            450.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "15,000.00",
+        "dir": "ltr",
+        "width": 28.723500000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            356.98,
+            450.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3890.9139",
+        "dir": "ltr",
+        "width": 30.303000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            440.44,
+            450.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3890.9139",
+        "dir": "ltr",
+        "width": 30.303000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            397.92,
+            450.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Closing Balance",
+        "dir": "ltr",
+        "width": 51.376000000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            439.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "14.714",
+        "dir": "ltr",
+        "width": 22.698,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            521.75,
+            440.99
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "02-HDFC Equity Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 160.28600000000003,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            52.27,
+            420.39
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Folio No",
+        "dir": "ltr",
+        "width": 26.624,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            409.81
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "14643628",
+        "dir": "ltr",
+        "width": 28.340000000000003,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            409.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            409.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Nominee",
+        "dir": "ltr",
+        "width": 29.0355,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            398.47
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            398.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Please Nominate",
+        "dir": "ltr",
+        "width": 47.644999999999996,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            398.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mobile No",
+        "dir": "ltr",
+        "width": 32.5975,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            387.14
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            387.14
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "XXXXXX9010",
+        "dir": "ltr",
+        "width": 36.790000000000006,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            387.14
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mode of Holding",
+        "dir": "ltr",
+        "width": 53.274,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            409.81
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Single",
+        "dir": "ltr",
+        "width": 17.212,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            409.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            409.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "ISIN",
+        "dir": "ltr",
+        "width": 15.398499999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            398.47
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            398.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "INF179K01608",
+        "dir": "ltr",
+        "width": 42.30200000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            398.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Email Id",
+        "dir": "ltr",
+        "width": 27.118,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            387.14
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            387.14
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "gargaayush1122@gmail.com",
+        "dir": "ltr",
+        "width": 82.537,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            387.14
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "KYC of Investor/s",
+        "dir": "ltr",
+        "width": 58.37000000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            406.55,
+            409.81
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "KYC OK",
+        "dir": "ltr",
+        "width": 21.8985,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            477.42,
+            409.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            471.75,
+            409.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "UCC",
+        "dir": "ltr",
+        "width": 13.468,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            406.55,
+            398.47
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            471.75,
+            398.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "MFHDFC0019",
+        "dir": "ltr",
+        "width": 38.6425,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            477.42,
+            398.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Opening Balance :",
+        "dir": "ltr",
+        "width": 59.09799999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            373.81
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "107.782",
+        "dir": "ltr",
+        "width": 26.832,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            517.61,
+            375.8
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "15.04.20",
+        "dir": "ltr",
+        "width": 25.181000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            362.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Purchase - via Distributor",
+        "dir": "ltr",
+        "width": 72.475,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            362.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "31.178",
+        "dir": "ltr",
+        "width": 19.675500000000003,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            524.77,
+            362.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "15,000.00",
+        "dir": "ltr",
+        "width": 28.723500000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            356.98,
+            362.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "481.113",
+        "dir": "ltr",
+        "width": 23.218000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            447.53,
+            362.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "481.113",
+        "dir": "ltr",
+        "width": 23.218000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            405.01,
+            362.47
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Closing Balance",
+        "dir": "ltr",
+        "width": 51.376000000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            351.14
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "138.960",
+        "dir": "ltr",
+        "width": 26.832,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            517.61,
+            353.12
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "IDBI MUTUAL FUND",
+        "dir": "ltr",
+        "width": 80.60799999999999,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            49.72,
+            322.22
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "SCGP-IDBI Small Cap Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 180.35500000000005,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            52.27,
+            307.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Folio No",
+        "dir": "ltr",
+        "width": 26.624,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            296.43
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "3012726205",
+        "dir": "ltr",
+        "width": 35.425000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            296.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            296.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Nominee",
+        "dir": "ltr",
+        "width": 29.0355,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            285.09
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            285.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Registered",
+        "dir": "ltr",
+        "width": 30.355,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            285.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mobile No",
+        "dir": "ltr",
+        "width": 32.5975,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            273.75
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            273.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "XXXXXX6691",
+        "dir": "ltr",
+        "width": 36.790000000000006,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            273.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mode of Holding",
+        "dir": "ltr",
+        "width": 53.274,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            296.43
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Single",
+        "dir": "ltr",
+        "width": 17.212,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            296.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            296.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "ISIN",
+        "dir": "ltr",
+        "width": 15.398499999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            285.09
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            285.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "INF397L01JW3",
+        "dir": "ltr",
+        "width": 43.19250000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            285.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Email Id",
+        "dir": "ltr",
+        "width": 27.118,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            273.75
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            273.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "hsaditya@hotmail.com",
+        "dir": "ltr",
+        "width": 64.792,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            273.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "KYC of Investor/s",
+        "dir": "ltr",
+        "width": 58.37000000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            406.55,
+            296.43
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "KYC OK",
+        "dir": "ltr",
+        "width": 21.8985,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            477.42,
+            296.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            471.75,
+            296.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "UCC",
+        "dir": "ltr",
+        "width": 13.468,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            406.55,
+            285.09
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            471.75,
+            285.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "MFIDBI0011",
+        "dir": "ltr",
+        "width": 35.646,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            477.42,
+            285.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Opening Balance :",
+        "dir": "ltr",
+        "width": 59.09799999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            260.43
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "10777.841",
+        "dir": "ltr",
+        "width": 35.1,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            509.35,
+            262.41
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "15.04.20",
+        "dir": "ltr",
+        "width": 25.181000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            249.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Systematic Investment (20/181)",
+        "dir": "ltr",
+        "width": 92.50800000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            249.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "146.628",
+        "dir": "ltr",
+        "width": 23.218000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            521.23,
+            249.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1,000.00",
+        "dir": "ltr",
+        "width": 25.181000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            360.53,
+            249.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "6.82",
+        "dir": "ltr",
+        "width": 12.590500000000002,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            458.16,
+            249.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "6.82",
+        "dir": "ltr",
+        "width": 12.590500000000002,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            415.64,
+            249.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Closing Balance",
+        "dir": "ltr",
+        "width": 51.376000000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            237.75
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "10924.469",
+        "dir": "ltr",
+        "width": 35.1,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            509.35,
+            239.73
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Tata Mutual Fund",
+        "dir": "ltr",
+        "width": 70.27199999999998,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            49.72,
+            208.83
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "MONG-Tata Liquid Fund Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 164.02400000000003,
+        "height": 7,
+        "transform": [
+            7,
+            0,
+            0,
+            7,
+            52.27,
+            193.62
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Folio No",
+        "dir": "ltr",
+        "width": 26.624,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            183.04
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "4493873",
+        "dir": "ltr",
+        "width": 24.797500000000003,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            183.04
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            183.04
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Nominee",
+        "dir": "ltr",
+        "width": 29.0355,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            171.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            171.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Registered",
+        "dir": "ltr",
+        "width": 30.355,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            171.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mobile No",
+        "dir": "ltr",
+        "width": 32.5975,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            160.36
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            97.58,
+            160.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "XXXXXX9010",
+        "dir": "ltr",
+        "width": 36.790000000000006,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            103.25,
+            160.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Mode of Holding",
+        "dir": "ltr",
+        "width": 53.274,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            183.04
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Single",
+        "dir": "ltr",
+        "width": 17.212,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            183.04
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            183.04
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "ISIN",
+        "dir": "ltr",
+        "width": 15.398499999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            171.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            171.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "INF277K01YD8",
+        "dir": "ltr",
+        "width": 43.36800000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            171.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Email Id",
+        "dir": "ltr",
+        "width": 27.118,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            216.63,
+            160.36
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            276.16,
+            160.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "gargaayush1122@gmail.com",
+        "dir": "ltr",
+        "width": 82.537,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            284.66,
+            160.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "KYC of Investor/s",
+        "dir": "ltr",
+        "width": 58.37000000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            406.55,
+            183.04
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "KYC OK",
+        "dir": "ltr",
+        "width": 21.8985,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            477.42,
+            183.04
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            471.75,
+            183.04
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "UCC",
+        "dir": "ltr",
+        "width": 13.468,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            406.55,
+            171.7
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": ":",
+        "dir": "ltr",
+        "width": 2.2944999999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            471.75,
+            171.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Not Available",
+        "dir": "ltr",
+        "width": 37.452999999999996,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            477.42,
+            171.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Opening Balance :",
+        "dir": "ltr",
+        "width": 59.09799999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            147.04
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "18.598",
+        "dir": "ltr",
+        "width": 22.698,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            521.75,
+            149.03
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "14.04.20",
+        "dir": "ltr",
+        "width": 25.181000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            135.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Purchase",
+        "dir": "ltr",
+        "width": 25.883,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            135.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "6.411",
+        "dir": "ltr",
+        "width": 16.133000000000003,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            528.31,
+            135.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "20,000.00",
+        "dir": "ltr",
+        "width": 28.723500000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            356.98,
+            135.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3119.8678",
+        "dir": "ltr",
+        "width": 30.303000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            440.44,
+            135.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3119.8678",
+        "dir": "ltr",
+        "width": 30.303000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            397.92,
+            135.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "27.04.20",
+        "dir": "ltr",
+        "width": 25.181000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            124.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Redemption - NEFT/RTGS PAYOUT",
+        "dir": "ltr",
+        "width": 100.01550000000003,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            124.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "(13.000)",
+        "dir": "ltr",
+        "width": 24.6415,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            519.81,
+            124.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "(40,651.81)",
+        "dir": "ltr",
+        "width": 33.6895,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            352.02,
+            124.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3127.0623",
+        "dir": "ltr",
+        "width": 30.303000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            440.44,
+            124.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3127.0623",
+        "dir": "ltr",
+        "width": 30.303000000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            397.92,
+            124.36
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Closing Balance",
+        "dir": "ltr",
+        "width": 51.376000000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            89.12,
+            113.03
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "12.009",
+        "dir": "ltr",
+        "width": 22.698,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            521.75,
+            115.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": " ",
+        "dir": "ltr",
+        "width": 3.3360000000000003,
+        "height": 12,
+        "transform": [
+            12,
+            0,
+            0,
+            12,
+            43,
+            810
+        ],
+        "fontName": "Helvetica"
+    },
+    {
+        "str": "67357 - Page 2 of 4",
+        "dir": "ltr",
+        "width": 70.008,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            481.31,
+            32.48
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Summary of Transacted Folios as on 30-April-2020",
+        "dir": "ltr",
+        "width": 241.49950000000004,
+        "height": 9.5,
+        "transform": [
+            9.5,
+            0,
+            0,
+            9.5,
+            47.08,
+            780.26
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Folio No",
+        "dir": "ltr",
+        "width": 24.576,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            79.06,
+            766.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Scheme Name",
+        "dir": "ltr",
+        "width": 42.87,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            766.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Closing Units",
+        "dir": "ltr",
+        "width": 39.41400000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            333.75,
+            766.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "NAV",
+        "dir": "ltr",
+        "width": 12.768,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            393.3,
+            766.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Valuation",
+        "dir": "ltr",
+        "width": 28.704000000000004,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            502.81,
+            766.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "(`)",
+        "dir": "ltr",
+        "width": 10.24,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            407.32,
+            765.49
+        ],
+        "fontName": "g_d1_f7"
+    },
+    {
+        "str": "(`)",
+        "dir": "ltr",
+        "width": 10.24,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            534.35,
+            765.49
+        ],
+        "fontName": "g_d1_f7"
+    },
+    {
+        "str": "Cost Value",
+        "dir": "ltr",
+        "width": 31.866000000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            437.59,
+            766.01
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "(`)",
+        "dir": "ltr",
+        "width": 10.24,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            472.52,
+            765.49
+        ],
+        "fontName": "g_d1_f7"
+    },
+    {
+        "str": "1037578562",
+        "dir": "ltr",
+        "width": 32.7,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            71.18,
+            752.72
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "32-Aditya Birla Sun Life Corporate Bond Fund - Growth-Regular Plan",
+        "dir": "ltr",
+        "width": 180.52200000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            756.34
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "(formerly known as Aditya Birla Sun Life Short Term Fund)",
+        "dir": "ltr",
+        "width": 155.14800000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            749.1
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "633.017",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            752.72
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "79.062",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            400.12,
+            752.72
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "50,047.590054",
+        "dir": "ltr",
+        "width": 39.59400000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            509.32,
+            752.72
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "47000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            752.72
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1038989310",
+        "dir": "ltr",
+        "width": 32.7,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            71.18,
+            739.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "92Z-Aditya Birla Sun Life Frontline Equity Fund -Growth-Direct Plan",
+        "dir": "ltr",
+        "width": 177.34199999999998,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            739.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "41.668",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            355.01,
+            739.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "200.77",
+        "dir": "ltr",
+        "width": 18.162000000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            400.12,
+            739.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "8,365.68436",
+        "dir": "ltr",
+        "width": 33.054,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            515.86,
+            739.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "10000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            739.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1019771844",
+        "dir": "ltr",
+        "width": 32.7,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            71.18,
+            728.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "92-Aditya Birla Sun Life Frontline Equity Fund -Growth-Regular Plan",
+        "dir": "ltr",
+        "width": 178.66800000000006,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            728.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "118.396",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            728.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "188.2",
+        "dir": "ltr",
+        "width": 14.892000000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            403.39,
+            728.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "22,282.1272",
+        "dir": "ltr",
+        "width": 33.054,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            515.86,
+            728.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "25000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            728.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1037115441",
+        "dir": "ltr",
+        "width": 32.7,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            71.18,
+            714.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "231G-Aditya Birla Sun Life Tax Plan - (ELSS U/S 80C of IT ACT) - Growth-",
+        "dir": "ltr",
+        "width": 195.04800000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            718.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Regular Plan",
+        "dir": "ltr",
+        "width": 33.234,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            711.19
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "529.801",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            714.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "34.45",
+        "dir": "ltr",
+        "width": 14.892,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            403.39,
+            714.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "18,251.64445",
+        "dir": "ltr",
+        "width": 36.324000000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            512.59,
+            714.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "20000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            714.81
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1037804542",
+        "dir": "ltr",
+        "width": 32.7,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            71.18,
+            699.57
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "02G-Aditya Birla Sun Life Tax Relief'96 Fund- (ELSS U/S 80C of IT ACT) -",
+        "dir": "ltr",
+        "width": 192.95400000000006,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            703.19
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Growth-Regular Plan",
+        "dir": "ltr",
+        "width": 54.623999999999995,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            695.95
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1,239.336",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            346.65,
+            699.57
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "28.09",
+        "dir": "ltr",
+        "width": 14.892,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            403.39,
+            699.57
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "34,812.94824",
+        "dir": "ltr",
+        "width": 36.324000000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            512.59,
+            699.57
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "38000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            699.57
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Aditya Birla Sun Life Mutual Fund -  Total",
+        "dir": "ltr",
+        "width": 123.41399999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            684.87
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "133,759.99",
+        "dir": "ltr",
+        "width": 34.272,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            514.4,
+            684.87
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "90138947383",
+        "dir": "ltr",
+        "width": 35.970000000000006,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            67.91,
+            672.11
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "TSDG-Axis Long Term Equity Fund - Direct Growth",
+        "dir": "ltr",
+        "width": 133.95,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            672.11
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "466.248",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            672.11
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "46.2403",
+        "dir": "ltr",
+        "width": 21.432,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            396.85,
+            672.11
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "21,559.45",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.4,
+            672.11
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "20000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            672.11
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "AXIS MUTUAL FUND -  Total",
+        "dir": "ltr",
+        "width": 84.00599999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            659.36
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "21,559.45",
+        "dir": "ltr",
+        "width": 30.455999999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            518.22,
+            659.36
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "5320671",
+        "dir": "ltr",
+        "width": 22.89,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            80.99,
+            646.6
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "110-DSP Tax Saver Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 130.134,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            646.6
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "448.451",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            646.6
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "42.229",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            400.12,
+            646.6
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "18,937.637279",
+        "dir": "ltr",
+        "width": 39.59400000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            509.32,
+            646.6
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "20000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            646.6
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "DSP Investment Managers Pvt. Ltd -  Total",
+        "dir": "ltr",
+        "width": 128.18999999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            633.85
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "18,937.64",
+        "dir": "ltr",
+        "width": 30.455999999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            518.22,
+            633.85
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "12685649",
+        "dir": "ltr",
+        "width": 26.16,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            77.72,
+            621.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "02-HDFC Equity Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 121.09799999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            621.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "26.132",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            355.01,
+            621.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "519.905",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            396.85,
+            621.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "13,586.15746",
+        "dir": "ltr",
+        "width": 36.324000000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            512.59,
+            621.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "15000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            621.09
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "14643628",
+        "dir": "ltr",
+        "width": 26.16,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            77.72,
+            609.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "02-HDFC Equity Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 121.09799999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            609.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "138.960",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            609.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "519.905",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            396.85,
+            609.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "72,246.00",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.4,
+            609.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "85000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            609.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "14187815",
+        "dir": "ltr",
+        "width": 26.16,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            77.72,
+            598.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "INSPT-HDFC Index Fund - Sensex Plan - Direct Plan - Growth Option",
+        "dir": "ltr",
+        "width": 181.89000000000007,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            598.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "31.947",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            355.01,
+            598.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "303.6986",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            393.58,
+            598.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "9,702.2591742",
+        "dir": "ltr",
+        "width": 39.59400000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            509.32,
+            598.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "10000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            598.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "14419187",
+        "dir": "ltr",
+        "width": 26.16,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            77.72,
+            587.07
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "LFGN-HDFC Liquid Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 127.97399999999998,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            587.07
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "14.714",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            355.01,
+            587.07
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3899.6757",
+        "dir": "ltr",
+        "width": 27.972,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            390.31,
+            587.07
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "57,379.83",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.4,
+            587.07
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "55000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            587.07
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "HDFC Mutual Fund -  Total",
+        "dir": "ltr",
+        "width": 79.07999999999998,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            574.32
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "152,914.25",
+        "dir": "ltr",
+        "width": 34.272,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            514.4,
+            574.32
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "11673080",
+        "dir": "ltr",
+        "width": 26.16,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            77.72,
+            561.56
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1191-ICICI Prudential Bluechip Fund - Growth",
+        "dir": "ltr",
+        "width": 121.73399999999998,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            561.56
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "247.709",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            561.56
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "36.23",
+        "dir": "ltr",
+        "width": 14.892,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            403.39,
+            561.56
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "8,974.49707",
+        "dir": "ltr",
+        "width": 33.054,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            515.86,
+            561.56
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "10000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            561.56
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "ICICI Prudential Mutual Fund -  Total",
+        "dir": "ltr",
+        "width": 112.15799999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            548.81
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "8,974.50",
+        "dir": "ltr",
+        "width": 26.639999999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.04,
+            548.81
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "3013734541",
+        "dir": "ltr",
+        "width": 32.7,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            71.18,
+            536.05
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "FEGP-IDBI Focused 30 Equity Fund - Regular Plan-Growth",
+        "dir": "ltr",
+        "width": 153.76200000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            536.05
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "2,000.000",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            346.65,
+            536.05
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "8.73",
+        "dir": "ltr",
+        "width": 11.622,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            406.66,
+            536.05
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "17,460.00",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.4,
+            536.05
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "20000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            536.05
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3014356472",
+        "dir": "ltr",
+        "width": 32.7,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            71.18,
+            524.71
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "LVGP-IDBI Long Term Value Fund - Regular Plan-Growth",
+        "dir": "ltr",
+        "width": 150.60000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            524.71
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "2,500.000",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            346.65,
+            524.71
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "8.72",
+        "dir": "ltr",
+        "width": 11.622,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            406.66,
+            524.71
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "21,800.00",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.4,
+            524.71
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "25000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            524.71
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3012726205",
+        "dir": "ltr",
+        "width": 32.7,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            71.18,
+            513.37
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "SCGP-IDBI Small Cap Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 135.84599999999998,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            513.37
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "10,924.469",
+        "dir": "ltr",
+        "width": 29.784,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            343.38,
+            513.37
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "7.21",
+        "dir": "ltr",
+        "width": 11.622,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            406.66,
+            513.37
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "78,765.42",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.4,
+            513.37
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "109938.16",
+        "dir": "ltr",
+        "width": 27.972,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            455.75,
+            513.37
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "IDBI MUTUAL FUND -  Total",
+        "dir": "ltr",
+        "width": 83.55599999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            500.62
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "118,025.42",
+        "dir": "ltr",
+        "width": 34.272,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            514.4,
+            500.62
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "2358588",
+        "dir": "ltr",
+        "width": 22.89,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            80.99,
+            487.86
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "223-IDFC Tax Advantage (ELSS) Fund-Growth-(Regular Plan)",
+        "dir": "ltr",
+        "width": 162.24000000000004,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            487.86
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "536.467",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            487.86
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "43.68",
+        "dir": "ltr",
+        "width": 14.892,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            403.39,
+            487.86
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "23,432.87856",
+        "dir": "ltr",
+        "width": 36.324000000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            512.59,
+            487.86
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "30000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            487.86
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "IDFC Mutual Fund -  Total",
+        "dir": "ltr",
+        "width": 77.39399999999999,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            475.11
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "23,432.88",
+        "dir": "ltr",
+        "width": 30.455999999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            518.22,
+            475.11
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "70111760783",
+        "dir": "ltr",
+        "width": 35.970000000000006,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            67.91,
+            462.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "IORG-Mirae Asset Large Cap Fund - Regular Growth Plan",
+        "dir": "ltr",
+        "width": 150.594,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            462.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "214.105",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            462.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "44.296",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            400.12,
+            462.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "9,484.00",
+        "dir": "ltr",
+        "width": 23.244,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            525.67,
+            462.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "10000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            462.35
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "MIRAE ASSET MUTUAL FUND -  Total",
+        "dir": "ltr",
+        "width": 110.32199999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            449.59
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "9,484.00",
+        "dir": "ltr",
+        "width": 26.639999999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.04,
+            449.59
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "401179783163",
+        "dir": "ltr",
+        "width": 39.24000000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            64.64,
+            434.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "EARG-NIPPON INDIA LARGE CAP FUND - GROWTH PLAN GROWTH",
+        "dir": "ltr",
+        "width": 178.26,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            438.51
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "OPTION",
+        "dir": "ltr",
+        "width": 21.528,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            431.27
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "964.354",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            434.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "27.2413",
+        "dir": "ltr",
+        "width": 21.432,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            396.85,
+            434.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "26,270.26",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.4,
+            434.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "30000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            434.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "NIPPON INDIA MUTUAL FUND -  Total",
+        "dir": "ltr",
+        "width": 114.55799999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            420.19
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "26,270.26",
+        "dir": "ltr",
+        "width": 30.455999999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            518.22,
+            420.19
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "61012622",
+        "dir": "ltr",
+        "width": 26.16,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            77.72,
+            407.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "SBZG-Principal Hybrid Equity Fund - Direct Plan Growth",
+        "dir": "ltr",
+        "width": 146.412,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            407.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "124.517",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            407.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "73.12",
+        "dir": "ltr",
+        "width": 14.892,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            403.39,
+            407.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "9,104.68",
+        "dir": "ltr",
+        "width": 23.244,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            525.67,
+            407.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "10000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            407.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "PRINCIPAL MUTUAL FUND -  Total",
+        "dir": "ltr",
+        "width": 103.29599999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            394.67
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "9,104.68",
+        "dir": "ltr",
+        "width": 26.639999999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.04,
+            394.67
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "20211671",
+        "dir": "ltr",
+        "width": 26.16,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            77.72,
+            381.92
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "D24G-SBI Equity Hybrid Fund Direct Growth",
+        "dir": "ltr",
+        "width": 116.68799999999999,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            381.92
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "74.908",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            355.01,
+            381.92
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "136.2898",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            393.58,
+            381.92
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "10,209.1963384",
+        "dir": "ltr",
+        "width": 42.86400000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            506.05,
+            381.92
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "10000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            381.92
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "SBI Mutual Fund -  Total",
+        "dir": "ltr",
+        "width": 73.278,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            369.16
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "10,209.20",
+        "dir": "ltr",
+        "width": 30.455999999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            518.22,
+            369.16
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "501762773714",
+        "dir": "ltr",
+        "width": 39.24000000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            64.64,
+            356.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "MCGP-SUNDARAM MID CAP FUND REGULAR GROWTH",
+        "dir": "ltr",
+        "width": 144.71999999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            356.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "415.132",
+        "dir": "ltr",
+        "width": 21.432000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            351.74,
+            356.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "360.9297",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            393.58,
+            356.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1,49,833.47",
+        "dir": "ltr",
+        "width": 31.596,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            517.32,
+            356.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "37000.00",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            356.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "SUNDARAM MUTUAL FUND Total",
+        "dir": "ltr",
+        "width": 98.32199999999997,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            343.65
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "149,833.47",
+        "dir": "ltr",
+        "width": 34.272,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            514.4,
+            343.65
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "4493873",
+        "dir": "ltr",
+        "width": 22.89,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            80.99,
+            330.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "MONG-Tata Liquid Fund Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 123.62399999999998,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            111.56,
+            330.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "12.009",
+        "dir": "ltr",
+        "width": 18.162,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            355.01,
+            330.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "3127.7194",
+        "dir": "ltr",
+        "width": 27.972,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            390.31,
+            330.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "37,560.78",
+        "dir": "ltr",
+        "width": 26.514,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            522.4,
+            330.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "37226.01",
+        "dir": "ltr",
+        "width": 24.702,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            459.02,
+            330.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Tata Mutual Fund -  Total",
+        "dir": "ltr",
+        "width": 75.80399999999999,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            46.36,
+            318.14
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "37,560.78",
+        "dir": "ltr",
+        "width": 30.455999999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            518.22,
+            318.14
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Grand Total",
+        "dir": "ltr",
+        "width": 38.22,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            46.6,
+            303.77
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "720,066.52",
+        "dir": "ltr",
+        "width": 37.128,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            511.55,
+            303.77
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Load Structures and Customer Care Details.",
+        "dir": "ltr",
+        "width": 186.15,
+        "height": 8.5,
+        "transform": [
+            8.5,
+            0,
+            0,
+            8.5,
+            46.84,
+            276.08
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "32-Aditya Birla Sun Life Corporate Bond Fund - Growth-Regular Plan (formerly known as Aditya Birla Sun Life Short Term Fund)",
+        "dir": "ltr",
+        "width": 416.7150000000006,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            254.17
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "w.e.f 05-May-2015 Entry Load : Nil Exit Load : Nil Note: The exit load rate levied at the time of redemption/switch-out of units will be the rate prevailing at the time of allotment of",
+        "dir": "ltr",
+        "width": 474.9660000000004,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            245.44
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "the corresponding units. Customers may request for a separate Exit Load Applicability Report by calling our toll free numbers 1800-270-7000  or from any of our Investor Service",
+        "dir": "ltr",
+        "width": 469.7100000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            238.19
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Centers.",
+        "dir": "ltr",
+        "width": 21.906000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            230.95
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "92Z-Aditya Birla Sun Life Frontline Equity Fund -Growth-Direct Plan",
+        "dir": "ltr",
+        "width": 220.68800000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            217.52
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "WEF 15-May-2017 For redemption/switch out of  units within 365 days from the date of allotment: 1.00% of applicable NAV. For redemption/switch out of units after 365 days from",
+        "dir": "ltr",
+        "width": 477.84600000000046,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            208.79
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "the date of allotment: Nil  Note: The exit load rate levied at the time of redemption/switch-out of units will be the rate prevailing at the time of allotment of the corresponding units.",
+        "dir": "ltr",
+        "width": 477.8280000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            201.54
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customers may request for a separate Exit Load Applicability Report by calling our toll free numbers 1800-270-7000  or from any of our Investor Service Centers.",
+        "dir": "ltr",
+        "width": 427.4160000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            194.3
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "92-Aditya Birla Sun Life Frontline Equity Fund -Growth-Regular Plan",
+        "dir": "ltr",
+        "width": 222.45600000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            180.87
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "WEF 15-May-2017 For redemption/switch out of  units within 365 days from the date of allotment: 1.00% of applicable NAV. For redemption/switch out of units after 365 days from",
+        "dir": "ltr",
+        "width": 477.84600000000046,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            172.14
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "the date of allotment: Nil  Note: The exit load rate levied at the time of redemption/switch-out of units will be the rate prevailing at the time of allotment of the corresponding units.",
+        "dir": "ltr",
+        "width": 477.8280000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            164.89
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customers may request for a separate Exit Load Applicability Report by calling our toll free numbers 1800-270-7000  or from any of our Investor Service Centers.",
+        "dir": "ltr",
+        "width": 427.4160000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            157.65
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "231G-Aditya Birla Sun Life Tax Plan - (ELSS U/S 80C of IT ACT) - Growth-Regular Plan",
+        "dir": "ltr",
+        "width": 280.8585000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            144.22
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "WEF 15-May-2017 Entry Load : Nil Exit Load : Nil Note:The exit load rate levied at the time of redemption/switch-out of units will be the rate prevailing at the time of allotment of",
+        "dir": "ltr",
+        "width": 471.85200000000043,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            135.49
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "the corresponding units. Customers may request for a separate Exit Load Applicability Report by calling our toll free numbers 1800-270-7000  or from any of our Investor Service",
+        "dir": "ltr",
+        "width": 469.7100000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            128.24
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Centers.",
+        "dir": "ltr",
+        "width": 21.906000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            121
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": " ",
+        "dir": "ltr",
+        "width": 3.3360000000000003,
+        "height": 12,
+        "transform": [
+            12,
+            0,
+            0,
+            12,
+            43,
+            810
+        ],
+        "fontName": "Helvetica"
+    },
+    {
+        "str": "67357 - Page 3 of 4",
+        "dir": "ltr",
+        "width": 70.008,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            481.31,
+            32.48
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Load Structures and Customer Care Details.",
+        "dir": "ltr",
+        "width": 186.15,
+        "height": 8.5,
+        "transform": [
+            8.5,
+            0,
+            0,
+            8.5,
+            46.84,
+            782.06
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "02G-Aditya Birla Sun Life Tax Relief'96 Fund- (ELSS U/S 80C of IT ACT) - Growth-Regular Plan",
+        "dir": "ltr",
+        "width": 307.51500000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            760.14
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "WEF 15-May-2017 Entry Load : Nil Exit Load : Nil Note:The exit load rate levied at the time of redemption/switch-out of units will be the rate prevailing at the time of allotment of",
+        "dir": "ltr",
+        "width": 471.85200000000043,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            751.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "the corresponding units. Customers may request for a separate Exit Load Applicability Report by calling our toll free numbers 1800-270-7000  or from any of our Investor Service",
+        "dir": "ltr",
+        "width": 469.7100000000003,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            744.17
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Centers.",
+        "dir": "ltr",
+        "width": 21.906000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            736.93
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : Aditya Birla Sun Life Mutual Fund, RTA: Computer Age Management Services Pvt. Ltd., 1800-270-7000,",
+        "dir": "ltr",
+        "width": 396.8900000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            723.19
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "care.mutualfunds@adityabirlacapital.com www.adityabirlasunlifemf.com",
+        "dir": "ltr",
+        "width": 235.96300000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            715.29
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "TSDG-Axis Long Term Equity Fund - Direct Growth",
+        "dir": "ltr",
+        "width": 164.02749999999997,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            695.15
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry Load - NIL, Exit Load - NIL.  Investment in Axis Long Term Equity Fund is eligible for availing tax benefit under section 80C of Income Tax ACT 1961 read with circular no. -",
+        "dir": "ltr",
+        "width": 471.6300000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            686.42
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "9/2005 dated 30 Nov`05 issued by Ministry Of Finance, subject to the limitsconditions specified under section 80C.",
+        "dir": "ltr",
+        "width": 303.7260000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            679.17
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : AXIS MUTUAL FUND, RTA: KFin Technologies Private Limited, 1800 3000 3300, customerservice@axismf.com",
+        "dir": "ltr",
+        "width": 415.50600000000003,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            661.49
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "110-DSP Tax Saver Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 159.757,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            637.39
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry & Exit Load - Nil. Units allotted under DSP Tax Saver Fund (Open ended ELSS) are eligible for tax deduction as per conditions laid u/s 80C of the Income Tax Act, 1961",
+        "dir": "ltr",
+        "width": 458.6040000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            628.66
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : DSP Investment Managers Pvt. Ltd, RTA: Computer Age Management Services Pvt. Ltd., 1800-200-4499, service@dspim.com",
+        "dir": "ltr",
+        "width": 469.4950000000001,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            614.93
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "www.dspim.com",
+        "dir": "ltr",
+        "width": 53.897999999999996,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            607.03
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "02-HDFC Equity Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 148.837,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            586.88
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "*Due to change in fundamental attributes of the Scheme  w.e.f.  May 23, 2018, the type of the Scheme has been changed to an  Open-ended Equity Scheme investing across large",
+        "dir": "ltr",
+        "width": 476.2860000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            578.15
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "cap, mid cap & small cap stocks. Scheme - Current Load Structure : Entry Load: Not Applicable. Exit Load: Redemption/Switch-out within 1 Year of allotment - 1%.  The rate of exit",
+        "dir": "ltr",
+        "width": 476.92800000000057,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            570.91
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "load levied on units redeemed will be the rate prevailing at the time of allotment of the units. For further details visit www.hdfcfund.com (under Investor Corner) or contact any of",
+        "dir": "ltr",
+        "width": 473.25000000000045,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            563.67
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "our Investor Service Centre.  GST Identification Number : 27AAATH1809A1Z9",
+        "dir": "ltr",
+        "width": 205.56000000000014,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            556.42
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "02-HDFC Equity Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 148.837,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            542.99
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "*Due to change in fundamental attributes of the Scheme  w.e.f.  May 23, 2018, the type of the Scheme has been changed to an  Open-ended Equity Scheme investing across large",
+        "dir": "ltr",
+        "width": 476.2860000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            534.26
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "cap, mid cap & small cap stocks. Scheme - Current Load Structure : Entry Load: Not Applicable. Exit Load: Redemption/Switch-out within 1 Year of allotment - 1%.  The rate of exit",
+        "dir": "ltr",
+        "width": 476.92800000000057,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            527.02
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "load levied on units redeemed will be the rate prevailing at the time of allotment of the units. For further details visit www.hdfcfund.com (under Investor Corner) or contact any of",
+        "dir": "ltr",
+        "width": 473.25000000000045,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            519.77
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "our Investor Service Centre.  GST Identification Number : 27AAATH1809A1Z9",
+        "dir": "ltr",
+        "width": 205.56000000000014,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            512.53
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "INSPT-HDFC Index Fund - Sensex Plan - Direct Plan - Growth Option",
+        "dir": "ltr",
+        "width": 223.6325,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            499.1
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "*Due to change in  fundamental attributes of HDFC Index Fund - SENSEX Plan and merger of HDFC Index Fund - SENSEX Plus Plan therein,  w.e.f.  May 25, 2018 (close of business",
+        "dir": "ltr",
+        "width": 477.82800000000026,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            490.37
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "hours) , the scheme shall be managed as HDFC Index Fund-SENSEX Plan, an open-ended scheme replicating/tracking S&P BSE SENSEX Index.  Current Load Structure : Entry Load:",
+        "dir": "ltr",
+        "width": 478.82400000000075,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            483.12
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Not Applicable. Exit Load: 0.25% if units are redeemed/swtiched-out within 3 days from the date of investment. No Exit Load if units are redeemed/switched-out after 3 days  from",
+        "dir": "ltr",
+        "width": 475.8360000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            475.88
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "the date of investment with effect from Sep 22, 2017.  The rate of exit load levied on units redeemed will be the rate prevailing at the time of allotment of the units. For further",
+        "dir": "ltr",
+        "width": 466.14600000000064,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            468.64
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "details visit www.hdfcfund.com (under Investor Corner) or contact any of our Investor Service Centre.  GST Identification Number : 27AAATH1809A1Z9",
+        "dir": "ltr",
+        "width": 401.68199999999996,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            461.4
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "LFGN-HDFC Liquid Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 157.2415,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            447.96
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "*Merger of erstwhile 'HDFC Liquid Fund Premium Plan into  HDFC Liquid Fund, w.e.f, May 11, 2019, HDFC Liquid Fund, An open ended Liquid Scheme. Current Load Structure:",
+        "dir": "ltr",
+        "width": 463.9440000000006,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            439.23
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Entry Load: Not Applicable. Exit Load: Effective October 20, 2019, following graded exit load will be applicable if units are redeemed/switched-out within 6 days from the date of",
+        "dir": "ltr",
+        "width": 468.0720000000006,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            431.99
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "allotment: Day1 - 0.0070%; Day2 - 0.0065%; Day3 - 0.0060%; Day4 - 0.0055%; Day5 - 0.0050%; Day6 - 0.0045%; Day7 onwards - Nil. For further details visit",
+        "dir": "ltr",
+        "width": 426.74400000000037,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            424.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "www.hdfcfund.com (under Investor Corner) or contact any of our Investor Service Centre.  GST Identification Number : 27AAATH1809A1Z9. On account of the change in face value",
+        "dir": "ltr",
+        "width": 477.9000000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            417.51
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "of units, the NAV and balance units in this scheme were adjusted with effect from August 30, 2015. This change did not affect the value of units held (subject to rounding off).",
+        "dir": "ltr",
+        "width": 463.9740000000004,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            410.26
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : HDFC Mutual Fund, RTA: Computer Age Management Services Pvt. Ltd., 1800-3010-6767, cliser@hdfcfund.com,",
+        "dir": "ltr",
+        "width": 425.3210000000002,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            396.53
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "www.hdfcfund.com",
+        "dir": "ltr",
+        "width": 62.679500000000004,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            388.63
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "1191-ICICI Prudential Bluechip Fund - Growth",
+        "dir": "ltr",
+        "width": 152.113,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            368.48
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Current : Entry Load - Nil. Exit Load w.e.f 16-Jul-2010 [including SIP,STP,SWP(SIP) wherever available] - If redeemed or switched out upto 1 year - 1.0%, > 1 year - Nil. For",
+        "dir": "ltr",
+        "width": 458.91000000000065,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            359.75
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "lumpsum investment/switch in, the applicable load will be based on the load structure as on the date of investment/applicable NAV date. For SIP/STP transactions, load for each",
+        "dir": "ltr",
+        "width": 467.76600000000053,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            352.51
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "transaction is based on the applicable load structure as on the registration date. For details, please refer to SID and Addenda available on www.icicipruamc.com.Scheme Name of",
+        "dir": "ltr",
+        "width": 470.6880000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            345.27
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "ICICI Prudential Focused Bluechip Equity Fund has been changed to ICICI Prudential Bluechip Fund with effect from May 28, 2018.",
+        "dir": "ltr",
+        "width": 347.2020000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            338.03
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : ICICI Prudential Mutual Fund, RTA: Computer Age Management Services Pvt. Ltd., 1800222999 (MTNL/BSNL), 18002006666",
+        "dir": "ltr",
+        "width": 467.10300000000007,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            324.29
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "(Others), enquiry@icicipruamc.com, www.icicipruamc.com",
+        "dir": "ltr",
+        "width": 191.5875,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            316.39
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "FEGP-IDBI Focused 30 Equity Fund - Regular Plan-Growth",
+        "dir": "ltr",
+        "width": 190.0405,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            296.25
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry Load: Not applicable ; Exit Load :1% for repurchase/switch-out on or before 12 months from the date of allotment.  **For Investors who have opted for Demat, the units will",
+        "dir": "ltr",
+        "width": 476.1720000000004,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            287.51
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "be credited in their DP Account.",
+        "dir": "ltr",
+        "width": 84.05399999999999,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            280.27
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "LVGP-IDBI Long Term Value Fund - Regular Plan-Growth",
+        "dir": "ltr",
+        "width": 185.86100000000002,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            266.84
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry Load : NA ; Exit Load : If units of the Scheme are redeemed or switched out up to 10% of the units (the limit) within 12 months from the date of  allotment - Nil.If units of",
+        "dir": "ltr",
+        "width": 469.42200000000025,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            258.11
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "the scheme are redeemed or switched out in excess of the limit within 12 months from the date of allotment - 1% of the applicable NAV.If units of scheme are redeemed or",
+        "dir": "ltr",
+        "width": 456.61800000000045,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            250.86
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "switched out after 12 months from the date of allotment - Nil.",
+        "dir": "ltr",
+        "width": 163.86000000000007,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            243.62
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "SCGP-IDBI Small Cap Fund - Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 167.47249999999997,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            230.19
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry Load: Not applicable ; Exit Load :1% for repurchase/switch-out on or before 12 months from the date of allotment.  **For Investors who have opted for Demat, the units will",
+        "dir": "ltr",
+        "width": 476.1720000000004,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            221.46
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "be credited in their DP Account.",
+        "dir": "ltr",
+        "width": 84.05399999999999,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            214.21
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : IDBI MUTUAL FUND, RTA: KFin Technologies Private Limited, 1800-419-4324 idbimf.customercare@kfintech.com",
+        "dir": "ltr",
+        "width": 427.23850000000016,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            196.53
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "223-IDFC Tax Advantage (ELSS) Fund-Growth-(Regular Plan)",
+        "dir": "ltr",
+        "width": 201.1165,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            172.43
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry Load and Exit Load-Nil. All the investments in this Scheme are under ELSS. Units are under lock-in period of 3 Years from the date of investment. Please refer the Offer",
+        "dir": "ltr",
+        "width": 459.3960000000007,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            163.7
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Document / Addendum issued from time to time for any change in load structure.",
+        "dir": "ltr",
+        "width": 216.3240000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            156.46
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : IDFC Mutual Fund, RTA: Computer Age Management Services Pvt. Ltd., 1800-22-6622, investormf@idfc.com",
+        "dir": "ltr",
+        "width": 413.5690000000002,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            138.77
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": " ",
+        "dir": "ltr",
+        "width": 3.3360000000000003,
+        "height": 12,
+        "transform": [
+            12,
+            0,
+            0,
+            12,
+            43,
+            810
+        ],
+        "fontName": "Helvetica"
+    },
+    {
+        "str": "67357 - Page 4 of 4",
+        "dir": "ltr",
+        "width": 70.008,
+        "height": 8,
+        "transform": [
+            8,
+            0,
+            0,
+            8,
+            481.31,
+            32.48
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Load Structures and Customer Care Details.",
+        "dir": "ltr",
+        "width": 186.15,
+        "height": 8.5,
+        "transform": [
+            8.5,
+            0,
+            0,
+            8.5,
+            46.84,
+            782.06
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "IORG-Mirae Asset Large Cap Fund - Regular Growth Plan",
+        "dir": "ltr",
+        "width": 185.40599999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            760.14
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry Load: Nil and Exit Load :  For SWP 15% of the units allotted (including Switch-in/STP-in) on or before completion of 365 days from the date of allotment of units is NIL. Any",
+        "dir": "ltr",
+        "width": 472.1700000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            751.41
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "redemption in excess of such limit, on FIFO basis, or other redemptionsof investor who have not opted for SWP(Inc Switch out, STP out) and If redeemed within 1 year (365 Days)",
+        "dir": "ltr",
+        "width": 475.4160000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            744.17
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "from the date of allotment Exit load is 1%  and after 365 days from the date of allotment Exit load is NIL .",
+        "dir": "ltr",
+        "width": 281.5800000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            736.93
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : MIRAE ASSET MUTUAL FUND, RTA: KFin Technologies Private Limited, 1800-2090-777",
+        "dir": "ltr",
+        "width": 339.768,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            719.24
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "EARG-NIPPON INDIA LARGE CAP FUND - GROWTH PLAN GROWTH OPTION",
+        "dir": "ltr",
+        "width": 245.52449999999993,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            695.15
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "For subscriptions received w.e.f. June 11th, 2018, 10% of the units allotted shall be redeemed without any exit load, 1% exit load shall be applicable for units redeemed in excess",
+        "dir": "ltr",
+        "width": 472.77000000000055,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            686.42
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "of such limit,on or before completion of 12 months from the date of allotment of units. And Nil thereafter.Redemption of units would be done on First in First out Basis (FIFO). For",
+        "dir": "ltr",
+        "width": 472.86000000000024,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            679.17
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "subscriptions prior to June 11th, 2018, Exit load levied on the Units redeemed will be the rate prevailing at the time of the allotment of the Units.For Special products registrations,",
+        "dir": "ltr",
+        "width": 474.0660000000006,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            671.93
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "load for each transaction is based on the load structure applicable as on the registration date.",
+        "dir": "ltr",
+        "width": 248.05200000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            664.69
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : NIPPON INDIA MUTUAL FUND, RTA: KFin Technologies Private Limited, 1860 266 0111 (local call charges apply),",
+        "dir": "ltr",
+        "width": 426.9459999999999,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            650.95
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "customercare@nipponindiamf.com, www.nipponindiamf.com",
+        "dir": "ltr",
+        "width": 198.224,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            643.05
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "SBZG-Principal Hybrid Equity Fund - Direct Plan Growth",
+        "dir": "ltr",
+        "width": 181.59699999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            622.91
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Exit Load  - 1 % -  On  redemption in excess of 24 % of the units allotted within one year from the date of allotment",
+        "dir": "ltr",
+        "width": 309.1500000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            614.18
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : PRINCIPAL MUTUAL FUND, RTA: KFin Technologies Private Limited, 1800 425 5600",
+        "dir": "ltr",
+        "width": 328.7245,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            596.49
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "D24G-SBI Equity Hybrid Fund Direct Growth",
+        "dir": "ltr",
+        "width": 144.49499999999998,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            572.4
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry Load: N.A;  Exit Load (w.e.f. 16-OCT-2015): NIL for 10% of investment and 1.00% exit load for remaining investment if redeemed/switched within 12 month from the date of",
+        "dir": "ltr",
+        "width": 477.72000000000037,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            563.67
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "investment; NIL if redeemed/switched after 12 month from the date of investment.  For applicability of load structure, please refer to SAI/SID/ KIM/Addendum issued from time to",
+        "dir": "ltr",
+        "width": 474.37800000000044,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            556.42
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "time.**Scheme name of \"SBI Magnum Balanced Fund\"  has been changed to \"SBI Equity Hybrid Fund\"  with effect from 16th May 2018.",
+        "dir": "ltr",
+        "width": 361.66200000000026,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            549.18
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : SBI Mutual Fund, RTA: Computer Age Management Services Pvt. Ltd., 1800-425-5425, customer.delight@sbimf.com,",
+        "dir": "ltr",
+        "width": 442.05850000000027,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            535.45
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "www.sbimf.com",
+        "dir": "ltr",
+        "width": 52.13,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            527.55
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "MCGP-SUNDARAM MID CAP FUND REGULAR GROWTH",
+        "dir": "ltr",
+        "width": 176.63749999999996,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            507.4
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Entry Load Nil, W.E.F Mar 2, 2020 Exit Load: Upto 25% of Units purchased/switchin - NIL In excess of the above: 1% if redeemed/switched out /SWP/STP within 365  days from",
+        "dir": "ltr",
+        "width": 469.3440000000001,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            498.67
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "the date of allotment. NIL if redeemed/switched out /SWP/STP after 365 days from the",
+        "dir": "ltr",
+        "width": 230.94600000000014,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            491.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : SUNDARAM MUTUAL FUND RTA: KFin Technologies Private Limited, 1860 425 7237 customerservices@sundarammutual.com",
+        "dir": "ltr",
+        "width": 465.67949999999996,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            473.74
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "MONG-Tata Liquid Fund Regular Plan - Growth",
+        "dir": "ltr",
+        "width": 152.308,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            449.65
+        ],
+        "fontName": "g_d1_f2"
+    },
+    {
+        "str": "Allotment of units would be subject to realization of credit.  Entry Load- NIL ; Exit Load - applicable with effect from October 19,2019;   0.0070% if redeemed or switched out within",
+        "dir": "ltr",
+        "width": 478.4700000000004,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            440.92
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "1 day,  0.0065% if redeemed or switched out within 2 days, 0.0060% if redeemed or switched out within 3 days, 0.0055% if redeemed or switched out within 4 days,  0.0050% if",
+        "dir": "ltr",
+        "width": 473.4240000000002,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            433.67
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "redeemed or switched out within 5 days, 0.0045% if redeemed or switched out within 6 days, from the date of allotment and NIL exit load from day 7 onwards. Exit Load will also",
+        "dir": "ltr",
+        "width": 472.9200000000005,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            426.43
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "be applicable to instalments of SIPs/STPs including pre-registered as per the effective date.",
+        "dir": "ltr",
+        "width": 241.96200000000007,
+        "height": 6,
+        "transform": [
+            6,
+            0,
+            0,
+            6,
+            52.03,
+            419.19
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Customer Care : Tata Mutual Fund, RTA: Computer Age Management Services Pvt. Ltd., 1800-209-0101, service@tataamc.com",
+        "dir": "ltr",
+        "width": 419.15900000000005,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            405.45
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "www.tatamutualfund.com",
+        "dir": "ltr",
+        "width": 84.56499999999997,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.27,
+            397.55
+        ],
+        "fontName": "g_d1_f5"
+    },
+    {
+        "str": "All unit allotments are subject to realization of payment. Unit holders are requested to note that, in case of any discrepancies in the folio/s, KYC Status, data, holdings,",
+        "dir": "ltr",
+        "width": 478.1270000000007,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.36,
+            349.82
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "units etc. in CAS due to errors, if any, in consolidation or whatsoever reason, the records as per the respective Mutual Fund/RTA will be treated as final and will prevail.",
+        "dir": "ltr",
+        "width": 480.72050000000047,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.36,
+            341.98
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "In such case, unit holders should revert within 10 days to the respective RTA or the Mutual Fund.",
+        "dir": "ltr",
+        "width": 279.3245,
+        "height": 6.5,
+        "transform": [
+            6.5,
+            0,
+            0,
+            6.5,
+            52.36,
+            334.13
+        ],
+        "fontName": "g_d1_f1"
+    },
+    {
+        "str": "Notes",
+        "dir": "ltr",
+        "width": 24.7265,
+        "height": 8.5,
+        "transform": [
+            8.5,
+            0,
+            0,
+            8.5,
+            46.84,
+            361.49
+        ],
+        "fontName": "g_d1_f2"
+    }
+]
