@@ -17,7 +17,7 @@ export class Asset {
 
   constructor(
     id: string,
-    asset: SavingsAccount | Deposits | MutualFunds | Equity | Cash| Others,
+    asset: SavingsAccount | Deposits | MutualFunds | Equity | Cash | Others,
     percentUnallocated: number,
     notes?: string
   ) {
@@ -122,6 +122,76 @@ export class Asset {
     }
     return "";
   }
+  get accountNumber() {
+    if (this.assetType === AssetType.SavingsAccount) {
+      return this.savingsAccount.accountNumber;
+    }
+
+    if (this.assetType === AssetType.Deposits) {
+      return this.deposits.depositNumber;
+    }
+  }
+
+  get interestRate() {
+    if (this.assetType === AssetType.SavingsAccount) {
+      return this.savingsAccount.interestRate * 100;
+    }
+
+    if (this.assetType === AssetType.Deposits) {
+      return this.deposits.interestRate * 100;
+    }
+  }
+
+  get maturityDate() {
+    if (this.assetType === AssetType.Deposits) {
+      return this.deposits.maturityDate.toISOString();
+    }
+  }
+
+  get depositDate() {
+    if (this.assetType === AssetType.Deposits) {
+      return this.deposits.depositDate.toISOString();
+    }
+  }
+
+  get maturityDateDisplay() {
+    if (this.assetType === AssetType.Deposits && this.deposits.maturityDate) {
+      return new Intl.DateTimeFormat('en-GB').format(this.deposits.maturityDate);
+    }
+  }
+
+  get depositDateDisplay() {
+    if (this.assetType === AssetType.Deposits && this.deposits.depositDate) {
+      return new Intl.DateTimeFormat('en-GB').format(this.deposits.depositDate);
+    }
+  }
+
+  get units() {
+    if (this.assetType === AssetType.Equity) {
+      return this.equity.units;
+    }
+    if (this.assetType === AssetType.MutualFunds) {
+      return this.mutualFunds.units;
+    }
+  }
+
+  get price() {
+    if (this.assetType === AssetType.Equity) {
+      return this.equity.price;
+    }
+    if (this.assetType === AssetType.MutualFunds) {
+      return this.mutualFunds.price;
+    }
+  }
+
+  get currentValue() {
+    if (this.assetType === AssetType.Equity) {
+      return this.equity.currentValue;
+    }
+    if (this.assetType === AssetType.MutualFunds) {
+      return this.mutualFunds.currentValue;
+    }
+  }
 }
 
 export enum AssetType {
@@ -130,7 +200,7 @@ export enum AssetType {
   MutualFunds = "Mutual Funds",
   Equity = "Equity",
   Cash = "Cash",
-  Others = "Others"
+  Others = "Others",
 }
 
 export namespace AssetTypeUtils {
@@ -202,7 +272,7 @@ export class Deposits {
     if (data.maturityDate) {
       maturityDate = new Date(data.maturityDate);
     }
-    
+
     return new Deposits(
       data.bankName,
       data.amount,
@@ -219,7 +289,8 @@ export class MutualFunds {
     public fundName: string,
     public units: number,
     public price: number,
-    public currentValue: number = price
+    public currentValue: number = price,
+    public folioNo?: number
   ) {}
 
   static toObject(data) {
@@ -227,7 +298,8 @@ export class MutualFunds {
       data.fundName,
       data.units,
       data.price,
-      data.currentValue
+      data.currentValue,
+      data.folioNo
     );
   }
 }
