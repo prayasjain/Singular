@@ -2,13 +2,19 @@ import { Injectable } from "@angular/core";
 import * as pdfjsLib from "pdfjs-dist";
 import * as PDFJS from "pdfjs-dist/build/pdf";
 import { AlertController } from "@ionic/angular";
-import { MutualFunds, Asset, AssetType } from "../home/assets/asset.model";
+import {
+  MutualFunds,
+  Asset,
+  AssetType,
+  Equity,
+} from "../home/assets/asset.model";
 import { AssetsService } from "../home/assets/assets.service";
 import { take, switchMap } from "rxjs/operators";
 import { Observable, of, zip } from "rxjs";
 import { CAMS1Parser } from "./cams1Parser";
 import { CAMS2Parser } from "./cams2Parser";
-import { CAMSJSON } from "./utils";
+import { PDFJSON } from "./utils";
+import { NSDLParser } from "./nsdlParser";
 
 @Injectable({
   providedIn: "root",
@@ -77,7 +83,7 @@ export class PdfService {
     return alert.onDidDismiss();
   }
 
-  parseCAMSStatement(jsonData: CAMSJSON[]): MutualFunds[] {
+  parseCAMSStatement(jsonData: PDFJSON[]): MutualFunds[] {
     let camsFormat: number = this.getCAMSFormat(jsonData);
     if (!camsFormat) {
       return;
@@ -90,8 +96,8 @@ export class PdfService {
     }
   }
 
-  getCAMSFormat(jsonData: CAMSJSON[]): number {
-    let oldIdentifier: CAMSJSON = jsonData.find(
+  getCAMSFormat(jsonData: PDFJSON[]): number {
+    let oldIdentifier: PDFJSON = jsonData.find(
       (data) =>
         data.height === 17.19 &&
         data.str.trim() === "Consolidated Account Statement"
@@ -99,7 +105,7 @@ export class PdfService {
     if (oldIdentifier) {
       return 1;
     }
-    let newIdentifier: CAMSJSON = jsonData.find(
+    let newIdentifier: PDFJSON = jsonData.find(
       (data) =>
         data.height === 16 &&
         data.str.trim() === "Mutual Fund Consolidated Account Statement"
@@ -157,6 +163,59 @@ export class PdfService {
         oldFolioNo.trim().split(" ").join("") ===
         newFolioNo.trim().split(" ").join("")
       ) {
+        return oldAccount;
+      }
+    }
+  }
+
+  parseNSDLStatement(jsonData: PDFJSON[]): Equity[] {
+    return NSDLParser.parseNSDLStatement(jsonData);
+  }
+
+  saveEquities(equities) {
+    return this.assetsService.userAssets.pipe(
+      take(1),
+      switchMap((userAssets) => {
+        let observableList: Observable<any>[] = [];
+        equities.forEach((newFund) => {
+          let updatedAsset = this.findOldEquity(userAssets, newFund);
+          if (updatedAsset) {
+            // just update the amount of the current value, units
+            updatedAsset.equity.currentValue = newFund.currentValue;
+            updatedAsset.equity.units = newFund.units;
+            observableList.push(
+              this.assetsService.updateUserAssets([updatedAsset])
+            );
+          } else {
+            observableList.push(
+              this.assetsService.addUserAsset(
+                new Asset(Math.random().toString(), newFund, 1)
+              )
+            );
+          }
+        });
+        return observableList.length === 0
+          ? of([])
+          : zip(...observableList).pipe(
+              switchMap(() => {
+                return this.assetsService.fetchUserAssets();
+              })
+            );
+      })
+    );
+  }
+
+  findOldEquity(userAssets: Asset[], equity: Equity): Asset {
+    for (let oldAccount of userAssets) {
+      if (oldAccount.assetType !== AssetType.Equity) {
+        continue;
+      }
+      let oldIsin: string = oldAccount.equity.isin;
+      let newIsin: string = equity.isin;
+      if (!oldIsin || !newIsin) {
+        continue;
+      }
+      if (oldIsin.trim() === newIsin.trim()) {
         return oldAccount;
       }
     }

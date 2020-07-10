@@ -22,9 +22,24 @@ export class Utils {
     }
     return true;
   }
+
+  public static isValidISIN(str: string) : boolean {
+    let data = str.trim();
+    if (!isNaN(+data)) {
+      return false;
+    }
+    if (data.includes(',') || data.includes('.')) {
+      return false;
+    }
+    // supporting only india right now
+    if (data.length !== 12 || data.substr(0,2) !== "IN") {
+      return false;
+    }
+    return true;
+  }
 }
 
-export interface CAMSJSON {
+export interface PDFJSON {
   str: string;
   dir: string;
   width: number;
