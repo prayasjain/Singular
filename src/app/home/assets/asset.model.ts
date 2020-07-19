@@ -1,4 +1,5 @@
 import { of } from "rxjs";
+import { Constants } from 'src/app/config/constants';
 
 export class Asset {
   public id: string;
@@ -12,12 +13,16 @@ export class Asset {
   public equity: Equity;
   public cash: Cash;
   public others: Others;
+  public gold: Gold;
+  public realEstate: RealEstate;
+  public ePF: EPF;
+  public pPf: PPF;
 
   public percentUnallocated: number;
 
   constructor(
     id: string,
-    asset: SavingsAccount | Deposits | MutualFunds | Equity | Cash | Others,
+    asset: SavingsAccount | Deposits | Gold | RealEstate | EPF | PPF | MutualFunds | Equity | Cash | Others,
     percentUnallocated: number,
     notes?: string
   ) {
@@ -44,6 +49,22 @@ export class Asset {
       this.assetType = AssetType.Cash;
       this.cash = asset;
     }
+    if (asset instanceof Gold) {
+      this.assetType = AssetType.Gold;
+      this.gold = asset;
+    }
+    if (asset instanceof RealEstate) {
+      this.assetType = AssetType.RealEstate;
+      this.realEstate = asset;
+    }
+    if (asset instanceof EPF) {
+      this.assetType = AssetType.EPF;
+      this.ePF = asset;
+    }
+    if (asset instanceof PPF) {
+      this.assetType = AssetType.PPF;
+      this.pPf = asset;
+    }
     if (asset instanceof Others) {
       this.assetType = AssetType.Others;
       this.others = asset;
@@ -55,7 +76,7 @@ export class Asset {
     if (this.assetType === AssetType.SavingsAccount) {
       let daysDiff = Math.floor(
         (date.getTime() - this.savingsAccount.date.getTime()) /
-          (1000 * 3600 * 24)
+        (1000 * 3600 * 24)
       );
       let amount =
         this.savingsAccount.amount *
@@ -71,7 +92,7 @@ export class Asset {
       }
       let daysDiff = Math.floor(
         (date.getTime() - this.deposits.depositDate.getTime()) /
-          (1000 * 3600 * 24)
+        (1000 * 3600 * 24)
       );
       let amount =
         this.deposits.amount *
@@ -90,6 +111,18 @@ export class Asset {
     if (this.assetType === AssetType.Others) {
       return of(this.others.amount);
     }
+    if (this.assetType === AssetType.Gold) {
+      return of(this.gold.price);
+    }
+    if (this.assetType === AssetType.PPF) {
+      return of(this.pPf.price);
+    }
+    if (this.assetType === AssetType.EPF) {
+      return of(this.ePF.price);
+    }
+    if (this.assetType === AssetType.RealEstate) {
+      return of(this.realEstate.price);
+    }
   }
 
   get assetTitle() {
@@ -107,6 +140,18 @@ export class Asset {
     }
     if (this.assetType === AssetType.Cash) {
       return this.cash.name;
+    }
+    if (this.assetType === AssetType.Gold) {
+      return this.gold.name;
+    }
+    if (this.assetType === AssetType.RealEstate) {
+      return this.realEstate.name;
+    }
+    if (this.assetType === AssetType.PPF) {
+      return this.pPf.name;
+    }
+    if (this.assetType === AssetType.EPF) {
+      return this.ePF.name;
     }
     if (this.assetType === AssetType.Others) {
       return this.others.name;
@@ -153,6 +198,34 @@ export class Asset {
       return this.deposits.depositDate.toISOString();
     }
   }
+  get lastEvaluationDate() {
+    if (this.assetType === AssetType.Gold) {
+      return this.gold.lastEvaluationDate && this.gold.lastEvaluationDate.toISOString();
+    }
+    if (this.assetType === AssetType.EPF) {
+      return this.ePF.lastEvaluationDate && this.ePF.lastEvaluationDate.toISOString();
+    }
+    if (this.assetType === AssetType.PPF) {
+      return this.pPf.lastEvaluationDate && this.pPf.lastEvaluationDate.toISOString();
+    }
+    if (this.assetType === AssetType.RealEstate) {
+      return this.realEstate.lastEvaluationDate && this.realEstate.lastEvaluationDate.toISOString();
+    }
+  }
+  get date() {
+    if (this.assetType === AssetType.Gold) {
+      return this.gold.date && this.gold.date.toISOString();
+    }
+    if (this.assetType === AssetType.EPF) {
+      return  this.ePF.date && this.ePF.date.toISOString();
+    }
+    if (this.assetType === AssetType.PPF) {
+      return  this.pPf.date && this.pPf.date.toISOString();
+    }
+    if (this.assetType === AssetType.RealEstate) {
+      return   this.realEstate.date && this.realEstate.date.toISOString();
+    }
+  }
 
   get maturityDateDisplay() {
     if (this.assetType === AssetType.Deposits && this.deposits.maturityDate) {
@@ -162,11 +235,37 @@ export class Asset {
     }
   }
 
-  get depositDateDisplay() {
-    if (this.assetType === AssetType.Deposits && this.deposits.depositDate) {
-      return new Intl.DateTimeFormat("en-GB").format(this.deposits.depositDate);
+  get goldDateDisplay() {
+    if (this.assetType === AssetType.Gold && this.gold.date) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.gold.date);
+    }
+    if (this.assetType === AssetType.EPF && this.ePF.date) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.ePF.date);
+    }
+    if (this.assetType === AssetType.PPF && this.pPf.date) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.pPf.date);
+    }
+    if (this.assetType === AssetType.RealEstate && this.realEstate.date) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.realEstate.date);
     }
   }
+
+  get ePFDateDisplay() {
+    if (this.assetType === AssetType.Gold && this.gold.lastEvaluationDate) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.gold.lastEvaluationDate);
+    }
+    if (this.assetType === AssetType.EPF && this.ePF.lastEvaluationDate) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.ePF.lastEvaluationDate);
+    }
+    if (this.assetType === AssetType.PPF && this.pPf.lastEvaluationDate) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.pPf.lastEvaluationDate);
+    }
+    if (this.assetType === AssetType.RealEstate && this.realEstate.lastEvaluationDate) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.realEstate.lastEvaluationDate);
+    }
+  }
+
+
 
   get folioNo() {
     if (this.assetType === AssetType.MutualFunds) {
@@ -190,6 +289,18 @@ export class Asset {
     if (this.assetType === AssetType.MutualFunds) {
       return this.mutualFunds.price;
     }
+    if (this.assetType === AssetType.Gold) {
+      return this.gold.price;
+    }
+    if (this.assetType === AssetType.RealEstate) {
+      return this.realEstate.price;
+    }
+    if (this.assetType === AssetType.EPF) {
+      return this.ePF.price;
+    }
+    if (this.assetType === AssetType.PPF) {
+      return this.pPf.price;
+    }
   }
 
   get currentValue() {
@@ -198,6 +309,18 @@ export class Asset {
     }
     if (this.assetType === AssetType.MutualFunds) {
       return this.mutualFunds.currentValue;
+    }
+    if (this.assetType === AssetType.Gold) {
+      return this.gold.currentValue;
+    }
+    if (this.assetType === AssetType.RealEstate) {
+      return this.realEstate.currentValue;
+    }
+    if (this.assetType === AssetType.EPF) {
+      return this.ePF.currentValue;
+    }
+    if (this.assetType === AssetType.PPF) {
+      return this.pPf.currentValue;
     }
   }
 
@@ -214,11 +337,17 @@ export enum AssetType {
   MutualFunds = "Mutual Funds",
   Equity = "Equity",
   Cash = "Cash",
+  Gold = 'Gold',
+  PPF = 'PPF',
+  EPF = 'EPF',
+  RealEstate = 'Real Estate',
   Others = "Others",
 }
 
 export namespace AssetTypeUtils {
   export function slug(assetType: AssetType): string {
+    console.log(assetType);
+    
     return assetType.toLowerCase().replace(" ", "-");
   }
   export function getItemFromSlug(slug: string): AssetType {
@@ -237,6 +366,18 @@ export namespace AssetTypeUtils {
     if (slug === "cash") {
       return AssetType.Cash;
     }
+    if (slug === Constants.ASSET_TYPES.gold) {
+      return AssetType.Gold;
+    }
+    if (slug === Constants.ASSET_TYPES.ePF) {
+      return AssetType.EPF;
+    }
+    if (slug === Constants.ASSET_TYPES.realEstate) {
+      return AssetType.RealEstate;
+    }
+    if (slug === Constants.ASSET_TYPES.pPf) {
+      return AssetType.PPF;
+    }
     if (slug === "others") {
       return AssetType.Others;
     }
@@ -250,7 +391,7 @@ export class SavingsAccount {
     public accountNumber?: string,
     public date: Date = new Date(), // the stored amount is at the given date
     public interestRate: number = 0.04
-  ) {}
+  ) { }
 
   static toObject(data) {
     let date: Date;
@@ -275,7 +416,7 @@ export class Deposits {
     public depositDate?: Date,
     public maturityDate?: Date,
     public interestRate: number = 0.04
-  ) {}
+  ) { }
 
   static toObject(data) {
     let depositDate: Date;
@@ -305,7 +446,7 @@ export class MutualFunds {
     public price: number,
     public currentValue: number = price,
     public folioNo?: string
-  ) {}
+  ) { }
 
   static toObject(data) {
     return new MutualFunds(
@@ -325,7 +466,7 @@ export class Equity {
     public price: number,
     public currentValue: number = price,
     public isin?: string
-  ) {}
+  ) { }
 
   static toObject(data) {
     return new Equity(
@@ -339,7 +480,7 @@ export class Equity {
 }
 
 export class Cash {
-  constructor(public name: string, public amount: number) {}
+  constructor(public name: string, public amount: number) { }
 
   static toObject(data) {
     return new Cash(data.name, data.amount);
@@ -347,9 +488,118 @@ export class Cash {
 }
 
 export class Others {
-  constructor(public name: string, public amount: number) {}
+  constructor(public name: string, public amount: number) { }
 
   static toObject(data) {
     return new Others(data.name, data.amount);
+  }
+}
+
+export class EPF {
+  constructor(
+    public name: string,
+    public date: Date,
+    public price: number,
+    public currentValue: number,
+    public lastEvaluationDate?: Date
+  ) { }
+
+  static toObject(data) {
+    let date: Date;
+    let lastEvaluationDate: Date;
+    if (data.date) {
+      date = new Date(data.date);
+    }
+    if (data.lastEvaluationDate) {
+      lastEvaluationDate = new Date(data.lastEvaluationDate);
+    }
+    return new EPF(
+      data.name,
+      date,
+      data.price,
+      data.currentValue,
+      lastEvaluationDate
+    );
+  }
+}
+export class Gold {
+  constructor(
+    public name: string,
+    public date: Date,
+    public price: number,
+    public currentValue: number,
+    public lastEvaluationDate?: Date
+  ) { }
+
+  static toObject(data) {
+    let date: Date;
+    let lastEvaluationDate: Date;
+    if (data && data.date) {
+      date = new Date(data.date);
+    }
+    if (data.lastEvaluationDate) {
+      lastEvaluationDate = new Date(data.lastEvaluationDate);
+    }
+    return new Gold(
+      data.name,
+      date,
+      data.price,
+      data.currentValue,
+      lastEvaluationDate
+    );
+  }
+}
+export class RealEstate {
+  constructor(
+    public name: string,
+    public date: Date,
+    public price: number,
+    public currentValue: number,
+    public lastEvaluationDate?: Date
+  ) { }
+
+  static toObject(data) {
+    let date: Date;
+    let lastEvaluationDate: Date;
+    if (data.date) {
+      date = new Date(data.date);
+    }
+    if (data.lastEvaluationDate) {
+      lastEvaluationDate = new Date(data.lastEvaluationDate);
+    }
+    return new RealEstate(
+      data.name,
+      date,
+      data.price,
+      data.currentValue,
+      lastEvaluationDate
+    );
+  }
+}
+export class PPF {
+  constructor(
+    public name: string,
+    public date: Date,
+    public price: number,
+    public currentValue: number,
+    public lastEvaluationDate?: Date
+  ) { }
+
+  static toObject(data) {
+    let date: Date;
+    let lastEvaluationDate: Date;
+    if (data && data.date) {
+      date = new Date(data.date);
+    }
+    if (data && data.lastEvaluationDate) {
+      lastEvaluationDate = new Date(data.lastEvaluationDate);
+    }
+    return new PPF(
+      data && data.name,
+      date,
+      data &&  data.price,
+      data && data.currentValue,
+      lastEvaluationDate
+    );
   }
 }
