@@ -8,6 +8,10 @@ import {
   Equity,
   Cash,
   Others,
+  Gold,
+  PPF,
+  EPF,
+  RealEstate,
 } from "./asset.model";
 import { BehaviorSubject, of, Observable, zip } from "rxjs";
 import { take, tap, map, switchMap } from "rxjs/operators";
@@ -95,6 +99,38 @@ export class AssetsService {
                 );
                 break;
               }
+              case AssetType.Gold: {
+                asset = new Asset(
+                  key,
+                  Gold.toObject(data[assetTypeCC]),
+                  data.percentUnallocated
+                );
+                break;
+              }
+              case AssetType.PPF: {
+                asset = new Asset(
+                  key,
+                  PPF.toObject(data[assetTypeCC]),
+                  data.percentUnallocated
+                );
+                break;
+              }
+              case AssetType.EPF: {
+                asset = new Asset(
+                  key,
+                  EPF.toObject(data[assetTypeCC]),
+                  data.percentUnallocated
+                );
+                break;
+              }
+              case AssetType.RealEstate: {
+                asset = new Asset(
+                  key,
+                  RealEstate.toObject(data[assetTypeCC]),
+                  data.percentUnallocated
+                );
+                break;
+              }
               case AssetType.Others: {
                 asset = new Asset(
                   key,
@@ -170,7 +206,7 @@ export class AssetsService {
     );
   }
 
-  addUserAsset(userAsset: Asset) {
+  addUserAsset(userAsset: Asset) {    
     let auth;
     return this.authService.authInfo.pipe(
       take(1),

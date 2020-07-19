@@ -28,12 +28,14 @@ export class AssetDetailPage implements OnInit, OnDestroy {
     private authService: AuthService,
     public currencyService: CurrencyService,
     private loadingCtrl: LoadingController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       let assetSlug = paramMap.get("assetSlug");
-      this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);
+    
+      this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);      
+  
       this.currentDate = new Date();
       if (this.assetType) {
         this.userAssetsForTypeSub = this.authService.authInfo
@@ -46,7 +48,8 @@ export class AssetDetailPage implements OnInit, OnDestroy {
               );
             }),
             switchMap((userAssets) => {
-              this.userAssetsForType = userAssets;
+
+              this.userAssetsForType = userAssets;              
               this.totalAmountForType = 0;
               this.assetValueMap.clear();
               return zip(

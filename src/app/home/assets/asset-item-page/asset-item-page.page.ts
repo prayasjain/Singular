@@ -32,7 +32,7 @@ export class AssetItemPagePage implements OnInit {
     private authService: AuthService,
     public currencyService: CurrencyService,
     private loadingCtrl: LoadingController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.date = new Date();

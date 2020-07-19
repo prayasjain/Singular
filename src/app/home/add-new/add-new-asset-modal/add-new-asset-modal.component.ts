@@ -7,6 +7,10 @@ import {
   MutualFunds,
   Equity,
   Cash,
+  Gold,
+  RealEstate,
+  EPF,
+  PPF,
   Others,
 } from "../../assets/asset.model";
 import { NgForm } from "@angular/forms";
@@ -33,9 +37,10 @@ export class AddNewAssetModalComponent implements OnInit {
 
   constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {    
+  }
 
-  onSubmit() {
+  onSubmit() {    
     if (this.form.invalid) {
       return;
     }
@@ -47,6 +52,7 @@ export class AddNewAssetModalComponent implements OnInit {
     let asset: Asset;
     let percentUnAlloc: number = this.asset ? this.asset.percentUnallocated : 1;
     let assetId: string = this.asset ? this.asset.id : Math.random().toString();
+
     if ((assetType as AssetType) === (AssetType.SavingsAccount as AssetType)) {
       let interestRate;
       if (this.form.value["interest-rate"]) {
@@ -56,6 +62,7 @@ export class AddNewAssetModalComponent implements OnInit {
       if (this.form.value["account-details"]) {
         accountDetails = this.form.value["account-details"];
       }
+
       asset = new Asset(
         assetId,
         new SavingsAccount(
@@ -144,6 +151,70 @@ export class AddNewAssetModalComponent implements OnInit {
       asset = new Asset(
         assetId,
         new Cash(this.form.value["name"], +this.form.value["amount"]),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.PPF) {
+      let date;
+      if (this.form.value["date"]) {
+        date = new Date(this.form.value["date"]);
+      }
+      let lastEvaluationDate;
+      if (this.form.value["lastEvaluationDate"]) {
+        lastEvaluationDate = new Date(this.form.value["lastEvaluationDate"]);
+      }
+      asset = new Asset(
+        assetId,
+        new PPF(this.form.value["name"], date, this.form.value['price'], this.form.value['currentValue'],
+        lastEvaluationDate),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.Gold) {
+      let date;
+      if (this.form.value["date"]) {
+        date = new Date(this.form.value["date"]);
+      }
+      let lastEvaluationDate;
+      if (this.form.value["lastEvaluationDate"]) {
+        lastEvaluationDate = new Date(this.form.value["lastEvaluationDate"]);
+      }
+      asset = new Asset(
+        assetId,
+        new Gold(this.form.value["name"], date, this.form.value['price'], this.form.value['currentValue'],
+        lastEvaluationDate),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.RealEstate) {
+      let date;
+      if (this.form.value["date"]) {
+        date = new Date(this.form.value["date"]);
+      }
+      let lastEvaluationDate;
+      if (this.form.value["lastEvaluationDate"]) {
+        lastEvaluationDate = new Date(this.form.value["lastEvaluationDate"]);
+      }
+      asset = new Asset(
+        assetId,
+        new RealEstate(this.form.value["name"], date, this.form.value['price'], this.form.value['currentValue'],
+        lastEvaluationDate),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.EPF) {
+      let date;
+      if (this.form.value["date"]) {
+        date = new Date(this.form.value["date"]);
+      }
+      let lastEvaluationDate;
+      if (this.form.value["lastEvaluationDate"]) {
+        lastEvaluationDate = new Date(this.form.value["lastEvaluationDate"]);
+      }
+      asset = new Asset(
+        assetId,
+        new EPF(this.form.value["name"], date, this.form.value['price'], this.form.value['currentValue'],
+        lastEvaluationDate),
         percentUnAlloc
       );
     }

@@ -30,7 +30,7 @@ export class AssetsPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     public currencyService: CurrencyService
-  ) {}
+  ) { }
 
   OTHERS = AssetType.Others;
 
@@ -58,7 +58,7 @@ export class AssetsPage implements OnInit, OnDestroy {
                 this.totalAmountByAssetType.set(
                   userAsset.assetType,
                   (this.totalAmountByAssetType.get(userAsset.assetType) || 0) +
-                    assetValue
+                  assetValue
                 );
               })
             )
@@ -107,8 +107,8 @@ export class AssetsPage implements OnInit, OnDestroy {
   }
 
   color(chars: string) {
-    
-      if (chars === AssetType.SavingsAccount) {
+
+    if (chars === AssetType.SavingsAccount) {
       return "tertiary";
     }
     if (chars === AssetType.Deposits) {

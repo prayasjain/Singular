@@ -5,9 +5,12 @@
   </ion-thumbnail>
   <ion-text>{{ title }}</ion-text>
   <ion-text slot="end">
-    {{value?.toLocaleString(currencyService.getLocaleForCurrency(
-          currencyService.currency | async ), {style: 'currency', currency:
-          currencyService.currency | async, maximumFractionDigits: 0,
-          minimumFractionDigits: 0})}}</ion-text
-  >
+    {{value?.toLocaleString(currencyService?.getLocaleForCurrency(
+          currencyService?.currency | async ), {
+            style: 'currency', currency:
+          currencyService?.currency | async,
+          maximumFractionDigits: 0,
+          minimumFractionDigits: 0
+        })}}
+  </ion-text>
 </ion-item>

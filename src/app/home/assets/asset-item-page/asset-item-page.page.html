@@ -171,6 +171,71 @@
         </ion-item>
       </ion-col>
     </ion-row>
+    <ion-row
+      class="ion-no-padding"
+      *ngIf="
+        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.EPF || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
+    >
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <ion-item>
+          <ion-label position="floating" color="medium">Name
+          </ion-label>
+          <h4 class="item-details">{{asset?.assetTitle}}</h4>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      class="ion-no-padding"
+      *ngIf="
+        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.EPF || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
+    >
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <ion-item>
+          <ion-label position="floating" color="medium">Buy Price
+          </ion-label>
+          <h4 class="item-details">{{asset?.price}}</h4>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      class="ion-no-padding"
+      *ngIf="
+        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.EPF || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
+    >
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <ion-item>
+          <ion-label position="floating" color="medium">Buy Date
+          </ion-label>
+          <h4 class="item-details">{{asset?.goldDateDisplay}}</h4>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      class="ion-no-padding"
+      *ngIf="
+        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.EPF || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
+    >
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <ion-item>
+          <ion-label position="floating" color="medium">Current value
+          </ion-label>
+          <h4 class="item-details">{{asset?.currentValue}}</h4>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      class="ion-no-padding"
+      *ngIf="
+        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.EPF || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
+    >
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <ion-item>
+          <ion-label position="floating" color="medium">Last Evaluation Date
+          </ion-label>
+          <h4 class="item-details">{{asset?.ePFDateDisplay}}</h4>
+        </ion-item>
+      </ion-col>
+    </ion-row>
     <!-- <ion-row>
       <ion-col class="ion-text-center" size-md="6" offset-md="3">
         <ion-text>as on {{date.toDateString()}}</ion-text>
