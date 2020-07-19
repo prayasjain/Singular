@@ -52,8 +52,7 @@ export class AddNewAssetModalComponent implements OnInit {
     let asset: Asset;
     let percentUnAlloc: number = this.asset ? this.asset.percentUnallocated : 1;
     let assetId: string = this.asset ? this.asset.id : Math.random().toString();
-    console.log(this.form.value);
-    
+
     if ((assetType as AssetType) === (AssetType.SavingsAccount as AssetType)) {
       let interestRate;
       if (this.form.value["interest-rate"]) {

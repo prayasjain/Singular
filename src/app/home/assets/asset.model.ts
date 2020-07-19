@@ -346,7 +346,6 @@ export enum AssetType {
 
 export namespace AssetTypeUtils {
   export function slug(assetType: AssetType): string {
-    console.log(assetType);
     
     return assetType.toLowerCase().replace(" ", "-");
   }

@@ -103,8 +103,6 @@ export class AssetsPage implements OnInit, OnDestroy {
   }
 
   getSlug(assetType: AssetType) {
-    console.log(assetType, AssetTypeUtils.slug(assetType));
-    
     return AssetTypeUtils.slug(assetType);
   }
 
