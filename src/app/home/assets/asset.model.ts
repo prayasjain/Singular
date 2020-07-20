@@ -112,16 +112,16 @@ export class Asset {
       return of(this.others.amount);
     }
     if (this.assetType === AssetType.Gold) {
-      return of(this.gold.price);
+      return of(this.gold.currentValue);
     }
     if (this.assetType === AssetType.PPF) {
-      return of(this.pPf.price);
+      return of(this.pPf.currentValue);
     }
     if (this.assetType === AssetType.EPF) {
-      return of(this.ePF.price);
+      return of(this.ePF.currentValue);
     }
     if (this.assetType === AssetType.RealEstate) {
-      return of(this.realEstate.price);
+      return of(this.realEstate.currentValue);
     }
   }
 
@@ -499,7 +499,7 @@ export class EPF {
     public name: string,
     public date: Date,
     public price: number,
-    public currentValue: number,
+    public currentValue: number = price,
     public lastEvaluationDate?: Date
   ) { }
 
@@ -526,7 +526,7 @@ export class Gold {
     public name: string,
     public date: Date,
     public price: number,
-    public currentValue: number,
+    public currentValue: number = price,
     public lastEvaluationDate?: Date
   ) { }
 
@@ -553,7 +553,7 @@ export class RealEstate {
     public name: string,
     public date: Date,
     public price: number,
-    public currentValue: number,
+    public currentValue: number = price,
     public lastEvaluationDate?: Date
   ) { }
 
@@ -580,7 +580,7 @@ export class PPF {
     public name: string,
     public date: Date,
     public price: number,
-    public currentValue: number,
+    public currentValue: number = price,
     public lastEvaluationDate?: Date
   ) { }
 
