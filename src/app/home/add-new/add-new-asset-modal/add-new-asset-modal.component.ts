@@ -15,7 +15,8 @@ import {
 } from "../../assets/asset.model";
 import { NgForm } from "@angular/forms";
 import { ModalController } from "@ionic/angular";
-
+import { MarketDataService } from '../../assets/market-data.service';
+import { SearchPopoverComponent } from './search-popover/search-popover.component';
 @Component({
   selector: "app-add-new-asset-modal",
   templateUrl: "./add-new-asset-modal.component.html",
@@ -35,7 +36,10 @@ export class AddNewAssetModalComponent implements OnInit {
   ASSET_TYPES = Object.keys(AssetType);
   AssetType = AssetType; // this is used specifically for angular html component
 
-  constructor(private modalCtrl: ModalController) {}
+  isNameFocus: boolean = false;
+
+  constructor(private modalCtrl: ModalController, public marketDataService: MarketDataService) {
+  }
 
   ngOnInit() {    
   }
@@ -231,6 +235,40 @@ export class AddNewAssetModalComponent implements OnInit {
       },
       "confirm"
     );
+  }
+
+  onSearchClick(event, assetType) {
+    this.modalCtrl.create({component:SearchPopoverComponent, componentProps: {assetType: assetType}})
+      .then(popover => {
+        popover.present();
+        return popover.onDidDismiss();
+      }).then(response => {
+        if (response.role !== "confirm") {
+          return;
+        }
+        if (response.data) {
+          if (this.asset) {
+            if (assetType === AssetType.Equity) {
+              this.asset.equity.stockName = response.data.name;
+              this.asset.equity.currentValue = response.data.price;
+              this.asset.equity.isin = response.data.isin;
+            } else if (assetType === AssetType.MutualFunds) {
+              this.asset.mutualFunds.fundName = response.data.name;
+              this.asset.mutualFunds.currentValue = response.data.price;
+            }
+          } else {
+            if (assetType === AssetType.Equity) {
+              let tempEquity = new Equity(response.data.name, undefined, undefined, response.data.price, response.data.isin)
+              this.asset = new Asset(Math.random().toString(), tempEquity ,1);
+            } else if (assetType === AssetType.MutualFunds) {
+              let tempMF = new MutualFunds(response.data.name, undefined, undefined, response.data.price, undefined);
+              this.asset = new Asset(Math.random().toString(), tempMF ,1);
+            }
+            
+          }
+        }
+        console.log(response.data);
+      })
   }
 
   onClose() {

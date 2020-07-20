@@ -115,9 +115,7 @@ export class AddNewComponent implements OnInit {
     let loadingEl = await this.loadingCtrl.create({
       message: "Saving Your Data...",
     });
-    console.log("hhhh11");
     let assets: Asset[] = await this.assetsService.userAssets.pipe(take(1)).toPromise();
-    console.log("hhhh");
     let assetValueMap: Map<string, number> = await this.getAssetValueMap(assets);
 
     if (!assets || assets.length === 0) {
@@ -165,8 +163,6 @@ export class AddNewComponent implements OnInit {
   }
 
   async getAssetValueMap(assets: Asset[]) {
-
-    console.log("here?");
     let assetValueMap: Map<string, number> = new Map();
     await this.assetsService.userAssets
       .pipe(

@@ -1,0 +1,27 @@
+<ion-content class="ion-text-center ion-padding">
+  <ion-searchbar
+    showCancelButton="always"
+    debounce="500"
+    [placeholder]="searchPlaceholder"
+    (ionCancel)="cancelPopover()"
+    (ionChange)="searchChange($event)"
+    #searchbar
+  ></ion-searchbar>
+  <ion-list>
+    <ion-item button *ngFor="let data of searchList | async" (click)="submitData(data)">
+      <div class="flex-container">
+        <div class="flex-card">
+          <ion-text>{{ data.name }}</ion-text>
+        </div>
+        <ion-label class="ion-padding-start" slot="end" color="success">{{
+          data.price?.toLocaleString("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2
+          })
+        }}</ion-label>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
