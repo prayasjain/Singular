@@ -169,7 +169,7 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new PPF(this.form.value["name"], date, this.form.value['price'], this.form.value['currentValue'],
+        new PPF(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
         lastEvaluationDate),
         percentUnAlloc
       );
@@ -185,7 +185,7 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new Gold(this.form.value["name"], date, this.form.value['price'], this.form.value['currentValue'],
+        new Gold(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
         lastEvaluationDate),
         percentUnAlloc
       );
@@ -201,7 +201,7 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new RealEstate(this.form.value["name"], date, this.form.value['price'], this.form.value['currentValue'],
+        new RealEstate(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
         lastEvaluationDate),
         percentUnAlloc
       );
@@ -217,7 +217,7 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new EPF(this.form.value["name"], date, this.form.value['price'], this.form.value['currentValue'],
+        new EPF(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
         lastEvaluationDate),
         percentUnAlloc
       );
@@ -267,7 +267,6 @@ export class AddNewAssetModalComponent implements OnInit {
             
           }
         }
-        console.log(response.data);
       })
   }
 
