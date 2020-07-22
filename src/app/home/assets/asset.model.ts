@@ -229,48 +229,31 @@ export class Asset {
 
   get maturityDateDisplay() {
     if (this.assetType === AssetType.Deposits && this.deposits.maturityDate) {
-      return new Intl.DateTimeFormat("en-GB").format(
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(
         this.deposits.maturityDate
       );
     }
   }
   get depositDateDisplay() {
     if (this.assetType === AssetType.Deposits && this.deposits.depositDate) {
-      return new Intl.DateTimeFormat("en-GB").format(this.deposits.depositDate);
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.deposits.depositDate);
     }
   }
 
-  get goldDateDisplay() {
-    if (this.assetType === AssetType.Gold && this.gold.date) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.gold.date);
+  buyDateDisplay(type) {
+    if (this.assetType === AssetType.Gold && this.gold[type]) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.gold[type]);
     }
-    if (this.assetType === AssetType.EPF && this.ePF.date) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.ePF.date);
+    if (this.assetType === AssetType.EPF && this.ePF[type]) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.ePF[type]);
     }
-    if (this.assetType === AssetType.PPF && this.pPf.date) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.pPf.date);
+    if (this.assetType === AssetType.PPF && this.pPf[type]) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.pPf[type]);
     }
-    if (this.assetType === AssetType.RealEstate && this.realEstate.date) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.realEstate.date);
-    }
-  }
-
-  get ePFDateDisplay() {
-    if (this.assetType === AssetType.Gold && this.gold.lastEvaluationDate) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.gold.lastEvaluationDate);
-    }
-    if (this.assetType === AssetType.EPF && this.ePF.lastEvaluationDate) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.ePF.lastEvaluationDate);
-    }
-    if (this.assetType === AssetType.PPF && this.pPf.lastEvaluationDate) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.pPf.lastEvaluationDate);
-    }
-    if (this.assetType === AssetType.RealEstate && this.realEstate.lastEvaluationDate) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.realEstate.lastEvaluationDate);
+    if (this.assetType === AssetType.RealEstate && this.realEstate[type]) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.realEstate[type]);
     }
   }
-
-
 
   get folioNo() {
     if (this.assetType === AssetType.MutualFunds) {

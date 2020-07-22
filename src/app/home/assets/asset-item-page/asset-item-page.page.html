@@ -206,7 +206,7 @@
         <ion-item>
           <ion-label position="floating" color="medium">Buy Date
           </ion-label>
-          <h4 class="item-details">{{asset?.goldDateDisplay}}</h4>
+          <h4 class="item-details">{{asset?.buyDateDisplay('date')}}</h4>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -232,7 +232,7 @@
         <ion-item>
           <ion-label position="floating" color="medium">Last Evaluation Date
           </ion-label>
-          <h4 class="item-details">{{asset?.ePFDateDisplay}}</h4>
+          <h4 class="item-details">{{asset?.buyDateDisplay('lastEvaluationDate')}}</h4>
         </ion-item>
       </ion-col>
     </ion-row>
