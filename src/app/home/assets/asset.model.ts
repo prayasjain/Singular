@@ -355,19 +355,19 @@ export namespace AssetTypeUtils {
     return assetType.toLowerCase().replace(" ", "-");
   }
   export function getItemFromSlug(slug: string): AssetType {
-    if (slug === "savings-account") {
+    if (slug === Constants.ASSET_TYPES.savingsAccount) {
       return AssetType.SavingsAccount;
     }
-    if (slug === "deposits") {
+    if (slug === Constants.ASSET_TYPES.deposits) {
       return AssetType.Deposits;
     }
-    if (slug === "mutual-funds") {
+    if (slug === Constants.ASSET_TYPES.mutualFunds) {
       return AssetType.MutualFunds;
     }
-    if (slug === "equity") {
+    if (slug === Constants.ASSET_TYPES.equity) {
       return AssetType.Equity;
     }
-    if (slug === "cash") {
+    if (slug === Constants.ASSET_TYPES.cash) {
       return AssetType.Cash;
     }
     if (slug === Constants.ASSET_TYPES.gold) {

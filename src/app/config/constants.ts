@@ -5,7 +5,12 @@ export class Constants {
         gold: 'gold',
         realEstate: 'real-estate',
         ePF: 'epf',
-        pPf: 'ppf'
+        pPf: 'ppf',
+        cash: 'cash',
+        equity: 'equity',
+        mutualFunds: 'mutual-funds',
+        deposits: 'deposits',
+        savingsAccount: 'savings-account'
     };
     public static readonly DISPLAY_DATE_FORMAT = {
         enGB: 'en-GB'

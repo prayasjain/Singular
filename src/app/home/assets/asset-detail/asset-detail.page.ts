@@ -57,8 +57,6 @@ export class AssetDetailPage implements OnInit, OnDestroy {
                   userAsset.getAmountForAsset(this.currentDate).pipe(
                     take(1),
                     tap((assetValue) => {
-                      console.log(assetValue);
-                      
                       this.assetValueMap.set(userAsset.id, assetValue);
                       this.totalAmountForType += Number(assetValue);
                     })
