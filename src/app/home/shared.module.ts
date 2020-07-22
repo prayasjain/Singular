@@ -7,6 +7,7 @@ import { FormsModule } from "@angular/forms";
 import { AddNewGoalModalComponent } from "./add-new/add-new-goal-modal/add-new-goal-modal.component";
 import { AddNewAssetModalComponent } from "./add-new/add-new-asset-modal/add-new-asset-modal.component";
 import { EditGoalComponent } from "./goals/edit-goal/edit-goal.component";
+import { SearchPopoverComponent } from "./add-new/add-new-asset-modal/search-popover/search-popover.component";
 
 @NgModule({
   imports: [CommonModule, IonicModule, RouterModule, FormsModule],
@@ -15,12 +16,8 @@ import { EditGoalComponent } from "./goals/edit-goal/edit-goal.component";
     AddNewGoalModalComponent,
     AddNewAssetModalComponent,
     EditGoalComponent,
+    SearchPopoverComponent,
   ],
-  exports: [
-    AddNewComponent,
-    AddNewAssetModalComponent,
-    AddNewGoalModalComponent,
-    EditGoalComponent,
-  ],
+  exports: [AddNewComponent, AddNewAssetModalComponent, AddNewGoalModalComponent, EditGoalComponent, SearchPopoverComponent],
 })
 export class SharedModule {}

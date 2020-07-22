@@ -19,6 +19,7 @@ public class temp {
         String text5 = "UPDATE: INR 67,858.00 deposited in A/c XX7918 on 06-MAR-20 for NEFT Cr-KKBK0000958-RISHIKESH GANGULY-RISHIKESH GANGULY-KKBKH20066762125.Avl bal:INR 2,00,000.00 subject to clearing".trim().toLowerCase();
         String text6 = "Acct XX654 debited with INR 10,526.42 on [12-Jun-20.Info](http://12-jun-20.info/): ATD*Auto Debi.Avbl Bal:INR 32,521.99.Call 18002662 for dispute or SMS BLOCK 654 to 9215676766".trim().toLowerCase();
         String text7 = "IDBI Bank A/C NN41052 debited INR. 150000.00 Det:TRF TO SUNITA GARG- Chq No 92293. Bal (incl. of chq in clg) INR. 547547.70 as of 02JUL 12:08 hrs.".trim().toLowerCase();
+        String text8 = "UPDATE: INR 2,00,000.00 deposited in A/c XX7918 on 08-APR-20 for NEFT Cr-KKBK0000958-RISHIKESH  GANGULY-RISHIKESH GANGULY-KKBKH20099872000.Avl bal:INR 4,01,013.00 subject to clearing".trim().toLowerCase();
 //        Pattern test = Pattern.compile("(?:balance\\sis\\snow\\s|(?:avb?l\\s+)?bal\\s*:?-?)\\s*(?:inr|rs\\.)\\s*([\\d,]+\\.\\d{0,2})");
 //        Matcher testMatcher = test.matcher(text4);
 //        if (testMatcher.find()) {
@@ -27,10 +28,10 @@ public class temp {
 //            System.out.println("why not match");
 //        }
 
-        for (String text: Arrays.asList(text1,text2,text3,text4,text5,text6, text7)) {
-            Matcher accountMatcher = amountPattern.matcher(text);
+        for (String text: Arrays.asList(text1,text2,text3,text4,text5,text6, text7, text8)) {
+            Matcher accountMatcher = accountPattern.matcher(text);
             if (accountMatcher.find()) {
-                System.out.println(accountMatcher.group(1));
+                System.out.println(accountMatcher.group(2));
             } else {
                 System.out.println("not match");
             }

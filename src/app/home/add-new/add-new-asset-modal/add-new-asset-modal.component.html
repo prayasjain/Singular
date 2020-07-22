@@ -17,8 +17,9 @@
             <ion-label position="floating">
               Asset Type
             </ion-label>
-            <ion-select [(ngModel)]="assetType" name="asset-type">
-              <ion-select-option *ngFor="let option of ASSET_TYPES" [value]="AssetType[option]">{{ AssetType[option] }}
+            <ion-select [(ngModel)]="assetType" name="asset-type" interface="popover">
+              <ion-select-option *ngFor="let option of ASSET_TYPES" [value]="AssetType[option]"
+                >{{ AssetType[option] }}
               </ion-select-option>
             </ion-select>
           </ion-item>
@@ -29,15 +30,24 @@
           <ion-item>
             <ion-label position="floating">Name* </ion-label>
             <ion-input type="text" [ngModel]="asset?.assetTitle" name="name" required></ion-input>
+            <ion-button
+              slot="end"
+              class="ion-margin-top"
+              (click)="onSearchClick($event, assetType)"
+              *ngIf="assetType === AssetType.Equity || assetType === AssetType.MutualFunds"
+              ><ion-icon name="search-outline"></ion-icon
+            ></ion-button>
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
+      <ion-row
+        *ngIf="
           assetType === AssetType.SavingsAccount ||
           assetType === AssetType.Deposits ||
           assetType === AssetType.Cash ||
           assetType === AssetType.Others
-        ">
+        "
+      >
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Amount* </ion-label>
@@ -45,10 +55,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-          assetType === AssetType.SavingsAccount ||
-          assetType === AssetType.Deposits
-        ">
+      <ion-row *ngIf="assetType === AssetType.SavingsAccount || assetType === AssetType.Deposits">
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Account Number/Details </ion-label>
@@ -56,10 +63,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-          assetType === AssetType.SavingsAccount ||
-          assetType === AssetType.Deposits
-        ">
+      <ion-row *ngIf="assetType === AssetType.SavingsAccount || assetType === AssetType.Deposits">
         <ion-col>
           <ion-item>
             <ion-label position="floating">
@@ -73,8 +77,13 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Maturity Date </ion-label>
-            <ion-datetime display-format="MMM DD YYYY" picker-format="YYYY MMM DD" [ngModel]="asset?.maturityDate"
-              [max]="maxMaturityDate" name="maturity-date"></ion-datetime>
+            <ion-datetime
+              display-format="MMM DD YYYY"
+              picker-format="YYYY MMM DD"
+              [ngModel]="asset?.maturityDate"
+              [max]="maxMaturityDate"
+              name="maturity-date"
+            ></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -82,8 +91,13 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Deposit Date </ion-label>
-            <ion-datetime display-format="MMM DD YYYY" picker-format="YYYY MMM DD" [ngModel]="asset?.depositDate"
-              [max]="maxMaturityDate" name="deposit-date"></ion-datetime>
+            <ion-datetime
+              display-format="MMM DD YYYY"
+              picker-format="YYYY MMM DD"
+              [ngModel]="asset?.depositDate"
+              [max]="maxMaturityDate"
+              name="deposit-date"
+            ></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -103,9 +117,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-          assetType === AssetType.MutualFunds || assetType === AssetType.Equity
-        ">
+      <ion-row *ngIf="assetType === AssetType.MutualFunds || assetType === AssetType.Equity">
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Units* </ion-label>
@@ -113,9 +125,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-          assetType === AssetType.MutualFunds || assetType === AssetType.Equity
-        ">
+      <ion-row *ngIf="assetType === AssetType.MutualFunds || assetType === AssetType.Equity">
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Price (per unit)* </ion-label>
@@ -123,9 +133,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-          assetType === AssetType.MutualFunds || assetType === AssetType.Equity
-        ">
+      <ion-row *ngIf="assetType === AssetType.MutualFunds || assetType === AssetType.Equity">
         <ion-col>
           <ion-item>
             <ion-label position="floating">
@@ -135,12 +143,14 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-        assetType === AssetType.Gold ||
-        assetType === AssetType.PPF || 
-        assetType === AssetType.EPF || 
-        assetType === AssetType.RealEstate
-      ">
+      <ion-row
+        *ngIf="
+          assetType === AssetType.Gold ||
+          assetType === AssetType.PPF ||
+          assetType === AssetType.EPF ||
+          assetType === AssetType.RealEstate
+        "
+      >
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Buy Price* </ion-label>
@@ -148,26 +158,35 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-        assetType === AssetType.Gold ||
-        assetType === AssetType.PPF || 
-        assetType === AssetType.EPF || 
-        assetType === AssetType.RealEstate
-      ">
+      <ion-row
+        *ngIf="
+          assetType === AssetType.Gold ||
+          assetType === AssetType.PPF ||
+          assetType === AssetType.EPF ||
+          assetType === AssetType.RealEstate
+        "
+      >
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Buy Date </ion-label>
-            <ion-datetime display-format="MMM DD YYYY" picker-format="YYYY MMM DD" [ngModel]="asset?.date"
-            [max]="maxMaturityDate" name="date"></ion-datetime>
+            <ion-datetime
+              display-format="MMM DD YYYY"
+              picker-format="YYYY MMM DD"
+              [ngModel]="asset?.date"
+              [max]="maxMaturityDate"
+              name="date"
+            ></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-        assetType === AssetType.Gold ||
-        assetType === AssetType.PPF || 
-        assetType === AssetType.EPF || 
-        assetType === AssetType.RealEstate
-      ">
+      <ion-row
+        *ngIf="
+          assetType === AssetType.Gold ||
+          assetType === AssetType.PPF ||
+          assetType === AssetType.EPF ||
+          assetType === AssetType.RealEstate
+        "
+      >
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Current value </ion-label>
@@ -175,17 +194,24 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="
-        assetType === AssetType.Gold ||
-        assetType === AssetType.PPF || 
-        assetType === AssetType.EPF || 
-        assetType === AssetType.RealEstate
-      ">
+      <ion-row
+        *ngIf="
+          assetType === AssetType.Gold ||
+          assetType === AssetType.PPF ||
+          assetType === AssetType.EPF ||
+          assetType === AssetType.RealEstate
+        "
+      >
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Last Evaluation Date</ion-label>
-            <ion-datetime display-format="MMM DD YYYY" picker-format="YYYY MMM DD" [ngModel]="asset?.lastEvaluationDate"
-            [max]="maxMaturityDate" name="lastEvaluationDate"></ion-datetime>
+            <ion-datetime
+              display-format="MMM DD YYYY"
+              picker-format="YYYY MMM DD"
+              [ngModel]="asset?.lastEvaluationDate"
+              [max]="maxMaturityDate"
+              name="lastEvaluationDate"
+            ></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -194,7 +220,6 @@
           <ion-button type="submit" color="primary" expand="block" [disabled]="f.invalid">Add Asset</ion-button>
         </ion-col>
       </ion-row>
-
     </ion-grid>
   </form>
 </ion-content>

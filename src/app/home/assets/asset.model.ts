@@ -234,6 +234,11 @@ export class Asset {
       );
     }
   }
+  get depositDateDisplay() {
+    if (this.assetType === AssetType.Deposits && this.deposits.depositDate) {
+      return new Intl.DateTimeFormat("en-GB").format(this.deposits.depositDate);
+    }
+  }
 
   get goldDateDisplay() {
     if (this.assetType === AssetType.Gold && this.gold.date) {
