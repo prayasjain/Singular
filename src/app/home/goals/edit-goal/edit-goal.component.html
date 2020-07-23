@@ -8,6 +8,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <form #f="ngForm">
     <ion-grid>
@@ -36,14 +37,11 @@
         </ion-col>
       </ion-row>
       <ion-row class="ion-no-padding" *ngFor="let asset of assets">
+
         <ion-col class="ion-no-padding">
           <div class="flex-container">
             <div class="ion-padding">
-              <ion-checkbox
-                name="checkbox-{{ asset.id }}"
-                [ngModel]="true"
-                #checkbox="ngModel"
-              ></ion-checkbox>
+              <ion-checkbox name="checkbox-{{ asset.id }}" [ngModel]="true" #checkbox="ngModel"></ion-checkbox>
             </div>
             <div class="flex-card">
               <ion-item lines="none" class="ion-no-padding">
@@ -64,20 +62,11 @@
                   }}
                 </ion-text>
               </ion-item>
-              <ion-range
-                class="ion-no-padding"
-                [ngModel]="assetContributionPercentage(asset.id)"
-                #range="ngModel"
-                name="percentage-{{ asset.id }}"
-                min="0"
-                [max]="
+              <ion-range class="ion-no-padding" [ngModel]="assetContributionPercentage(asset.id)" #range="ngModel"
+                name="percentage-{{ asset.id }}" min="0" [max]="
                   assetContributionPercentage(asset.id) +
                   100 * asset.percentUnallocated
-                "
-                pin
-                color="tertiary"
-                [disabled]="!checkbox.value"
-              >
+                " pin color="tertiary" [disabled]="!checkbox.value">
                 <ion-label slot="start">0</ion-label>
                 <ion-label slot="end">{{
                   assetContributionPercentage(asset.id) / 100 +
@@ -88,18 +77,16 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-no-padding" *ngFor="let asset of remainingAssets">
+      <ion-row class="ion-no-padding" *ngFor="let asset of remainingAssets;let i=index">
         <ion-col class="ion-no-padding">
           <div class="flex-container">
             <div class="ion-padding">
-              <ion-checkbox
-                name="checkbox-{{ asset.id }}"
-                [ngModel]="false"
-                #checkbox="ngModel"
-              ></ion-checkbox>
+              <ion-checkbox name="checkbox-{{ asset.id }}" [ngModel]="false" #checkbox="ngModel"></ion-checkbox>
             </div>
+
             <div class="flex-card">
               <ion-item lines="none" class="ion-no-padding">
+
                 <ion-text class="ion-no-padding" slot="start">{{
                   asset.assetTitle
                 }}</ion-text>
@@ -115,35 +102,26 @@
                   })
                 }}</ion-text>
               </ion-item>
-              <ion-range
-                class="ion-no-padding"
-                [ngModel]="0"
-                #range="ngModel"
-                name="percentage-{{ asset.id }}"
-                min="0"
-                [max]="100 * asset.percentUnallocated"
-                pin
-                color="tertiary"
-                [disabled]="!checkbox.value"
-              >
-                <ion-label slot="start">0</ion-label>
-                <ion-label slot="end">{{
-                  asset.percentUnallocated | percent
-                }}</ion-label>
-              </ion-range>
+              <div style="position: relative; width: 100%;">
+                <ion-range #slider class="ion-no-padding" [ngModel]="0" #range="ngModel"
+                  name="percentage-{{ asset.id }}" min="0" max="100" pin tick color="tertiary"
+                  [disabled]="!checkbox.value" (ionChange)='onchangeInput(asset, i)'>
+
+                  <ion-label slot="start">0</ion-label>
+                  <ion-label slot="end">100</ion-label>
+                </ion-range>
+                <div *ngIf="100 * asset.percentUnallocated != 100" class="sliderLimit"
+                  [style.left.%]="100 * asset.percentUnallocated">{{100 * asset.percentUnallocated}}</div>
+              </div>
             </div>
+
           </div>
         </ion-col>
+
       </ion-row>
     </ion-grid>
   </form>
 </ion-content>
 <ion-footer>
-  <ion-button
-    color="primary"
-    expand="block"
-    [disabled]="f.invalid"
-    (click)="onSubmit()"
-    >Add Contributions</ion-button
-  >
+  <ion-button color="primary" expand="block" [disabled]="f.invalid" (click)="onSubmit()">Add Contributions</ion-button>
 </ion-footer>

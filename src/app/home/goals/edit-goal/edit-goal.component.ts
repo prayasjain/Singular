@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, OnDestroy, ElementRef } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Goal, Contribution } from "../goal.model";
 import { Asset } from "../../assets/asset.model";
@@ -7,12 +7,15 @@ import { CurrencyService } from '../../currency/currency.service';
 import { take, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
+
+
 @Component({
   selector: "app-edit-goal",
   templateUrl: "./edit-goal.component.html",
   styleUrls: ["./edit-goal.component.scss"],
 })
 export class EditGoalComponent implements OnInit, OnDestroy {
+  sliderValue;
   @Input() goal: Goal;
   @Input() contributions: Contribution[];
   @Input() assets: Asset[];
@@ -23,6 +26,7 @@ export class EditGoalComponent implements OnInit, OnDestroy {
   assetValueMap: Map<string, number> = new Map();
 
   @ViewChild("f", { static: true }) form: NgForm;
+  @ViewChild('slider', { static: false }) listContainer: Element;
 
 
   constructor(private modalCtrl: ModalController, public currencyService: CurrencyService) {}
@@ -38,6 +42,12 @@ export class EditGoalComponent implements OnInit, OnDestroy {
           ).percentageContribution
       );
     });
+  }
+
+  onchangeInput(asset,i) {
+    if(this.listContainer['el'].value > (100 * asset.percentUnallocated)) {
+      this.listContainer['el'].value = 100 * asset.percentUnallocated;
+    }
   }
 
   onClose() {

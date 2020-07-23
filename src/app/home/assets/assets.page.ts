@@ -58,7 +58,7 @@ export class AssetsPage implements OnInit, OnDestroy {
                 this.totalAmountByAssetType.set(
                   userAsset.assetType,
                   (this.totalAmountByAssetType.get(userAsset.assetType) || 0) +
-                  assetValue
+                  Number(assetValue)
                 );
               })
             )
@@ -72,7 +72,7 @@ export class AssetsPage implements OnInit, OnDestroy {
       .subscribe(() => {
         this.getAmountByGroup();
         this.assetGroups.forEach((assetGroup) => {
-          this.totalAmount += assetGroup.amount;
+          this.totalAmount += Number(assetGroup.amount);
         });
       });
   }

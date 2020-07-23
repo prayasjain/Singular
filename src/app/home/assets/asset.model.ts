@@ -112,16 +112,16 @@ export class Asset {
       return of(this.others.amount);
     }
     if (this.assetType === AssetType.Gold) {
-      return of(this.gold.price);
+      return of(this.gold.currentValue);
     }
     if (this.assetType === AssetType.PPF) {
-      return of(this.pPf.price);
+      return of(this.pPf.currentValue);
     }
     if (this.assetType === AssetType.EPF) {
-      return of(this.ePF.price);
+      return of(this.ePF.currentValue);
     }
     if (this.assetType === AssetType.RealEstate) {
-      return of(this.realEstate.price);
+      return of(this.realEstate.currentValue);
     }
   }
 
@@ -229,48 +229,31 @@ export class Asset {
 
   get maturityDateDisplay() {
     if (this.assetType === AssetType.Deposits && this.deposits.maturityDate) {
-      return new Intl.DateTimeFormat("en-GB").format(
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(
         this.deposits.maturityDate
       );
     }
   }
   get depositDateDisplay() {
     if (this.assetType === AssetType.Deposits && this.deposits.depositDate) {
-      return new Intl.DateTimeFormat("en-GB").format(this.deposits.depositDate);
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.deposits.depositDate);
     }
   }
 
-  get goldDateDisplay() {
-    if (this.assetType === AssetType.Gold && this.gold.date) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.gold.date);
+  buyDateDisplay(type) {
+    if (this.assetType === AssetType.Gold && this.gold[type]) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.gold[type]);
     }
-    if (this.assetType === AssetType.EPF && this.ePF.date) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.ePF.date);
+    if (this.assetType === AssetType.EPF && this.ePF[type]) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.ePF[type]);
     }
-    if (this.assetType === AssetType.PPF && this.pPf.date) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.pPf.date);
+    if (this.assetType === AssetType.PPF && this.pPf[type]) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.pPf[type]);
     }
-    if (this.assetType === AssetType.RealEstate && this.realEstate.date) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.realEstate.date);
-    }
-  }
-
-  get ePFDateDisplay() {
-    if (this.assetType === AssetType.Gold && this.gold.lastEvaluationDate) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.gold.lastEvaluationDate);
-    }
-    if (this.assetType === AssetType.EPF && this.ePF.lastEvaluationDate) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.ePF.lastEvaluationDate);
-    }
-    if (this.assetType === AssetType.PPF && this.pPf.lastEvaluationDate) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.pPf.lastEvaluationDate);
-    }
-    if (this.assetType === AssetType.RealEstate && this.realEstate.lastEvaluationDate) {
-      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.realEstate.lastEvaluationDate);
+    if (this.assetType === AssetType.RealEstate && this.realEstate[type]) {
+      return new Intl.DateTimeFormat(Constants.DISPLAY_DATE_FORMAT.enGB).format(this.realEstate[type]);
     }
   }
-
-
 
   get folioNo() {
     if (this.assetType === AssetType.MutualFunds) {
@@ -355,19 +338,19 @@ export namespace AssetTypeUtils {
     return assetType.toLowerCase().replace(" ", "-");
   }
   export function getItemFromSlug(slug: string): AssetType {
-    if (slug === "savings-account") {
+    if (slug === Constants.ASSET_TYPES.savingsAccount) {
       return AssetType.SavingsAccount;
     }
-    if (slug === "deposits") {
+    if (slug === Constants.ASSET_TYPES.deposits) {
       return AssetType.Deposits;
     }
-    if (slug === "mutual-funds") {
+    if (slug === Constants.ASSET_TYPES.mutualFunds) {
       return AssetType.MutualFunds;
     }
-    if (slug === "equity") {
+    if (slug === Constants.ASSET_TYPES.equity) {
       return AssetType.Equity;
     }
-    if (slug === "cash") {
+    if (slug === Constants.ASSET_TYPES.cash) {
       return AssetType.Cash;
     }
     if (slug === Constants.ASSET_TYPES.gold) {
@@ -504,7 +487,7 @@ export class EPF {
     public name: string,
     public date: Date,
     public price: number,
-    public currentValue: number,
+    public currentValue: number = price,
     public lastEvaluationDate?: Date
   ) { }
 
@@ -531,7 +514,7 @@ export class Gold {
     public name: string,
     public date: Date,
     public price: number,
-    public currentValue: number,
+    public currentValue: number = price,
     public lastEvaluationDate?: Date
   ) { }
 
@@ -558,7 +541,7 @@ export class RealEstate {
     public name: string,
     public date: Date,
     public price: number,
-    public currentValue: number,
+    public currentValue: number = price,
     public lastEvaluationDate?: Date
   ) { }
 
@@ -585,7 +568,7 @@ export class PPF {
     public name: string,
     public date: Date,
     public price: number,
-    public currentValue: number,
+    public currentValue: number = price,
     public lastEvaluationDate?: Date
   ) { }
 
