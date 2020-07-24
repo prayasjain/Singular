@@ -51,10 +51,17 @@
           <ion-label>Change Currency</ion-label>
         </ion-item>
       </ion-menu-toggle>
+      <ion-menu-toggle menu="mainMenu">
+        <ion-item lines="none" (click)="exportAssets()" button>
+          <ion-icon name="document-outline" slot="start"></ion-icon>
+          <ion-label>export</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>
   <ion-router-outlet main></ion-router-outlet>
+  <app-export-assets></app-export-assets>
   <input type="file" #nsdlFilePicker (change)="onNSDLPicked($event)"> 
   <input type="file" #camsFilePicker (change)="onCAMSPicked($event)"> 
   <!-- <input type="file" #filePicker (change)="onCAMSPicked($event)" accept=".pdf"> doesnt work with ionic -->

@@ -118,7 +118,7 @@ export class Asset {
       return of(this.pPf.currentValue);
     }
     if (this.assetType === AssetType.EPF) {
-      return of(this.ePF.currentValue);
+      return of(this.ePF.price);
     }
     if (this.assetType === AssetType.RealEstate) {
       return of(this.realEstate.currentValue);
@@ -216,9 +216,6 @@ export class Asset {
     if (this.assetType === AssetType.Gold) {
       return this.gold.date && this.gold.date.toISOString();
     }
-    if (this.assetType === AssetType.EPF) {
-      return  this.ePF.date && this.ePF.date.toISOString();
-    }
     if (this.assetType === AssetType.PPF) {
       return  this.pPf.date && this.pPf.date.toISOString();
     }
@@ -268,6 +265,15 @@ export class Asset {
     if (this.assetType === AssetType.MutualFunds) {
       return this.mutualFunds.units;
     }
+    if (this.assetType === AssetType.Gold) {
+      return this.gold.units;
+    }
+  }
+
+  get uanNumber() {
+    if (this.assetType === AssetType.EPF) {
+      return this.ePF.uanNumber;
+    }
   }
 
   get price() {
@@ -303,9 +309,6 @@ export class Asset {
     }
     if (this.assetType === AssetType.RealEstate) {
       return this.realEstate.currentValue;
-    }
-    if (this.assetType === AssetType.EPF) {
-      return this.ePF.currentValue;
     }
     if (this.assetType === AssetType.PPF) {
       return this.pPf.currentValue;
@@ -485,27 +488,21 @@ export class Others {
 export class EPF {
   constructor(
     public name: string,
-    public date: Date,
     public price: number,
-    public currentValue: number = price,
-    public lastEvaluationDate?: Date
+    public lastEvaluationDate?: Date,
+    public uanNumber?: number
   ) { }
 
   static toObject(data) {
-    let date: Date;
     let lastEvaluationDate: Date;
-    if (data.date) {
-      date = new Date(data.date);
-    }
     if (data.lastEvaluationDate) {
       lastEvaluationDate = new Date(data.lastEvaluationDate);
     }
     return new EPF(
       data.name,
-      date,
       data.price,
-      data.currentValue,
-      lastEvaluationDate
+      lastEvaluationDate,
+      data.uanNumber
     );
   }
 }
@@ -515,7 +512,8 @@ export class Gold {
     public date: Date,
     public price: number,
     public currentValue: number = price,
-    public lastEvaluationDate?: Date
+    public lastEvaluationDate?: Date,
+    public units?: number
   ) { }
 
   static toObject(data) {
@@ -532,7 +530,8 @@ export class Gold {
       date,
       data.price,
       data.currentValue,
-      lastEvaluationDate
+      lastEvaluationDate,
+      data.units
     );
   }
 }

@@ -35,7 +35,6 @@ export class AssetDetailPage implements OnInit, OnDestroy {
       let assetSlug = paramMap.get("assetSlug");
 
       this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);
-
       this.currentDate = new Date();
       if (this.assetType) {
         this.userAssetsForTypeSub = this.authService.authInfo
@@ -48,7 +47,6 @@ export class AssetDetailPage implements OnInit, OnDestroy {
               );
             }),
             switchMap((userAssets) => {
-
               this.userAssetsForType = userAssets;
               this.totalAmountForType = 0;
               this.assetValueMap.clear();
@@ -64,6 +62,7 @@ export class AssetDetailPage implements OnInit, OnDestroy {
                 )
               );
             })
+
           )
           .subscribe();
       }

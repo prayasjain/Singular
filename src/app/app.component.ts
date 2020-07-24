@@ -14,6 +14,7 @@ import { CurrencyService } from "./home/currency/currency.service";
 import { Subscription } from "rxjs";
 import { PdfService } from "./pdf/pdf.service";
 import { MutualFunds, Equity } from "./home/assets/asset.model";
+import { ExportAssetsComponent } from './export-assets/export-assets/export-assets.component';
 
 @Component({
   selector: "app-root",
@@ -25,6 +26,8 @@ export class AppComponent implements OnDestroy {
   mobileApp: boolean = false;
   @ViewChild("camsFilePicker", { static: false }) camsFilePicker: ElementRef;
   @ViewChild("nsdlFilePicker", { static: false }) nsdlFilepicker: ElementRef;
+  @ViewChild(ExportAssetsComponent, { static: true }) exportAssetComponent: ExportAssetsComponent;
+
 
   constructor(
     private platform: Platform,
@@ -41,6 +44,10 @@ export class AppComponent implements OnDestroy {
   }
 
   authSub: Subscription;
+
+  exportAssets() {
+    this.exportAssetComponent.exportAssets();
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -108,7 +115,7 @@ export class AppComponent implements OnDestroy {
           {
             text: "Cancel",
             role: "cancel",
-            handler: () => {},
+            handler: () => { },
           },
         ],
       })
@@ -199,7 +206,7 @@ export class AppComponent implements OnDestroy {
         reader.readAsArrayBuffer(file);
       });
   }
-  
+
   ngOnDestroy() {
     if (!this.authSub) {
       this.authSub.unsubscribe();
