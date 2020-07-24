@@ -194,6 +194,11 @@ export class ExportAssetsComponent implements OnInit {
             data[Constants.EXCEL_SHEET_HEADERS[data.assetType]].price;
             delete  data[Constants.EXCEL_SHEET_HEADERS[data.assetType]].price;
           }
+          if (data[Constants.EXCEL_SHEET_HEADERS[data.assetType]].uanNumber) {
+            data[Constants.EXCEL_SHEET_HEADERS[data.assetType]]['UAN Number'] =
+            data[Constants.EXCEL_SHEET_HEADERS[data.assetType]].uanNumber;
+            delete  data[Constants.EXCEL_SHEET_HEADERS[data.assetType]].uanNumber;
+          }
         });
         this.userAssets = groupBy(userAssets, 'assetType');
         const sheetnames = Object.keys(this.userAssets);
