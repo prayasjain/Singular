@@ -186,7 +186,7 @@ export class AddNewAssetModalComponent implements OnInit {
       asset = new Asset(
         assetId,
         new Gold(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
-        lastEvaluationDate),
+        lastEvaluationDate, this.form.value["units"]),
         percentUnAlloc
       );
     }
@@ -207,18 +207,15 @@ export class AddNewAssetModalComponent implements OnInit {
       );
     }
     if (assetType === AssetType.EPF) {
-      let date;
-      if (this.form.value["date"]) {
-        date = new Date(this.form.value["date"]);
-      }
+
       let lastEvaluationDate;
       if (this.form.value["lastEvaluationDate"]) {
         lastEvaluationDate = new Date(this.form.value["lastEvaluationDate"]);
       }
       asset = new Asset(
         assetId,
-        new EPF(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
-        lastEvaluationDate),
+        new EPF(this.form.value["name"], +this.form.value['price'],
+        lastEvaluationDate, this.form.value['uanNumber']),
         percentUnAlloc
       );
     }

@@ -16,4 +16,16 @@ export class Constants {
         enGB: 'en-GB'
     };
 
+    public static readonly EXCEL_SHEET_HEADERS = {
+        Gold: 'gold',
+        'Real Estate': 'realEstate',
+        EPF: 'ePF',
+        PPF: 'pPf',
+        Cash: 'cash',
+        Equity: 'equity',
+        'Mutual Funds': 'mutualFunds',
+        Deposits: 'deposits',
+        'Savings Account': 'savingsAccount'
+    };
+
 }

@@ -200,7 +200,7 @@
     <ion-row
       class="ion-no-padding"
       *ngIf="
-        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.EPF || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
+        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
     >
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
         <ion-item>
@@ -213,7 +213,7 @@
     <ion-row
       class="ion-no-padding"
       *ngIf="
-        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.EPF || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
+        asset?.assetType === AssetType.Gold || asset?.assetType === AssetType.PPF|| asset?.assetType === AssetType.RealEstate"
     >
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
         <ion-item>
@@ -236,6 +236,32 @@
         </ion-item>
       </ion-col>
     </ion-row>
+    <ion-row
+      class="ion-no-padding"
+      *ngIf="
+        asset?.assetType === AssetType.Gold"
+    >
+      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+        <ion-item>
+          <ion-label position="floating" color="medium">Units
+          </ion-label>
+          <h4 class="item-details">{{asset?.units}}</h4>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row
+    class="ion-no-padding"
+    *ngIf="
+      asset?.assetType === AssetType.EPF"
+  >
+    <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+      <ion-item>
+        <ion-label position="floating" color="medium">UAN Number
+        </ion-label>
+        <h4 class="item-details">{{asset?.uanNumber}}</h4>
+      </ion-item>
+    </ion-col>
+  </ion-row>
     <!-- <ion-row>
       <ion-col class="ion-text-center" size-md="6" offset-md="3">
         <ion-text>as on {{date.toDateString()}}</ion-text>

@@ -62,17 +62,19 @@
                   }}
                 </ion-text>
               </ion-item>
-              <ion-range class="ion-no-padding" [ngModel]="assetContributionPercentage(asset.id)" #range="ngModel"
-                name="percentage-{{ asset.id }}" min="0" [max]="
-                  assetContributionPercentage(asset.id) +
-                  100 * asset.percentUnallocated
-                " pin color="tertiary" [disabled]="!checkbox.value">
-                <ion-label slot="start">0</ion-label>
-                <ion-label slot="end">{{
-                  assetContributionPercentage(asset.id) / 100 +
-                    asset.percentUnallocated | percent
-                }}</ion-label>
-              </ion-range>
+              <div style="position: relative; width: 100%;">
+                <ion-range #sliderRange class="ion-no-padding" [ngModel]="assetContributionPercentage(asset.id)" #range="ngModel"
+                name="percentage-{{ asset.id }}" min="0" max="100" pin color="tertiary" [disabled]="!checkbox.value" (ionChange)='onChangeSliderValue(asset)'>
+
+                  <ion-label slot="start">0</ion-label>
+                  <ion-label slot="end">100</ion-label>
+                </ion-range>
+                <div *ngIf="(assetContributionPercentage(asset.id) +
+                100 * asset.percentUnallocated) != 100" class="sliderLimit"
+                  [style.left.%]="assetContributionPercentage(asset.id) +
+                  100 * asset.percentUnallocated">{{assetContributionPercentage(asset.id) +
+                    100 * asset.percentUnallocated}}</div>
+              </div>
             </div>
           </div>
         </ion-col>

@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ["./edit-goal.component.scss"],
 })
 export class EditGoalComponent implements OnInit, OnDestroy {
-  sliderValue;
   @Input() goal: Goal;
   @Input() contributions: Contribution[];
   @Input() assets: Asset[];
@@ -27,6 +26,7 @@ export class EditGoalComponent implements OnInit, OnDestroy {
 
   @ViewChild("f", { static: true }) form: NgForm;
   @ViewChild('slider', { static: false }) listContainer: Element;
+  @ViewChild('sliderRange', { static: false }) slider: Element;
 
 
   constructor(private modalCtrl: ModalController, public currencyService: CurrencyService) {}
@@ -52,6 +52,14 @@ export class EditGoalComponent implements OnInit, OnDestroy {
 
   onClose() {
     this.modalCtrl.dismiss(null, "cancel");
+  }
+
+  onChangeSliderValue(asset) {
+    if(this.slider['el'].value > (this.assetContributionPercentage(asset.id) +
+    100 * asset.percentUnallocated)) {
+      this.slider['el'].value = this.assetContributionPercentage(asset.id) +
+      100 * asset.percentUnallocated;
+    }
   }
 
   onSubmit() {

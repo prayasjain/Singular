@@ -17,6 +17,7 @@ import { environment } from "../environments/environment";
 import { AvatarModule } from "ngx-avatar";
 
 import {GooglePlus} from "@ionic-native/google-plus/ngx";
+import { ExportAssetsModule } from './export-assets/export-assets.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import {GooglePlus} from "@ionic-native/google-plus/ngx";
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    ExportAssetsModule,
     NoopAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
