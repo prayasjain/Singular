@@ -25,3 +25,20 @@
 #container a {
   text-decoration: none;
 }
+
+
+
+ion-fab .add-button {
+  margin-bottom: 2em;
+  height: 2.4em;
+  width: 2.4em;  
+  margin-left: 0.8em;
+}
+
+
+ion-tab-bar{
+  border: 0; 
+  -webkit-box-shadow: 0px -2px 11px -5px rgba(0,0,0,0.45);
+-moz-box-shadow: 0px -2px 11px -5px rgba(0,0,0,0.45);
+box-shadow: 0px -2px 11px -5px rgba(0,0,0,0.45);
+}
