@@ -160,6 +160,10 @@ export class AddNewAssetModalComponent implements OnInit {
     }
     if (assetType === AssetType.PPF) {
       let date;
+      let currentVal;
+      if (this.form.value["currentValue"]) {
+        currentVal = +this.form.value["currentValue"];
+      }
       if (this.form.value["date"]) {
         date = new Date(this.form.value["date"]);
       }
@@ -169,13 +173,17 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new PPF(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
+        new PPF(this.form.value["name"], date, +this.form.value['price'], currentVal,
         lastEvaluationDate),
         percentUnAlloc
       );
     }
     if (assetType === AssetType.Gold) {
       let date;
+      let currentVal;
+      if (this.form.value["currentValue"]) {
+        currentVal = +this.form.value["currentValue"];
+      }
       if (this.form.value["date"]) {
         date = new Date(this.form.value["date"]);
       }
@@ -185,13 +193,17 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new Gold(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
+        new Gold(this.form.value["name"], date, +this.form.value['price'], currentVal,
         lastEvaluationDate, this.form.value["units"]),
         percentUnAlloc
       );
     }
     if (assetType === AssetType.RealEstate) {
       let date;
+      let currentVal;
+      if (this.form.value["currentValue"]) {
+        currentVal = +this.form.value["currentValue"];
+      }
       if (this.form.value["date"]) {
         date = new Date(this.form.value["date"]);
       }
@@ -201,7 +213,7 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new RealEstate(this.form.value["name"], date, +this.form.value['price'], +this.form.value['currentValue'],
+        new RealEstate(this.form.value["name"], date, +this.form.value['price'], currentVal,
         lastEvaluationDate),
         percentUnAlloc
       );
