@@ -5,7 +5,8 @@ import { Subscription, zip, of } from "rxjs";
 import { take, tap, switchMap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
-import { CurrencyService } from '../currency/currency.service';
+import { CurrencyService } from "../currency/currency.service";
+import { MarketDataService, PriceData } from "./market-data.service";
 
 interface AssetGroup {
   assetType: AssetType;
@@ -29,12 +30,16 @@ export class AssetsPage implements OnInit, OnDestroy {
     private assetsService: AssetsService,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-    public currencyService: CurrencyService
-  ) { }
+    public currencyService: CurrencyService,
+    private marketDataService: MarketDataService
+  ) {}
 
   OTHERS = AssetType.Others;
 
   colorNo = 0;
+
+  // this is a timed operation. whenever we fetch prices we wait for 60 mins to update it again.
+  //fetchPriceData: boolean = true;
 
   ngOnInit() {
     this.currentDate = new Date();
@@ -45,8 +50,37 @@ export class AssetsPage implements OnInit, OnDestroy {
           this.user = user;
           return this.assetsService.userAssets;
         }),
+        //todo move this to firebase
         switchMap((userAssets) => {
           this.userAssets = userAssets;
+          //if (this.fetchPriceData) {
+          // todo also do mutual funds
+          let priceIdentifiers: string[] = [];
+          userAssets.forEach((asset) => {
+            if (asset.assetType === AssetType.Equity && asset.equity.isin) {
+              priceIdentifiers.push(asset.equity.isin);
+            }
+          });
+          // if (priceIdentifiers.length > 0) {
+          //   this.fetchPriceData = false;
+          //   setTimeout(() => {
+          //     this.fetchPriceData = true;
+          //   }, 86400000 / 60);
+          // }
+
+          return this.marketDataService.getPrice(priceIdentifiers);
+          // } else {
+          //   return of([]);
+          // }
+        }),
+        switchMap((prices) => {
+          let priceMap = new Map();
+          prices.forEach((p) => priceMap.set(p.identifier, p));
+          this.userAssets.forEach((asset) => {
+            if (asset.assetType === AssetType.Equity && asset.equity.isin && priceMap.has(asset.equity.isin)) {
+              asset.equity.currentValue = +priceMap.get(asset.equity.isin).price;
+            }
+          });
           this.totalAmountByAssetType.clear();
           this.assetGroups = [];
 
@@ -57,8 +91,7 @@ export class AssetsPage implements OnInit, OnDestroy {
               tap((assetValue) => {
                 this.totalAmountByAssetType.set(
                   userAsset.assetType,
-                  (this.totalAmountByAssetType.get(userAsset.assetType) || 0) +
-                  Number(assetValue)
+                  (this.totalAmountByAssetType.get(userAsset.assetType) || 0) + Number(assetValue)
                 );
               })
             )
@@ -95,7 +128,7 @@ export class AssetsPage implements OnInit, OnDestroy {
     this.totalAmountByAssetType.forEach((amount, assetType) => {
       let assetGroup: AssetGroup = {
         assetType: assetType,
-        amount: amount
+        amount: amount,
       };
       this.assetGroups.push(assetGroup);
     });
@@ -107,7 +140,6 @@ export class AssetsPage implements OnInit, OnDestroy {
   }
 
   color(chars: string) {
-
     if (chars === AssetType.SavingsAccount) {
       return "tertiary";
     }

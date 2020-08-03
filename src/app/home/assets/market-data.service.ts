@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { AssetType } from "./asset.model";
+import { of } from 'rxjs';
 
 export interface AutoCompleteStock {
   category: string;
@@ -65,6 +66,13 @@ export interface AutoCompleteData {
   //isin: string;
 }
 
+export interface PriceData {
+  symbol: string;
+  identifier: AssetType;
+  price: number;
+  //isin: string;
+}
+
 @Injectable({
   providedIn: "root",
 })
@@ -103,6 +111,25 @@ export class MarketDataService {
           });
         }
         return autoCompleteData;
+      })
+    );
+  }
+
+  getPrice(identifiers: string[]) {
+    let searchURL: string;
+    if (identifiers.length === 0) {
+      return of([]);
+    }
+    searchURL = `http://backend-env.eba-n6hdgzkz.us-east-2.elasticbeanstalk.com/api/finance/price?identifier=${identifiers.join(',')}`;
+    return this.http.get(searchURL).pipe(
+      map((data) => {
+        let priceData: PriceData[] = [];
+        if (data.hasOwnProperty("price")) {
+          data["price"].forEach(d => {
+            priceData.push({symbol: d.symbol, identifier : d.identifier, price: +d.price})
+          });
+        }
+        return priceData;
       })
     );
   }
