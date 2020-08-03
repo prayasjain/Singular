@@ -57,7 +57,7 @@ export class AddNewAssetModalComponent implements OnInit {
     let percentUnAlloc: number = this.asset ? this.asset.percentUnallocated : 1;
     let assetId: string = this.asset ? this.asset.id : Math.random().toString();
 
-    if ((assetType as AssetType) === (AssetType.SavingsAccount as AssetType)) {
+    if (assetType === AssetType.SavingsAccount) {
       let interestRate;
       if (this.form.value["interest-rate"]) {
         interestRate = this.form.value["interest-rate"] / 100;
@@ -257,21 +257,26 @@ export class AddNewAssetModalComponent implements OnInit {
         }
         if (response.data) {
           if (this.asset) {
-            if (assetType === AssetType.Equity) {
+            this.assetType = response.data.type;
+
+            if (this.assetType === AssetType.Equity) {
               this.asset.equity.stockName = response.data.name;
-              this.asset.equity.currentValue = response.data.price;
-              this.asset.equity.isin = response.data.isin;
+              //this.asset.equity.currentValue = response.data.price;
+              //this.asset.equity.isin = response.data.isin;
             } else if (assetType === AssetType.MutualFunds) {
               this.asset.mutualFunds.fundName = response.data.name;
-              this.asset.mutualFunds.currentValue = response.data.price;
+              //this.asset.mutualFunds.currentValue = response.data.price;
             }
           } else {
-            if (assetType === AssetType.Equity) {
-              let tempEquity = new Equity(response.data.name, undefined, undefined, response.data.price, response.data.isin)
-              this.asset = new Asset(Math.random().toString(), tempEquity ,1);
+            this.assetType = response.data.type;
+            if (this.assetType === AssetType.Equity) {
+              //let tempEquity = new Equity(response.data.name, undefined, undefined, response.data.price, response.data.isin);
+              let tempEquity = new Equity(response.data.name, undefined, undefined, undefined, undefined);
+              this.asset = new Asset(Math.random().toString(), tempEquity, 1);
             } else if (assetType === AssetType.MutualFunds) {
-              let tempMF = new MutualFunds(response.data.name, undefined, undefined, response.data.price, undefined);
-              this.asset = new Asset(Math.random().toString(), tempMF ,1);
+              //let tempMF = new MutualFunds(response.data.name, undefined, undefined, response.data.price, undefined);
+              let tempMF = new MutualFunds(response.data.name, undefined, undefined, undefined, undefined);
+              this.asset = new Asset(Math.random().toString(), tempMF, 1);
             }
             
           }

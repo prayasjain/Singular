@@ -44,4 +44,13 @@ export class SearchPopoverComponent implements OnInit {
   submitData(data: AutoCompleteData) {
     this.modalCtrl.dismiss(data, "confirm");
   }
+
+  abbreviateAssetType(assetType: AssetType) {
+    if (assetType === AssetType.Equity) {
+      return "EQ";
+    }
+    if (assetType === AssetType.MutualFunds) {
+      return "MF";
+    }
+  }
 }

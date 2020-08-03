@@ -60,8 +60,9 @@ export interface AutoCompleteMF {
 
 export interface AutoCompleteData {
   name: string;
-  price: number;
-  isin: string;
+  type: AssetType;
+  //price: number;
+  //isin: string;
 }
 
 @Injectable({
@@ -72,25 +73,33 @@ export class MarketDataService {
 
   getData(searchString: string, assetType: AssetType) {
     let searchURL: string;
-    if (assetType === AssetType.Equity) {
-      searchURL = `https://indiawealth.in/api/v1/explore/stocks/?type=all&sortKey=mCap&sortOrder=desc&offset=0&limit=20&category=all&searchFor=${searchString}`;
-    } else if (assetType === AssetType.MutualFunds) {
-      searchURL = `https://indiawealth.in/api/v1/funds/getList/?offset=0&limit=20&fundname=${searchString}`;
-    } else {
-      return;
-    }
+    // if (assetType === AssetType.Equity) {
+    //   searchURL = `https://indiawealth.in/api/v1/explore/stocks/?type=all&sortKey=mCap&sortOrder=desc&offset=0&limit=20&category=all&searchFor=${searchString}`;
+    // } else if (assetType === AssetType.MutualFunds) {
+    //   searchURL = `https://indiawealth.in/api/v1/funds/getList/?offset=0&limit=20&fundname=${searchString}`;
+    // } else {
+    //   return;
+    // }
+    
+    // backend add isin number and price fetch
+    searchURL = `http://backend-env.eba-n6hdgzkz.us-east-2.elasticbeanstalk.com/api/finance/autocomplete?searchKey=${searchString}`;
     return this.http.get(searchURL).pipe(
       map((data) => {
         let autoCompleteData: AutoCompleteData[] = [];
-        if (assetType === AssetType.Equity) {
-          let stocks: AutoCompleteStock[] = data["data"];
-          autoCompleteData = stocks.map((stock) => {
-            return { name: stock.name, price: stock.price, isin: stock.isin };
-          });
-        } else if (assetType === AssetType.MutualFunds) {
-          let mutualfunds: AutoCompleteMF[] = data["data"];
-          autoCompleteData = mutualfunds.map((mf) => {
-            return { name: mf.name, price: mf.nav, isin: null };
+        // if (assetType === AssetType.Equity) {
+        //   let stocks: AutoCompleteStock[] = data["data"];
+        //   autoCompleteData = stocks.map((stock) => {
+        //     return { name: stock.name, price: stock.price, isin: stock.isin };
+        //   });
+        // } else if (assetType === AssetType.MutualFunds) {
+        //   let mutualfunds: AutoCompleteMF[] = data["data"];
+        //   autoCompleteData = mutualfunds.map((mf) => {
+        //     return { name: mf.name, price: mf.nav, isin: null };
+        //   });
+        // }
+        if (data.hasOwnProperty("autcomplete")) {
+          data["autcomplete"].forEach(d => {
+            autoCompleteData.push({name: d.name, type : d.type === "S" ? AssetType.Equity : AssetType.MutualFunds})
           });
         }
         return autoCompleteData;
