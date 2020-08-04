@@ -1,4 +1,4 @@
-<ion-card class="custom" [routerLink]="itemLink" color="medium">
+<!-- <ion-card class="custom" [routerLink]="itemLink" color="medium">
   <ion-item color="medium" lines="none">
     <ion-text slot="start">{{title}}</ion-text>
     <ion-text slot="end" *ngIf="value >= 1">
@@ -8,4 +8,35 @@
   <ion-card-content *ngIf="value < 1">
     <ion-progress-bar class="custom-bar" [color]="itemColor" [value]="value"></ion-progress-bar>
   </ion-card-content>
-</ion-card>
+</ion-card> -->
+
+
+
+<ion-list class="custom" style="padding: 2px 2px">
+  <ion-item-sliding id="item{{idNumber}}" (ionDrag)="test($event)" class="cards">
+    <ion-item slot="start" [routerLink]="[itemLink]"> 
+      <ion-label >   <b> &nbsp; &nbsp; {{title}} </b>  </ion-label>
+      <ion-text slot="end" >
+        <ion-label >   <b> dummy data</b>  </ion-label>
+      </ion-text>  
+    </ion-item>
+    <ion-progress-bar class="custom-bar" [color]="itemColor" [value]="value"></ion-progress-bar>
+    <ion-item-options >
+      <ion-item-option side="end"  [style.height.%]="height" [style.width.px]="width" (click)="delete(idNumber)" class="opt-btn">
+        <ion-tab-button  class="delete"   >
+          <ion-icon name="trash" style="font-size: 1.5em;" > </ion-icon>  
+        <ion-label style="font-size: 0.8em;">  Delete</ion-label>
+        </ion-tab-button>
+      </ion-item-option>
+      <ion-item-option [style.height.%]="height" [style.width.px]="width" (click)="cancel(idNumber)" class="opt-btn" color="success">
+        
+        <ion-tab-button class="cancel" >
+          <ion-icon name="close" style="font-size: 1.5em;" > </ion-icon>  
+        <ion-label style="font-size: 0.8em;">  Cancel</ion-label>
+        </ion-tab-button>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
+
+

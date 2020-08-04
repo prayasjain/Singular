@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AssetType } from './assets/asset.model';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,18 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  goals = false;
+  assets = true;
   constructor() {}
 
+   OTHERS = AssetType.Others;
+   toggleAssets() {
+    this.assets = true;
+    this.goals = false;
+   }
+
+   toggleGoals() {
+    this.assets = false;
+    this.goals = true;
+   }
 }

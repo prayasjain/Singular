@@ -1,11 +1,9 @@
-<ion-tabs>
+<!-- <ion-tabs>
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="assets">
       <ion-label>Assets</ion-label>
       <ion-icon name="card-outline"></ion-icon>
     </ion-tab-button>
-
-
 
     <ion-tab-button tab="goals">
       <ion-label>Goals</ion-label>
@@ -13,4 +11,36 @@
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
+ -->
 
+
+
+ 
+ <ion-tabs>
+  <app-add-new *ngIf="this.assets" isAsset="true" [assetType]="OTHERS" isGoal="true"></app-add-new>
+  <app-add-new  *ngIf="this.goals" isGoal="true"></app-add-new>
+
+  <ion-tab-bar  slot="bottom">
+    <ion-tab-button tab="/">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="toggleAssets()" tab="assets">
+        <ion-icon name="card-outline"></ion-icon>
+      <ion-label>Assets</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="toggleGoals()" tab="goals">
+      <ion-icon name="trophy"></ion-icon>
+      <ion-label>Goals</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="/">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+  
+
+</ion-tabs>

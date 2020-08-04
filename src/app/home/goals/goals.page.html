@@ -1,12 +1,27 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button menu="mainMenu"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Goals</ion-title>
-  </ion-toolbar>
+ 
+<ion-header class="top-header" > 
+   
+  <ion-buttons horizontal="start"  vertical="top" >
+    <ion-menu-button class="white" menu="mainMenu"></ion-menu-button>
+  </ion-buttons> 
+
+<ion-fab class="pointer white" horizontal="end"  vertical="top" > 
+  <ion-icon name="notifications-outline" style="font-size: 1.8em;"> </ion-icon>
+</ion-fab>
+ 
+<ion-title id="container" vertical="center">
+  <p  style="color: aliceblue; font-size:12px; margin-bottom:10px;"> Total Goals Value </p>
+  <p  style="color: aliceblue; font-size: 1.3em;">  {{allocatedAmount?.toLocaleString(currencyService.getLocaleForCurrency(
+    currencyService.currency | async ), {style: 'currency', currency:
+    currencyService.currency | async, maximumFractionDigits: 0,
+    minimumFractionDigits: 0})}} </p>
+</ion-title>
 </ion-header>
-<ion-content>
+
+
+
+
+<ion-content [fullscreen]="true">
   <ion-grid *ngIf="isLoading">
     <ion-row>
       <ion-col class="ion-text-center" size-md="6" offset-md="3">
@@ -34,6 +49,7 @@
     <ion-row class="ion-no-padding" *ngFor="let goal of userGoals">
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
         <app-goal
+          [idNumber]="goal.id"
           [title]="goal.name"
           [value]="(goalCompletionMap.get(goal.id) || 0)/goal.amountReqd"
           itemColor="danger"
@@ -42,8 +58,14 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
 </ion-content>
-<ion-footer>
+
+
+
+
+ 
+<!-- <ion-footer>
   <ion-grid>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
@@ -51,4 +73,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-footer>
+</ion-footer> -->

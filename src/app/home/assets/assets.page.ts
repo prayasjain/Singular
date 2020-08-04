@@ -11,6 +11,7 @@ import { MarketDataService, PriceData } from "./market-data.service";
 interface AssetGroup {
   assetType: AssetType;
   amount: number;
+  id: number;
 }
 
 @Component({
@@ -26,6 +27,8 @@ export class AssetsPage implements OnInit, OnDestroy {
   totalAmount: number;
   currentDate: Date;
   totalAmountByAssetType = new Map();
+  //  Utkarsh
+  gid = 0;
   constructor(
     private assetsService: AssetsService,
     private authService: AuthService,
@@ -129,8 +132,10 @@ export class AssetsPage implements OnInit, OnDestroy {
       let assetGroup: AssetGroup = {
         assetType: assetType,
         amount: amount,
+        id: this.gid
       };
       this.assetGroups.push(assetGroup);
+      ++this.gid;
     });
     this.assetGroups.sort();
   }
@@ -162,7 +167,8 @@ export class AssetsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.assetsSub) {
+    if (this.assetsSub) {  
+      this.gid = 0; 
       this.assetsSub.unsubscribe();
     }
   }
