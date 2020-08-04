@@ -12,11 +12,9 @@ export class GoalComponent implements OnInit {
   @Input() value: number;
   @Input() itemLink: string;
   @Input() idNumber: any;
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
-
-
+  ngOnInit() { }
 
   //  Utkarsh
   hc = 50;

@@ -77,7 +77,7 @@ export interface PriceData {
   providedIn: "root",
 })
 export class MarketDataService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getData(searchString: string, assetType: AssetType) {
     let searchURL: string;
@@ -88,7 +88,7 @@ export class MarketDataService {
     // } else {
     //   return;
     // }
-    
+
     // backend add isin number and price fetch
     searchURL = `http://backend-env.eba-n6hdgzkz.us-east-2.elasticbeanstalk.com/api/finance/autocomplete?searchKey=${searchString}`;
     return this.http.get(searchURL).pipe(
@@ -107,7 +107,7 @@ export class MarketDataService {
         // }
         if (data.hasOwnProperty("autcomplete")) {
           data["autcomplete"].forEach(d => {
-            autoCompleteData.push({name: d.name, type : d.type === "S" ? AssetType.Equity : AssetType.MutualFunds})
+            autoCompleteData.push({ name: d.name, type: d.type === "S" ? AssetType.Equity : AssetType.MutualFunds })
           });
         }
         return autoCompleteData;
@@ -126,7 +126,7 @@ export class MarketDataService {
         let priceData: PriceData[] = [];
         if (data.hasOwnProperty("price")) {
           data["price"].forEach(d => {
-            priceData.push({symbol: d.symbol, identifier : d.identifier, price: +d.price})
+            priceData.push({ symbol: d.symbol, identifier: d.identifier, price: +d.price })
           });
         }
         return priceData;

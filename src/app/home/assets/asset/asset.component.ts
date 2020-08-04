@@ -20,9 +20,7 @@ export class AssetComponent implements OnInit {
       this.itemColor = "tertiary";
     }
   }
-
   
-
   //  Utkarsh
   hc = 50;
   wc = 80;

@@ -17,4 +17,4 @@ import { SharedModule } from './shared.module';
   ],
   declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule { }

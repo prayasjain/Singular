@@ -10,16 +10,16 @@ export class HomePage {
 
   goals = false;
   assets = true;
-  constructor() {}
+  constructor() { }
 
-   OTHERS = AssetType.Others;
-   toggleAssets() {
+  OTHERS = AssetType.Others;
+  toggleAssets() {
     this.assets = true;
     this.goals = false;
-   }
+  }
 
-   toggleGoals() {
+  toggleGoals() {
     this.assets = false;
     this.goals = true;
-   }
+  }
 }
