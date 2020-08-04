@@ -72,6 +72,7 @@ export class AssetsPage implements OnInit, OnDestroy {
           // } else {
           //   return of([]);
           // }
+          
         }),
         switchMap((prices) => {
           let priceMap = new Map();
