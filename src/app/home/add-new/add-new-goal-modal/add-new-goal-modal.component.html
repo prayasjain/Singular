@@ -1,18 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> Add New Goal</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button (click)="onClose()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-header  class="top-header ion-no-border">
+  <ion-fab class="pointer" (click)="onClose()" horizontal="end" vertical="top">
+    <ion-icon name="close" class="closeIcon"> </ion-icon>
+  </ion-fab>
+  <ion-title id="container" vertical="center">
+    <p>Add New Goal</p>
+  </ion-title>
 </ion-header>
 <ion-content class="ion-text-center ion-padding">
   <form (ngSubmit)="onSubmit()" #f="ngForm">
     <ion-grid>
       <ion-row>
-        <ion-col >
+        <ion-col>
           <ion-item>
             <ion-label position="floating"> Goal Name </ion-label>
             <ion-input type="text" ngModel name="name" required></ion-input>
@@ -20,22 +18,16 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col >
+        <ion-col>
           <ion-item>
             <ion-label position="floating"> Amount </ion-label>
             <ion-input type="number" ngModel name="amount" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col >
-          <ion-button
-            type="submit"
-            color="primary"
-            expand="block"
-            [disabled]="f.invalid"
-            >Add Goal</ion-button
-          >
+      <ion-row  class="bottomButton">
+        <ion-col>
+          <ion-button class="buttonBlue" type="submit" expand="block" [disabled]="f.invalid">Add Goal</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

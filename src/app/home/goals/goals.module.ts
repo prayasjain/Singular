@@ -20,4 +20,4 @@ import { SharedModule } from '../shared.module';
   ],
   declarations: [GoalsPage, GoalComponent]
 })
-export class GoalsPageModule {}
+export class GoalsPageModule { }
