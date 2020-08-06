@@ -11,6 +11,7 @@ import { MarketDataService, PriceData } from "./market-data.service";
 interface AssetGroup {
   assetType: AssetType;
   amount: number;
+  // id included to identify eash list item seprately
   id: number;
 }
 
@@ -27,22 +28,22 @@ export class AssetsPage implements OnInit, OnDestroy {
   totalAmount: number;
   currentDate: Date;
   totalAmountByAssetType = new Map();
-  //  Utkarsh
-  gid = 0;
+  //  aid is added to provide a specific id to track each list item individualy and pass this data further for more control on any list item
+  aid = 0;
   constructor(
     private assetsService: AssetsService,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     public currencyService: CurrencyService,
     private marketDataService: MarketDataService
-  ) {}
+  ) { }
 
   OTHERS = AssetType.Others;
 
   colorNo = 0;
 
   // this is a timed operation. whenever we fetch prices we wait for 60 mins to update it again.
-  //fetchPriceData: boolean = true;
+  // fetchPriceData: boolean = true;
 
   ngOnInit() {
     this.currentDate = new Date();
@@ -53,10 +54,10 @@ export class AssetsPage implements OnInit, OnDestroy {
           this.user = user;
           return this.assetsService.userAssets;
         }),
-        //todo move this to firebase
+        // todo move this to firebase
         switchMap((userAssets) => {
           this.userAssets = userAssets;
-          //if (this.fetchPriceData) {
+          // if (this.fetchPriceData) {
           // todo also do mutual funds
           let priceIdentifiers: string[] = [];
           userAssets.forEach((asset) => {
@@ -132,10 +133,12 @@ export class AssetsPage implements OnInit, OnDestroy {
       let assetGroup: AssetGroup = {
         assetType: assetType,
         amount: amount,
-        id: this.gid
+        // id is defined as aid
+        id: this.aid
       };
       this.assetGroups.push(assetGroup);
-      ++this.gid;
+      // increments the aid by 1
+      ++this.aid;
     });
     this.assetGroups.sort();
   }
@@ -167,8 +170,9 @@ export class AssetsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.assetsSub) {  
-      this.gid = 0; 
+    if (this.assetsSub) {
+      // reset the aid
+      this.aid = 0;
       this.assetsSub.unsubscribe();
     }
   }

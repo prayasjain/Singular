@@ -1,19 +1,5 @@
-<!-- <ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="assets">
-      <ion-label>Assets</ion-label>
-      <ion-icon name="card-outline"></ion-icon>
-    </ion-tab-button>
-
-    <ion-tab-button tab="goals">
-      <ion-label>Goals</ion-label>
-      <ion-icon name="trophy-outline"></ion-icon>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
- -->
-
 <ion-tabs>
+  <!-- using multiple app-add-new for accessing different functionality for different screen, One get off when another one is click and vice-versa -->
   <app-add-new *ngIf="this.assets" isAsset="true" [assetType]="OTHERS" isGoal="true"></app-add-new>
   <app-add-new *ngIf="this.goals" isGoal="true"></app-add-new>
 

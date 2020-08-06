@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { CurrencyService } from '../../currency/currency.service';
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.component.html',
@@ -12,17 +12,21 @@ export class GoalComponent implements OnInit {
   @Input() value: number;
   @Input() itemLink: string;
   @Input() idNumber: any;
-  constructor() { }
+  @Input() amtRqd: number;
+
+  // these are some pre-defined number for the use case of test(), which controls the sliding item
+  hc:number = 50;
+  wc:number = 80;
+  height:number = 50;
+  width:number = 80;
+
+  constructor(public currencyService: CurrencyService) { }
 
   ngOnInit() { }
 
-  //  Utkarsh
-  hc = 50;
-  wc = 80;
-  height = 50;
-  width = 80;
-
+  // controls the sliding option of ion-item-sliding and provide some responsive sliding effect
   test(event) {
+    // numbers used inside are for controling the size of buttons on the basis of sliding ratio
     if (event.detail.ratio > 0.3 && event.detail.ratio < 0.5) {
       this.height = this.hc + 41.6 * event.detail.ratio;
       this.width = this.wc + 11.33 * event.detail.ratio;
@@ -33,8 +37,7 @@ export class GoalComponent implements OnInit {
     }
   }
 
-  cancel(id) {
-    const track = '#item' + id;
+  cancel() {
     document.querySelector('ion-item-sliding').closeOpened();
   }
 
@@ -42,5 +45,4 @@ export class GoalComponent implements OnInit {
     const track = '#item' + id;
     document.querySelector(track).classList.add('remove');
   }
-  // Utkarsh end
 }

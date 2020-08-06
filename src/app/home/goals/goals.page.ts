@@ -75,7 +75,6 @@ export class GoalsPage implements OnInit, OnDestroy {
         });
       });
     this.userGoalsSub = this.goalsService.userGoals.subscribe((usergoals) => {
-      console.log(usergoals);
       this.userGoals = usergoals;
       this.initGoal = true;
       this.updateGoalCompletion();

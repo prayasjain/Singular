@@ -5,12 +5,12 @@
   </ion-buttons>
 
   <ion-fab class="pointer white" horizontal="end" vertical="top">
-    <ion-icon name="notifications-outline" style="font-size: 1.8em;"> </ion-icon>
+    <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
   </ion-fab>
 
   <ion-title id="container" vertical="center">
-    <p style="color: aliceblue; font-size:12px; margin-bottom:10px;"> Total Assests </p>
-    <p style="color: aliceblue; font-size: 1.3em;"> {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
+    <p class="assetsTitle"> Total Assests </p>
+    <p class="assetsData"> {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
     currencyService.currency | async ), {style: 'currency', currency:
     currencyService.currency | async, maximumFractionDigits: 0,
     minimumFractionDigits: 0})}}</p>

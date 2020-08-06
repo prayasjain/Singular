@@ -1,0 +1,39 @@
+.pointer {
+    cursor: pointer;
+  }
+  .top-header {
+    height: 25vh;
+  }
+  
+  .top-header p {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+  }
+  
+  #container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30%;
+    transform: translateY(-50%);
+  }
+  
+ .closeIcon {
+     font-size: 1.8em;
+ } 
+
+ .bottomButton {
+    position: fixed;
+    bottom: 10%; 
+    left: 20%; 
+    right: 20%; 
+    border-radius: 20px;
+ }
+
+.buttonBlue {
+    --background: #4066ea !important;
+  }

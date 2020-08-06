@@ -3,7 +3,8 @@
 }
 
 .custom-bar {
-  height: 10px;
+  height: 8px;
+  border-radius: 20px;
 }
 
 ion-list {
@@ -39,4 +40,20 @@ ion-list {
 .remove {
   transition: width 1s, height 2s;
   display: none;
+}
+
+.listItem {
+  padding: 2px 2px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.iconSize {
+  font-size: 1.5em !important;
+}
+
+.iconLabel {
+  font-size: 0.8em !important;
 }
