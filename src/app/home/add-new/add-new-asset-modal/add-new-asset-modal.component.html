@@ -1,12 +1,10 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> Add New asset </ion-title>
-    <ion-buttons slot="primary">
-      <ion-button (click)="onClose()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+ <ion-header  class="top-header ion-no-border">
+  <ion-fab class="pointer" (click)="onClose()" horizontal="end" vertical="top">
+    <ion-icon name="close" class="closeIcon"> </ion-icon>
+  </ion-fab>
+  <ion-title id="container" vertical="center">
+    <p>Add New asset </p>
+  </ion-title>
 </ion-header>
 <ion-content class="ion-text-center ion-padding">
   <form (ngSubmit)="onSubmit()" #f="ngForm">
@@ -237,9 +235,9 @@
         </ion-item>
       </ion-col>
     </ion-row>
-      <ion-row>
+      <ion-row class="bottomButton">
         <ion-col>
-          <ion-button type="submit" color="primary" expand="block" [disabled]="f.invalid">Add Asset</ion-button>
+          <ion-button type="submit" class="buttonBlue" expand="block" [disabled]="f.invalid">Add Asset</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

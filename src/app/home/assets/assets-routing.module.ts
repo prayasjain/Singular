@@ -10,11 +10,11 @@ const routes: Routes = [
   },
   {
     path: 'asset-detail/:assetSlug',
-    loadChildren: () => import('./asset-detail/asset-detail.module').then( m => m.AssetDetailPageModule)
+    loadChildren: () => import('./asset-detail/asset-detail.module').then(m => m.AssetDetailPageModule)
   },
   {
     path: 'asset-item/:itemId',
-    loadChildren: () => import('./asset-item-page/asset-item-page.module').then( m => m.AssetItemPagePageModule)
+    loadChildren: () => import('./asset-item-page/asset-item-page.module').then(m => m.AssetItemPagePageModule)
   }
 ];
 
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AssetsPageRoutingModule {}
+export class AssetsPageRoutingModule { }
