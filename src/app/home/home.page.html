@@ -1,7 +1,7 @@
 <ion-tabs>
   <!-- using multiple app-add-new for accessing different functionality for different screen, One get off when another one is click and vice-versa -->
-  <app-add-new *ngIf="this.assets" isAsset="true" [assetType]="OTHERS" isGoal="true"></app-add-new>
-  <app-add-new *ngIf="this.goals" isGoal="true"></app-add-new>
+  <app-add-new  [isAsset]=this.assets [isGoal]=this.goals [assetType]="OTHERS" ></app-add-new>
+ 
 
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="/">

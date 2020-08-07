@@ -291,7 +291,7 @@ export class AssetsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
