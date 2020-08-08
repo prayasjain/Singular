@@ -96,15 +96,14 @@ export class GoalsPage implements OnInit, OnDestroy {
 
     this.allocatedAmount = 0;
     this.userGoalsContributions.forEach((userGoalsContribution) => {
+      console.log(userGoalsContribution)
       let existingContribution =
         this.goalCompletionMap.get(userGoalsContribution.goalId) || 0;
       let assetValue =
         this.assetValueMap.get(userGoalsContribution.assetId) || 0;
       let currentContribution =
         assetValue * userGoalsContribution.percentageContribution || 0;
-      this.allocatedAmount +=
-        userGoalsContribution.percentageContribution *
-        this.assetValueMap.get(userGoalsContribution.assetId);
+      this.allocatedAmount += currentContribution;
       this.goalCompletionMap.set(
         userGoalsContribution.goalId,
         existingContribution + currentContribution
