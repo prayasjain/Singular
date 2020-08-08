@@ -59,9 +59,6 @@
                 <div style="position: relative; width: 100%;">
                   <ion-range #sliderRange class="ion-no-padding" [ngModel]="assetContributionPercentage(asset.id)" #range="ngModel"
                   name="percentage-{{ asset.id }}" min="0" max="100" pin color="tertiary" [disabled]="!checkbox.value" (ionChange)='onChangeSliderValue(asset)'>
-  
-                    <ion-label slot="start">0</ion-label>
-                    <ion-label slot="end">100</ion-label>
                   </ion-range>
                   <div *ngIf="(assetContributionPercentage(asset.id) +
                   100 * asset.percentUnallocated) != 100" class="sliderLimit"
