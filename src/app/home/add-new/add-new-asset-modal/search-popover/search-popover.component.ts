@@ -45,12 +45,12 @@ export class SearchPopoverComponent implements OnInit {
     this.modalCtrl.dismiss(data, "confirm");
   }
 
-  abbreviateAssetType(assetType: AssetType) {
-    if (assetType === AssetType.Equity) {
-      return "EQ";
-    }
-    if (assetType === AssetType.MutualFunds) {
-      return "MF";
-    }
-  }
+  // abbreviateAssetType(assetType: AssetType) {
+  //   if (assetType === AssetType.Equity) {
+  //     return "EQ";
+  //   }
+  //   if (assetType === AssetType.MutualFunds) {
+  //     return "MF";
+  //   }
+  // }
 }

@@ -57,6 +57,15 @@ export class EditGoalComponent implements OnInit, OnDestroy {
      if (this.listContainer['el'].value > (assetValue)) {
       this.listContainer['el'].value = assetValue;
     }
+
+    let assetValue;
+    if (this.assetValueMap.has(asset.id)) {
+      assetValue = this.assetValueMap.get(asset.id) * asset.percentUnallocated;
+    } else if (this.remainingAssetValueMap.has(asset.id)){
+      assetValue = this.remainingAssetValueMap.get(asset.id) * asset.percentUnallocated;
+    }
+    
+
   }
 
   onClose() {

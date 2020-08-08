@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { AssetType } from "./asset.model";
-import { of } from 'rxjs';
+import { of } from "rxjs";
 
 export interface AutoCompleteStock {
   category: string;
@@ -61,15 +61,26 @@ export interface AutoCompleteMF {
 
 export interface AutoCompleteData {
   name: string;
-  type: AssetType;
+  //type: AssetType;
   //price: number;
   //isin: string;
+  equity: {
+    id: string;
+    symbol: string;
+    isin: string;
+  };
+  mutualfund: {
+    id: string;
+    mstarId: string;
+    isin: string;
+  };
 }
 
 export interface PriceData {
-  symbol: string;
-  identifier: AssetType;
-  price: number;
+  key: string;
+  nav: number;
+  //todo convert this to date
+  navDate: string;
   //isin: string;
 }
 
@@ -77,56 +88,91 @@ export interface PriceData {
   providedIn: "root",
 })
 export class MarketDataService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getData(searchString: string, assetType: AssetType) {
     let searchURL: string;
-    // if (assetType === AssetType.Equity) {
-    //   searchURL = `https://indiawealth.in/api/v1/explore/stocks/?type=all&sortKey=mCap&sortOrder=desc&offset=0&limit=20&category=all&searchFor=${searchString}`;
-    // } else if (assetType === AssetType.MutualFunds) {
-    //   searchURL = `https://indiawealth.in/api/v1/funds/getList/?offset=0&limit=20&fundname=${searchString}`;
-    // } else {
-    //   return;
-    // }
+    let assetTypeSearch: string;
+
+    if (assetType === AssetType.Equity) {
+      //   searchURL = `https://indiawealth.in/api/v1/explore/stocks/?type=all&sortKey=mCap&sortOrder=desc&offset=0&limit=20&category=all&searchFor=${searchString}`;
+      assetTypeSearch = "Equities";
+    } else if (assetType === AssetType.MutualFunds) {
+      assetTypeSearch = "MutualFunds";
+      //searchURL = `https://indiawealth.in/api/v1/funds/getList/?offset=0&limit=20&fundname=${searchString}`;
+    } else {
+      return;
+    }
 
     // backend add isin number and price fetch
-    searchURL = `http://backend-env.eba-n6hdgzkz.us-east-2.elasticbeanstalk.com/api/finance/autocomplete?searchKey=${searchString}`;
+    //searchURL = `http://backend-env.eba-n6hdgzkz.us-east-2.elasticbeanstalk.com/api/finance/autocomplete?searchKey=${searchString}`;
+
+    searchURL = `https://limitless-ridge-19843.herokuapp.com/api/finance/autocomplete?searchKey=${searchString}&assetType=${assetTypeSearch}`;
     return this.http.get(searchURL).pipe(
       map((data) => {
+        if (!data.hasOwnProperty("data")) {
+          return [];
+        }
+
         let autoCompleteData: AutoCompleteData[] = [];
-        // if (assetType === AssetType.Equity) {
-        //   let stocks: AutoCompleteStock[] = data["data"];
-        //   autoCompleteData = stocks.map((stock) => {
-        //     return { name: stock.name, price: stock.price, isin: stock.isin };
-        //   });
-        // } else if (assetType === AssetType.MutualFunds) {
-        //   let mutualfunds: AutoCompleteMF[] = data["data"];
-        //   autoCompleteData = mutualfunds.map((mf) => {
-        //     return { name: mf.name, price: mf.nav, isin: null };
+        data["data"].forEach((d) => {
+          if (assetType === AssetType.Equity) {
+            autoCompleteData.push({
+              name: d["name"],
+              equity: { id: d["id"], symbol: d["symbol"], isin: d["isin"] },
+              mutualfund: null,
+            });
+          } else if (assetType === AssetType.MutualFunds) {
+            autoCompleteData.push({
+              name: d["name"],
+              mutualfund: { id: d["id"], mstarId: d["mstarId"], isin: d["isin"] },
+              equity: null,
+            });
+          }
+        })
+        
+        // // if (assetType === AssetType.Equity) {
+        // //   let stocks: AutoCompleteStock[] = data["data"];
+        // //   autoCompleteData = stocks.map((stock) => {
+        // //     return { name: stock.name, price: stock.price, isin: stock.isin };
+        // //   });
+        // // } else if (assetType === AssetType.MutualFunds) {
+        // //   let mutualfunds: AutoCompleteMF[] = data["data"];
+        // //   autoCompleteData = mutualfunds.map((mf) => {
+        // //     return { name: mf.name, price: mf.nav, isin: null };
+        // //   });
+        // // }
+        // if (data.hasOwnProperty("autcomplete")) {
+        //   data["autcomplete"].forEach((d) => {
+        //     autoCompleteData.push({ name: d.name, type: d.type === "S" ? AssetType.Equity : AssetType.MutualFunds });
         //   });
         // }
-        if (data.hasOwnProperty("autcomplete")) {
-          data["autcomplete"].forEach(d => {
-            autoCompleteData.push({ name: d.name, type: d.type === "S" ? AssetType.Equity : AssetType.MutualFunds })
-          });
-        }
         return autoCompleteData;
       })
     );
   }
 
-  getPrice(identifiers: string[]) {
+  getPrice(keys: string[], assetType: AssetType) {
     let searchURL: string;
-    if (identifiers.length === 0) {
+    let assetSearchKey: string;
+    if (assetType == AssetType.Equity) {
+      assetSearchKey = "Equities"
+    }
+    else if (assetType == AssetType.MutualFunds) {
+      assetSearchKey = "MutualFunds"
+    } else {
       return of([]);
     }
-    searchURL = `http://backend-env.eba-n6hdgzkz.us-east-2.elasticbeanstalk.com/api/finance/price?identifier=${identifiers.join(',')}`;
+    if (keys.length === 0) {
+      return of([]);
+    }
+    searchURL = `https://limitless-ridge-19843.herokuapp.com/api/finance/price?keys=${keys.join(',')}&assetType=${assetSearchKey}`;
     return this.http.get(searchURL).pipe(
       map((data) => {
         let priceData: PriceData[] = [];
-        if (data.hasOwnProperty("price")) {
-          data["price"].forEach(d => {
-            priceData.push({ symbol: d.symbol, identifier: d.identifier, price: +d.price })
+        if (data.hasOwnProperty("data")) {
+          data["data"].forEach((d) => {
+            priceData.push({ key: d.key, nav: d.nav, navDate: d.navDate });
           });
         }
         return priceData;
