@@ -320,6 +320,12 @@ export class Asset {
       return this.equity.isin;
     }
   }
+
+  get mstarId() {
+    if (this.assetType === AssetType.MutualFunds) {
+      return this.mutualFunds.mstarId;
+    }
+  }
 }
 
 export enum AssetType {
@@ -435,7 +441,8 @@ export class MutualFunds {
     public units: number,
     public price: number,
     public currentValue: number = price,
-    public folioNo?: string
+    public folioNo?: string,
+    public mstarId?: string
   ) { }
 
   static toObject(data) {
@@ -444,7 +451,8 @@ export class MutualFunds {
       data.units,
       data.price,
       data.currentValue,
-      data.folioNo
+      data.folioNo,
+      data.mstarId
     );
   }
 }
