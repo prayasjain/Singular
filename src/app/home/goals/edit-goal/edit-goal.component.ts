@@ -7,8 +7,6 @@ import { CurrencyService } from '../../currency/currency.service';
 import { take, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-
-
 @Component({
   selector: "app-edit-goal",
   templateUrl: "./edit-goal.component.html",
@@ -42,11 +40,17 @@ export class EditGoalComponent implements OnInit, OnDestroy {
           ).percentageContribution
       );
     });
+
   }
 
   onchangeInput(asset,i) {
-    if(this.listContainer['el'].value > (100 * asset.percentUnallocated)) {
-      this.listContainer['el'].value = 100 * asset.percentUnallocated;
+    // if(this.listContainer['el'].value > (100 * asset.percentUnallocated)) {
+    //   this.listContainer['el'].value = 100 * asset.percentUnallocated;
+    // }
+    // codes updated to give the range slider a defenite value
+    const assetValue = this.remainingAssetValueMap.get(asset.id) * asset.percentUnallocated;
+    if (this.listContainer['el'].value > (assetValue)) {
+      this.listContainer['el'].value = assetValue;
     }
   }
 
@@ -55,7 +59,7 @@ export class EditGoalComponent implements OnInit, OnDestroy {
   }
 
   onChangeSliderValue(asset) {
-    if(this.slider['el'].value > (this.assetContributionPercentage(asset.id) +
+    if (this.slider['el'].value > (this.assetContributionPercentage(asset.id) +
     100 * asset.percentUnallocated)) {
       this.slider['el'].value = this.assetContributionPercentage(asset.id) +
       100 * asset.percentUnallocated;
@@ -145,7 +149,8 @@ export class EditGoalComponent implements OnInit, OnDestroy {
     let contributingAmount = (asset, valueMap) => {
       if (this.isAssetContributing(asset.id)) {
         let contributingPerc = this.form.value[`percentage-${asset.id}`];
-        amount += (contributingPerc * valueMap.get(asset.id)) / 100;
+        amount += contributingPerc;
+        // amount += (contributingPerc * valueMap.get(asset.id)) / 100;
       }
     };
     this.assets.forEach((asset) =>
