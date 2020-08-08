@@ -36,9 +36,8 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   @ViewChild("f", { static: true }) form: NgForm;
 
   isLoading: boolean = false;
-
   goalId: string;
-  
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private goalsService: GoalsService,
@@ -47,7 +46,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private authService: AuthService,
     public currencyService: CurrencyService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -73,10 +72,10 @@ export class GoalDetailPage implements OnInit, OnDestroy {
             return this.goalsService.getUserGoalsContributionforGoal(
               this.goal.id
             );
-          }else {
+          } else {
             return of([]);
           }
-          
+
         }),
         switchMap((contributions) => {
           this.contributions = contributions;
@@ -166,10 +165,10 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   setFinishPercentage() {
     if (this.goal) {
       this.finishPerc =
-      Array.from(this.assetContributionMap.values()).reduce(
-        (a, b) => a + b,
-        0
-      ) / this.goal.amountReqd;
+        Array.from(this.assetContributionMap.values()).reduce(
+          (a, b) => a + b,
+          0
+        ) / this.goal.amountReqd;
     }
   }
 
@@ -181,7 +180,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
   }
 
   onEditGoal() {
-    let oldContributions:Contribution[] = [];
+    let oldContributions: Contribution[] = [];
     this.contributions.forEach(c => oldContributions.push(Contribution.deepCopy(c)));
     this.modalCtrl
       .create({
@@ -239,7 +238,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     );
   }
 
-  changeInContributionArray(contributions: Contribution[], oldContributions:Contribution[]) {
+  changeInContributionArray(contributions: Contribution[], oldContributions: Contribution[]) {
     if (contributions.length !== oldContributions.length) {
       return true;
     }

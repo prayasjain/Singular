@@ -1,57 +1,94 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> Edit {{ goal.name }}</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button (click)="onClose()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <form #f="ngForm">
-    <ion-grid>
-      <ion-row class="ion-no-padding">
-        <ion-col class="ion-text-center" size-md="6" offset-md="3">
-          <h3>
-            {{ goal.name }} <br />
-            <b>{{
-              totalContributionAmount?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
-                style: "currency",
-                currency: currencyService.currency | async,
-                maximumFractionDigits: 0,
-                minimumFractionDigits: 0
-              })
-            }}</b>
-            out of
-            {{
-              goal?.amountReqd?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
+<ion-header  class="top-header ion-no-border">
+  <ion-fab class="pointer" (click)="onClose()" horizontal="end" vertical="top">
+    <ion-icon name="close" class="closeIcon"> </ion-icon>
+  </ion-fab>
+  <ion-title id="container" vertical="center">
+    <p>Edit {{ goal.name }} 
+      <br><br>
+      <b>
+         {{ totalContributionAmount?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
                 style: "currency",
                 currency: currencyService.currency | async,
                 maximumFractionDigits: 0,
                 minimumFractionDigits: 0
               })
             }}
-          </h3>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-no-padding" *ngFor="let asset of assets">
-
-        <ion-col class="ion-no-padding">
-          <div class="flex-container">
-            <div class="ion-padding">
-              <ion-checkbox name="checkbox-{{ asset.id }}" [ngModel]="true" #checkbox="ngModel"></ion-checkbox>
+      </b>
+      out of
+      {{
+        goal?.amountReqd?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
+          style: "currency",
+          currency: currencyService.currency | async,
+          maximumFractionDigits: 0,
+          minimumFractionDigits: 0
+        })
+      }}
+    </p>
+  </ion-title>
+</ion-header>
+  
+<ion-content>
+    <form #f="ngForm">
+      <ion-grid>
+        <ion-row class="ion-no-padding" *ngFor="let asset of assets">
+          <ion-col class="ion-no-padding">
+            <div class="flex-container">
+              <div class="ion-padding">
+                <ion-checkbox name="checkbox-{{ asset.id }}" [ngModel]="true" #checkbox="ngModel"></ion-checkbox>
+              </div>
+              <div class="flex-card">
+                <ion-item lines="none" class="ion-no-padding">
+                  <ion-text class="ion-no-padding" slot="start">{{
+                    asset.assetTitle
+                  }}</ion-text>
+                  <ion-text class="ion-no-padding" slot="end">
+                    {{
+                      (checkbox.value
+                        ? (range.value / 100) * assetValueMap.get(asset.id)
+                        : 0
+                      )?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
+                        style: "currency",
+                        currency: currencyService.currency | async,
+                        maximumFractionDigits: 0,
+                        minimumFractionDigits: 0
+                      })
+                    }}
+                  </ion-text>
+                </ion-item>
+                <div style="position: relative; width: 100%;">
+                  <ion-range #sliderRange class="ion-no-padding" [ngModel]="assetContributionPercentage(asset.id)" #range="ngModel"
+                  name="percentage-{{ asset.id }}" min="0" max="100" pin color="tertiary" [disabled]="!checkbox.value" (ionChange)='onChangeSliderValue(asset)'>
+                  </ion-range>
+                  <div *ngIf="(assetContributionPercentage(asset.id) +
+                  100 * asset.percentUnallocated) != 100" class="sliderLimit"
+                    [style.left.%]="assetContributionPercentage(asset.id) +
+                    100 * asset.percentUnallocated">{{assetContributionPercentage(asset.id) +
+                      100 * asset.percentUnallocated}}</div>
+                </div>
+              </div>
             </div>
-            <div class="flex-card">
-              <ion-item lines="none" class="ion-no-padding">
-                <ion-text class="ion-no-padding" slot="start">{{
-                  asset.assetTitle
-                }}</ion-text>
-                <ion-text class="ion-no-padding" slot="end">
-                  {{
-                    (checkbox.value
-                      ? (range.value / 100) * assetValueMap.get(asset.id)
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-no-padding" *ngFor="let asset of remainingAssets;let i=index">
+          <ion-col class="ion-no-padding">
+            <div class="flex-container dataSet">
+              <div class="ion-padding">
+                <ion-checkbox name="checkbox-{{ asset.id }}" [ngModel]="false" #checkbox="ngModel"></ion-checkbox>
+              </div>
+  
+              <div class="flex-card">
+                <ion-item lines="none" class="ion-no-padding">
+  
+                  <ion-text class="ion-no-padding" slot="start">{{
+                    asset.assetTitle  
+                  }}
+                
+                {{assetValueMap.get(asset.id)}}</ion-text>
+                  <ion-text class="ion-no-padding" slot="end">
+                    {{
+                    (1
+                      ? remainingAssetValueMap.get(asset.id)  
                       : 0
                     )?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
                       style: "currency",
@@ -59,71 +96,38 @@
                       maximumFractionDigits: 0,
                       minimumFractionDigits: 0
                     })
-                  }}
-                </ion-text>
-              </ion-item>
-              <div style="position: relative; width: 100%;">
-                <ion-range #sliderRange class="ion-no-padding" [ngModel]="assetContributionPercentage(asset.id)" #range="ngModel"
-                name="percentage-{{ asset.id }}" min="0" max="100" pin color="tertiary" [disabled]="!checkbox.value" (ionChange)='onChangeSliderValue(asset)'>
+                  }}</ion-text>
+                </ion-item>
+                <div style="position: relative; width: 100%;margin-top: 20px;">
+                  <div *ngIf="100 * asset.percentUnallocated != 100" class="sliderLimit"
+                    [style.left.%]="100 * asset.percentUnallocated">
+                  
+                    {{(1? remainingAssetValueMap.get(asset.id) * asset.percentUnallocated
+                      : 0
+                    )?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
+                      style: "currency",
+                      currency: currencyService.currency | async,
+                      maximumFractionDigits: 0,
+                      minimumFractionDigits: 0
+                    }) }}  </div>
+   
+                    <ion-range #slider class="ion-no-padding" [ngModel]="0" #range="ngModel"
+                    name="percentage-{{ asset.id }}" min="0" max="{{remainingAssetValueMap.get(asset.id)}}" pin tick color="tertiary"
+                    [disabled]="!checkbox.value" (ionChange)='onchangeInput(asset, i)'>
+                    
+                  </ion-range>
 
-                  <ion-label slot="start">0</ion-label>
-                  <ion-label slot="end">100</ion-label>
-                </ion-range>
-                <div *ngIf="(assetContributionPercentage(asset.id) +
-                100 * asset.percentUnallocated) != 100" class="sliderLimit"
-                  [style.left.%]="assetContributionPercentage(asset.id) +
-                  100 * asset.percentUnallocated">{{assetContributionPercentage(asset.id) +
-                    100 * asset.percentUnallocated}}</div>
+                </div>
               </div>
+  
             </div>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-no-padding" *ngFor="let asset of remainingAssets;let i=index">
-        <ion-col class="ion-no-padding">
-          <div class="flex-container">
-            <div class="ion-padding">
-              <ion-checkbox name="checkbox-{{ asset.id }}" [ngModel]="false" #checkbox="ngModel"></ion-checkbox>
-            </div>
-
-            <div class="flex-card">
-              <ion-item lines="none" class="ion-no-padding">
-
-                <ion-text class="ion-no-padding" slot="start">{{
-                  asset.assetTitle
-                }}</ion-text>
-                <ion-text class="ion-no-padding" slot="end">{{
-                  (checkbox.value
-                    ? (range.value / 100) * remainingAssetValueMap.get(asset.id)
-                    : 0
-                  )?.toLocaleString(currencyService.getLocaleForCurrency(currencyService.currency | async), {
-                    style: "currency",
-                    currency: currencyService.currency | async,
-                    maximumFractionDigits: 0,
-                    minimumFractionDigits: 0
-                  })
-                }}</ion-text>
-              </ion-item>
-              <div style="position: relative; width: 100%;">
-                <ion-range #slider class="ion-no-padding" [ngModel]="0" #range="ngModel"
-                  name="percentage-{{ asset.id }}" min="0" max="100" pin tick color="tertiary"
-                  [disabled]="!checkbox.value" (ionChange)='onchangeInput(asset, i)'>
-
-                  <ion-label slot="start">0</ion-label>
-                  <ion-label slot="end">100</ion-label>
-                </ion-range>
-                <div *ngIf="100 * asset.percentUnallocated != 100" class="sliderLimit"
-                  [style.left.%]="100 * asset.percentUnallocated">{{100 * asset.percentUnallocated}}</div>
-              </div>
-            </div>
-
-          </div>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </form>
-</ion-content>
-<ion-footer>
-  <ion-button color="primary" expand="block" [disabled]="f.invalid" (click)="onSubmit()">Add Contributions</ion-button>
-</ion-footer>
+          </ion-col>
+        </ion-row>
+        <ion-row  class="bottomButton">
+          <ion-col>
+            <ion-button color="tertiary" expand="block" [disabled]="f.invalid" (click)="onSubmit()">Add Contributions</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-content>
