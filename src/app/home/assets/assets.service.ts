@@ -17,6 +17,7 @@ import { BehaviorSubject, of, Observable, zip } from "rxjs";
 import { take, tap, map, switchMap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from "src/app/auth/auth.service";
+import { MarketDataService } from "./market-data.service";
 
 @Injectable({
   providedIn: "root",
@@ -24,13 +25,15 @@ import { AuthService } from "src/app/auth/auth.service";
 export class AssetsService {
   private _userAssets = new BehaviorSubject<Asset[]>([]);
   private initializedAssets: boolean = false;
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private marketDataService: MarketDataService) {}
 
   get userAssets(): Observable<Asset[]> {
     if (!this.initializedAssets) {
-      this.fetchUserAssets().pipe(take(1)).subscribe(() => {
-        this.initializedAssets = true;
-      });
+      this.fetchUserAssets()
+        .pipe(take(1))
+        .subscribe(() => {
+          this.initializedAssets = true;
+        });
     }
     return this._userAssets.asObservable();
   }
@@ -41,13 +44,11 @@ export class AssetsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
-      switchMap(token => {
-        return this.http.get(
-          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets.json?auth=${token}`
-        );
+      switchMap((token) => {
+        return this.http.get(`https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets.json?auth=${token}`);
       }),
       map((resData) => {
         const assets = [];
@@ -55,88 +56,47 @@ export class AssetsService {
           if (resData.hasOwnProperty(key)) {
             let data = resData[key] as any;
             let assetType = data.assetType;
-            let assetTypeCC =
-              (assetType.charAt(0).toLowerCase() + assetType.slice(1).replace(" ", ""));
+            let assetTypeCC = assetType.charAt(0).toLowerCase() + assetType.slice(1).replace(" ", "");
             let asset: Asset;
             switch (assetType) {
               case AssetType.SavingsAccount: {
-                asset = new Asset(
-                  key,
-                  SavingsAccount.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, SavingsAccount.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.Deposits: {
-                asset = new Asset(
-                  key,
-                  Deposits.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, Deposits.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.MutualFunds: {
-                asset = new Asset(
-                  key,
-                  MutualFunds.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, MutualFunds.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.Equity: {
-                asset = new Asset(
-                  key,
-                  Equity.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, Equity.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.Cash: {
-                asset = new Asset(
-                  key,
-                  Cash.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, Cash.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.Gold: {
-                asset = new Asset(
-                  key,
-                  Gold.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, Gold.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.PPF: {
-                asset = new Asset(
-                  key,
-                  PPF.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, PPF.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.EPF: {
-                asset = new Asset(
-                  key,
-                  EPF.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, EPF.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.RealEstate: {
-                asset = new Asset(
-                  key,
-                  RealEstate.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, RealEstate.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
               case AssetType.Others: {
-                asset = new Asset(
-                  key,
-                  Others.toObject(data[assetTypeCC]),
-                  data.percentUnallocated
-                );
+                asset = new Asset(key, Others.toObject(data[assetTypeCC]), data.percentUnallocated);
                 break;
               }
             }
@@ -144,20 +104,75 @@ export class AssetsService {
             assets.push(asset);
           }
         }
+        this._userAssets.next(assets);
         return assets;
       }),
+      switchMap((assets) => this.updateAssetsPrice(assets)),
       tap((assets) => {
         this._userAssets.next(assets);
       })
     );
   }
 
+  updateAssetsPrice(assets: Asset[]): Observable<Asset[]> {
+    let equityKeys: string[] = [];
+    let mfKeys: string[] = [];
+    assets.forEach((asset) => {
+      if (asset.assetType === AssetType.Equity && asset.equity.isin) {
+        equityKeys.push(asset.equity.isin);
+      }
+      if (asset.assetType === AssetType.MutualFunds && asset.mutualFunds.mstarId) {
+        mfKeys.push(asset.mutualFunds.mstarId);
+      }
+    });
+    return zip(
+      this.marketDataService.getPrice(equityKeys, AssetType.Equity).pipe(
+        switchMap((priceData) => {
+          let updatedAssets: Asset[] = [];
+          if (priceData) {
+            priceData.forEach((price) => {
+              assets
+                .filter((asset) => asset.assetType === AssetType.Equity && asset.equity.isin === price.key)
+                .forEach((asset) => {
+                  if (asset.equity.currentValue && price.nav && Math.abs(asset.equity.currentValue - price.nav) > 1) {
+                    updatedAssets.push(asset);
+                  }
+                  asset.equity.currentValue = price.nav;
+                });
+            });
+          }
+          return updatedAssets.length > 0 ? this.updateUserAssets(updatedAssets) : of([]);
+        })
+      ),
+      this.marketDataService.getPrice(mfKeys, AssetType.MutualFunds).pipe(
+        switchMap((priceData) => {
+          let updatedAssets: Asset[] = [];
+          if (priceData) {
+            priceData.forEach((price) => {
+              assets
+                .filter((asset) => asset.assetType === AssetType.MutualFunds && asset.mutualFunds.mstarId === price.key)
+                .forEach((asset) => {
+                  if (
+                    asset.mutualFunds.currentValue &&
+                    price.nav &&
+                    Math.abs(asset.mutualFunds.currentValue - price.nav) > 1
+                  ) {
+                    updatedAssets.push(asset);
+                  }
+                  asset.mutualFunds.currentValue = price.nav;
+                });
+            });
+          }
+          return updatedAssets.length > 0 ? this.updateUserAssets(updatedAssets) : of([]);
+        })
+      )
+    ).pipe(map(() => assets));
+  }
+
   getUserAssetsForAssetType(assetType: AssetType) {
     return this._userAssets.asObservable().pipe(
       map((userAssets) => {
-        return userAssets.filter(
-          (userAsset) => userAsset.assetType === assetType
-        );
+        return userAssets.filter((userAsset) => userAsset.assetType === assetType);
       })
     );
   }
@@ -170,10 +185,10 @@ export class AssetsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
-      switchMap(token => {
+      switchMap((token) => {
         authToken = token;
         return this.userAssets;
       }),
@@ -185,15 +200,13 @@ export class AssetsService {
         return of(userAssets);
       }),
       switchMap((userAssets) => {
-        let index: number = userAssets.findIndex(
-          (asset) => asset.id === assetId
-        );
+        let index: number = userAssets.findIndex((asset) => asset.id === assetId);
         if (index !== -1) {
           let updatedAsset = userAssets[index];
           updatedAsset.percentUnallocated -= percentageIncrease;
           userAssets[index] = updatedAsset;
           userAssetsUpdated = userAssets;
-          
+
           return this.http.put(
             `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${assetId}.json?auth=${authToken}`,
             { ...updatedAsset, id: null }
@@ -206,13 +219,13 @@ export class AssetsService {
     );
   }
 
-  addUserAsset(userAsset: Asset) {    
+  addUserAsset(userAsset: Asset) {
     let auth;
     return this.authService.authInfo.pipe(
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -228,7 +241,7 @@ export class AssetsService {
         return this.userAssets;
       }),
       take(1),
-      map(userAssets => {
+      map((userAssets) => {
         this._userAssets.next(userAssets.concat(userAsset));
         return userAsset;
       })
@@ -244,7 +257,7 @@ export class AssetsService {
       take(1),
       switchMap((authInfo) => {
         auth = authInfo;
-        return authInfo.getIdToken();     
+        return authInfo.getIdToken();
       }),
       take(1),
       switchMap((token) => {
@@ -260,19 +273,16 @@ export class AssetsService {
       }),
       // mapping the old asset to the new value provided
       map((userAssets) => {
-        let updatedAssets = userAssets.map(
-          (asset) => newAssets.find((a) => a.id === asset.id) || asset
-        );
+        let updatedAssets = userAssets.map((asset) => newAssets.find((a) => a.id === asset.id) || asset);
         updatedUserAssets = updatedAssets;
         return newAssets;
       }),
       switchMap((assets) => {
         let observableList = assets.map((asset) => {
-          return this.http
-            .put(
-              `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${asset.id}.json?auth=${authToken}`,
-              { ...asset, id: null }
-            )
+          return this.http.put(
+            `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${asset.id}.json?auth=${authToken}`,
+            { ...asset, id: null }
+          );
         });
         if (observableList.length === 0) {
           return of([]);
@@ -295,9 +305,7 @@ export class AssetsService {
       }),
       take(1),
       switchMap((token) => {
-        return this.http.delete(
-          `https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${assetId}.json?auth=${token}`
-        );
+        return this.http.delete(`https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets/${assetId}.json?auth=${token}`);
       }),
       switchMap(() => {
         return this.userAssets;

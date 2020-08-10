@@ -54,10 +54,11 @@ export class AddNewComponent implements OnInit {
       }
     } else if (this.isGoal) {
       let goal: Goal = await this.saveGoal();
-      await this.saveContributions(goal);
-      if (goal) {
-        this.router.navigate(["/home/tabs/goals/goal-detail/", goal.id]);
+      if (!goal) {
+        return;
       }
+      await this.saveContributions(goal);
+      this.router.navigate(["/home/tabs/goals/goal-detail/", goal.id]);
     }
   }
 
