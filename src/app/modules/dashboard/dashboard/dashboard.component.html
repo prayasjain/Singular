@@ -1,0 +1,34 @@
+<ion-header class="top-header">
+
+  <ion-buttons horizontal="start" vertical="top">
+    <ion-menu-button class="white" menu="mainMenu"></ion-menu-button>
+  </ion-buttons>
+
+  <ion-fab class="pointer white" horizontal="end" vertical="top">
+    <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
+  </ion-fab>
+
+  <ion-title id="container" vertical="center">
+    Home
+  </ion-title>
+</ion-header>
+<app-assets style="display: none;"></app-assets>
+<app-goals style="display: none;"></app-goals>
+<ion-content [fullscreen]="true">
+  <app-graph></app-graph>
+  <ion-grid>
+    <ion-col *ngFor="let assetGroup of assetsgroup.assetGroups; let i = index">
+      <ion-col size-md="6" offset-md="3">
+        {{assetGroup | json}}
+      </ion-col>
+    </ion-col>
+  </ion-grid>
+  <ion-grid>
+    <ion-col *ngFor="let goal of goalPage.userGoals; let i = index">
+      <ion-col size-md="6" offset-md="3">
+        {{goalPage.goalCompletionMap.get(goal.id)}} out of {{goal.amountReqd}}
+      </ion-col>
+    </ion-col>
+  </ion-grid>
+  
+</ion-content>

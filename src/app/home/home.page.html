@@ -4,17 +4,17 @@
   <app-add-new *ngIf="this.goals" isGoal="true"></app-add-new>
 
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="/">
+    <ion-tab-button  tab='dashboard'>
       <ion-icon name="home"></ion-icon>
       <ion-label>Home</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button (click)="toggleAssets()" tab="assets">
+    <ion-tab-button   (click)="toggleAssets()"   tab="assets">
       <ion-icon name="card-outline"></ion-icon>
       <ion-label>Assets</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button (click)="toggleGoals()" tab="goals">
+    <ion-tab-button (click)="toggleGoals()"  tab="goals">
       <ion-icon name="trophy"></ion-icon>
       <ion-label>Goals</ion-label>
     </ion-tab-button>

@@ -1,0 +1,39 @@
+.pointer {
+    cursor: pointer;
+  }
+  .top-header {
+    background-color: #4066ea;
+    height: 25vh;
+  }
+  
+  .top-header p {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+  }
+  
+  #container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30%;
+    transform: translateY(-50%);
+  }
+  
+  .assetsTitle {
+    color: aliceblue; 
+    font-size:12px; 
+    margin-bottom:10px;
+  }
+  
+  .assetsData {
+    color: aliceblue; 
+    font-size: 1.3em;
+  }
+  
+  .assetsIcon {
+    font-size: 1.8em;
+  }
