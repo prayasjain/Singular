@@ -29,7 +29,7 @@ export class AssetComponent implements OnInit {
   }
 
   // controls the sliding option of ion-item-sliding and provide some responsive sliding effect
-  test(event) {
+  listDrag(event) {
     // numbers used inside are for controling the size of buttons on the basis of sliding ratio
     if (event.detail.ratio > 0.3 && event.detail.ratio < 0.5) {
       this.height = this.hc + 41.6 * event.detail.ratio;
