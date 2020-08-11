@@ -1,7 +1,7 @@
-<ion-list class="custom listItem">
+<ion-list class="custom">
   <!-- the ionDrag is activated whenever there is a action on ion-item-sliding which calls a function from ts file test($event) -->
   <ion-item-sliding id="item{{idNumber}}" (ionDrag)="test($event)" class="cards">
-    <ion-item lines="none" slot="start" [routerLink]="[itemLink]">
+    <ion-item class="itemList" lines="none" slot="start" [routerLink]="[itemLink]">
       <ion-icon color="primary" name="card"></ion-icon>
       <ion-label> <b> &nbsp; &nbsp; {{title}} </b> </ion-label>
       <p slot="end"> {{value?.toLocaleString(currencyService.getLocaleForCurrency(
@@ -10,16 +10,16 @@
       minimumFractionDigits: 0})}} </p>
     </ion-item>
     <ion-item-options>
-      <ion-item-option side="end" [style.height.%]="height" [style.width.px]="width" (click)="delete(idNumber)"
+      <ion-item-option side="end"  (click)="delete(idNumber)"
         class="opt-btn">
-        <ion-tab-button class="delete">
+        <ion-tab-button style="padding: 3px;" [style.height.px]="height" [style.width.px]="width" class="delete">
           <ion-icon name="trash" class="iconSize"> </ion-icon>
           <ion-label class="labelSize"> Delete</ion-label>
         </ion-tab-button>
       </ion-item-option>
-      <ion-item-option [style.height.%]="height" [style.width.px]="width" (click)="cancel()" class="opt-btn"
+      <ion-item-option  (click)="cancel()" class="opt-btn"
         color="success">
-        <ion-tab-button class="cancel">
+        <ion-tab-button  style="padding: 3px;" [style.height.px]="height" [style.width.px]="width" class="cancel">
           <ion-icon name="close" class="iconSize"> </ion-icon>
           <ion-label class="labelSize"> Cancel</ion-label>
         </ion-tab-button>

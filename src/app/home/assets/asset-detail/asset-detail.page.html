@@ -1,31 +1,23 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home/tabs/assets"></ion-back-button>
-    </ion-buttons>
-    
-    <ion-title>{{assetType}}</ion-title>
-  </ion-toolbar>
+<ion-header class="top-header">
+  <ion-buttons>
+    <ion-back-button class="white" defaultHref="/home/tabs/assets"></ion-back-button>
+  </ion-buttons>
+  <ion-fab class="pointer white" horizontal="end" vertical="top">
+    <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
+  </ion-fab>
+  <ion-title id="container" vertical="center">
+    <p class="assetsTitle"> Total Funds Value </p>
+    <p class="assetsData">
+      {{totalAmountForType?.toLocaleString(currencyService.getLocaleForCurrency(
+        currencyService.currency | async ), {style: 'currency', currency:
+        currencyService.currency | async, maximumFractionDigits: 0,
+        minimumFractionDigits: 0})}}
+  </p>
+  </ion-title>
 </ion-header>
 
-<ion-content
-  ><ion-grid>
-    <!-- <ion-row>
-      <ion-col class="ion-text-center" size-md="6" offset-md="3">
-        <h3>{{assetType}}</h3>
-      </ion-col>
-    </ion-row> -->
-
-    <ion-row class="ion-no-padding">
-      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-        <h3>{{totalAmountForType?.toLocaleString(currencyService.getLocaleForCurrency(
-          currencyService.currency | async ), {style: 'currency', currency:
-          currencyService.currency | async, maximumFractionDigits: 0,
-          minimumFractionDigits: 0})}}</h3>
-        <!-- <p>as on {{currentDate.toDateString()}}</p> -->
-      </ion-col>
-    </ion-row>
-
+<ion-content>
+  <ion-grid>
     <ion-row class="ion-no-padding" *ngFor="let userAsset of userAssetsForType">
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
         <app-assets-item-details

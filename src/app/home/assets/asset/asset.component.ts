@@ -15,10 +15,10 @@ export class AssetComponent implements OnInit {
   @Input() idNumber: any;
 
   // these are some pre-defined number for the use case of test(), which controls the sliding item
-  hc:number = 50;
+  hc:number = 35;
   wc:number = 80;
-  height:number = 50;
-  width:number = 80;
+  height:number = 45;
+  width:number = 35;
 
   constructor(public currencyService: CurrencyService) {}
 
@@ -36,7 +36,7 @@ export class AssetComponent implements OnInit {
       this.width = this.wc + 11.33 * event.detail.ratio;
     }
     if (event.detail.ratio < 0.3) {
-      this.height = 50;
+      this.height = 45;
       this.width = 80;
     }
   }

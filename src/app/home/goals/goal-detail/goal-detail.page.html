@@ -1,4 +1,4 @@
-<ion-header class="top-header">
+<!-- <ion-header class="top-header">
   <ion-buttons horizontal="start" vertical="top">
     <ion-back-button defaultHref="/home/tabs/goals"></ion-back-button>
   </ion-buttons>
@@ -6,6 +6,21 @@
   <ion-fab horizontal="end" vertical="top">
     <ion-button color="#ffffffff" [matMenuTriggerFor]="belowMenu">
       <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+    </ion-button>
+  </ion-fab>
+</ion-header> -->
+
+
+<ion-header class="top-header">
+
+  <ion-buttons horizontal="start" vertical="top">
+    <!-- <ion-menu-button  menu="mainMenu"></ion-menu-button> -->
+    <ion-back-button color="dark" defaultHref="/home/tabs/goals"></ion-back-button>
+  </ion-buttons>
+
+  <ion-fab style="top: 0px;" horizontal="end" vertical="top">
+    <ion-button class="ion-no-border" color="#ffffffff" style="--box-shadow:none;" [matMenuTriggerFor]="belowMenu">
+      <ion-icon color="dark" slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
     </ion-button>
   </ion-fab>
 </ion-header>
@@ -44,25 +59,17 @@
       </ion-row>
       <ion-row class="ion-no-padding">
         <ion-col class="ion-text-center" size-md="6" offset-md="3">
-          <circle-progress
-           [percent]="finishPerc * 100"
-           [radius]="100"
-           [outerStrokeWidth]="16" 
-           [innerStrokeWidth]="0"
-           [outerStrokeColor]="'#4066ea'" 
-           [animation]="true" 
-           [animationDuration]="700" 
-           [titleColor]="'#4066ea'"
-           [unitsColor]="'#4066ea'" 
-           [subtitleColor]="'#4066ea'" 
-           color="#4066ea"></circle-progress>
+          <circle-progress [percent]="finishPerc * 100" [radius]="50" [outerStrokeWidth]="12" [innerStrokeWidth]="0"
+            [outerStrokeColor]="'#4066ea'" [animation]="true" [animationDuration]="700" [titleColor]="'#4066ea'"
+            [unitsColor]="'#4066ea'" [backgroundStrokeWidth]="12" [showSubtitle]="false" [backgroundPadding]="-7"
+            [backgroundStroke]="'#2338835d'" [showBackground]="true" color="#4066ea"></circle-progress>
         </ion-col>
       </ion-row>
     </div>
     <br> <br>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
-        <b>Assets</b>
+        <b>&nbsp; Assets Allocation</b>
       </ion-col>
     </ion-row>
 

@@ -1,43 +1,39 @@
-<ion-list class="custom listItem" >
+<ion-list class="custom" >
   <!-- the ionDrag is activated whenever there is a action on ion-item-sliding which calls a function from ts file test($event) -->
-  <ion-item-sliding id="item{{idNumber}}" (ionDrag)="test($event)" class="cards">
-    <ion-item  lines="none" slot="start" [routerLink]="[itemLink]">
+  <ion-item-sliding id="item{{idNumber}}"  (ionDrag)="slideRatio($event)" class="cards">
+    <ion-item lines="none"  class="itemList" slot="start" [routerLink]="[itemLink]">
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <ion-item lines="none">
-            <ion-label slot="start" > <b>{{title}} </b> </ion-label> 
-            <ion-label slot="end" class="text-right"> <b>
+          <ion-col style="padding:0;">
+            <ion-item  lines="none">
+            <ion-label > <h5><b>{{title}} </b></h5> </ion-label> 
+            <ion-label slot="end" class="text-right"> <h5> <b>
               {{amtRqd?.toLocaleString(currencyService.getLocaleForCurrency(
                 currencyService.currency | async ), {style: 'currency', currency:
                 currencyService.currency | async, maximumFractionDigits: 0,
                 minimumFractionDigits: 0})}}  
-            </b> </ion-label>
+            </b> </h5> </ion-label>  
             </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="11" offset="0.5">
-            <ion-label>
-              <ion-progress-bar  class="custom-bar" [color]="itemColor" [value]="value"></ion-progress-bar>
-            </ion-label>
+            <ion-item style="height: 40px;"  lines="none"> 
+            <ion-progress-bar  class="custom-bar" [color]="itemColor" [value]="value"></ion-progress-bar>
+            </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
     <ion-item-options>
-      <ion-item-option side="end" [style.height.%]="height" [style.width.px]="width" (click)="delete(idNumber)"
+      <ion-item-option side="end"  (click)="delete(idNumber)"
         class="opt-btn">
-        <ion-tab-button class="delete">
+        <ion-tab-button [style.height.px]="height" [style.width.px]="width" class="delete">
           <ion-icon name="trash" class="iconSize"> </ion-icon>
-          <ion-label class="iconLabel"> Delete</ion-label>
+          <ion-label  class="iconLabel"> Delete</ion-label>
         </ion-tab-button>
       </ion-item-option>
-      <ion-item-option [style.height.%]="height" [style.width.px]="width" (click)="cancel()" class="opt-btn"
+      <ion-item-option (click)="cancel()" class="opt-btn"
         color="success">
-        <ion-tab-button class="cancel">
-          <ion-icon name="close" class="iconSize"> </ion-icon>
-          <ion-label class="iconLabel"> Cancel</ion-label>
+        <ion-tab-button [style.height.px]="height" [style.width.px]="width" class="cancel">
+          <ion-icon   name="close" class="iconSize"> </ion-icon>
+          <ion-label  class="iconLabel"> Cancel</ion-label>
         </ion-tab-button>
       </ion-item-option>
     </ion-item-options>

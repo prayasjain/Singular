@@ -27,10 +27,10 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="!isLoading">
+  <ion-grid class="customMarginList" *ngIf="!isLoading">
     <ion-row class="ion-no-padding" *ngFor="let goal of userGoals">
-      <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-        <app-goal 
+      <ion-col  class="ion-no-padding customMargin" size-md="6" offset-md="3">
+        <app-goal
         [amtRqd] = "goal.amountReqd"
         [idNumber]="goal.id" 
         [title]="goal.name"

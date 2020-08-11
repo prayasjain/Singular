@@ -98,7 +98,21 @@
                   }}
                 </ion-text>
               </ion-item>
-              <div style="position: relative; width: 100%; margin-top: 20px;">
+              <div class="rangeDiv">
+                <div class="maxValue" *ngIf="100 * asset.percentUnallocated != 100" class="sliderLimit"
+                [style.left.%]="100 * asset.percentUnallocated">
+                {{
+                 (remainingAssetValueMap.get(asset.id)  * asset.percentUnallocated)?.toLocaleString(
+                    currencyService.getLocaleForCurrency(currencyService.currency | async),
+                    {
+                      style: "currency",
+                      currency: currencyService.currency | async,
+                      maximumFractionDigits: 0,
+                      minimumFractionDigits: 0
+                    }
+                  )
+                }}
+                </div>
                 <ion-range
                   #slider
                   class="ion-no-padding"
