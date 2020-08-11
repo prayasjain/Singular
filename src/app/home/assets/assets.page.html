@@ -1,13 +1,10 @@
 <ion-header class="top-header">
-
   <ion-buttons horizontal="start" vertical="top">
     <ion-menu-button class="white" menu="mainMenu"></ion-menu-button>
   </ion-buttons>
-
   <ion-fab class="pointer white" horizontal="end" vertical="top">
     <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
   </ion-fab>
-
   <ion-title id="container" vertical="center">
     <p class="assetsTitle"> Total Assests </p>
     <p class="assetsData"> {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(

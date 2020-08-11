@@ -17,7 +17,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     MatMenuModule,
     GoalDetailPageRoutingModule,
     SharedModule,
-    NgCircleProgressModule.forRoot({ })
+    NgCircleProgressModule.forRoot()
   ],
   declarations: [GoalDetailPage],
 })
