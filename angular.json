@@ -39,9 +39,7 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": [
-              "../node_modules/chart.js/dist/Chart.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
