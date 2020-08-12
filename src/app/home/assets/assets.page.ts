@@ -7,6 +7,7 @@ import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
 import { CurrencyService } from "../currency/currency.service";
 import { MarketDataService, PriceData } from "./market-data.service";
+import { StateService, AddType } from "../state.service";
 
 interface AssetGroup {
   assetType: AssetType;
@@ -31,9 +32,8 @@ export class AssetsPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     public currencyService: CurrencyService,
+    private stateService: StateService
   ) {}
-
-  OTHERS = AssetType.Others;
 
   colorNo = 0;
 
@@ -77,25 +77,16 @@ export class AssetsPage implements OnInit, OnDestroy {
       });
   }
 
-  // ionViewWillEnter() {
-  //   this.loadingCtrl
-  //     .create({ message: "Fetching Your Assets..." })
-  //     .then((loadingEl) => {
-  //       loadingEl.present();
-  //       this.assetsService.fetchUserAssets().subscribe((data) => {
-  //         loadingEl.dismiss();
-  //       }, (error) => {
-  //         console.log(error);
-  //         loadingEl.dismiss();
-  //       });
-  //     });
-  // }
+  ionViewWillEnter() {
+    this.stateService.updateAddType(AddType.Asset);
+    this.stateService.updateAssetType(AssetType.Others);
+  }
 
   getAmountByGroup() {
     this.totalAmountByAssetType.forEach((amount, assetType) => {
       let assetGroup: AssetGroup = {
         assetType: assetType,
-        amount: amount
+        amount: amount,
       };
       this.assetGroups.push(assetGroup);
     });

@@ -1,11 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ModalController, LoadingController } from "@ionic/angular";
-import {
-  Asset,
-  AssetType,
-  SavingsAccount,
-  AssetTypeUtils,
-} from "../assets/asset.model";
+import { Asset, AssetType, SavingsAccount, AssetTypeUtils } from "../assets/asset.model";
 import { AssetsService } from "../assets/assets.service";
 import { Router } from "@angular/router";
 import { Goal, Contribution } from "../goals/goal.model";
@@ -15,6 +10,7 @@ import { AddNewGoalModalComponent } from "./add-new-goal-modal/add-new-goal-moda
 import { EditGoalComponent } from "../goals/edit-goal/edit-goal.component";
 import { take, switchMap, tap } from "rxjs/operators";
 import { zip, of } from "rxjs";
+import { AddType } from "../state.service";
 
 @Component({
   selector: "app-add-new",
@@ -23,8 +19,7 @@ import { zip, of } from "rxjs";
 })
 export class AddNewComponent implements OnInit {
   @Input() assetType: AssetType;
-  @Input() isAsset: boolean = false;
-  @Input() isGoal: boolean = false;
+  @Input() addType: AddType;
 
   date: Date;
 
@@ -44,15 +39,12 @@ export class AddNewComponent implements OnInit {
   }
 
   async saveData() {
-    if (this.isAsset) {
+    if (this.addType === AddType.Asset) {
       let asset: Asset = await this.saveAsset();
       if (asset) {
-        this.router.navigate([
-          "/home/tabs/assets/asset-detail/",
-          AssetTypeUtils.slug(asset.assetType),
-        ]);
+        this.router.navigate(["/home/tabs/assets/asset-detail/", AssetTypeUtils.slug(asset.assetType)]);
       }
-    } else if (this.isGoal) {
+    } else if (this.addType === AddType.Goal) {
       let goal: Goal = await this.saveGoal();
       if (!goal) {
         return;
@@ -76,9 +68,7 @@ export class AddNewComponent implements OnInit {
     let resultData = await modalEl.onDidDismiss();
     if (resultData.role === "confirm" && resultData.data.asset) {
       loadingEl.present();
-      let asset: Asset = await this.assetsService
-        .addUserAsset(resultData.data.asset)
-        .toPromise();
+      let asset: Asset = await this.assetsService.addUserAsset(resultData.data.asset).toPromise();
       loadingEl.dismiss();
       return asset;
     }
@@ -99,14 +89,7 @@ export class AddNewComponent implements OnInit {
     }
     loadingEl.present();
     let newGoal = await this.goalsService
-      .addUserGoal(
-        new Goal(
-          Math.random().toString(),
-          resultData.data.name,
-          resultData.data.amount,
-          this.date
-        )
-      )
+      .addUserGoal(new Goal(Math.random().toString(), resultData.data.name, resultData.data.amount, this.date))
       .toPromise();
     loadingEl.dismiss();
     return newGoal;
@@ -140,22 +123,14 @@ export class AddNewComponent implements OnInit {
     }
     loadingEl.present();
     let contributions: Contribution[] = await this.assetsService
-      .updateUserAssets(
-        contributionsData.data.contributingAssets.concat(
-          contributionsData.data.nonContributingAssets
-        )
-      )
+      .updateUserAssets(contributionsData.data.contributingAssets.concat(contributionsData.data.nonContributingAssets))
       .pipe(
         take(1),
         switchMap(() => {
           // update the contributions
-          let contributions: Contribution[] =
-            contributionsData.data.contributions;
+          let contributions: Contribution[] = contributionsData.data.contributions;
           contributions.forEach((c) => (c.goalId = newGoal.id));
-          return this.goalsService.updateContributions(
-            contributions,
-            newGoal.id
-          );
+          return this.goalsService.updateContributions(contributions, newGoal.id);
         })
       )
       .toPromise();

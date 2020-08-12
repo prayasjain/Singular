@@ -9,6 +9,7 @@ import { AddNewAssetModalComponent } from "../../add-new/add-new-asset-modal/add
 import { AuthService } from "src/app/auth/auth.service";
 import { CurrencyService } from "../../currency/currency.service";
 import { AssetsUtils } from "../assets-utils";
+import { StateService, AddType } from "../../state.service";
 
 @Component({
   selector: "app-asset-item-page",
@@ -32,7 +33,8 @@ export class AssetItemPagePage implements OnInit {
     private authService: AuthService,
     public currencyService: CurrencyService,
     private loadingCtrl: LoadingController,
-    private assetUtils: AssetsUtils
+    private assetUtils: AssetsUtils,
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
@@ -50,6 +52,7 @@ export class AssetItemPagePage implements OnInit {
           switchMap((assets) => {
             this.asset = assets.find((a) => a.id === itemId);
             if (this.asset) {
+              this.stateService.updateAssetType(this.asset.assetType);
               return this.asset.getAmountForAsset(this.date);
             }
             this.router.navigateByUrl("/home/tabs/assets");
@@ -62,16 +65,9 @@ export class AssetItemPagePage implements OnInit {
     });
   }
 
-  // ionViewWillEnter() {
-  //   this.loadingCtrl
-  //     .create({ message: "Fetching Your Assets..." })
-  //     .then((loadingEl) => {
-  //       loadingEl.present();
-  //       this.assetsService.fetchUserAssets().subscribe((data) => {
-  //         loadingEl.dismiss();
-  //       });
-  //     });
-  // }
+  ionViewWillEnter() {
+    this.stateService.updateAddType(AddType.Asset);
+  }
 
   onEditAsset() {
     this.loadingCtrl.create({ message: "Saving Your Data..." }).then((loadingEl) => {
