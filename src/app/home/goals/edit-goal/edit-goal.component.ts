@@ -86,7 +86,7 @@ export class EditGoalComponent implements OnInit, OnDestroy {
         contributingAssets.push(asset);
       } else {
         // remove this assets percentage allocation of the goal from the asset object
-        asset.percentUnallocated -= contribution.percentageContribution;
+        asset.percentUnallocated += contribution.percentageContribution;
         // remove the asset from the contributions list as well
         contributions = contributions.filter((c) => c.id !== contribution.id);
         nonContributingAssets.push(asset);

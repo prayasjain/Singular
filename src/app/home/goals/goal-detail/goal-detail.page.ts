@@ -193,6 +193,8 @@ export class GoalDetailPage implements OnInit, OnDestroy {
             return;
           }
           // update the assets.
+          console.log(modalData.data.contributingAssets)
+          console.log(modalData.data.nonContributingAssets)
           this.assetsService
             .updateUserAssets(modalData.data.contributingAssets.concat(modalData.data.nonContributingAssets))
             .pipe(
