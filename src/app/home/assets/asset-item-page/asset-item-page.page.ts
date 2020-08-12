@@ -7,7 +7,8 @@ import { GoalsService } from "../../goals/goals.service";
 import { ModalController, LoadingController } from "@ionic/angular";
 import { AddNewAssetModalComponent } from "../../add-new/add-new-asset-modal/add-new-asset-modal.component";
 import { AuthService } from "src/app/auth/auth.service";
-import { CurrencyService } from '../../currency/currency.service';
+import { CurrencyService } from "../../currency/currency.service";
+import { AssetsUtils } from "../assets-utils";
 
 @Component({
   selector: "app-asset-item-page",
@@ -27,12 +28,12 @@ export class AssetItemPagePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private assetsService: AssetsService,
     private router: Router,
-    private goalsService: GoalsService,
     private modalCtrl: ModalController,
     private authService: AuthService,
     public currencyService: CurrencyService,
-    private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController,
+    private assetUtils: AssetsUtils
+  ) {}
 
   ngOnInit() {
     this.date = new Date();
@@ -73,55 +74,35 @@ export class AssetItemPagePage implements OnInit {
   // }
 
   onEditAsset() {
-    this.loadingCtrl
-      .create({ message: "Saving Your Data..." })
-      .then((loadingEl) => {
-        this.modalCtrl
-          .create({
-            component: AddNewAssetModalComponent,
-            componentProps: {
-              asset: this.asset,
-              assetValue: this.assetValue,
-              assetType: this.asset.assetType,
-            },
-          })
-          .then((modalEl) => {
-            modalEl.present();
-            return modalEl.onDidDismiss();
-          })
-          .then((modalData) => {
-            if (modalData.role === "confirm") {
-              loadingEl.present();
-              let newAsset = modalData.data.asset;
-              return this.assetsService
-                .updateUserAssets([newAsset])
-                .toPromise();
-            }
-          })
-          .then((updatedAssets) => {
-            loadingEl.dismiss();
-            this.router.navigateByUrl("/home/tabs/assets");
-          });
-      });
+    this.loadingCtrl.create({ message: "Saving Your Data..." }).then((loadingEl) => {
+      this.modalCtrl
+        .create({
+          component: AddNewAssetModalComponent,
+          componentProps: {
+            asset: this.asset,
+            assetValue: this.assetValue,
+            assetType: this.asset.assetType,
+          },
+        })
+        .then((modalEl) => {
+          modalEl.present();
+          return modalEl.onDidDismiss();
+        })
+        .then((modalData) => {
+          if (modalData.role === "confirm") {
+            loadingEl.present();
+            let newAsset = modalData.data.asset;
+            return this.assetsService.updateUserAssets([newAsset]).toPromise();
+          }
+        })
+        .then((updatedAssets) => {
+          loadingEl.dismiss();
+          this.router.navigateByUrl("/home/tabs/assets");
+        });
+    });
   }
 
   onDeleteAsset() {
-    this.loadingCtrl
-      .create({ message: "Deleting your Asset..." })
-      .then((loadingEl) => {
-        loadingEl.present();
-        this.goalsService
-          .deleteContributionsOfAsset(this.asset.id)
-          .pipe(
-            take(1),
-            switchMap(() => {
-              return this.assetsService.deleteAsset(this.asset.id);
-            })
-          )
-          .subscribe(() => {
-            loadingEl.dismiss();
-            this.router.navigateByUrl("/home/tabs/assets");
-          });
-      });
+    this.assetUtils.deleteAsset(this.asset.id);
   }
 }

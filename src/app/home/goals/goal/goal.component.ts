@@ -1,28 +1,33 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CurrencyService } from '../../currency/currency.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { CurrencyService } from "../../currency/currency.service";
+import { GoalsService } from "../goals.service";
+import { LoadingController } from "@ionic/angular";
 @Component({
-  selector: 'app-goal',
-  templateUrl: './goal.component.html',
-  styleUrls: ['./goal.component.scss'],
+  selector: "app-goal",
+  templateUrl: "./goal.component.html",
+  styleUrls: ["./goal.component.scss"],
 })
 export class GoalComponent implements OnInit {
-
   @Input() itemColor: string;
   @Input() title: string;
   @Input() value: number;
   @Input() itemLink: string;
-  @Input() idNumber: any;
+  @Input() id: string;
   @Input() amtRqd: number;
 
   // these are some pre-defined number for the use case of test(), which controls the sliding item
-  hc:number = 65;
-  wc:number = 80;
-  height:number = 65;
-  width:number = 80;
+  hc: number = 65;
+  wc: number = 80;
+  height: number = 65;
+  width: number = 80;
 
-  constructor(public currencyService: CurrencyService) { }
+  constructor(
+    public currencyService: CurrencyService,
+    private goalsService: GoalsService,
+    private loadingCtrl: LoadingController
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   // controls the sliding option of ion-item-sliding and provide some responsive sliding effect
   slideRatio(event) {
@@ -38,11 +43,15 @@ export class GoalComponent implements OnInit {
   }
 
   cancel() {
-    document.querySelector('ion-item-sliding').closeOpened();
+    document.querySelector("ion-item-sliding").closeOpened();
   }
 
-  delete(id) {
-    const track = '#item' + id;
-    document.querySelector(track).classList.add('remove');
+  delete() {
+    this.loadingCtrl.create({ message: "Deleting your Goal..." }).then((loadingEl) => {
+      loadingEl.present();
+      this.goalsService.deleteGoal(this.id).subscribe(() => {
+        loadingEl.dismiss();
+      });
+    });
   }
 }

@@ -1,6 +1,6 @@
 <ion-list class="custom">
   <!-- the ionDrag is activated whenever there is a action on ion-item-sliding which calls a function from ts file test($event) -->
-  <ion-item-sliding id="item{{idNumber}}" (ionDrag)="listDrag($event)" class="cards">
+  <ion-item-sliding id="item{{title}}" (ionDrag)="listDrag($event)" class="cards">
     <ion-item class="itemList" lines="none" slot="start" [routerLink]="[itemLink]">
       <ion-icon color="primary" name="card"></ion-icon>
       <ion-label> <b> &nbsp; &nbsp; {{title}} </b> </ion-label>
@@ -10,7 +10,7 @@
       minimumFractionDigits: 0})}} </p>
     </ion-item>
     <ion-item-options>
-      <ion-item-option side="end"  (click)="delete(idNumber)"
+      <ion-item-option side="end"  (click)="delete()"
         class="opt-btn">
         <ion-tab-button style="padding: 3px;" [style.height.px]="height" [style.width.px]="width" class="delete">
           <ion-icon name="trash" class="iconSize"> </ion-icon>

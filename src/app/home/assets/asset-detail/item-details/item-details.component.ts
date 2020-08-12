@@ -1,31 +1,28 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CurrencyService } from 'src/app/home/currency/currency.service';
-import { take, switchMap } from 'rxjs/operators';
+import { Component, OnInit, Input } from "@angular/core";
+import { CurrencyService } from "src/app/home/currency/currency.service";
+import { AssetsUtils } from "../../assets-utils";
 
 @Component({
-  selector: 'app-assets-item-details',
-  templateUrl: './item-details.component.html',
-  styleUrls: ['./item-details.component.scss'],
+  selector: "app-assets-item-details",
+  templateUrl: "./item-details.component.html",
+  styleUrls: ["./item-details.component.scss"],
 })
 export class ItemDetailsComponent implements OnInit {
-
   @Input() title: string;
   @Input() content: string;
   @Input() value: number;
-//  @Input() imgUrl: string;
+  //  @Input() imgUrl: string;
   @Input() id: string;
 
-   // these are some pre-defined number for the use case of test(), which controls the sliding item
-   hc:number = 35;
-   wc:number = 80;
-   height:number = 45;
-   width:number = 35;
-  constructor(public currencyService: CurrencyService) { }
+  // these are some pre-defined number for the use case of test(), which controls the sliding item
+  hc: number = 35;
+  wc: number = 80;
+  height: number = 45;
+  width: number = 35;
+  constructor(public currencyService: CurrencyService, private assetUtils: AssetsUtils) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  
   // controls the sliding option of ion-item-sliding and provide some responsive sliding effect
   listDrag(event) {
     // numbers used inside are for controling the size of buttons on the basis of sliding ratio
@@ -40,11 +37,10 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   cancel() {
-    document.querySelector('ion-item-sliding').closeOpened();
+    document.querySelector("ion-item-sliding").closeOpened();
   }
 
   delete(id) {
-    const track = '#item' + id;
-    document.querySelector(track).classList.add('remove');
+    this.assetUtils.deleteAsset(id);
   }
 }

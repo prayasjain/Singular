@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { CurrencyService } from "../../currency/currency.service";
 import { take, switchMap } from "rxjs/operators";
+import { AssetsUtils } from "../assets-utils";
+import { AssetsService } from "../assets.service";
+import { AssetType } from "../asset.model";
 
 @Component({
   selector: "app-asset",
@@ -8,25 +11,24 @@ import { take, switchMap } from "rxjs/operators";
   styleUrls: ["./asset.component.scss"],
 })
 export class AssetComponent implements OnInit {
-  @Input() itemColor: string;
   @Input() title: string;
   @Input() value: number;
   @Input() itemLink: string;
-  @Input() idNumber: any;
+  @Input() assetType: AssetType;
 
   // these are some pre-defined number for the use case of test(), which controls the sliding item
-  hc:number = 35;
-  wc:number = 80;
-  height:number = 45;
-  width:number = 35;
+  hc: number = 35;
+  wc: number = 80;
+  height: number = 45;
+  width: number = 35;
 
-  constructor(public currencyService: CurrencyService) {}
+  constructor(
+    public currencyService: CurrencyService,
+    private assetsUtils: AssetsUtils,
+    private assetsService: AssetsService
+  ) {}
 
-  ngOnInit() {
-    if (!this.itemColor) {
-      this.itemColor = "tertiary";
-    }
-  }
+  ngOnInit() {}
 
   // controls the sliding option of ion-item-sliding and provide some responsive sliding effect
   listDrag(event) {
@@ -42,11 +44,13 @@ export class AssetComponent implements OnInit {
   }
 
   cancel() {
-    document.querySelector('ion-item-sliding').closeOpened();
+    document.querySelector("ion-item-sliding").closeOpened();
   }
 
-  delete(id) {
-    const track = '#item' + id;
-    document.querySelector(track).classList.add('remove');
+  delete() {
+    this.assetsService
+      .getUserAssetsForAssetType(this.assetType)
+      .pipe(take(1))
+      .subscribe((assets) => this.assetsUtils.deleteAssets(assets.map((asset) => asset.id)));
   }
 }

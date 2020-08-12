@@ -11,8 +11,6 @@ import { MarketDataService, PriceData } from "./market-data.service";
 interface AssetGroup {
   assetType: AssetType;
   amount: number;
-  // id included to identify eash list item seprately
-  id: number;
 }
 
 @Component({
@@ -28,8 +26,6 @@ export class AssetsPage implements OnInit, OnDestroy {
   totalAmount: number;
   currentDate: Date;
   totalAmountByAssetType = new Map();
-  //  aid is added to provide a specific id to track each list item individualy and pass this data further for more control on any list item
-  aid = 0;
   constructor(
     private assetsService: AssetsService,
     private authService: AuthService,
@@ -99,13 +95,9 @@ export class AssetsPage implements OnInit, OnDestroy {
     this.totalAmountByAssetType.forEach((amount, assetType) => {
       let assetGroup: AssetGroup = {
         assetType: assetType,
-        amount: amount,
-        // id is defined as aid
-        id: this.aid,
+        amount: amount
       };
       this.assetGroups.push(assetGroup);
-      // increments the aid by 1
-      ++this.aid;
     });
     this.assetGroups.sort();
   }
@@ -114,32 +106,8 @@ export class AssetsPage implements OnInit, OnDestroy {
     return AssetTypeUtils.slug(assetType);
   }
 
-  color(chars: string) {
-    if (chars === AssetType.SavingsAccount) {
-      return "tertiary";
-    }
-    if (chars === AssetType.Deposits) {
-      return "tertiary";
-    }
-    if (chars === AssetType.MutualFunds) {
-      return "primary";
-    }
-    if (chars === AssetType.Equity) {
-      return "secondary";
-    }
-    if (chars === AssetType.Cash) {
-      return "secondary";
-    }
-    if (chars === AssetType.Others) {
-      return "primary";
-    }
-    return "primary";
-  }
-
   ngOnDestroy() {
     if (this.assetsSub) {
-      // reset the aid
-      this.aid = 0;
       this.assetsSub.unsubscribe();
     }
   }
