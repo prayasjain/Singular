@@ -11,6 +11,8 @@ import { ItemDetailsComponent } from "../asset-detail/item-details/item-details.
 import { SharedModule } from "../../shared.module";
 
 import { AvatarModule } from "ngx-avatar";
+import { ChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   imports: [
@@ -20,6 +22,7 @@ import { AvatarModule } from "ngx-avatar";
     AssetDetailPageRoutingModule,
     SharedModule,
     AvatarModule,
+    ChartsModule
   ],
   declarations: [AssetDetailPage, ItemDetailsComponent],
 })

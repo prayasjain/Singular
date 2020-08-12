@@ -15,8 +15,8 @@ import {
 } from "../../assets/asset.model";
 import { NgForm } from "@angular/forms";
 import { ModalController } from "@ionic/angular";
-import { MarketDataService } from '../../assets/market-data.service';
-import { SearchPopoverComponent } from './search-popover/search-popover.component';
+import { MarketDataService, PriceData, AutoCompleteData } from "../../assets/market-data.service";
+import { SearchPopoverComponent } from "./search-popover/search-popover.component";
 @Component({
   selector: "app-add-new-asset-modal",
   templateUrl: "./add-new-asset-modal.component.html",
@@ -28,9 +28,7 @@ export class AddNewAssetModalComponent implements OnInit {
   @Input() assetValue: number;
   @ViewChild("f", { static: true }) form: NgForm;
 
-  maxMaturityDate = new Date(
-    new Date().setFullYear(new Date().getFullYear() + 10)
-  ).toISOString();
+  maxMaturityDate = new Date(new Date().setFullYear(new Date().getFullYear() + 10)).toISOString();
 
   // The following two are only for the html file
   ASSET_TYPES = Object.keys(AssetType);
@@ -38,13 +36,11 @@ export class AddNewAssetModalComponent implements OnInit {
 
   isNameFocus: boolean = false;
 
-  constructor(private modalCtrl: ModalController, public marketDataService: MarketDataService) {
-  }
+  constructor(private modalCtrl: ModalController, public marketDataService: MarketDataService) {}
 
-  ngOnInit() {    
-  }
+  ngOnInit() {}
 
-  onSubmit() {    
+  async onSubmit() {
     if (this.form.invalid) {
       return;
     }
@@ -69,13 +65,7 @@ export class AddNewAssetModalComponent implements OnInit {
 
       asset = new Asset(
         assetId,
-        new SavingsAccount(
-          this.form.value["name"],
-          +this.form.value["amount"],
-          accountDetails,
-          new Date(),
-          interestRate
-        ),
+        new SavingsAccount(this.form.value["name"], +this.form.value["amount"], accountDetails, new Date(), interestRate),
         percentUnAlloc
       );
     }
@@ -118,15 +108,16 @@ export class AddNewAssetModalComponent implements OnInit {
       if (this.form.value["folio-no"]) {
         folioNo = this.form.value["folio-no"];
       }
+      let mstarId;
+      if (this.form.value["name"].length > 3) {
+        let autoCompleteData : AutoCompleteData[] = await this.marketDataService.getData(this.form.value["name"].trim().toLowerCase(), assetType).toPromise();
+        if (autoCompleteData.length === 1) {
+          mstarId = autoCompleteData[0].mutualfund.mstarId;
+        }
+      }
       asset = new Asset(
         assetId,
-        new MutualFunds(
-          this.form.value["name"],
-          +this.form.value["units"],
-          +this.form.value["price"],
-          currentVal,
-          folioNo
-        ),
+        new MutualFunds(this.form.value["name"], +this.form.value["units"], +this.form.value["price"], currentVal, folioNo, mstarId),
         percentUnAlloc
       );
     }
@@ -135,28 +126,23 @@ export class AddNewAssetModalComponent implements OnInit {
       let isin;
       if (this.form.value["isin"]) {
         isin = this.form.value["isin"];
+      } else if (this.form.value["name"].length > 3){
+        let autoCompleteData : AutoCompleteData[] = await this.marketDataService.getData(this.form.value["name"].trim().toLowerCase(), assetType).toPromise();
+        if (autoCompleteData.length === 1) {
+          isin = autoCompleteData[0].equity.isin;
+        }
       }
       if (this.form.value["current-value"]) {
         currentVal = +this.form.value["current-value"];
       }
       asset = new Asset(
         assetId,
-        new Equity(
-          this.form.value["name"],
-          +this.form.value["units"],
-          +this.form.value["price"],
-          currentVal,
-          isin
-        ),
+        new Equity(this.form.value["name"], +this.form.value["units"], +this.form.value["price"], currentVal, isin),
         percentUnAlloc
       );
     }
     if (assetType === AssetType.Cash) {
-      asset = new Asset(
-        assetId,
-        new Cash(this.form.value["name"], +this.form.value["amount"]),
-        percentUnAlloc
-      );
+      asset = new Asset(assetId, new Cash(this.form.value["name"], +this.form.value["amount"]), percentUnAlloc);
     }
     if (assetType === AssetType.PPF) {
       let date;
@@ -173,8 +159,7 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new PPF(this.form.value["name"], date, +this.form.value['price'], currentVal,
-        lastEvaluationDate),
+        new PPF(this.form.value["name"], date, +this.form.value["price"], currentVal, lastEvaluationDate),
         percentUnAlloc
       );
     }
@@ -193,8 +178,14 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new Gold(this.form.value["name"], date, +this.form.value['price'], currentVal,
-        lastEvaluationDate, this.form.value["units"]),
+        new Gold(
+          this.form.value["name"],
+          date,
+          +this.form.value["price"],
+          currentVal,
+          lastEvaluationDate,
+          this.form.value["units"]
+        ),
         percentUnAlloc
       );
     }
@@ -213,30 +204,23 @@ export class AddNewAssetModalComponent implements OnInit {
       }
       asset = new Asset(
         assetId,
-        new RealEstate(this.form.value["name"], date, +this.form.value['price'], currentVal,
-        lastEvaluationDate),
+        new RealEstate(this.form.value["name"], date, +this.form.value["price"], currentVal, lastEvaluationDate),
         percentUnAlloc
       );
     }
     if (assetType === AssetType.EPF) {
-
       let lastEvaluationDate;
       if (this.form.value["lastEvaluationDate"]) {
         lastEvaluationDate = new Date(this.form.value["lastEvaluationDate"]);
       }
       asset = new Asset(
         assetId,
-        new EPF(this.form.value["name"], +this.form.value['price'],
-        lastEvaluationDate, this.form.value['uanNumber']),
+        new EPF(this.form.value["name"], +this.form.value["price"], lastEvaluationDate, this.form.value["uanNumber"]),
         percentUnAlloc
       );
     }
     if (assetType === AssetType.Others) {
-      asset = new Asset(
-        assetId,
-        new Others(this.form.value["name"], +this.form.value["amount"]),
-        percentUnAlloc
-      );
+      asset = new Asset(assetId, new Others(this.form.value["name"], +this.form.value["amount"]), percentUnAlloc);
     }
     this.modalCtrl.dismiss(
       {
@@ -247,45 +231,58 @@ export class AddNewAssetModalComponent implements OnInit {
   }
 
   onSearchClick(event, assetType) {
-    this.modalCtrl.create({component:SearchPopoverComponent, componentProps: {assetType: assetType}})
-      .then(popover => {
+    this.modalCtrl
+      .create({ component: SearchPopoverComponent, componentProps: { assetType: assetType } })
+      .then((popover) => {
         popover.present();
         return popover.onDidDismiss();
-      }).then(response => {
+      })
+      .then((response) => {
         if (response.role !== "confirm") {
           return;
         }
-        if (response.data) {
+        if (!response.data) {
+          return;
+        }
+        let priceSearchKey = this.getPriceSearchKey(this.assetType, response.data);
+        let currentValue: number;
+        this.marketDataService.getPrice([priceSearchKey], this.assetType).toPromise().then((priceData: PriceData[]) => {
+          if (priceData && priceData.length === 1) {
+            currentValue = priceData[0].nav;
+          }
           if (this.asset) {
-            this.assetType = response.data.type;
-
             if (this.assetType === AssetType.Equity) {
               this.asset.equity.stockName = response.data.name;
-              //this.asset.equity.currentValue = response.data.price;
-              //this.asset.equity.isin = response.data.isin;
+              this.asset.equity.isin = response.data.equity.isin;
+              this.asset.equity.isin = response.data.isin;
+              this.asset.equity.currentValue = currentValue;
             } else if (assetType === AssetType.MutualFunds) {
               this.asset.mutualFunds.fundName = response.data.name;
-              //this.asset.mutualFunds.currentValue = response.data.price;
+              this.asset.mutualFunds.currentValue = currentValue;
             }
           } else {
-            this.assetType = response.data.type;
             if (this.assetType === AssetType.Equity) {
-              //let tempEquity = new Equity(response.data.name, undefined, undefined, response.data.price, response.data.isin);
-              let tempEquity = new Equity(response.data.name, undefined, undefined, undefined, undefined);
+              let tempEquity = new Equity(response.data.name, undefined, undefined, currentValue, response.data.equity.isin);
               this.asset = new Asset(Math.random().toString(), tempEquity, 1);
             } else if (assetType === AssetType.MutualFunds) {
-              //let tempMF = new MutualFunds(response.data.name, undefined, undefined, response.data.price, undefined);
-              let tempMF = new MutualFunds(response.data.name, undefined, undefined, undefined, undefined);
+              let tempMF = new MutualFunds(response.data.name, undefined, undefined, currentValue, undefined, response.data.mutualfund.mstarId);
               this.asset = new Asset(Math.random().toString(), tempMF, 1);
             }
-            
           }
-        }
-      })
+        })
+      });
+  }
+
+  getPriceSearchKey(assetType, data) : string {
+    if (assetType == AssetType.Equity) {
+      return data.equity.isin;
+    }
+    if (assetType == AssetType.MutualFunds) {
+      return data.mutualfund.mstarId;
+    }
   }
 
   onClose() {
     this.modalCtrl.dismiss(null, "cancel");
   }
-
 }

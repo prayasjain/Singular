@@ -1,20 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home/tabs/goals"></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button [matMenuTriggerFor]="belowMenu">
-        <ion-icon
-          slot="icon-only"
-          ios="ellipsis-horizontal"
-          md="ellipsis-vertical"
-        ></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>{{goal?.name}}</ion-title>
-  </ion-toolbar>
+<!-- <ion-header class="top-header">
+  <ion-buttons horizontal="start" vertical="top">
+    <ion-back-button defaultHref="/home/tabs/goals"></ion-back-button>
+  </ion-buttons>
+
+  <ion-fab horizontal="end" vertical="top">
+    <ion-button color="#ffffffff" [matMenuTriggerFor]="belowMenu">
+      <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+    </ion-button>
+  </ion-fab>
+</ion-header> -->
+
+
+<ion-header class="top-header">
+
+  <ion-buttons horizontal="start" vertical="top">
+    <!-- <ion-menu-button  menu="mainMenu"></ion-menu-button> -->
+    <ion-back-button color="dark" defaultHref="/home/tabs/goals"></ion-back-button>
+  </ion-buttons>
+
+  <ion-fab style="top: 0px;" horizontal="end" vertical="top">
+    <ion-button class="ion-no-border" color="#ffffffff" style="--box-shadow:none;" [matMenuTriggerFor]="belowMenu">
+      <ion-icon color="dark" slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+    </ion-button>
+  </ion-fab>
 </ion-header>
+
 <mat-menu #belowMenu="matMenu" yPosition="below">
   <button mat-menu-item (click)="onEditGoal()">Edit</button>
   <button mat-menu-item (click)="onDeleteGoal()">Delete</button>
@@ -28,55 +38,57 @@
     </ion-row>
   </ion-grid>
   <ion-grid *ngIf="!isLoading">
-    <!-- <ion-row class="ion-no-padding">
-      <ion-col class="ion-text-center" size-md="6" offset-md="3">
-        <h3>{{goal?.name}}</h3>
-      </ion-col>
-    </ion-row> -->
-    <ion-row class="ion-no-padding">
-      <ion-col class="ion-text-center" size-md="6" offset-md="3">
-        <ion-progress-bar
-          class="custom-bar"
-          color="primary"
-          [value]="finishPerc"
-        ></ion-progress-bar>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-no-padding">
-      <ion-col class="ion-text-center" size-md="6" offset-md="3">
-        <span>
-          <b>
-            {{(goal?.amountReqd*finishPerc)?.toLocaleString(currencyService.getLocaleForCurrency(
+    <div class="cardSlot">
+      <ion-row class="ion-no-padding">
+        <ion-col class="ion-text-center" size-md="6" offset-md="3">
+          <span>
+            <h3>{{goal?.name}}</h3>
+            <br>
+            <b>
+              {{(goal?.amountReqd*finishPerc)?.toLocaleString(currencyService.getLocaleForCurrency(
           currencyService.currency | async ), {style: 'currency', currency:
           currencyService.currency | async, maximumFractionDigits: 0,
           minimumFractionDigits: 0})}}
-          </b>
-          out of {{goal?.amountReqd?.toLocaleString(currencyService.getLocaleForCurrency(
+            </b>
+            out of {{goal?.amountReqd?.toLocaleString(currencyService.getLocaleForCurrency(
           currencyService.currency | async ), {style: 'currency', currency:
           currencyService.currency | async, maximumFractionDigits: 0,
           minimumFractionDigits: 0})}}
-        </span>
-      </ion-col>
-    </ion-row>
+          </span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding">
+        <ion-col class="ion-text-center" size-md="6" offset-md="3">
+          <circle-progress [percent]="finishPerc * 100" [radius]="50" [outerStrokeWidth]="12" [innerStrokeWidth]="0"
+            [outerStrokeColor]="'#4066ea'" [animation]="true" [animationDuration]="700" [titleColor]="'#4066ea'"
+            [unitsColor]="'#4066ea'" [backgroundStrokeWidth]="12" [showSubtitle]="false" [backgroundPadding]="-7"
+            [backgroundStroke]="'#2338835d'" [showBackground]="true" color="#4066ea"></circle-progress>
+        </ion-col>
+      </ion-row>
+    </div>
+    <br> <br>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
-        <b>Assets</b>
+        <b>&nbsp; Assets Allocation</b>
       </ion-col>
     </ion-row>
+
     <ion-row *ngFor="let asset of assets">
-      <ion-col size-md="2" offset-md="3">
-        <div>
-          {{asset?.assetTitle}}
-        </div>
-      </ion-col>
-      <ion-col size-md="2" class="ion-text-right">
-        <div>
-          {{assetContributionMap.get(asset.id)?.toLocaleString(currencyService.getLocaleForCurrency(
-          currencyService.currency | async ), {style: 'currency', currency:
-          currencyService.currency | async, maximumFractionDigits: 0,
-          minimumFractionDigits: 0})}}
-          ({{assetContributionMap.get(asset.id)/goal.amountReqd | percent}})
-        </div>
+      <ion-col size-md="6" offset-md="3">
+        <ion-list class="custom listItem">
+          <ion-item-sliding class="cards">
+            <ion-item lines="none" slot="start">
+              <ion-icon color="primary" name="card"></ion-icon>
+              <ion-label> &nbsp; &nbsp; <b> {{asset?.assetTitle}} </b> </ion-label>
+              <p slot="end">{{assetContributionMap.get(asset.id)?.toLocaleString(currencyService.getLocaleForCurrency(
+              currencyService.currency | async ), {style: 'currency', currency:
+              currencyService.currency | async, maximumFractionDigits: 0,
+              minimumFractionDigits: 0})}}
+                &nbsp; &nbsp; &nbsp;
+                <span style="color: red;"> {{assetContributionMap.get(asset.id)/goal.amountReqd | percent}} </span> </p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>

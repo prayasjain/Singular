@@ -102,9 +102,7 @@ export class GoalsPage implements OnInit, OnDestroy {
         this.assetValueMap.get(userGoalsContribution.assetId) || 0;
       let currentContribution =
         assetValue * userGoalsContribution.percentageContribution || 0;
-      this.allocatedAmount +=
-        userGoalsContribution.percentageContribution *
-        this.assetValueMap.get(userGoalsContribution.assetId);
+      this.allocatedAmount += currentContribution;
       this.goalCompletionMap.set(
         userGoalsContribution.goalId,
         existingContribution + currentContribution
