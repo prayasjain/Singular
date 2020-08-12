@@ -64,7 +64,7 @@ export class EditGoalComponent implements OnInit, OnDestroy {
       assetValue = this.remainingAssetValueMap.get(asset.id) * maxPerc;
     }
     // min(slider value, max amount the asset can contribute, max amount reqd)
-    slider["el"].value = Math.min(slider["el"].value, assetValue, this.goal.amountReqd - contributingAmountBefore); // slider value, max amount the asset can contribute, max amount reqd
+    slider["el"].value = Math.min(slider["el"].value, assetValue, this.goal.amountReqd - contributingAmountBefore);
   }
 
   onSubmit() {
@@ -74,7 +74,6 @@ export class EditGoalComponent implements OnInit, OnDestroy {
     let contributingAssets: Asset[] = [];
     let nonContributingAssets: Asset[] = [];
     let contributions: Contribution[] = [...this.contributions];
-    //form value is not percentage but absolute. todo change form name
     this.assets.forEach((asset) => {
       let contribution = contributions.find((c) => c.assetId === asset.id && c.goalId === this.goal.id);
       if (this.isAssetContributing(asset.id)) {
