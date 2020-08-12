@@ -15,12 +15,6 @@ export class GoalComponent implements OnInit {
   @Input() id: string;
   @Input() amtRqd: number;
 
-  // these are some pre-defined number for the use case of test(), which controls the sliding item
-  hc: number = 65;
-  wc: number = 80;
-  height: number = 65;
-  width: number = 80;
-
   constructor(
     public currencyService: CurrencyService,
     private goalsService: GoalsService,
@@ -28,19 +22,6 @@ export class GoalComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
-
-  // controls the sliding option of ion-item-sliding and provide some responsive sliding effect
-  slideRatio(event) {
-    // numbers used inside are for controling the size of buttons on the basis of sliding ratio
-    if (event.detail.ratio > 0.3 && event.detail.ratio < 0.5) {
-      this.height = this.hc + 41.6 * event.detail.ratio;
-      this.width = this.wc + 11.33 * event.detail.ratio;
-    }
-    if (event.detail.ratio < 0.3) {
-      this.height = 65;
-      this.width = 80;
-    }
-  }
 
   cancel() {
     document.querySelector("ion-item-sliding").closeOpened();
