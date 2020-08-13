@@ -11,7 +11,8 @@ import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { EditGoalComponent } from "../edit-goal/edit-goal.component";
 import { AuthService } from "src/app/auth/auth.service";
-import { CurrencyService } from '../../currency/currency.service';
+import { CurrencyService } from "../../currency/currency.service";
+import { StateService, AddType } from "../../state.service";
 
 @Component({
   selector: "app-goal-detail",
@@ -45,8 +46,9 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     private router: Router,
     private modalCtrl: ModalController,
     private authService: AuthService,
-    public currencyService: CurrencyService
-  ) { }
+    public currencyService: CurrencyService,
+    private stateService: StateService
+  ) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -69,13 +71,10 @@ export class GoalDetailPage implements OnInit, OnDestroy {
         switchMap((goal) => {
           this.goal = goal;
           if (this.goal) {
-            return this.goalsService.getUserGoalsContributionforGoal(
-              this.goal.id
-            );
+            return this.goalsService.getUserGoalsContributionforGoal(this.goal.id);
           } else {
             return of([]);
           }
-
         }),
         switchMap((contributions) => {
           this.contributions = contributions;
@@ -112,14 +111,10 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     this.assets = [];
     this.remainingAssets = [...userAssets];
     this.contributions.forEach((contribution) => {
-      let userAsset = userAssets.find(
-        (userAsset) => contribution.assetId === userAsset.id
-      );
+      let userAsset = userAssets.find((userAsset) => contribution.assetId === userAsset.id);
       if (userAsset) {
         this.assets.push(userAsset);
-        this.remainingAssets = this.remainingAssets.filter(
-          (obj) => obj !== userAsset
-        );
+        this.remainingAssets = this.remainingAssets.filter((obj) => obj !== userAsset);
       }
     });
   }
@@ -149,10 +144,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
         .pipe(
           take(1),
           tap((assetValue) => {
-            this.assetContributionMap.set(
-              contribution.assetId,
-              assetValue * contribution.percentageContribution
-            );
+            this.assetContributionMap.set(contribution.assetId, assetValue * contribution.percentageContribution);
           })
         );
     });
@@ -164,24 +156,19 @@ export class GoalDetailPage implements OnInit, OnDestroy {
 
   setFinishPercentage() {
     if (this.goal) {
-      this.finishPerc =
-        Array.from(this.assetContributionMap.values()).reduce(
-          (a, b) => a + b,
-          0
-        ) / this.goal.amountReqd;
+      this.finishPerc = Array.from(this.assetContributionMap.values()).reduce((a, b) => a + b, 0) / this.goal.amountReqd;
     }
   }
 
   get remainingAssetPercentage() {
     if (this.remainingAssets && this.selectedAsset) {
-      return this.remainingAssets.find((a) => a.id === this.selectedAsset)
-        .percentUnallocated;
+      return this.remainingAssets.find((a) => a.id === this.selectedAsset).percentUnallocated;
     }
   }
 
   onEditGoal() {
     let oldContributions: Contribution[] = [];
-    this.contributions.forEach(c => oldContributions.push(Contribution.deepCopy(c)));
+    this.contributions.forEach((c) => oldContributions.push(Contribution.deepCopy(c)));
     this.modalCtrl
       .create({
         component: EditGoalComponent,
@@ -206,20 +193,15 @@ export class GoalDetailPage implements OnInit, OnDestroy {
             return;
           }
           // update the assets.
+          console.log(modalData.data.contributingAssets)
+          console.log(modalData.data.nonContributingAssets)
           this.assetsService
-            .updateUserAssets(
-              modalData.data.contributingAssets.concat(
-                modalData.data.nonContributingAssets
-              )
-            )
+            .updateUserAssets(modalData.data.contributingAssets.concat(modalData.data.nonContributingAssets))
             .pipe(
               take(1),
               switchMap((userAssets) => {
                 // update the contributions
-                return this.goalsService.updateContributions(
-                  modalData.data.contributions,
-                  this.goal.id
-                );
+                return this.goalsService.updateContributions(modalData.data.contributions, this.goal.id);
               })
             )
             .subscribe((data) => {
@@ -268,20 +250,7 @@ export class GoalDetailPage implements OnInit, OnDestroy {
     }
   }
 
-  // ionViewWillEnter() {
-  //   this.isLoading = true;
-  //   this.assetsService
-  //     .fetchUserAssets()
-  //     .pipe(
-  //       switchMap(() => {
-  //         return this.goalsService.fetchUserGoals();
-  //       }),
-  //       switchMap(() => {
-  //         return this.goalsService.fetchUserGoalsContributions();
-  //       })
-  //     )
-  //     .subscribe((data) => {
-  //       this.isLoading = false;
-  //     });
-  // }
+  ionViewWillEnter() {
+    this.stateService.updateAddType(AddType.Goal);
+  }
 }

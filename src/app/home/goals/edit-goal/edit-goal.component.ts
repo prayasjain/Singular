@@ -42,30 +42,29 @@ export class EditGoalComponent implements OnInit, OnDestroy {
     });
   }
 
-  onchangeInput(asset, i, slider) {
-    // if(this.listContainer['el'].value > (100 * asset.percentUnallocated)) {
-    //   this.listContainer['el'].value = 100 * asset.percentUnallocated;
-    // }
-    // codes updated to give the range slider a defenite value
-    let assetValue;
-    if (this.assetValueMap && this.assetValueMap.has(asset.id)) {
-      assetValue = this.assetValueMap.get(asset.id) * asset.percentUnallocated;
-    } else if (this.remainingAssetValueMap && this.remainingAssetValueMap.has(asset.id)) {
-      assetValue = this.remainingAssetValueMap.get(asset.id) * asset.percentUnallocated;
-    }
-    if (slider["el"].value > assetValue) {
-      slider["el"].value = assetValue;
-    }
+  onChangeSliderUnalloc(asset: Asset, slider) {
+    this.onChangeSlider(asset, slider, asset.percentUnallocated);
   }
 
   onClose() {
     this.modalCtrl.dismiss(null, "cancel");
   }
 
-  onChangeSliderValue(asset, slider) {
-    if (slider["el"].value > this.assetContributionPercentage(asset.id) + 100 * asset.percentUnallocated) {
-      slider["el"].value = this.assetContributionPercentage(asset.id) + 100 * asset.percentUnallocated;
+  onChangeSliderAlloc(asset: Asset, slider) {
+    let maxPerc: number = asset.percentUnallocated + (this.assetContributionPercentage(asset.id) / 100.0);
+    this.onChangeSlider(asset, slider, maxPerc);
+  }
+
+  onChangeSlider(asset: Asset, slider, maxPerc: number) {
+    let assetValue;
+    let contributingAmountBefore: number = this.totalContributionAmountExceptAsset(asset);
+    if (this.assetValueMap && this.assetValueMap.has(asset.id)) {
+      assetValue = this.assetValueMap.get(asset.id) * maxPerc;
+    } else if (this.remainingAssetValueMap && this.remainingAssetValueMap.has(asset.id)) {
+      assetValue = this.remainingAssetValueMap.get(asset.id) * maxPerc;
     }
+    // min(slider value, max amount the asset can contribute, max amount reqd)
+    slider["el"].value = Math.min(slider["el"].value, assetValue, this.goal.amountReqd - contributingAmountBefore);
   }
 
   onSubmit() {
@@ -75,11 +74,10 @@ export class EditGoalComponent implements OnInit, OnDestroy {
     let contributingAssets: Asset[] = [];
     let nonContributingAssets: Asset[] = [];
     let contributions: Contribution[] = [...this.contributions];
-    //form value is not percentage but absolute. todo change form name
     this.assets.forEach((asset) => {
       let contribution = contributions.find((c) => c.assetId === asset.id && c.goalId === this.goal.id);
       if (this.isAssetContributing(asset.id)) {
-        let newPerc: number = this.form.value[`percentage-${asset.id}`] / this.assetValueMap.get(asset.id);
+        let newPerc: number = this.form.value[`value-${asset.id}`] / this.assetValueMap.get(asset.id);
         if (newPerc !== contribution.percentageContribution) {
           asset.percentUnallocated = asset.percentUnallocated + contribution.percentageContribution - newPerc;
           // update the contribution
@@ -88,7 +86,7 @@ export class EditGoalComponent implements OnInit, OnDestroy {
         contributingAssets.push(asset);
       } else {
         // remove this assets percentage allocation of the goal from the asset object
-        asset.percentUnallocated -= contribution.percentageContribution;
+        asset.percentUnallocated += contribution.percentageContribution;
         // remove the asset from the contributions list as well
         contributions = contributions.filter((c) => c.id !== contribution.id);
         nonContributingAssets.push(asset);
@@ -96,7 +94,7 @@ export class EditGoalComponent implements OnInit, OnDestroy {
     });
     this.remainingAssets.forEach((asset) => {
       if (this.isAssetContributing(asset.id)) {
-        let newPerc: number = this.form.value[`percentage-${asset.id}`] / this.remainingAssetValueMap.get(asset.id);
+        let newPerc: number = this.form.value[`value-${asset.id}`] / this.remainingAssetValueMap.get(asset.id);
         asset.percentUnallocated -= newPerc;
         // edit the asset
         contributingAssets.push(asset);
@@ -120,12 +118,16 @@ export class EditGoalComponent implements OnInit, OnDestroy {
     return 100 * this.contributions.find((c) => c.assetId === assetId && c.goalId === this.goal.id).percentageContribution;
   }
 
+  assetContributionValue(assetId: string) {
+    return (this.assetContributionPercentage(assetId) / 100) * this.assetValueMap.get(assetId);
+  }
+
   isAssetContributing(assetId: string) {
     return (
       `checkbox-${assetId}` in this.form.value &&
       this.form.value[`checkbox-${assetId}`] &&
-      `percentage-${assetId}` in this.form.value &&
-      this.form.value[`percentage-${assetId}`] > 0
+      `value-${assetId}` in this.form.value &&
+      this.form.value[`value-${assetId}`] > 0
     );
   }
 
@@ -133,9 +135,21 @@ export class EditGoalComponent implements OnInit, OnDestroy {
     let amount: number = 0;
     let contributingAmount = (asset, valueMap) => {
       if (this.isAssetContributing(asset.id)) {
-        let contributingPerc = this.form.value[`percentage-${asset.id}`];
-        amount += contributingPerc;
-        // amount += (contributingPerc * valueMap.get(asset.id)) / 100;
+        let contributingAssetValue = this.form.value[`value-${asset.id}`];
+        amount += contributingAssetValue;
+      }
+    };
+    this.assets.forEach((asset) => contributingAmount(asset, this.assetValueMap));
+    this.remainingAssets.forEach((asset) => contributingAmount(asset, this.remainingAssetValueMap));
+    return amount;
+  }
+
+  totalContributionAmountExceptAsset(removedAsset: Asset) {
+    let amount: number = 0;
+    let contributingAmount = (asset, valueMap) => {
+      if (!(removedAsset.id === asset.id) && this.isAssetContributing(asset.id)) {
+        let contributingAssetValue = this.form.value[`value-${asset.id}`];
+        amount += contributingAssetValue;
       }
     };
     this.assets.forEach((asset) => contributingAmount(asset, this.assetValueMap));

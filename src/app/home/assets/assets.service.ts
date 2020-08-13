@@ -170,7 +170,7 @@ export class AssetsService {
   }
 
   getUserAssetsForAssetType(assetType: AssetType) {
-    return this._userAssets.asObservable().pipe(
+    return this.userAssets.pipe(
       map((userAssets) => {
         return userAssets.filter((userAsset) => userAsset.assetType === assetType);
       })

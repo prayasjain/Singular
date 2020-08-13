@@ -32,7 +32,7 @@
       <ion-col  class="ion-no-padding customMargin" size-md="6" offset-md="3">
         <app-goal
         [amtRqd] = "goal.amountReqd"
-        [idNumber]="goal.id" 
+        [id]="goal.id" 
         [title]="goal.name"
         [value]="(goalCompletionMap.get(goal.id) || 0)/goal.amountReqd" 
         itemColor="danger"

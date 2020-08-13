@@ -7,12 +7,11 @@ import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
 import { CurrencyService } from "../currency/currency.service";
 import { MarketDataService, PriceData } from "./market-data.service";
+import { StateService, AddType } from "../state.service";
 
 interface AssetGroup {
   assetType: AssetType;
   amount: number;
-  // id included to identify eash list item seprately
-  id: number;
 }
 
 @Component({
@@ -28,16 +27,13 @@ export class AssetsPage implements OnInit, OnDestroy {
   totalAmount: number;
   currentDate: Date;
   totalAmountByAssetType = new Map();
-  //  aid is added to provide a specific id to track each list item individualy and pass this data further for more control on any list item
-  aid = 0;
   constructor(
     private assetsService: AssetsService,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     public currencyService: CurrencyService,
+    private stateService: StateService
   ) {}
-
-  OTHERS = AssetType.Others;
 
   colorNo = 0;
 
@@ -81,31 +77,18 @@ export class AssetsPage implements OnInit, OnDestroy {
       });
   }
 
-  // ionViewWillEnter() {
-  //   this.loadingCtrl
-  //     .create({ message: "Fetching Your Assets..." })
-  //     .then((loadingEl) => {
-  //       loadingEl.present();
-  //       this.assetsService.fetchUserAssets().subscribe((data) => {
-  //         loadingEl.dismiss();
-  //       }, (error) => {
-  //         console.log(error);
-  //         loadingEl.dismiss();
-  //       });
-  //     });
-  // }
+  ionViewWillEnter() {
+    this.stateService.updateAddType(AddType.Asset);
+    this.stateService.updateAssetType(AssetType.Others);
+  }
 
   getAmountByGroup() {
     this.totalAmountByAssetType.forEach((amount, assetType) => {
       let assetGroup: AssetGroup = {
         assetType: assetType,
         amount: amount,
-        // id is defined as aid
-        id: this.aid,
       };
       this.assetGroups.push(assetGroup);
-      // increments the aid by 1
-      ++this.aid;
     });
     this.assetGroups.sort();
   }
@@ -114,32 +97,8 @@ export class AssetsPage implements OnInit, OnDestroy {
     return AssetTypeUtils.slug(assetType);
   }
 
-  color(chars: string) {
-    if (chars === AssetType.SavingsAccount) {
-      return "tertiary";
-    }
-    if (chars === AssetType.Deposits) {
-      return "tertiary";
-    }
-    if (chars === AssetType.MutualFunds) {
-      return "primary";
-    }
-    if (chars === AssetType.Equity) {
-      return "secondary";
-    }
-    if (chars === AssetType.Cash) {
-      return "secondary";
-    }
-    if (chars === AssetType.Others) {
-      return "primary";
-    }
-    return "primary";
-  }
-
   ngOnDestroy() {
     if (this.assetsSub) {
-      // reset the aid
-      this.aid = 0;
       this.assetsSub.unsubscribe();
     }
   }
