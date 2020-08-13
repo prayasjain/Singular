@@ -1,7 +1,4 @@
-
-<ion-header class="top-header" style="background-color: #fff;
-">
-
+<ion-header class="top-header" style="background-color: #fff;">
   <ion-buttons horizontal="start" vertical="top">
     <ion-menu-button class="black" menu="mainMenu"></ion-menu-button>
   </ion-buttons>
@@ -14,14 +11,14 @@
     Home
   </ion-title>
 </ion-header>
-<div class="right-container">
-  <app-assets class="hiddenCom" hidden="true" style="display: none;"></app-assets>
-  <app-goals class="hiddenCom" hidden="true" style="display: none;"></app-goals>
-  <ion-content [fullscreen]="true">
+
+<ion-content [fullscreen]="true">
+  <div class="right-container">
     <ion-grid>
       <ion-row>
         <ion-col size="12">
-          <h3>Top Portfoli Value
+          <h3>
+            Top Portfoli Value
             <span class="amount">$ 50000</span>
           </h3>
         </ion-col>
@@ -31,28 +28,29 @@
         <ion-col size="12">
           <h3>Top Assets</h3>
         </ion-col>
-        <ion-col size-md="2" class="assetsSec" *ngFor="let assetGroup of assetsgroup.assetGroups; let i = index">
+        <ion-col size-md="2" class="assetsSec" *ngFor="let assetGroup of assetsgroup?.assetGroups; let i = index">
           <div class="assetSet">
             <p>
               {{assetGroup.assetType}}
               <span>$ {{assetGroup.amount}}</span>
             </p>
           </div>
-
         </ion-col>
         <ion-col size="12">
           <h3>Goals</h3>
         </ion-col>
 
-          <ion-col size-md="2" class="assetsSec" *ngFor="let goal of goalPage.userGoals; let i = index">
-            <div class="assetSet">
-              <p>
-                <span>{{goalPage.goalCompletionMap.get(goal.id)}} out of {{goal.amountReqd}}</span>
-              </p>
-            </div>
-  
-          </ion-col>
+        <ion-col size-md="2" class="assetsSec" *ngFor="let goal of goalPage?.userGoals; let i = index">
+          <div class="assetSet">
+            <p>
+              <span>{{goalPage?.goalCompletionMap.get(goal.id)}} out of {{goal.amountReqd}}</span>
+            </p>
+          </div>
+        </ion-col>
       </ion-row>
     </ion-grid>
-    </ion-content>
-</div>
+  </div>
+</ion-content>
+
+<app-assets class="hiddenCom" hidden="true" style="display: none;"></app-assets>
+<app-goals class="hiddenCom" hidden="true" style="display: none;"></app-goals>

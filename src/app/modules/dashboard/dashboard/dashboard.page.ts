@@ -8,7 +8,7 @@ import { GoalsPage } from 'src/app/home/goals/goals.page';
   styleUrls: ['./dashboard.page.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DashboardPage  implements OnInit, AfterViewInit {
+export class DashboardPage  implements OnInit {
   @ViewChild(AssetsPage, { static: true }) assetsgroup: AssetsPage;
   @ViewChild(GoalsPage, { static: true }) goalPage: GoalsPage;
 
@@ -17,6 +17,4 @@ export class DashboardPage  implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-  }
 }
