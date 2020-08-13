@@ -15,7 +15,6 @@ export class DashboardPage  implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
-    document.getElementsByTagName('main')[0].style.padding = '0px'
   }
 
   ngAfterViewInit() {
