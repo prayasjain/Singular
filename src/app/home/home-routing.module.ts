@@ -3,15 +3,20 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomePage } from "./home.page";
 
 const routes: Routes = [
+ 
   {
     path: "",
-    redirectTo: "/home/tabs/assets",
+    redirectTo: "/home/tabs/dashboard",
     pathMatch: "full",
   },
   {
     path: "tabs",
     component: HomePage,
     children: [
+      {
+        path: 'dashboard',
+        loadChildren: () => import('../modules/dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
       {
         path: "assets",
         loadChildren: () =>

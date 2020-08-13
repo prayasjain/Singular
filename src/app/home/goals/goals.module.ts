@@ -18,6 +18,7 @@ import { SharedModule } from '../shared.module';
     GoalsPageRoutingModule,
     SharedModule
   ],
-  declarations: [GoalsPage, GoalComponent]
+  declarations: [GoalsPage, GoalComponent],
+  exports: [GoalsPage]
 })
 export class GoalsPageModule { }

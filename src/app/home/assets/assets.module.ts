@@ -18,6 +18,7 @@ import { AssetComponent } from './asset/asset.component';
     AssetsPageRoutingModule,
     SharedModule
   ],
-  declarations: [AssetsPage, AssetComponent]
+  declarations: [AssetsPage, AssetComponent],
+  exports: [AssetsPage]
 })
 export class AssetsPageModule {}
