@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { AssetsPage } from 'src/app/home/assets/assets.page';
 import { AssetsService } from 'src/app/home/assets/assets.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -22,6 +22,7 @@ interface AssetGroup {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild(AssetsPage, { static: true }) assetsgroup: AssetsPage;
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
+    document.getElementsByTagName('main')[0].style.padding = '0px'
   }
 
   ngAfterViewInit() {
