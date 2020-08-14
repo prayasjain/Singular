@@ -1,20 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home/tabs/assets"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{asset?.assetTitle}}</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button [matMenuTriggerFor]="belowMenu">
-        <ion-icon
-          slot="icon-only"
-          ios="ellipsis-horizontal"
-          md="ellipsis-vertical"
-        ></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-header class="top-header">
+  <ion-buttons horizontal="start" vertical="top">
+    <!-- <ion-menu-button  menu="mainMenu"></ion-menu-button> -->
+    <ion-back-button color="light" defaultHref="/home/tabs/assets"></ion-back-button>
+  </ion-buttons>
+
+  <ion-fab style="top: 0px;" horizontal="end" vertical="top">
+    <ion-button class="ion-no-border btn-opt" color="#ffffffff" [matMenuTriggerFor]="belowMenu">
+      <ion-icon color="light" slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+    </ion-button>
+  </ion-fab>
+  <ion-title id="container" vertical="center">
+    <p class="assetsTitle"> Total Funds Value</p>
+    <p class="assetsData">
+      {{assetValue?.toLocaleString(currencyService.getLocaleForCurrency(
+        currencyService.currency | async ), {style: 'currency', currency:
+        currencyService.currency | async, maximumFractionDigits: 0,
+        minimumFractionDigits: 0})}}
+  </p>
+  </ion-title>
 </ion-header>
+
+<!-- 
+  <ion-item>
+    <ion-label position="stacked">Floating Label</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+ -->
 <mat-menu #belowMenu="matMenu" yPosition="below">
   <button mat-menu-item (click)="onEditAsset()">Edit</button>
   <button mat-menu-item (click)="onDeleteAsset()">Delete</button>
@@ -29,11 +40,8 @@
     </ion-row> -->
     <ion-row class="ion-no-padding">
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-        <h3>
-          {{assetValue?.toLocaleString(currencyService.getLocaleForCurrency(
-          currencyService.currency | async ), {style: 'currency', currency:
-          currencyService.currency | async, maximumFractionDigits: 0,
-          minimumFractionDigits: 0})}}
+        <h3 style="text-align: center;">
+          {{asset?.assetTitle}}
         </h3>
         <!-- <p>as on {{currentDate.toDateString()}}</p> -->
       </ion-col>

@@ -78,12 +78,12 @@
         <ion-col class="ion-no-padding">
           <div class="flex-container dataSet">
             <div class="ion-padding">
-              <ion-checkbox name="checkbox-{{ asset.id }}" [ngModel]="false" #checkbox="ngModel"></ion-checkbox>
+              <ion-checkbox color="tertiary" name="checkbox-{{ asset.id }}" [ngModel]="false" #checkbox="ngModel"></ion-checkbox>
             </div>
 
             <div class="flex-card">
               <ion-item lines="none" class="ion-no-padding">
-                <ion-text class="ion-no-padding" slot="start">{{ asset.assetTitle }} </ion-text>
+                <ion-text class="ion-no-padding" >{{ asset.assetTitle }} </ion-text>
                 <ion-text class="ion-no-padding" slot="end">
                   {{
                     remainingAssetValueMap.get(asset.id)?.toLocaleString(
