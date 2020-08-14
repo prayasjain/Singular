@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { AssetType, Asset, AssetTypeUtils } from "../asset.model";
 import { AssetsService } from "../assets.service";
@@ -6,7 +6,8 @@ import { Subscription, zip } from "rxjs";
 import { switchMap, take, tap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
-import { CurrencyService } from '../../currency/currency.service';
+import { CurrencyService } from "../../currency/currency.service";
+import { StateService, AddType } from "../../state.service";
 
 @Component({
   selector: "app-asset-detail",
@@ -25,30 +26,33 @@ export class AssetDetailPage implements OnInit, OnDestroy {
   chartOptions = {
     responsive: true,
     scales: {
-      xAxes: [{
-        gridLines: {
-          display: true
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          display: false
-        }
-      }]
-    }
+      xAxes: [
+        {
+          gridLines: {
+            display: true,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+    },
   };
 
   chartData = [
-    { data: [330, 600, 260, 700], label: 'Account A' },
-    { data: [120, 455, 100, 340], label: 'Account B' },
-    { data: [45, 67, 800, 500], label: 'Account C' }
+    { data: [330, 600, 260, 700], label: "Account A" },
+    { data: [120, 455, 100, 340], label: "Account B" },
+    { data: [45, 67, 800, 500], label: "Account C" },
   ];
-  chartLabels = ['January', 'February', 'Mars', 'April'];
+  chartLabels = ["January", "February", "Mars", "April"];
   newDataPoint(dataArr = [100, 100, 100], label) {
-
     this.chartData.forEach((dataset, index) => {
       this.chartData[index] = Object.assign({}, this.chartData[index], {
-        data: [...this.chartData[index].data, dataArr[index]]
+        data: [...this.chartData[index].data, dataArr[index]],
       });
     });
     this.chartLabels = [...this.chartLabels, label];
@@ -59,14 +63,15 @@ export class AssetDetailPage implements OnInit, OnDestroy {
     private assetsService: AssetsService,
     private authService: AuthService,
     public currencyService: CurrencyService,
-    private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController,
+    private stateService: StateService
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       let assetSlug = paramMap.get("assetSlug");
       this.assetType = AssetTypeUtils.getItemFromSlug(assetSlug);
-
+      this.stateService.updateAssetType(this.assetType);
       this.currentDate = new Date();
       if (this.assetType) {
         this.userAssetsForTypeSub = this.authService.authInfo
@@ -74,9 +79,7 @@ export class AssetDetailPage implements OnInit, OnDestroy {
             take(1),
             switchMap((user) => {
               this.user = user;
-              return this.assetsService.getUserAssetsForAssetType(
-                this.assetType
-              );
+              return this.assetsService.getUserAssetsForAssetType(this.assetType);
             }),
             switchMap((userAssets) => {
               this.userAssetsForType = userAssets;
@@ -94,23 +97,15 @@ export class AssetDetailPage implements OnInit, OnDestroy {
                 )
               );
             })
-
           )
           .subscribe();
       }
     });
   }
 
-  // ionViewWillEnter() {
-  //   this.loadingCtrl
-  //     .create({ message: "Fetching Your Assets..." })
-  //     .then((loadingEl) => {
-  //       loadingEl.present();
-  //       this.assetsService.fetchUserAssets().subscribe((data) => {
-  //         loadingEl.dismiss();
-  //       });
-  //     });
-  // }
+  ionViewWillEnter() {
+    this.stateService.updateAddType(AddType.Asset);
+  }
 
   ngOnDestroy() {
     if (this.userAssetsForTypeSub) {

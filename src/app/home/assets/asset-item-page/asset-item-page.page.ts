@@ -7,7 +7,9 @@ import { GoalsService } from "../../goals/goals.service";
 import { ModalController, LoadingController } from "@ionic/angular";
 import { AddNewAssetModalComponent } from "../../add-new/add-new-asset-modal/add-new-asset-modal.component";
 import { AuthService } from "src/app/auth/auth.service";
-import { CurrencyService } from '../../currency/currency.service';
+import { CurrencyService } from "../../currency/currency.service";
+import { AssetsUtils } from "../assets-utils";
+import { StateService, AddType } from "../../state.service";
 
 @Component({
   selector: "app-asset-item-page",
@@ -27,12 +29,13 @@ export class AssetItemPagePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private assetsService: AssetsService,
     private router: Router,
-    private goalsService: GoalsService,
     private modalCtrl: ModalController,
     private authService: AuthService,
     public currencyService: CurrencyService,
-    private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController,
+    private assetUtils: AssetsUtils,
+    private stateService: StateService
+  ) {}
 
   ngOnInit() {
     this.date = new Date();
@@ -49,6 +52,7 @@ export class AssetItemPagePage implements OnInit {
           switchMap((assets) => {
             this.asset = assets.find((a) => a.id === itemId);
             if (this.asset) {
+              this.stateService.updateAssetType(this.asset.assetType);
               return this.asset.getAmountForAsset(this.date);
             }
             this.router.navigateByUrl("/home/tabs/assets");
@@ -61,67 +65,40 @@ export class AssetItemPagePage implements OnInit {
     });
   }
 
-  // ionViewWillEnter() {
-  //   this.loadingCtrl
-  //     .create({ message: "Fetching Your Assets..." })
-  //     .then((loadingEl) => {
-  //       loadingEl.present();
-  //       this.assetsService.fetchUserAssets().subscribe((data) => {
-  //         loadingEl.dismiss();
-  //       });
-  //     });
-  // }
+  ionViewWillEnter() {
+    this.stateService.updateAddType(AddType.Asset);
+  }
 
   onEditAsset() {
-    this.loadingCtrl
-      .create({ message: "Saving Your Data..." })
-      .then((loadingEl) => {
-        this.modalCtrl
-          .create({
-            component: AddNewAssetModalComponent,
-            componentProps: {
-              asset: this.asset,
-              assetValue: this.assetValue,
-              assetType: this.asset.assetType,
-            },
-          })
-          .then((modalEl) => {
-            modalEl.present();
-            return modalEl.onDidDismiss();
-          })
-          .then((modalData) => {
-            if (modalData.role === "confirm") {
-              loadingEl.present();
-              let newAsset = modalData.data.asset;
-              return this.assetsService
-                .updateUserAssets([newAsset])
-                .toPromise();
-            }
-          })
-          .then((updatedAssets) => {
-            loadingEl.dismiss();
-            this.router.navigateByUrl("/home/tabs/assets");
-          });
-      });
+    this.loadingCtrl.create({ message: "Saving Your Data..." }).then((loadingEl) => {
+      this.modalCtrl
+        .create({
+          component: AddNewAssetModalComponent,
+          componentProps: {
+            asset: this.asset,
+            assetValue: this.assetValue,
+            assetType: this.asset.assetType,
+          },
+        })
+        .then((modalEl) => {
+          modalEl.present();
+          return modalEl.onDidDismiss();
+        })
+        .then((modalData) => {
+          if (modalData.role === "confirm") {
+            loadingEl.present();
+            let newAsset = modalData.data.asset;
+            return this.assetsService.updateUserAssets([newAsset]).toPromise();
+          }
+        })
+        .then((updatedAssets) => {
+          loadingEl.dismiss();
+          this.router.navigateByUrl("/home/tabs/assets");
+        });
+    });
   }
 
   onDeleteAsset() {
-    this.loadingCtrl
-      .create({ message: "Deleting your Asset..." })
-      .then((loadingEl) => {
-        loadingEl.present();
-        this.goalsService
-          .deleteContributionsOfAsset(this.asset.id)
-          .pipe(
-            take(1),
-            switchMap(() => {
-              return this.assetsService.deleteAsset(this.asset.id);
-            })
-          )
-          .subscribe(() => {
-            loadingEl.dismiss();
-            this.router.navigateByUrl("/home/tabs/assets");
-          });
-      });
+    this.assetUtils.deleteAsset(this.asset.id);
   }
 }

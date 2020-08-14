@@ -18,8 +18,7 @@
   <ion-grid>
     <ion-row *ngFor="let assetGroup of assetGroups; let i = index">
       <ion-col size-md="6" offset-md="3">
-        <app-asset [idNumber]="assetGroup.id" [title]="assetGroup.assetType" [value]="assetGroup.amount"
-          [itemColor]="color(assetGroup.assetType)"
+        <app-asset [title]="assetGroup.assetType" [value]="assetGroup.amount" [assetType]="assetGroup.assetType"
           [itemLink]="'/home/tabs/assets/asset-detail/' + getSlug(assetGroup.assetType)"></app-asset>
       </ion-col>
     </ion-row>

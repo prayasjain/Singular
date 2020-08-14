@@ -117,7 +117,7 @@ export class GoalsService {
   }
 
   getUserGoalsContributionforGoal(goalId: string) {
-    return this._userGoalsContributions.asObservable().pipe(
+    return this.userGoalsContributions.pipe(
       map((userGoalsContributions) => {
         return userGoalsContributions.filter(
           (userGoalsContribution) => userGoalsContribution.goalId === goalId

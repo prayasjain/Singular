@@ -1,18 +1,18 @@
 <ion-tabs>
-  <app-add-new [isAsset]=this.assets [isGoal]=this.goals [assetType]="OTHERS"></app-add-new>
+  <app-add-new [addType]="stateService.addType | async" [assetType]="stateService.assetType | async"></app-add-new>
 
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="/">
+    <ion-tab-button  tab='dashboard'>
       <ion-icon name="home"></ion-icon>
       <ion-label>Home</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button (click)="toggleAssets()" tab="assets">
+    <ion-tab-button tab="assets">
       <ion-icon name="card-outline"></ion-icon>
       <ion-label>Assets</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button (click)="toggleGoals()" tab="goals">
+    <ion-tab-button  tab="goals">
       <ion-icon name="trophy"></ion-icon>
       <ion-label>Goals</ion-label>
     </ion-tab-button>

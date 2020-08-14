@@ -8,6 +8,7 @@ import { mergeMap, tap, take, switchMap } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
 import { CurrencyService } from '../currency/currency.service';
+import { StateService, AddType } from '../state.service';
 
 @Component({
   selector: "app-goals",
@@ -44,7 +45,8 @@ export class GoalsPage implements OnInit, OnDestroy {
     private goalsService: GoalsService,
     private assetsService: AssetsService,
     private authService: AuthService,
-    public currencyService: CurrencyService
+    public currencyService: CurrencyService,
+    private stateService: StateService,
   ) {}
 
   ngOnInit() {
@@ -123,20 +125,7 @@ export class GoalsPage implements OnInit, OnDestroy {
     }
   }
 
-  // ionViewWillEnter() {
-  //   this.isLoading = true;
-  //   this.assetsService
-  //     .fetchUserAssets()
-  //     .pipe(
-  //       switchMap(() => {
-  //         return this.goalsService.fetchUserGoals();
-  //       }),
-  //       switchMap(() => {
-  //         return this.goalsService.fetchUserGoalsContributions();
-  //       })
-  //     )
-  //     .subscribe((data) => {
-  //       this.isLoading = false;
-  //     });
-  // }
+  ionViewWillEnter() {
+    this.stateService.updateAddType(AddType.Goal);
+  }
 }

@@ -56,17 +56,17 @@
               </ion-item>
               <div style="position: relative; width: 100%;">
                 <ion-range
-                  #sliderRange
+                  #sliderAllocated
                   class="ion-no-padding"
-                  [ngModel]="assetContributionPercentage(asset.id)"
+                  [ngModel]="assetContributionValue(asset.id)"
                   #range="ngModel"
-                  name="percentage-{{ asset.id }}"
+                  name="value-{{ asset.id }}"
                   min="0"
                   [max]="assetValueMap.get(asset.id)"
                   pin
                   color="tertiary"
                   [disabled]="!checkbox.value"
-                  (ionChange)="onChangeSliderValue(asset, sliderRange)"
+                  (ionChange)="onChangeSliderAlloc(asset, sliderAllocated)"
                 >
                 </ion-range>
               </div>
@@ -114,18 +114,18 @@
                 }}
                 </div>
                 <ion-range
-                  #slider
+                  #sliderUnAllocated
                   class="ion-no-padding"
                   [ngModel]="0"
                   #range="ngModel"
-                  name="percentage-{{ asset.id }}"
+                  name="value-{{ asset.id }}"
                   min="0"
                   [max]="remainingAssetValueMap.get(asset.id)"
                   pin
                   tick
                   color="tertiary"
                   [disabled]="!checkbox.value"
-                  (ionChange)="onchangeInput(asset, i, slider)"
+                  (ionChange)="onChangeSliderUnalloc(asset, sliderUnAllocated)"
                 >
                 </ion-range>
               </div>

@@ -1,0 +1,72 @@
+.pointer {
+  cursor: pointer;
+}
+.top-header {
+  background-color: transparent;
+  height: auto;
+  .title-default {
+    padding-top: 20px;
+  }
+}
+
+.top-header p {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+}
+.hiddenCom {
+  position: fixed;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30%;
+  transform: translateY(-50%);
+}
+
+.assetsTitle {
+  color: aliceblue; 
+  font-size:12px; 
+  margin-bottom:10px;
+}
+
+.assetsData {
+  color: aliceblue; 
+  font-size: 1.3em;
+}
+
+.assetsIcon {
+  font-size: 1.8em;
+}
+
+.assetSet {
+box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.39);
+text-align: center;
+padding: 10px;
+background: #fff;
+p {
+  font-size: 14px;
+  span {
+    display: block;
+    margin-top: 10px;
+  }
+}
+}
+h3 {
+.amount {
+  display: block;
+  font-weight: normal;
+  margin-top: 10px;
+}
+}
+
