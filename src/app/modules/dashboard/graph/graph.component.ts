@@ -34,18 +34,27 @@ export class GraphComponent implements OnInit {
           data: data || this.constants.GRAPH_FILTER_OPTIONS.YEARLY.data,
           backgroundColor: 'rgba(240, 240, 240, 1)', // array should have same number of elements as number of dataset
           borderColor: 'rgba(240, 194, 129, 1)', // array should have same number of elements as number of dataset
-          borderWidth: 1
         }]
       },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
+      options: { 
+      responsive: true,
+      scales: {
+        xAxes: [
+          {
+            gridLines: {
+              display: true,
+            },
+          },
+        ],
+        yAxes: [
+          {
+            gridLines: {
+              display: true,
+            },
+          },
+        ],
       }
+    },
     });
   }
 
