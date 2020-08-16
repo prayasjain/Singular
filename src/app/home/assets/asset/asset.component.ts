@@ -4,6 +4,7 @@ import { take, switchMap } from "rxjs/operators";
 import { AssetsUtils } from "../assets-utils";
 import { AssetsService } from "../assets.service";
 import { AssetType } from "../asset.model";
+import { Constants } from 'src/app/config/constants';
 
 @Component({
   selector: "app-asset",
@@ -11,6 +12,7 @@ import { AssetType } from "../asset.model";
   styleUrls: ["./asset.component.scss"],
 })
 export class AssetComponent implements OnInit {
+  constants = Constants;
   @Input() title: string;
   @Input() value: number;
   @Input() itemLink: string;

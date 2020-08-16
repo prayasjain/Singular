@@ -59,7 +59,6 @@ export class GraphComponent implements OnInit {
     });
   }
 
-  
 
   dataByFilter(type) {
     this.selectedGraphType = type;

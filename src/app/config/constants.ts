@@ -62,4 +62,16 @@ export class Constants {
         WEEKLY: 'WEEKLY'
     };
 
+    public static readonly ICON_TYPES = {
+        'Mutual Funds': 'funds.svg',
+        'Savings Account': 'funds.svg',
+        Deposits: 'deposit.svg',
+        Gold : 'funds.svg',
+        'Real Estate': 'esate.svg',
+        Equity: 'funds.svg',
+        Cash: 'cash.svg',
+        EPF: 'funds.svg',
+        PPF: 'funds.svg'
+      };
+
 }

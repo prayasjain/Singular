@@ -41,3 +41,9 @@
   padding-left: 320px;
   padding-bottom: 70px;
 }
+#container{left:50px !important; right: 50px !important;}
+ion-tab-bar,.fab-horizontal-center{display: none}
+
+@media (max-width:767px){
+  ion-tab-bar,.fab-horizontal-center{display: flex}
+}
