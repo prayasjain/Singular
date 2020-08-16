@@ -75,8 +75,8 @@
 
     <ion-row *ngFor="let asset of assets">
       <ion-col size-md="6" offset-md="3">
-        <ion-list class="custom listItem">
-          <ion-item-sliding class="cards">
+        <ion-list class="cards custom listItem">
+          <ion-item-sliding>
             <ion-item lines="none" slot="start">
               <ion-icon color="primary" name="card"></ion-icon>
               <ion-label> &nbsp; &nbsp; <b> {{asset?.assetTitle}} </b> </ion-label>
@@ -93,17 +93,10 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-<!-- <ion-footer>
-  <ion-grid *ngIf="!isLoading">
-    <ion-row class="ion-no-padding">
-      <ion-col class="ion-text-center ion-no-padding" size-md="6" offset-md="3">
-        Goal Set on Date: {{goal?.creationDate.toDateString()}}
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-no-padding">
-      <ion-col class="ion-text-center ion-no-padding" size-md="6" offset-md="3">
-        Expected to acheive by Date: ???
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-footer> -->
+<ion-footer>
+    <ion-fab *ngIf="!isLoading" horizontal="end" vertical="bottom" slot="fixed">
+      <ion-fab-button (click)="onEditGoal()" class="add-button" color="light">
+        <ion-icon class="add" color="tertiary" name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab> 
+</ion-footer>

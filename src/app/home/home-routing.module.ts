@@ -1,16 +1,16 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { HomePage } from "./home.page";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomePage } from './home.page';
 
 const routes: Routes = [
- 
+
   {
-    path: "",
-    redirectTo: "/home/tabs/dashboard",
-    pathMatch: "full",
+    path: '',
+    redirectTo: '/home/tabs/dashboard',
+    pathMatch: 'full',
   },
   {
-    path: "tabs",
+    path: 'tabs',
     component: HomePage,
     children: [
       {
@@ -18,22 +18,27 @@ const routes: Routes = [
         loadChildren: () => import('../modules/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
-        path: "assets",
+        path: 'assets',
         loadChildren: () =>
-          import("./assets/assets.module").then((m) => m.AssetsPageModule),
+          import('./assets/assets.module').then((m) => m.AssetsPageModule),
       },
       {
-        path: "goals",
+        path: 'goals',
         loadChildren: () =>
-          import("./goals/goals.module").then((m) => m.GoalsPageModule),
+          import('./goals/goals.module').then((m) => m.GoalsPageModule),
       },
       {
-        path: "",
-        redirectTo: "/home/tabs/assets",
-        pathMatch: "full",
+        path: 'profile',
+        loadChildren: () =>
+          import('./profile/profile.module').then((m) => m.ProfilePageModule),
+      },
+      {
+        path: '',
+        redirectTo: '/home/tabs/assets',
+        pathMatch: 'full',
       },
     ],
-  },
+  }
 ];
 
 @NgModule({
