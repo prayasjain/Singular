@@ -25,7 +25,8 @@ export class Constants {
         Equity: 'equity',
         'Mutual Funds': 'mutualFunds',
         Deposits: 'deposits',
-        'Savings Account': 'savingsAccount'
+        'Savings Account': 'savingsAccount',
+        Others: 'others'
     };
 
     public static readonly DUMMY_DATA = [

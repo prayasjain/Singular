@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
+import { ExportAssetsModule } from '../../export-assets/export-assets.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    ExportAssetsModule
   ],
   declarations: [ProfilePage]
 })

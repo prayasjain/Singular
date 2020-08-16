@@ -49,6 +49,9 @@ export class ExportAssetsComponent implements OnInit {
         })
       )
       .subscribe((userAssets) => {
+        if (!userAssets || userAssets.length === 0) {
+          return;
+        }
         userAssets.map((data) => {
           if (data[Constants.EXCEL_SHEET_HEADERS[data.assetType]].units && ((data.assetType === 'Equity') ||
             (data.assetType === 'Mutual Funds') || (data.assetType === 'Gold'))) {
@@ -213,7 +216,7 @@ export class ExportAssetsComponent implements OnInit {
           type: 'application/octet-stream'
         });
 
-        saveAs(blob, 'test.xlsx');
+        saveAs(blob, 'assets.xlsx');
 
       });
   }
