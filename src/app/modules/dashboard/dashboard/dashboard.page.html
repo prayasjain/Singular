@@ -19,8 +19,11 @@
         <ion-col size="12">
           <div class="mob-head">
           <h3>
-            Top Portfoli Value
-            <span class="amount">$ 50000</span>
+            Top Portfolio Value
+            <span class="amount">{{assetsgroup.totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
+              currencyService.currency | async ), {style: 'currency', currency:
+              currencyService.currency | async, maximumFractionDigits: 0,
+              minimumFractionDigits: 0})}}</span>
           </h3>
         </div>
         </ion-col>

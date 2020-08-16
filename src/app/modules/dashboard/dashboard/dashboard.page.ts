@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { AssetsPage } from 'src/app/home/assets/assets.page';
 import { GoalsPage } from 'src/app/home/goals/goals.page';
+import { CurrencyService } from 'src/app/home/currency/currency.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ export class DashboardPage  implements OnInit {
   @ViewChild(AssetsPage, { static: true }) assetsgroup: AssetsPage;
   @ViewChild(GoalsPage, { static: true }) goalPage: GoalsPage;
 
-  constructor() { }
+  constructor(public currencyService: CurrencyService) { }
 
   ngOnInit() {
   }
