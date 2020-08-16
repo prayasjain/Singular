@@ -70,3 +70,17 @@ h3 {
 }
 }
 
+.radius4{border-radius: 4px;}
+.respisive-col{width: calc(100% / 5); padding:10px;float: left;
+p{margin: 0;line-height: 24px;
+span{font-weight:500;font-size:16px;margin: 0;}
+}
+img{margin-top:5px;}
+}
+
+
+@media (max-width:767px){
+  .right-container{padding-left: 0px;}
+  .respisive-col{width: calc(100% / 2);}
+  .mob-head{text-align: center;background: #4066EA;color:#fff;padding: 15px 10px;}
+}

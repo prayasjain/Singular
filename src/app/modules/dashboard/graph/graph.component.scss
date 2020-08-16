@@ -2,15 +2,26 @@
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.39);
     text-align: center;
     background: #fff;
-    border-radius: 30px;
-    padding: 10px 20px;
-    width: 390px;
+    border-radius: 28px;
+    width: 400px;
     margin: 0 auto;
+    overflow: hidden;
+    display:flex;
+    outline:none;
     button {
-      border-radius: 30px;
-      padding: 10px;
+      border-radius:28px; 
+      padding:12px 0px;
       color: black;
-      margin: 0 10px;
       background: #fff;
+      width:calc(100% / 4);
+      font-size:12px;
+      font-weight: 500;
+      flex: 1;
+      &:hover,&.active{background:#4066EA;color:#fff;}
+      &:focus{outline: none;}
     }
+
+  }
+  @media (max-width:640px){
+    .grapgBTN { width: 100%;}
   }
