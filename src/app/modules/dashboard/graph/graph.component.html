@@ -4,10 +4,10 @@
   <ion-row>
     <ion-col>
       <div class="grapgBTN ion-graph-btn">
-        <button (click)="dataByFilter(constants.FILTER_OPTIONS.YEARLY)" class="active">1 year</button>
-        <button (click)="dataByFilter(constants.FILTER_OPTIONS.SIX_MONTHS)">6 months </button>
-        <button (click)="dataByFilter(constants.FILTER_OPTIONS.ONE_MONTH)">1 month</button>
-        <button (click)="dataByFilter(constants.FILTER_OPTIONS.WEEKLY)">1 Week</button>
+        <button (click)="dataByFilter(constants.FILTER_OPTIONS.YEARLY)" [ngClass]="{'active': selectedGraphType === constants.FILTER_OPTIONS.YEARLY }"  class="active">1 year </button>
+        <button (click)="dataByFilter(constants.FILTER_OPTIONS.SIX_MONTHS)" [ngClass]="{'active': selectedGraphType === constants.FILTER_OPTIONS.SIX_MONTHS }">6 months </button>
+        <button (click)="dataByFilter(constants.FILTER_OPTIONS.ONE_MONTH)" [ngClass]="{'active': selectedGraphType === constants.FILTER_OPTIONS.ONE_MONTH }">1 month</button>
+        <button (click)="dataByFilter(constants.FILTER_OPTIONS.WEEKLY)" [ngClass]="{'active': selectedGraphType === constants.FILTER_OPTIONS.WEEKLY }">1 Week</button>
       </div>
     </ion-col>
     <ion-col size="12"></ion-col>

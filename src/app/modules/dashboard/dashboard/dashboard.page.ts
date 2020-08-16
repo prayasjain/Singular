@@ -17,4 +17,7 @@ export class DashboardPage  implements OnInit {
   ngOnInit() {
   }
 
+  getTotal(value: number) {
+    return `out of ${value}`;
+  }
 }

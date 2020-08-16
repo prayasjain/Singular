@@ -10,6 +10,7 @@ import { Constants } from 'src/app/config/constants';
 })
 export class GraphComponent implements OnInit {
   constants = Constants;
+  selectedGraphType;
   colorArray: any;
   canvas: any;
   ctx: any;
@@ -58,7 +59,10 @@ export class GraphComponent implements OnInit {
     });
   }
 
+  
+
   dataByFilter(type) {
+    this.selectedGraphType = type;
     this.createBarChart(Constants.GRAPH_FILTER_OPTIONS[type].labels, Constants.GRAPH_FILTER_OPTIONS[type].data);
    }
 }

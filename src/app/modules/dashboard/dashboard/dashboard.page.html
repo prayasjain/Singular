@@ -50,7 +50,11 @@
         <ion-col size-md="2" class="assetsSec" *ngFor="let goal of goalPage?.userGoals; let i = index">
           <div class="assetSet radius4">
             <p>
-              <span>{{goalPage?.goalCompletionMap.get(goal.id)}} out of {{goal.amountReqd}}</span>
+              <circle-progress [percent]="goalPage?.goalCompletionMap.get(goal.id)" [radius]="50" [outerStrokeWidth]="12" [innerStrokeWidth]="0"
+            [outerStrokeColor]="'#4066ea'" [animation]="true" [animationDuration]="700" [titleColor]="'#4066ea'"
+            [unitsColor]="'#4066ea'" [backgroundStrokeWidth]="12" [subtitle]="getTotal(goal.amountReqd)" [backgroundPadding]="-7"
+            [backgroundStroke]="'#2338835d'" [showBackground]="true" color="#4066ea"></circle-progress>
+              <!-- <span>{{goalPage?.goalCompletionMap.get(goal.id)}} out of {{goal.amountReqd}}</span> -->
             </p>
           </div>
         </ion-col>
