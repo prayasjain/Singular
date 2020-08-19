@@ -1,7 +1,7 @@
 <ion-list class="custom">
   <ion-item-sliding id="item{{title}}"  class="cards">
     <ion-item class="itemList" lines="none" slot="start" [routerLink]="[itemLink]">
-      <ion-icon color="primary" name="card"></ion-icon>
+      <img src="../../assets/icon/{{constants.ICON_TYPES[assetType]}}">
       <ion-label> <b> &nbsp; &nbsp; {{title}} </b> </ion-label>
       <p slot="end"> {{value?.toLocaleString(currencyService.getLocaleForCurrency(
       currencyService.currency | async ), {style: 'currency', currency:

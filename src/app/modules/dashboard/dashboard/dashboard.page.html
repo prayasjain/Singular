@@ -7,9 +7,7 @@
     <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
   </ion-fab>
 
-  <ion-title id="container" vertical="center">
-    Home
-  </ion-title>
+  
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -37,7 +35,7 @@
         <ion-col  class="assetsSec">
          <div class="respisive-col" *ngFor="let assetGroup of assetsgroup?.assetGroups; let i = index">
           <div class="assetSet radius4">
-            <p><img src="../../../../assets/icon/deposit.svg"></p>
+            <p><img src="../../../../assets/icon/{{constants.ICON_TYPES[assetGroup.assetType]}}"></p>
             <p>
               <span>{{assetGroup.assetType}}</span>
               $ {{assetGroup.amount}}
@@ -50,12 +48,12 @@
           <h3>Goals</h3>
         </ion-col>
 
-        <ion-col size-md="2" class="assetsSec" *ngFor="let goal of goalPage?.userGoals; let i = index">
-          <div class="assetSet radius4">
+        <ion-col> 
+          <div class="circularChart"  *ngFor="let goal of goalPage?.userGoals; let i = index">     
             <p>
-              <circle-progress [percent]="goalPage?.goalCompletionMap.get(goal.id)" [radius]="50" [outerStrokeWidth]="12" [innerStrokeWidth]="0"
+              <circle-progress [percent]="(goalPage?.goalCompletionMap.get(goal.id)/goal.amountReqd)*100" [radius]="50" [outerStrokeWidth]="10" [innerStrokeWidth]="0"
             [outerStrokeColor]="'#4066ea'" [animation]="true" [animationDuration]="700" [titleColor]="'#4066ea'"
-            [unitsColor]="'#4066ea'" [backgroundStrokeWidth]="12" [subtitle]="getTotal(goal.amountReqd)" [backgroundPadding]="-7"
+            [unitsColor]="'#4066ea'" [backgroundStrokeWidth]="8" [subtitle]="getTotal(goal.amountReqd)" [backgroundPadding]="-7"
             [backgroundStroke]="'#2338835d'" [showBackground]="true" color="#4066ea"></circle-progress>
               <!-- <span>{{goalPage?.goalCompletionMap.get(goal.id)}} out of {{goal.amountReqd}}</span> -->
             </p>
