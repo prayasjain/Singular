@@ -1,21 +1,7 @@
-.scrolling-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-}
-.card {
-  display: inline-block;
-}
 
-.pointer {
-  cursor: pointer;
-}
 .top-header {
-  background-color: transparent;
-  height: auto;
-  .title-default {
-    padding-top: 20px;
-  }
+  background-color: #4066ea;
+  height: 25vh;
 }
 
 .top-header p {
@@ -24,14 +10,6 @@
   left: 0;
   right: 0;
   top: 50%;
-}
-.hiddenCom {
-  position: fixed;
-  width: 0;
-  height: 0;
-  top: 0;
-  left: 0;
-  display: none;
 }
 
 #container {
@@ -43,19 +21,22 @@
   transform: translateY(-50%);
 }
 
-.assetsTitle {
-  color: aliceblue;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-.assetsData {
-  color: aliceblue;
+.title-select-cat {
+  color: aliceblue; 
   font-size: 1.3em;
+  margin-bottom:10px;
 }
 
-.assetsIcon {
-  font-size: 1.8em;
+.card {
+  display: inline-block;
+}
+.hiddenCom {
+  position: fixed;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  display: none;
 }
 
 .assetSet {
@@ -82,10 +63,10 @@ h3 {
 .radius4 {
   border-radius: 4px;
 }
-.respisive-col {
-  flex: 0 0 auto;
+.respisive-col-this {
   width: calc(100% / 5);
   padding: 10px;
+  float: left;
   p {
     margin: 0;
     line-height: 24px;
@@ -99,14 +80,7 @@ h3 {
     margin-top: 5px;
   }
 }
-.circularChart {
-  width: auto;
-  display: inline-block;
-  vertical-align: top;
-  p {
-    margin: 0;
-  }
-}
+
 
 .right-container {
   padding-bottom: 0 !important;
@@ -116,13 +90,8 @@ h3 {
   .right-container {
     padding-left: 0px;
   }
-  .respisive-col {
+  .respisive-col-this {
     width: calc(100% / 2);
   }
-  .mob-head {
-    text-align: center;
-    background: #4066ea;
-    color: #fff;
-    padding: 15px 10px;
-  }
 }
+

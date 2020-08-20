@@ -1,15 +1,15 @@
- <ion-header  class="top-header ion-no-border">
+<ion-header class="top-header ion-no-border">
   <ion-fab class="pointer" (click)="onClose()" horizontal="end" vertical="top">
     <ion-icon name="close" class="closeIcon"> </ion-icon>
   </ion-fab>
   <ion-title id="container" vertical="center">
-    <p>Add New asset </p>
+    <p>Add New {{ assetType }}</p>
   </ion-title>
 </ion-header>
 <ion-content class="ion-text-center ion-padding">
   <form (ngSubmit)="onSubmit()" #f="ngForm">
     <ion-grid>
-      <ion-row>
+      <!-- <ion-row>
         <ion-col>
           <ion-item>
             <ion-label position="floating">
@@ -22,7 +22,7 @@
             </ion-select>
           </ion-item>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
       <ion-row>
         <ion-col>
           <ion-item>
@@ -156,13 +156,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row
-        *ngIf="
-          assetType === AssetType.Gold ||
-          assetType === AssetType.PPF ||
-          assetType === AssetType.RealEstate
-        "
-      >
+      <ion-row *ngIf="assetType === AssetType.Gold || assetType === AssetType.PPF || assetType === AssetType.RealEstate">
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Buy Date </ion-label>
@@ -176,13 +170,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row
-        *ngIf="
-          assetType === AssetType.Gold ||
-          assetType === AssetType.PPF ||
-          assetType === AssetType.RealEstate
-        "
-      >
+      <ion-row *ngIf="assetType === AssetType.Gold || assetType === AssetType.PPF || assetType === AssetType.RealEstate">
         <ion-col>
           <ion-item>
             <ion-label position="floating"> Current value </ion-label>
@@ -190,11 +178,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row
-        *ngIf="
-          assetType === AssetType.Gold
-        "
-      >
+      <ion-row *ngIf="assetType === AssetType.Gold">
         <ion-col>
           <ion-item>
             <ion-label position="floating">Units (in grams)*</ion-label>
@@ -223,21 +207,41 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row
-      *ngIf="
-        assetType === AssetType.EPF
-      "
-    >
-      <ion-col>
-        <ion-item>
-          <ion-label position="floating">UAN Number</ion-label>
-          <ion-input type="text" [ngModel]="asset?.uanNumber" name="uanNumber"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row *ngIf="assetType === AssetType.EPF">
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">UAN Number</ion-label>
+            <ion-input type="text" [ngModel]="asset?.uanNumber" name="uanNumber"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
       <ion-row class="bottomButton">
         <ion-col>
-          <ion-button type="submit" class="buttonBlue" expand="block" [disabled]="f.invalid">Add Asset</ion-button>
+          <ion-button type="submit" class="buttonBlue" expand="block" [disabled]="f.invalid">Add {{ assetType }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row
+        class="ion-padding-top"
+        *ngIf="
+          assetType === AssetType.SavingsAccount || assetType === AssetType.Equity || assetType === AssetType.MutualFunds
+        "
+      >
+        <ion-col>
+          <ion-button
+            class="autoBtn"
+            expand="block"
+            (click)="
+              assetType === AssetType.SavingsAccount
+                ? autoUploadAsset(assetType)
+                : assetType === AssetType.Equity
+                ? nsdlFilePicker.click()
+                : camsFilePicker.click()
+            "
+          >
+            {{ getAutoUploadText(assetType) }}
+          </ion-button>
+          <input type="file" style="display: none;" #nsdlFilePicker (change)="onNSDLPicked($event)" />
+          <input type="file" style="display: none;" #camsFilePicker (change)="onCAMSPicked($event)" />
         </ion-col>
       </ion-row>
     </ion-grid>

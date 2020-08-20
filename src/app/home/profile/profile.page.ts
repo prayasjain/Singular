@@ -2,12 +2,10 @@ import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
 import { take } from "rxjs/operators";
-import { LoadingController, ActionSheetController, Platform } from "@ionic/angular";
-import { PdfService } from '../../pdf/pdf.service';
+import { ActionSheetController, Platform } from "@ionic/angular";
 import { CurrencyService } from '../currency/currency.service';
-import { Equity, MutualFunds } from '../assets/asset.model';
-import { SmsService } from 'src/app/sms/sms.service';
 import { ExportAssetsComponent } from 'src/app/export-assets/export-assets/export-assets.component';
+import { AssetsUtils } from '../assets/assets-utils';
 
 @Component({
   selector: "app-profile",
@@ -26,11 +24,9 @@ export class ProfilePage implements OnInit {
   constructor(
     private platform: Platform,
     private authService: AuthService,
-    private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
-    private pdfService: PdfService,
     public currencyService: CurrencyService,
-    private smsService: SmsService
+    private assetsUtils: AssetsUtils
   ) {
     this.loadData();
   }
@@ -53,26 +49,7 @@ export class ProfilePage implements OnInit {
   }
 
   readAccountFromSMS() {
-    this.loadingCtrl
-      .create({ message: "Updating your Savings Account" })
-      .then((loadingEl) => {
-        loadingEl.present();
-        this.smsService.convertSMSToAccount().then((savingsAccounts) => {
-          if (!savingsAccounts || savingsAccounts.length == 0) {
-            loadingEl.dismiss();
-            return;
-          }
-          this.smsService.saveSavingsAccounts(savingsAccounts).subscribe(
-            (data) => {
-              loadingEl.dismiss();
-            },
-            (err) => {
-              console.log(err);
-              loadingEl.dismiss();
-            }
-          );
-        });
-      });
+    this.assetsUtils.readAccountFromSMS();
   }
 
   async changeCurrency() {
@@ -119,70 +96,10 @@ export class ProfilePage implements OnInit {
   }
 
   onCAMSPicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    const reader = new FileReader();
-
-    this.loadingCtrl.create({ message: "Updating your Mutual Funds" }).then((loadingEl) => {
-      reader.onload = () => {
-        this.camsFilePicker.nativeElement.value = ""; //reset the input
-        this.pdfService
-          .readPdf(reader.result)
-          .then((data) => {
-            loadingEl.present();
-            let mutualFunds: MutualFunds[] = this.pdfService.parseCAMSStatement(data);
-            if (!mutualFunds || mutualFunds.length == 0) {
-              loadingEl.dismiss();
-              return;
-            }
-            this.pdfService.saveMutualFunds(mutualFunds).subscribe(
-              (data) => {
-                loadingEl.dismiss();
-              },
-              (err) => {
-                console.log(err);
-                loadingEl.dismiss();
-              }
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
-      reader.readAsArrayBuffer(file);
-    });
+    this.assetsUtils.onCAMSPicked(event, this.camsFilePicker);
   }
 
   onNSDLPicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    const reader = new FileReader();
-
-    this.loadingCtrl.create({ message: "Updating your Equities Funds" }).then((loadingEl) => {
-      reader.onload = () => {
-        this.nsdlFilepicker.nativeElement.value = ""; //reset the input
-        this.pdfService
-          .readPdf(reader.result)
-          .then((data) => {
-            loadingEl.present();
-            let equities: Equity[] = this.pdfService.parseNSDLStatement(data);
-            if (!equities || equities.length == 0) {
-              loadingEl.dismiss();
-              return;
-            }
-            this.pdfService.saveEquities(equities).subscribe(
-              (data) => {
-                loadingEl.dismiss();
-              },
-              (err) => {
-                console.log(err);
-                loadingEl.dismiss();
-              }
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
-      reader.readAsArrayBuffer(file);
-    });
+    this.assetsUtils.onNSDLPicked(event, this.nsdlFilepicker);
   }
 }

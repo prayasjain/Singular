@@ -1,3 +1,4 @@
+import { Others } from '../home/assets/asset.model';
 
 export class Constants {
 
@@ -72,7 +73,8 @@ export class Constants {
         Equity: 'funds.svg',
         Cash: 'cash.svg',
         EPF: 'funds.svg',
-        PPF: 'funds.svg'
+        PPF: 'funds.svg',
+        Others: 'funds.svg'
       };
 
 }
