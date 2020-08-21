@@ -22,8 +22,9 @@
     }
 
   }
-.chartheight{   
-  canvas{height: 400px !important; width: inherit !important;}
+.chartheight{ 
+  text-align: center;  
+  canvas{height: 350px !important; width: inherit !important;display: inline-block !important;}
 }
 
   @media (max-width:640px){

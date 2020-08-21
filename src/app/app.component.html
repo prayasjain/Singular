@@ -1,5 +1,5 @@
 <ion-app>
-  <!-- <ion-menu side="start" menuId="mainMenu">
+  <ion-menu class="mobile-menu" side="start" menuId="mainMenu">
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -65,10 +65,51 @@
       </ion-menu-toggle>
       </ion-list>
     </ion-content>
-  </ion-menu> -->
+  </ion-menu>
+
+  <div class="webnav web-menu">
+    <div class="navhead text-center">
+      <h3>Singular</h3>
+      <figure>
+        <span class="userpic">
+          <img [src]="user?.photoURL" /></span>
+        <figcaption>Casper herman</figcaption>
+      </figure>
+
+    </div>
+    <div class="navdiv">
+      <ul>
+        <li><a routerLinkActive="active" routerLink="/home/tabs/dashboard" href="#">
+            <ion-icon name="home"></ion-icon> Home
+          </a></li>
+        <li><a routerLinkActive="active" routerLink="/home/tabs/assets">
+            <ion-icon name="card"></ion-icon> Assets
+          </a></li>
+        <li><a routerLinkActive="active" routerLink="/home/tabs/goals">
+            <ion-icon name="trophy"></ion-icon> Goals
+          </a></li>
+        <li><a (click)="camsFilePicker.click()">
+            <ion-icon name="document"></ion-icon> Upload CASM
+          </a></li>
+        <li><a (click)="nsdlFilePicker.click()">
+            <ion-icon name="document"></ion-icon> Upload NSDL
+          </a></li>
+        <li><a (click)="exportAssets()">
+            <ion-icon name="download-outline"></ion-icon> Export
+          </a></li>
+        <li><a (click)="onLogout()">
+            <ion-icon name="none"></ion-icon> Logout
+          </a></li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
   <ion-router-outlet main></ion-router-outlet>
   <app-export-assets></app-export-assets>
-  <input type="file" #nsdlFilePicker (change)="onNSDLPicked($event)"> 
-  <input type="file" #camsFilePicker (change)="onCAMSPicked($event)"> 
+  <input type="file" #nsdlFilePicker (change)="onNSDLPicked($event)">
+  <input type="file" #camsFilePicker (change)="onCAMSPicked($event)">
   <!-- <input type="file" #filePicker (change)="onCAMSPicked($event)" accept=".pdf"> doesnt work with ionic -->
 </ion-app>
