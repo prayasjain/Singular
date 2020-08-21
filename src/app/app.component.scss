@@ -22,8 +22,6 @@ ul{padding:0;margin:0;list-style-type: none;display: flex; flex-direction: colum
  
 
 }
-.mobile-menu {display: none;}
 @media (max-width:767px){
   .web-menu{display: none;}
-  .mobile-menu {display: block;}
 }
