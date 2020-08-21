@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu class="mobile-menu" side="start" menuId="mainMenu">
+  <!-- <ion-menu class="mobile-menu" side="start" menuId="mainMenu">
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -25,6 +25,12 @@
         <ion-item lines="none" routerLink="/home/tabs/assets">
           <ion-icon name="business" slot="start"></ion-icon>
           <ion-label>My Assets</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle menu="mainMenu">
+        <ion-item lines="none" routerLink="/home/tabs/goals">
+          <ion-icon name="trophy" slot="start"></ion-icon>
+          <ion-label>Goals</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle menu="mainMenu">
@@ -65,7 +71,7 @@
       </ion-menu-toggle>
       </ion-list>
     </ion-content>
-  </ion-menu>
+  </ion-menu> -->
 
   <div class="webnav web-menu">
     <div class="navhead text-center">
@@ -73,7 +79,7 @@
       <figure>
         <span class="userpic">
           <img [src]="user?.photoURL" /></span>
-        <figcaption>Casper herman</figcaption>
+        <figcaption>{{user?.displayName}}</figcaption>
       </figure>
 
     </div>
