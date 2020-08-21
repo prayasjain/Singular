@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import {
   AssetType,
   Asset,
@@ -17,6 +17,7 @@ import { NgForm } from "@angular/forms";
 import { ModalController } from "@ionic/angular";
 import { MarketDataService, PriceData, AutoCompleteData } from "../../assets/market-data.service";
 import { SearchPopoverComponent } from "./search-popover/search-popover.component";
+import { AssetsUtils } from '../../assets/assets-utils';
 @Component({
   selector: "app-add-new-asset-modal",
   templateUrl: "./add-new-asset-modal.component.html",
@@ -36,7 +37,10 @@ export class AddNewAssetModalComponent implements OnInit {
 
   isNameFocus: boolean = false;
 
-  constructor(private modalCtrl: ModalController, public marketDataService: MarketDataService) {}
+  @ViewChild("camsFilePicker", { static: false }) camsFilePicker: ElementRef;
+  @ViewChild("nsdlFilePicker", { static: false }) nsdlFilepicker: ElementRef;
+
+  constructor(private modalCtrl: ModalController, public marketDataService: MarketDataService, private assetsUtils: AssetsUtils) {}
 
   ngOnInit() {}
 
@@ -48,7 +52,7 @@ export class AddNewAssetModalComponent implements OnInit {
       this.modalCtrl.dismiss(null, "cancel");
       return;
     }
-    let assetType: AssetType = this.form.value["asset-type"];
+    let assetType: AssetType = this.assetType//this.form.value["asset-type"];
     let asset: Asset;
     let percentUnAlloc: number = this.asset ? this.asset.percentUnallocated : 1;
     let assetId: string = this.asset ? this.asset.id : Math.random().toString();
@@ -280,6 +284,32 @@ export class AddNewAssetModalComponent implements OnInit {
     if (assetType == AssetType.MutualFunds) {
       return data.mutualfund.mstarId;
     }
+  }
+
+  getAutoUploadText(assetType: AssetType) {
+    if (assetType === AssetType.SavingsAccount) {
+      return "Read my SMS"
+    }
+    if (assetType === AssetType.Equity) {
+      return "Upload NSDL Statement"
+    }
+    if (assetType === AssetType.MutualFunds) {
+      return "Upload CAS/CAMS Statement"
+    }
+  }
+
+  autoUploadAsset(assetType: AssetType) {
+    if (assetType === AssetType.SavingsAccount) {
+      this.assetsUtils.readAccountFromSMS();
+    }
+  }
+
+  onCAMSPicked(event: Event) {
+    this.assetsUtils.onCAMSPicked(event, this.camsFilePicker);
+  }
+
+  onNSDLPicked(event: Event) {
+    this.assetsUtils.onNSDLPicked(event, this.nsdlFilepicker);
   }
 
   onClose() {

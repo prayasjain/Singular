@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'asset-item/:itemId',
     loadChildren: () => import('./asset-item-page/asset-item-page.module').then(m => m.AssetItemPagePageModule)
+  },
+  {
+    path: 'select-asset',
+    loadChildren: () => import('./select-asset/select-asset.module').then( m => m.SelectAssetPageModule)
   }
 ];
 

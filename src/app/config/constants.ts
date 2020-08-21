@@ -1,3 +1,4 @@
+import { Others } from '../home/assets/asset.model';
 
 export class Constants {
 

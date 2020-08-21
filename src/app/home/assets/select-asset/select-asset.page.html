@@ -1,0 +1,34 @@
+<ion-header class="top-header">
+  <ion-buttons horizontal="start" vertical="top">
+    <ion-menu-button class="white" menu="mainMenu"></ion-menu-button>
+  </ion-buttons>
+  <ion-title id="container" vertical="center">
+    <p class="title-select-cat"> Select Category </p>
+  </ion-title>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <div class="right-container">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <div
+                class="respisive-col-this"
+                *ngFor="let assetType of assetTypeKeys; let i = index"
+                (click)="addAsset(assetTypes[assetType])"
+              >
+                <div class="assetSet radius4">
+                  <p><img src="../../../../assets/icon/{{constants.ICON_TYPES[assetTypes[assetType]]}}" /></p>
+                  <p>
+                    <span>{{assetTypes[assetType]}}</span>
+                  </p>
+                </div>
+              </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-grid>
+  <app-add-new style="display: none;" [addType]="addType" [assetType]="selectedAssetType" #addNewBtn></app-add-new>
+</ion-content>

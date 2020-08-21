@@ -33,6 +33,14 @@ export class AddNewComponent implements OnInit {
 
   ngOnInit() {}
 
+  startAddItem() {
+    if (this.addType === AddType.Asset) {
+      this.router.navigateByUrl('/home/tabs/assets/select-asset'); // this ultimately calls clickitem too!
+    } else {
+      this.clickItem();
+    }
+  }
+
   clickItem() {
     this.date = new Date();
     this.saveData().then(() => {});
