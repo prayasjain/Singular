@@ -54,6 +54,7 @@ box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.39);
 text-align: center;
 padding: 10px;
 background: #fff;
+min-height:105px;max-height: 105px;
 p {
   font-size: 14px;
   span {
@@ -71,7 +72,7 @@ h3 {
 }
 
 .radius4{border-radius: 4px;}
-.respisive-col{width: calc(100% / 5); padding:10px;float: left;
+.respisive-col{width: calc(100% / 6); padding:10px;float: left;
 p{margin: 0;line-height: 24px;
 span{font-weight:500;font-size:16px;margin: 0;}
 }
@@ -80,6 +81,7 @@ img{margin-top:5px;}
 .circularChart{ width: auto; display: inline-block; vertical-align: top;
 p{margin:0;}
 }
+.respisive-col img{max-height:22px;}
 
 .right-container{padding-bottom:0 !important;}
 

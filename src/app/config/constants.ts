@@ -65,14 +65,15 @@ export class Constants {
 
     public static readonly ICON_TYPES = {
         'Mutual Funds': 'funds.svg',
-        'Savings Account': 'funds.svg',
+        'Savings Account': 'savings.svg',
         Deposits: 'deposit.svg',
-        Gold : 'funds.svg',
+        Gold : 'gold.svg',
         'Real Estate': 'esate.svg',
-        Equity: 'funds.svg',
+        Equity: 'equity.svg',
         Cash: 'cash.svg',
-        EPF: 'funds.svg',
-        PPF: 'funds.svg'
+        EPF: 'EPF.svg',
+        PPF: 'PPF.svg',
+        Others: 'others.svg'
       };
 
 }

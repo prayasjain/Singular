@@ -33,8 +33,8 @@ export class GraphComponent implements OnInit {
         labels: labels || this.constants.GRAPH_FILTER_OPTIONS.YEARLY.labels,
         datasets: [{
           data: data || this.constants.GRAPH_FILTER_OPTIONS.YEARLY.data,
-          backgroundColor: 'rgba(240, 240, 240, 1)', // array should have same number of elements as number of dataset
-          borderColor: 'rgba(240, 194, 129, 1)', // array should have same number of elements as number of dataset
+          backgroundColor: 'rgb(204 214 249)', // array should have same number of elements as number of dataset
+          borderColor: 'rgb(197 210 254)', // array should have same number of elements as number of dataset
         }]
       },
       options: { 
