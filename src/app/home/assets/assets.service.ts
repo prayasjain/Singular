@@ -24,7 +24,9 @@ import { MarketDataService } from "./market-data.service";
 })
 export class AssetsService {
   private _userAssets = new BehaviorSubject<Asset[]>([]);
+  private _assetHistory = new BehaviorSubject<any[]>([]);
   private initializedAssets: boolean = false;
+  private initializedAssetHistory: boolean = false;
   constructor(private http: HttpClient, private authService: AuthService, private marketDataService: MarketDataService) {}
 
   get userAssets(): Observable<Asset[]> {
@@ -36,6 +38,17 @@ export class AssetsService {
         });
     }
     return this._userAssets.asObservable();
+  }
+
+  get assetHistory() {
+    if (!this.initializedAssetHistory) {
+      this.fetchAssetHistory()
+        .pipe(take(1))
+        .subscribe(() => {
+          this.initializedAssetHistory = true;
+        });
+    }
+    return this._assetHistory.asObservable();
   }
 
   fetchUserAssets() {
@@ -107,9 +120,104 @@ export class AssetsService {
         this._userAssets.next(assets);
         return assets;
       }),
-      switchMap((assets) => this.updateAssetsPrice(assets)),
+      // this is commented out because our price is updated hourly
+      // directly at backend
+      //switchMap((assets) => this.updateAssetsPrice(assets)),
       tap((assets) => {
         this._userAssets.next(assets);
+      })
+    );
+  }
+
+  fetchAssetHistory() {
+    let auth;
+    return this.authService.authInfo.pipe(
+      take(1),
+      switchMap((authInfo) => {
+        auth = authInfo;
+        return authInfo.getIdToken();
+      }),
+      take(1),
+      switchMap((token) => {
+        return this.http.get(`https://moneyapp-63c7a.firebaseio.com/${auth.uid}-history.json?auth=${token}`);
+      }),
+      map((resData) => {
+        const history = [];
+        for (const date in resData) {
+          if (resData.hasOwnProperty(date)) {
+            let data = resData[date] as any;
+            const assetIdAndNav = [];
+            for (const assetId in data) {
+              if (data.hasOwnProperty(assetId)) {
+                assetIdAndNav.push({
+                  assetId: assetId,
+                  nav: data[assetId],
+                });
+              }
+            }
+            history.push({
+              date: new Date(date),
+              assets: assetIdAndNav,
+            });
+          }
+        }
+        return history;
+      }),
+      tap((history) => {
+        this._assetHistory.next(history);
+      })
+    );
+  }
+
+  getAssetHistory(filterType: string, assetType: AssetType, assetId: string) {
+    const assetToTypeMap = new Map<string, AssetType>();
+    return this.userAssets.pipe(
+      switchMap((assets) => {
+        if (!assets || assets.length === 0) {
+          return of([]);
+        }
+        assets.forEach((asset) => {
+          assetToTypeMap.set(asset.id, asset.assetType);
+        });
+        return this.assetHistory;
+      }),
+      map((assetHistory) => {
+        let output = [];
+        if (filterType === "all") {
+          assetHistory.forEach((history) => {
+            if (history.assets.length > 0) {
+              let totalNav: number = 0;
+              history.assets.forEach((asset) => (totalNav += Number(asset.nav)));
+              output.push({
+                date: history.date,
+                nav: totalNav,
+              });
+            }
+          });
+        } else if (filterType === "assetType") {
+          assetHistory.forEach((history) => {
+            let assetsForType = history.assets.filter((asset) => assetToTypeMap.get(asset.assetId) === assetType);
+            if (assetsForType.length > 0) {
+              let totalNav: number = 0;
+              assetsForType.forEach((asset) => (totalNav += Number(asset.nav)));
+              output.push({
+                date: history.date,
+                nav: totalNav,
+              });
+            }
+          });
+        } else if (filterType === "assetId") {
+          assetHistory.forEach((history) => {
+            let assetsForId = history.assets.find((asset) => asset.assetId === assetId);
+            if (assetsForId) {
+              output.push({
+                date: history.date,
+                nav: Number(assetsForId.nav),
+              });
+            }
+          });
+        }
+        return output;
       })
     );
   }

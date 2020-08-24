@@ -44,6 +44,10 @@ export class AssetsPage implements OnInit, OnDestroy {
         take(1),
         switchMap((user) => {
           this.user = user;
+          //todo remove
+          return this.assetsService.getAssetHistory('assetId', null, '-MFD5ZZgSoJeTDm0B_No');
+        }),
+        switchMap((history) => {
           return this.assetsService.userAssets;
         }),
         switchMap((userAssets) => {

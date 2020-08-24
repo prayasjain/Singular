@@ -20,7 +20,7 @@ admin.initializeApp({
 });
 
 exports.scheduledFunctionCrontab = functions.pubsub
-  .schedule("48 09 * * *")
+  .schedule("54 17 * * *")
   .timeZone("America/New_York") // Users can choose timezone - default is America/Los_Angeles
   .onRun((context) => {
     var db = admin.database();
@@ -82,11 +82,12 @@ exports.scheduledFunctionCrontab = functions.pubsub
           if ("gold" in assetValue) {
             assetCurrentValue = Number(assetValue["gold"]["currentValue"]) * Number(assetValue["gold"]["units"]);
           }
-          if ("ppf" in assetValue) {
-            assetCurrentValue = Number(assetValue["ppf"]["price"]);
+          if ("pPf" in assetValue) {
+            assetCurrentValue = Number(assetValue["pPf"]["currentValue"]);
           }
-          if ("epf" in assetValue) {
-            assetCurrentValue = Number(assetValue["epf"]["price"]);
+          if ("ePF" in assetValue) {
+
+            assetCurrentValue = Number(assetValue["ePF"]["price"]);
           }
           if ("realEstate" in assetValue) {
             assetCurrentValue = Number(assetValue["realEstate"]["currentValue"]);
@@ -172,6 +173,7 @@ exports.scheduledCalculateCurrentValCronTab = functions.pubsub
     }
   });
 
+// eslint-disable-next-line consistent-return
 async function updateRecord(getDataPromise, ref, childPath, key) {
   let resData = await getDataPromise;
   if (resData && resData.body && resData.body.data) {
