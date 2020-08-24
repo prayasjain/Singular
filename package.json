@@ -36,6 +36,7 @@
     "cordova-sms-reader": "0.0.3",
     "file-saver": "^2.0.2",
     "firebase": "^7.15.0",
+    "firebase-tools": "^8.9.0",
     "firebaseui": "^4.5.1",
     "moment": "^2.27.0",
     "ng-circle-progress": "^1.5.1",

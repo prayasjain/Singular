@@ -42,7 +42,7 @@
                 <p><img src="../../../../assets/icon/{{constants.ICON_TYPES[assetGroup.assetType]}}" /></p>
                 <p>
                   <span>{{assetGroup.assetType}}</span>
-                  {{assetsgroup.totalAmount?.toLocaleString(currencyService.getLocaleForCurrency( currencyService.currency |
+                  {{assetGroup.amount?.toLocaleString(currencyService.getLocaleForCurrency( currencyService.currency |
                   async ), {style: 'currency', currency: currencyService.currency | async, maximumFractionDigits: 0,
                   minimumFractionDigits: 0})}}
                 </p>
