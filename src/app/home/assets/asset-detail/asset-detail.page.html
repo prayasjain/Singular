@@ -1,12 +1,13 @@
 <ion-header class="top-header">
-  <ion-buttons>
+  <!-- <ion-buttons>
     <ion-back-button class="white" defaultHref="/home/tabs/assets"></ion-back-button>
-  </ion-buttons>
+  </ion-buttons> -->
   <!-- <ion-fab class="pointer white" horizontal="end" vertical="top">
     <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
   </ion-fab> -->
-  <ion-title id="container" vertical="center">
-    <p class="assetsTitle"> Total Funds Value </p>
+  <ion-title  vertical="center">
+    <div><button ion-button><ion-icon name="arrow-back"></ion-icon></button></div>
+    <p class="assetsTitle">  Total Funds Value </p>
     <p class="assetsData">
       {{totalAmountForType?.toLocaleString(currencyService.getLocaleForCurrency(
         currencyService.currency | async ), {style: 'currency', currency:
@@ -35,7 +36,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid class="grid-space-to">
     <ion-row class="ion-no-padding" *ngFor="let userAsset of userAssetsForType">
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
         <app-assets-item-details

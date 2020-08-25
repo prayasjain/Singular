@@ -1,8 +1,8 @@
 <ion-header class="top-header">
-  <ion-buttons horizontal="start" vertical="top">
-    <!-- <ion-menu-button  menu="mainMenu"></ion-menu-button> -->
+  <!-- <ion-buttons horizontal="start" vertical="top">
+  <ion-menu-button  menu="mainMenu"></ion-menu-button> 
     <ion-back-button color="light" defaultHref="/home/tabs/assets"></ion-back-button>
-  </ion-buttons>
+  </ion-buttons> -->
 
   <ion-fab style="top: 0px;" horizontal="end" vertical="top">
     <ion-button class="ion-no-border btn-opt" color="#ffffffff" [matMenuTriggerFor]="belowMenu">
@@ -10,6 +10,7 @@
     </ion-button>
   </ion-fab>
   <ion-title id="container" vertical="center">
+      <div><button ion-button><ion-icon name="arrow-back"></ion-icon></button></div>
     <p class="assetsTitle"> Total Funds Value</p>
     <p class="assetsData">
       {{assetValue?.toLocaleString(currencyService.getLocaleForCurrency(
@@ -40,9 +41,7 @@
     </ion-row> -->
     <ion-row class="ion-no-padding">
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">
-        <h3 style="text-align: center;">
-          {{asset?.assetTitle}}
-        </h3>
+        <h3 class="heading3">{{asset?.assetTitle}}</h3>
         <!-- <p>as on {{currentDate.toDateString()}}</p> -->
       </ion-col>
     </ion-row>

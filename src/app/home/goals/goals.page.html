@@ -9,13 +9,15 @@
   </ion-fab> -->
 
   <ion-title id="container" vertical="center">
-    <p style="color: aliceblue; font-size:12px; margin-bottom:10px;"> Total Goals Value </p>
-    <p style="color: aliceblue; font-size: 1.3em;"> 
+    <p class="assetsTitle"> Total Goals Value </p>
+    <p class="assetsData"> 
       {{allocatedAmount?.toLocaleString(currencyService.getLocaleForCurrency(
         currencyService.currency | async ), {style: 'currency', currency:
         currencyService.currency | async, maximumFractionDigits: 0,
-        minimumFractionDigits: 0})}}
-     </p>
+        minimumFractionDigits: 0})}}</p>
+        <div class="assesstpageTitle">Goals Details 
+          <!-- <button  class="button-ios" ion-button> <ion-icon name="add"></ion-icon> Add Asset</button> -->
+        </div>
   </ion-title>
 </ion-header>
 
@@ -30,7 +32,7 @@
   </ion-grid>
   <ion-grid class="customMarginList" *ngIf="!isLoading">
     <ion-row class="ion-no-padding" *ngFor="let goal of userGoals">
-      <ion-col  class="ion-no-padding customMargin" size-md="6" offset-md="3">
+      <ion-col  class="ion-no-padding customMargin" size-md="5" offset-md="3">
         <app-goal
         [amtRqd] = "goal.amountReqd"
         [id]="goal.id" 

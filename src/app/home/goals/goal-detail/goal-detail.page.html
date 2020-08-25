@@ -23,6 +23,14 @@
       <ion-icon color="dark" slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
     </ion-button>
   </ion-fab>
+ <ion-title id="container" vertical="center">
+      <p class="assetsTitle"> {{goal?.name}} </p>
+    <p class="assetsData"> {{(goal?.amountReqd*finishPerc)?.toLocaleString(currencyService.getLocaleForCurrency(
+      currencyService.currency | async ), {style: 'currency', currency:
+      currencyService.currency | async, maximumFractionDigits: 0,
+      minimumFractionDigits: 0})}}</p>
+  </ion-title>
+
 </ion-header>
 
 <mat-menu #belowMenu="matMenu" yPosition="below">
@@ -41,7 +49,7 @@
     <div class="cardSlot">
       <ion-row class="ion-no-padding">
         <ion-col class="ion-text-center" size-md="6" offset-md="3">
-          <span>
+          <!-- <span>
             <h3>{{goal?.name}}</h3>
             <br>
             <b>
@@ -54,22 +62,40 @@
           currencyService.currency | async ), {style: 'currency', currency:
           currencyService.currency | async, maximumFractionDigits: 0,
           minimumFractionDigits: 0})}}
-          </span>
+          </span> -->
         </ion-col>
       </ion-row>
       <ion-row class="ion-no-padding">
         <ion-col class="ion-text-center" size-md="6" offset-md="3">
-          <circle-progress [percent]="finishPerc * 100" [radius]="50" [outerStrokeWidth]="12" [innerStrokeWidth]="0"
-            [outerStrokeColor]="'#4066ea'" [animation]="true" [animationDuration]="700" [titleColor]="'#4066ea'"
-            [unitsColor]="'#4066ea'" [backgroundStrokeWidth]="12" [showSubtitle]="false" [backgroundPadding]="-7"
-            [backgroundStroke]="'#2338835d'" [showBackground]="true" color="#4066ea"></circle-progress>
+          <div class="grapcontaner">
+            <div class="graphinfo">
+              <div class="value">
+                {{(goal?.amountReqd*finishPerc)?.toLocaleString(currencyService.getLocaleForCurrency(
+            currencyService.currency | async ), {style: 'currency', currency:
+            currencyService.currency | async, maximumFractionDigits: 0,
+            minimumFractionDigits: 0})}}
+                </div>
+              <div class="outof">Out of</div> 
+                <div class="value">{{goal?.amountReqd?.toLocaleString(currencyService.getLocaleForCurrency(
+            currencyService.currency | async ), {style: 'currency', currency:
+            currencyService.currency | async, maximumFractionDigits: 0,
+            minimumFractionDigits: 0})}}</div>
+
+            </div>
+
+            <circle-progress [percent]="finishPerc * 100" [radius]="130" [outerStrokeWidth]="15" [innerStrokeWidth]="0"
+            [outerStrokeColor]="'#4066ea'" [animation]="true" [animationDuration]="700" [titleColor]="'#fff'"
+            [unitsColor]="'#fff'" [backgroundStrokeWidth]="15" [showSubtitle]="false" [backgroundPadding]="-7"
+            [backgroundStroke]="'#2338835d'" [showBackground]="true" color="#fff"></circle-progress>
+          </div>
+          
         </ion-col>
       </ion-row>
     </div>
     <br> <br>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
-        <b>&nbsp; Assets Allocation</b>
+        <b>Assets Allocation</b>
       </ion-col>
     </ion-row>
 
