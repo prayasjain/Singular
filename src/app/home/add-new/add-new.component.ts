@@ -21,6 +21,8 @@ export class AddNewComponent implements OnInit {
   @Input() assetType: AssetType;
   @Input() addType: AddType;
 
+  AddType = AddType;
+
   date: Date;
 
   constructor(
