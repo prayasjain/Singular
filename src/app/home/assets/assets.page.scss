@@ -2,38 +2,38 @@
   cursor: pointer;
 }
 .top-header {
-  background-color: #4066ea;
-  height: 25vh;
+  background-color: #fff; height: 25vh; display: flex; flex-direction: column; justify-content: center;
+  left: 24%;
+  width: calc(100% - 24%);
+//  align-items: center;  p {text-align: center; position: absolute; left: 0; right: 0;  top: 50%;}
+&::after{background-image: none; background: #dddddd; height: 1px;}
+p{margin: 0;}
+.assetsTitle { color:#272727;   font-size:1.4rem; margin-bottom:10px;font-weight: 600;}
+.assetsData {  color: #272727;  font-size: 1.4rem;font-weight: 300;}
+.assesstpageTitle{color:#CBCBCB;font-size: 1.2rem; margin-top:2rem;
+// .button-ios {  border-radius: 4px;  font-size: 1rem;  color: #fff;  background-color: #4066EA;
+//   padding:.7em;float:right;}
+}
+button{margin-right: 1rem; margin-bottom:1rem; background:none;font-size: 1.3rem;padding: 0;}
 }
 
-.top-header p {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-}
+// #container {
+//   text-align: center;
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   top: 30%;
+//   transform: translateY(-50%);
+// }
 
-#container {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 30%;
-  transform: translateY(-50%);
-}
+.assetsIcon {font-size: 1.8em;}
+.grid-top-space{margin-top:1.5rem;}
 
-.assetsTitle {
-  color: aliceblue; 
-  font-size:12px; 
-  margin-bottom:10px;
-}
-
-.assetsData {
-  color: aliceblue; 
-  font-size: 1.3em;
-}
-
-.assetsIcon {
-  font-size: 1.8em;
+@media (max-width:767px){
+  .top-header { background-color: #4066ea;left: 0;  width: 100%; color:#fff;
+  .assetsTitle{color:#fff;}
+  .assetsData{color:#fff;}
+  .assesstpageTitle{display: none;}
+  button{color:#fff;}
+  }
 }

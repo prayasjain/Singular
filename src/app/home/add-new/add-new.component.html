@@ -3,3 +3,6 @@
     <ion-icon class="add"  color="tertiary"  name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>
+
+<button *ngIf="router.url === '/home/tabs/assets'" (click)="startAddItem();" class="button-ios" ion-button> <ion-icon name="add"></ion-icon> Add Asset</button>
+<button *ngIf="router.url === '/home/tabs/goals'" (click)="startAddItem();" class="button-ios" ion-button> <ion-icon name="add"></ion-icon> Add Goal</button>

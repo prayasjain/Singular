@@ -1,4 +1,4 @@
-<ion-header class="top-header" style="background-color: #fff;">
+<ion-header class="top-header">
   <ion-buttons horizontal="start" vertical="top">
     <ion-menu-button class="black" menu="mainMenu"></ion-menu-button>
   </ion-buttons>
@@ -6,6 +6,13 @@
   <!-- <ion-fab class="pointer black" horizontal="end" vertical="top">
     <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
   </ion-fab> -->
+  <ion-title id="container" vertical="center">
+    <p class="assetsTitle"> Total Networth </p>
+    <p class="assetsData"> {{assetsgroup.totalAmount?.toLocaleString(currencyService.getLocaleForCurrency( currencyService.currency |
+      async ), {style: 'currency', currency: currencyService.currency | async, maximumFractionDigits: 0,
+      minimumFractionDigits: 0})}}</p>
+
+  </ion-title>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -13,7 +20,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12">
-          <div class="mob-head">
+          <!-- <div class="mob-head">
             <h3>
               Total Networth
               <span class="amount"
@@ -22,7 +29,7 @@
                 minimumFractionDigits: 0})}}</span
               >
             </h3>
-          </div>
+          </div> -->
         </ion-col>
         <ion-col class="ion-graph">
           <app-graph></app-graph>

@@ -6,18 +6,24 @@
     <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
   </ion-fab> -->
   <ion-title id="container" vertical="center">
+    <div><button ion-button><ion-icon name="arrow-back"></ion-icon></button></div>
     <p class="assetsTitle"> Total Networth </p>
     <p class="assetsData"> {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
     currencyService.currency | async ), {style: 'currency', currency:
     currencyService.currency | async, maximumFractionDigits: 0,
     minimumFractionDigits: 0})}}</p>
+
+    <div class="assesstpageTitle">Assests Details 
+      <!-- <button  class="button-ios" ion-button> <ion-icon name="add"></ion-icon> Add Asset</button> -->
+    </div>
   </ion-title>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
+  <ion-grid class="grid-top-space">
+  
     <ion-row *ngFor="let assetGroup of assetGroups; let i = index">
-      <ion-col size-md="6" offset-md="3">
+      <ion-col size-md="5" offset-md="3">
         <app-asset [title]="assetGroup.assetType" [value]="assetGroup.amount" [assetType]="assetGroup.assetType"
           [itemLink]="'/home/tabs/assets/asset-detail/' + getSlug(assetGroup.assetType)"></app-asset>
       </ion-col>

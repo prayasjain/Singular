@@ -36,7 +36,6 @@ export class AssetsUtils {
     this.loadingCtrl.create({ message: "Deleting your Assets..." }).then((loadingEl) => {
       loadingEl.present();
       zip(...assetIds.map((assetId) => this.deleteAssetObservable(assetId))).subscribe(() => {
-        console.log("coming here??");
         loadingEl.dismiss();
         //this.router.navigateByUrl("/home/tabs/assets");
       });

@@ -2,15 +2,19 @@
   <ion-buttons horizontal="start" vertical="top">
     <ion-menu-button class="white" menu="mainMenu"></ion-menu-button>
   </ion-buttons>
-  <ion-title id="container" vertical="center">
-    <p class="title-select-cat"> Select Category </p>
+ 
+    
+  <ion-title  vertical="center">
+    <div><button routerLink="/home/tabs/assets" ion-button><ion-icon name="arrow-back"></ion-icon></button></div>
+    <p class="assetsTitle"> Select Category </p>
+    <!-- <p class="title-select-cat"> Select Category </p> -->
   </ion-title>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-grid>
     <div class="right-container">
-      <ion-grid>
+      <ion-grid class="grid-top-space">
         <ion-row>
           <ion-col>
               <div
@@ -31,4 +35,4 @@
     </div>
   </ion-grid>
   <app-add-new style="display: none;" [addType]="addType" [assetType]="selectedAssetType" #addNewBtn></app-add-new>
-</ion-content>
+</ion-content> 
