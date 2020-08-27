@@ -29,7 +29,7 @@ export class AddNewComponent implements OnInit {
     private modalCtrl: ModalController,
     private assetsService: AssetsService,
     private goalsService: GoalsService,
-    private router: Router,
+    public router: Router,
     private loadingCtrl: LoadingController
   ) {}
 

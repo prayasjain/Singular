@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import * as moment from 'moment';
+
 import {
   Asset,
   AssetType,
@@ -18,6 +20,7 @@ import { take, tap, map, switchMap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from "src/app/auth/auth.service";
 import { MarketDataService } from "./market-data.service";
+import { Constants } from 'src/app/config/constants';
 
 @Injectable({
   providedIn: "root",
@@ -27,7 +30,7 @@ export class AssetsService {
   private _assetHistory = new BehaviorSubject<any[]>([]);
   private initializedAssets: boolean = false;
   private initializedAssetHistory: boolean = false;
-  constructor(private http: HttpClient, private authService: AuthService, private marketDataService: MarketDataService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private marketDataService: MarketDataService) { }
 
   get userAssets(): Observable<Asset[]> {
     if (!this.initializedAssets) {
@@ -169,7 +172,32 @@ export class AssetsService {
     );
   }
 
-  getAssetHistory(filterType: string, assetType: AssetType, assetId: string) {
+  calculateValuesByFilter(history, graphData) {
+    let totalNav = 0;
+    history.assets.forEach((asset) => (totalNav += Number(asset.nav)));
+    graphData.data.push(totalNav);
+    graphData.labels.push(`${new Date(history.date).getDate()} ${Constants.MONTHS[new Date(history.date).getMonth()]}`);
+    return graphData;
+  }
+
+  getDataByFilter(history, filterBy, graphData) {
+    if (filterBy === Constants.FILTER_OPTIONS.YEARLY) {
+      graphData = this.calculateValuesByFilter(history, graphData);
+    } else if (filterBy === Constants.FILTER_OPTIONS.ONE_MONTH) {
+      if (new Date().getMonth() === new Date(history.date).getMonth()) {
+        graphData = this.calculateValuesByFilter(history, graphData);
+      }
+    } else if (filterBy === Constants.FILTER_OPTIONS.SIX_MONTHS &&
+      (Number(moment().subtract(6, 'months').format('M')) < new Date(history.date).getMonth())) {
+      graphData = this.calculateValuesByFilter(history, graphData);
+    } else if (filterBy === Constants.FILTER_OPTIONS.WEEKLY &&
+      (moment().startOf('week')) >= moment(history.date) && moment(history.date) <= moment().endOf('week')) {
+      graphData = this.calculateValuesByFilter(history, graphData);
+    }
+    return graphData;
+  }
+
+  getAssetHistory(filterType: string, filterBy: string, assetType?: AssetType, assetId?: string) {
     const assetToTypeMap = new Map<string, AssetType>();
     return this.userAssets.pipe(
       switchMap((assets) => {
@@ -182,16 +210,15 @@ export class AssetsService {
         return this.assetHistory;
       }),
       map((assetHistory) => {
-        let output = [];
+        let output = []
+        const graphData = {
+          data: [],
+          labels: []
+        }
         if (filterType === "all") {
           assetHistory.forEach((history) => {
             if (history.assets.length > 0) {
-              let totalNav: number = 0;
-              history.assets.forEach((asset) => (totalNav += Number(asset.nav)));
-              output.push({
-                date: history.date,
-                nav: totalNav,
-              });
+              output = this.getDataByFilter(history, filterBy, graphData)
             }
           });
         } else if (filterType === "assetType") {
