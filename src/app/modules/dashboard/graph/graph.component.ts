@@ -42,6 +42,7 @@ export class GraphComponent implements OnInit {
       data: {
         labels: this.graphData?.labels,
         datasets: [{
+          label: 'Assets Networth',
           data: this.graphData?.data,
           backgroundColor: 'rgb(204, 214, 249)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(197, 210, 254)', // array should have same number of elements as number of dataset
