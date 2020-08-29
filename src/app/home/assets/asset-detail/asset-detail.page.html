@@ -17,7 +17,7 @@
   </ion-title>
 </ion-header>
 
-<ion-header class="top-graph-header ion-no-border">
+<!-- <ion-header class="top-graph-header ion-no-border">
   <ion-grid>
     <ion-row class="ion-no-padding">
       <ion-col class="ion-no-padding random" size-md="6" offset-md = "3" >
@@ -33,9 +33,26 @@
       </ion-col>
       </ion-row>
       </ion-grid>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
+  <ion-grid>
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-no-padding" size-md="9" offset-md="3">
+        <div class="chartheight"> 
+      <canvas  style="padding: 1.2em;"
+      baseChart
+      [chartType]="'line'"
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="false"
+      >
+      </canvas>
+      </div>
+      </ion-col>
+      </ion-row>
+      </ion-grid>
   <ion-grid class="grid-space-to">
     <ion-row class="ion-no-padding" *ngFor="let userAsset of userAssetsForType">
       <ion-col class="ion-no-padding" size-md="6" offset-md="3">

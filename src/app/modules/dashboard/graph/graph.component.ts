@@ -11,7 +11,7 @@ import { AssetsService } from 'src/app/home/assets/assets.service';
 })
 export class GraphComponent implements OnInit {
   constants = Constants;
-  selectedGraphType;
+  selectedGraphType = Constants.FILTER_OPTIONS.WEEKLY;
   colorArray: any;
   graphData = [];
   canvas: any;
@@ -31,10 +31,10 @@ export class GraphComponent implements OnInit {
       this.graphData = [];
       const graphValues = { data: data['data'] };
       if (graphValues?.data?.length) {
-        while ((!filter || filter === Constants.FILTER_OPTIONS.YEARLY) && this?.graphData?.length !== 364) {
+        while ((filter === Constants.FILTER_OPTIONS.YEARLY) && this?.graphData?.length !== 364) {
           this.graphData.push(0);
         }
-        while ((filter === Constants.FILTER_OPTIONS.WEEKLY) && this?.graphData?.length !== 6) {
+        while ((!filter ||  filter === Constants.FILTER_OPTIONS.WEEKLY) && this?.graphData?.length !== 6) {
           this.graphData.push(0);
         }
         while ((filter === Constants.FILTER_OPTIONS.ONE_MONTH) && this?.graphData?.length !== 30) {
