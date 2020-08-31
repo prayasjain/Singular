@@ -1,11 +1,9 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy, ElementRef } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, OnDestroy, ElementRef, Renderer2 } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Goal, Contribution } from "../goal.model";
-import { Asset } from "../../assets/asset.model";
+import { Asset, AssetType } from "../../assets/asset.model";
 import { NgForm } from "@angular/forms";
 import { CurrencyService } from "../../currency/currency.service";
-import { take, switchMap } from "rxjs/operators";
-import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-edit-goal",
@@ -26,36 +24,83 @@ export class EditGoalComponent implements OnInit, OnDestroy {
   // value of allocated assets
   assetValueMap: Map<string, number> = new Map();
 
-  @ViewChild("f", { static: true }) form: NgForm;
-  //@ViewChild("slider", { static: false }) listContainer: Element;
-  //@ViewChild("sliderRange", { static: false }) slider: Element;
+  assetGroupMap: Map<AssetType, number> = new Map();
+  assetGroupIds: Map<AssetType, Asset[]> = new Map();
+  assetGroupsInScope: AssetType[] = [];
+  assetToggleMap: Map<AssetType, boolean> = new Map();
+  allAssetvalueMap: Map<string, number> = new Map();
+  sliderAssetValues;
 
-  constructor(private modalCtrl: ModalController, public currencyService: CurrencyService) {}
+  @ViewChild("f", { static: true }) form: NgForm;
+  temp : number =0;
+  fuckOff = 30;
+  changeFuck() {
+    this.fuckOff= 45;
+    console.log(document.getElementById("fuckOff"))
+  }
+
+  constructor(private modalCtrl: ModalController, public currencyService: CurrencyService, private renderer : Renderer2, private element: ElementRef) {}
 
   ngOnInit() {
+    
+    let allAssets: Asset[] = [];
+    if (this.assets) {
+      allAssets = allAssets.concat(this.assets);
+    }
+    if (this.remainingAssets) {
+      allAssets = allAssets.concat(this.remainingAssets)
+    }
+    
     this.assetValueMap.clear();
+    this.allAssetvalueMap.clear();
     this.assetContributionMap.forEach((value, key) => {
       this.assetValueMap.set(
         key,
         value / this.contributions.find((c) => c.assetId === key && c.goalId === this.goal.id).percentageContribution
       );
+      this.allAssetvalueMap.set(key,
+        value / this.contributions.find((c) => c.assetId === key && c.goalId === this.goal.id).percentageContribution);
     });
-  }
-
-  onChangeSliderUnalloc(asset: Asset, slider) {
-    this.onChangeSlider(asset, slider, asset.percentUnallocated);
+    if (this.remainingAssetValueMap) {
+      this.remainingAssetValueMap.forEach((val,key) => this.allAssetvalueMap.set(key, val));
+    }
+    this.assetGroupMap.clear();
+    this.assetGroupIds.clear();
+    allAssets.forEach(asset => {
+      let assetVal: number = 0;
+        if (this.assetValueMap.has(asset.id)) {
+          assetVal = this.assetValueMap.get(asset.id)
+        }
+        if (this.remainingAssetValueMap.has(asset.id)) {
+          assetVal = this.remainingAssetValueMap.get(asset.id)
+        }
+      if (this.assetGroupMap.has(asset.assetType)) {
+        this.assetGroupMap.set(asset.assetType, this.assetGroupMap.get(asset.assetType) + assetVal);
+        this.assetGroupIds.get(asset.assetType).push(asset);
+      } else {
+        this.assetGroupMap.set(asset.assetType, assetVal);
+        this.assetGroupIds.set(asset.assetType, [asset]);
+      }
+    })
+    this.assetGroupsInScope = Array.from(this.assetGroupMap.keys());
+    this.assetToggleMap.clear();
+    Array.from(this.assetGroupMap.keys()).forEach(ag => this.assetToggleMap.set(ag, false));
+    this.sliderAssetValues = {};
+    allAssets.forEach(asset => {
+      if (this.assetContributionMap.has(asset.id)) {
+        this.sliderAssetValues[asset.id] = this.assetContributionMap.get(asset.id);
+      } else {
+        this.sliderAssetValues[asset.id] = 0;
+      }
+    })
   }
 
   onClose() {
     this.modalCtrl.dismiss(null, "cancel");
   }
 
-  onChangeSliderAlloc(asset: Asset, slider) {
+  onChangeSlider(asset: Asset, slider) {
     let maxPerc: number = asset.percentUnallocated + (this.assetContributionPercentage(asset.id) / 100.0);
-    this.onChangeSlider(asset, slider, maxPerc);
-  }
-
-  onChangeSlider(asset: Asset, slider, maxPerc: number) {
     let assetValue;
     let contributingAmountBefore: number = this.totalContributionAmountExceptAsset(asset);
     if (this.assetValueMap && this.assetValueMap.has(asset.id)) {
@@ -64,7 +109,22 @@ export class EditGoalComponent implements OnInit, OnDestroy {
       assetValue = this.remainingAssetValueMap.get(asset.id) * maxPerc;
     }
     // min(slider value, max amount the asset can contribute, max amount reqd)
-    slider["el"].value = Math.min(slider["el"].value, assetValue, this.goal.amountReqd - contributingAmountBefore);
+    this.temp = 0;
+    console.log(asset.id, this.sliderAssetValues[asset.id], assetValue, this.goal.amountReqd - contributingAmountBefore, Math.min(this.sliderAssetValues[asset.id], assetValue, this.goal.amountReqd - contributingAmountBefore))
+    this.sliderAssetValues[asset.id]  = Math.min(slider["el"].value, assetValue, this.goal.amountReqd - contributingAmountBefore);
+    this.sliderAssetValues = {...this.sliderAssetValues};
+    let item = this.renderer.selectRootElement(`[name="value-${asset.id}"]`);
+    console.log(item)
+    console.log(slider)
+    //slider["el"].value = Math.min(slider["el"].value, assetValue, this.goal.amountReqd - contributingAmountBefore);
+  }
+
+  onChangeGroupSlider(assetType: AssetType) {
+    console.log('hello2')
+    let item = this.renderer.selectRootElement(`[name="group-${assetType}"]`)
+    console.log(item.value)
+    this.renderer.setProperty(item, "value", 0);
+    console.log(item.value)
   }
 
   onSubmit() {
@@ -115,17 +175,17 @@ export class EditGoalComponent implements OnInit, OnDestroy {
   }
 
   assetContributionPercentage(assetId: string) {
-    return 100 * this.contributions.find((c) => c.assetId === assetId && c.goalId === this.goal.id).percentageContribution;
+    let contribution = 100 * this.contributions.find((c) => c.assetId === assetId && c.goalId === this.goal.id)?.percentageContribution;
+    return contribution ? contribution : 0;
   }
 
   assetContributionValue(assetId: string) {
-    return (this.assetContributionPercentage(assetId) / 100) * this.assetValueMap.get(assetId);
+    let contribution =  (this.assetContributionPercentage(assetId) / 100) * this.assetValueMap.get(assetId);
+    return contribution ? contribution : 0;
   }
 
   isAssetContributing(assetId: string) {
     return (
-      `checkbox-${assetId}` in this.form.value &&
-      this.form.value[`checkbox-${assetId}`] &&
       `value-${assetId}` in this.form.value &&
       this.form.value[`value-${assetId}`] > 0
     );
@@ -133,14 +193,19 @@ export class EditGoalComponent implements OnInit, OnDestroy {
 
   get totalContributionAmount() {
     let amount: number = 0;
-    let contributingAmount = (asset, valueMap) => {
-      if (this.isAssetContributing(asset.id)) {
-        let contributingAssetValue = this.form.value[`value-${asset.id}`];
-        amount += contributingAssetValue;
+    Object.keys(this.form.value).forEach(key => {
+      if (key.startsWith('group')) {
+        amount += this.form.value[key]
       }
-    };
-    this.assets.forEach((asset) => contributingAmount(asset, this.assetValueMap));
-    this.remainingAssets.forEach((asset) => contributingAmount(asset, this.remainingAssetValueMap));
+    })
+    // let contributingAmount = (asset, valueMap) => {
+    //   if (this.isAssetContributing(asset.id)) {
+    //     let contributingAssetValue = this.form.value[`value-${asset.id}`];
+    //     amount += contributingAssetValue;
+    //   }
+    // };
+    // this.assets.forEach((asset) => contributingAmount(asset, this.assetValueMap));
+    // this.remainingAssets.forEach((asset) => contributingAmount(asset, this.remainingAssetValueMap));
     return amount;
   }
 
@@ -155,6 +220,47 @@ export class EditGoalComponent implements OnInit, OnDestroy {
     this.assets.forEach((asset) => contributingAmount(asset, this.assetValueMap));
     this.remainingAssets.forEach((asset) => contributingAmount(asset, this.remainingAssetValueMap));
     return amount;
+  }
+
+  toggleView(ag: AssetType) {
+    this.assetToggleMap.set(ag, !this.assetToggleMap.get(ag));
+  }
+
+  displayTickValue(asset) {
+    // let val = 100 * (this.allAssetvalueMap.get(asset.id) * asset.percentUnallocated 
+    // +
+    // this.assetContributionMap.get(asset.id)) / this.allAssetvalueMap.get(asset.id);
+    let assetVal = this.allAssetvalueMap.get(asset.id)
+    let contribution = 0;
+    if (this.assetContributionMap.has(asset.id)) {
+      contribution = this.assetContributionMap.get(asset.id);
+    }
+    let val = assetVal* asset.percentUnallocated + contribution;
+    val = 100*val/assetVal;
+    return val;
+  }
+
+  displayTick(asset) {
+    if (asset.percentUnallocated === 1) {
+      return false;
+    }
+    let percent = asset.percentUnallocated;
+    percent += (this.assetContributionMap.has(asset.id) ? this.assetContributionMap.get(asset.id) / this.allAssetvalueMap.get(asset.id): 0);
+    return percent < (1 - 0.0001);
+
+  }
+
+  assetGroupCurrentValue(ag: AssetType) {
+    if (!this.assetGroupIds.has(ag)) {
+      return 0;
+    }
+    let val = 0;
+    this.assetGroupIds.get(ag).forEach(asset => {
+      if (this.assetContributionMap.has(asset.id)) {
+        val += this.assetContributionMap.get(asset.id)
+      }
+    });
+    return val;
   }
 
   ngOnDestroy() {}

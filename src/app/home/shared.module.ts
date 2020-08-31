@@ -8,9 +8,11 @@ import { AddNewGoalModalComponent } from "./add-new/add-new-goal-modal/add-new-g
 import { AddNewAssetModalComponent } from "./add-new/add-new-asset-modal/add-new-asset-modal.component";
 import { EditGoalComponent } from "./goals/edit-goal/edit-goal.component";
 import { SearchPopoverComponent } from "./add-new/add-new-asset-modal/search-popover/search-popover.component";
+import {MatExpansionModule} from "@angular/material/expansion"
+import {MatSliderModule} from "@angular/material/slider"
 
 @NgModule({
-  imports: [CommonModule, IonicModule, RouterModule, FormsModule],
+  imports: [CommonModule, IonicModule, RouterModule, FormsModule, MatExpansionModule, MatSliderModule],
   declarations: [
     AddNewComponent,
     AddNewGoalModalComponent,

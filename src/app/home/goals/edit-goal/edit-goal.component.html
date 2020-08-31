@@ -30,19 +30,17 @@
 
 <ion-content>
   <form #f="ngForm">
+    <mat-slider [(ngModel)]="fuckOff" name="fuckOff" (ionChange)="changeFuck()" id ="fuckOff"></mat-slider>
     <ion-grid>
-      <ion-row class="ion-no-padding" *ngFor="let asset of assets">
-        <ion-col class="ion-no-padding">
-          <div class="flex-container">
-            <div class="ion-padding">
-              <ion-checkbox name="checkbox-{{ asset.id }}" [ngModel]="true" #checkbox="ngModel"></ion-checkbox>
-            </div>
-            <div class="flex-card">
-              <ion-item lines="none" class="ion-no-padding">
-                <ion-text class="ion-no-padding" slot="start">{{ asset.assetTitle }} </ion-text>
-                <ion-text class="ion-no-padding" slot="end">
-                  {{
-                    assetValueMap.get(asset.id)?.toLocaleString(
+      <ion-row *ngFor="let ag of assetGroupsInScope" >
+        <ion-col>
+          <ion-card class="ion-no-padding">
+            <ion-card-header class="ion-no-padding">
+              <ion-card-title class="ion-padding-horizontal">
+                <ion-item button [detail]="false" lines="none" class="ion-no-padding" (click)="toggleView(ag)"> 
+                  {{ag}} 
+                  <ion-text slot="end">
+                    {{ assetGroupMap.get(ag)?.toLocaleString(
                       currencyService.getLocaleForCurrency(currencyService.currency | async),
                       {
                         style: "currency",
@@ -50,87 +48,87 @@
                         maximumFractionDigits: 0,
                         minimumFractionDigits: 0
                       }
-                    )
-                  }}
-                </ion-text>
-              </ion-item>
-              <div style="position: relative; width: 100%;">
-                <ion-range
-                  #sliderAllocated
-                  class="ion-no-padding"
-                  [ngModel]="assetContributionValue(asset.id)"
-                  #range="ngModel"
-                  name="value-{{ asset.id }}"
-                  min="0"
-                  [max]="assetValueMap.get(asset.id)"
-                  pin
-                  color="tertiary"
-                  [disabled]="!checkbox.value"
-                  (ionChange)="onChangeSliderAlloc(asset, sliderAllocated)"
-                >
-                </ion-range>
-              </div>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-no-padding" *ngFor="let asset of remainingAssets; let i = index">
-        <ion-col class="ion-no-padding">
-          <div class="flex-container dataSet">
-            <div class="ion-padding">
-              <ion-checkbox color="tertiary" name="checkbox-{{ asset.id }}" [ngModel]="false" #checkbox="ngModel"></ion-checkbox>
-            </div>
-
-            <div class="flex-card">
-              <ion-item lines="none" class="ion-no-padding">
-                <ion-text class="ion-no-padding" >{{ asset.assetTitle }} </ion-text>
-                <ion-text class="ion-no-padding" slot="end">
-                  {{
-                    remainingAssetValueMap.get(asset.id)?.toLocaleString(
-                      currencyService.getLocaleForCurrency(currencyService.currency | async),
-                      {
-                        style: "currency",
-                        currency: currencyService.currency | async,
-                        maximumFractionDigits: 0,
-                        minimumFractionDigits: 0
-                      }
-                    )
-                  }}
-                </ion-text>
-              </ion-item>
+                    ) }}
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                  </ion-text>
+                </ion-item>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-no-padding">
               <div class="rangeDiv">
-                <div class="maxValue" *ngIf="100 * asset.percentUnallocated != 100" class="sliderLimit"
-                [style.left.%]="100 * asset.percentUnallocated">
-                {{
-                 (remainingAssetValueMap.get(asset.id)  * asset.percentUnallocated)?.toLocaleString(
-                    currencyService.getLocaleForCurrency(currencyService.currency | async),
-                    {
-                      style: "currency",
-                      currency: currencyService.currency | async,
-                      maximumFractionDigits: 0,
-                      minimumFractionDigits: 0
-                    }
-                  )
-                }}
-                </div>
-                <ion-range
-                  #sliderUnAllocated
+                  <ion-range
+                  style="padding-left: 16px; padding-right: 16px;"
+                  #sliderGroup
                   class="ion-no-padding"
-                  [ngModel]="0"
+                  [ngModel]="assetGroupCurrentValue(ag)"
                   #range="ngModel"
-                  name="value-{{ asset.id }}"
+                  name="group-{{ ag }}"
                   min="0"
-                  [max]="remainingAssetValueMap.get(asset.id)"
+                  [max]="assetGroupMap.get(ag)"
                   pin
-                  tick
                   color="tertiary"
-                  [disabled]="!checkbox.value"
-                  (ionChange)="onChangeSliderUnalloc(asset, sliderUnAllocated)"
+                  (ionChange)="onChangeGroupSlider(ag)"
                 >
                 </ion-range>
               </div>
-            </div>
-          </div>
+            </ion-card-content>
+          </ion-card>
+          <ion-grid *ngIf="assetToggleMap.get(ag)">
+            <ion-row *ngFor="let asset of assetGroupIds.get(ag)" class="ion-no-padding">
+              <ion-col class="ion-no-padding">
+                <div class="flex-container">
+                  <div class="flex-card">
+                    <ion-item lines="none" class="ion-no-padding">
+                      <ion-text class="ion-no-padding" slot="start">{{ asset.assetTitle }} </ion-text>
+                      <ion-text class="ion-no-padding" slot="end">
+                        {{
+                          allAssetvalueMap.get(asset.id)?.toLocaleString(
+                            currencyService.getLocaleForCurrency(currencyService.currency | async),
+                            {
+                              style: "currency",
+                              currency: currencyService.currency | async,
+                              maximumFractionDigits: 0,
+                              minimumFractionDigits: 0
+                            }
+                          )
+                        }}
+                      </ion-text>
+                    </ion-item>
+                    <div class="rangeDiv">
+                      <div class="maxValue" class="sliderLimit" *ngIf="displayTick(asset)"
+                      [style.left.%]="displayTickValue(asset)">
+                      {{
+                       (allAssetvalueMap.get(asset.id)  * asset.percentUnallocated + (assetContributionMap.has(asset.id) ? assetContributionMap.get(asset.id) : 0))?.toLocaleString(
+                          currencyService.getLocaleForCurrency(currencyService.currency | async),
+                          {
+                            style: "currency",
+                            currency: currencyService.currency | async,
+                            maximumFractionDigits: 0,
+                            minimumFractionDigits: 0
+                          }
+                        )
+                      }}
+                      </div>
+                      <ion-range
+                        #sliderAsset
+                        class="ion-no-padding"
+                        [ngModel]="assetContributionMap.has(asset.id) ? assetContributionMap.get(asset.id) : 0"
+                        #range="ngModel"
+                        name="value-{{ asset.id }}"
+                        min="0"
+                        [max]="allAssetvalueMap.get(asset.id)"
+                        pin
+                        tick
+                        color="tertiary"
+                        (ionChange)="onChangeSlider(asset, sliderAsset)"
+                      >
+                      </ion-range>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-col>
       </ion-row>
       <ion-row class="bottomButton">
