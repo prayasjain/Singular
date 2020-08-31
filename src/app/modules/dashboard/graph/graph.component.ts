@@ -27,7 +27,6 @@ export class GraphComponent implements OnInit {
 
   getAssetHistory(filter?) {
     this.assetsService.getAssetHistory('all', filter ? filter : Constants.FILTER_OPTIONS.YEARLY).subscribe((data) => {
-      console.log(data);
       this.graphData = [];
       const graphValues = { data: data['data'] };
       if (graphValues?.data?.length) {

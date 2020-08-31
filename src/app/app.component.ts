@@ -27,7 +27,7 @@ export class AppComponent implements OnDestroy {
   @ViewChild("camsFilePicker", { static: false }) camsFilePicker: ElementRef;
   @ViewChild("nsdlFilePicker", { static: false }) nsdlFilepicker: ElementRef;
   @ViewChild(ExportAssetsComponent, { static: true }) exportAssetComponent: ExportAssetsComponent;
-
+  isAuthenticated : boolean = false;
 
   constructor(
     private platform: Platform,
@@ -58,6 +58,9 @@ export class AppComponent implements OnDestroy {
 
     this.authSub = this.authService.authInfo.pipe(take(1)).subscribe((user) => {
       this.user = user;
+      if (user) {
+        this.isAuthenticated = true;
+      }
     });
   }
 
