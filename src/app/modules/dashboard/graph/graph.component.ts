@@ -11,9 +11,9 @@ import { AssetsService } from 'src/app/home/assets/assets.service';
 })
 export class GraphComponent implements OnInit {
   constants = Constants;
-  selectedGraphType;
+  selectedGraphType = Constants.FILTER_OPTIONS.WEEKLY;
   colorArray: any;
-  graphData;
+  graphData = [];
   canvas: any;
   ctx: any;
   myChart;
@@ -27,8 +27,24 @@ export class GraphComponent implements OnInit {
 
   getAssetHistory(filter?) {
     this.assetsService.getAssetHistory('all', filter ? filter : Constants.FILTER_OPTIONS.YEARLY).subscribe((data) => {
-      this.graphData = data;
-      this.createBarChart(this.graphData);
+      console.log(data);
+      this.graphData = [];
+      const graphValues = { data: data['data'] };
+      if (graphValues?.data?.length) {
+        while ((filter === Constants.FILTER_OPTIONS.YEARLY) && this?.graphData?.length !== 364) {
+          this.graphData.push(0);
+        }
+        while ((!filter ||  filter === Constants.FILTER_OPTIONS.WEEKLY) && this?.graphData?.length !== 6) {
+          this.graphData.push(0);
+        }
+        while ((filter === Constants.FILTER_OPTIONS.ONE_MONTH) && this?.graphData?.length !== 30) {
+          this.graphData.push(0);
+        }
+        while ((filter === Constants.FILTER_OPTIONS.SIX_MONTHS) && this?.graphData?.length !== 120) {
+          this.graphData.push(0);
+        }
+        this.createBarChart(this.graphData.concat(graphValues.data));
+      }
     });
   }
 
@@ -36,14 +52,13 @@ export class GraphComponent implements OnInit {
   createBarChart(graphData) {
     this.canvas = this.mychart.nativeElement;
     this.ctx = this.canvas.getContext('2d');
-
     this.myChart = new Chart(this.ctx, {
       type: 'line',
       data: {
-        labels: this.graphData?.labels,
+        labels: graphData,
         datasets: [{
           label: 'Assets Networth',
-          data: this.graphData?.data,
+          data: graphData,
           backgroundColor: 'rgb(204, 214, 249)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(197, 210, 254)', // array should have same number of elements as number of dataset
         }]
@@ -54,8 +69,11 @@ export class GraphComponent implements OnInit {
           xAxes: [
             {
               gridLines: {
-                display: true,
+                display: false,
               },
+              ticks: {
+                display: false,
+              }
             },
           ],
           yAxes: [
@@ -73,7 +91,6 @@ export class GraphComponent implements OnInit {
 
   dataByFilter(type) {
     this.selectedGraphType = type;
-    // this.createBarChart(Constants.GRAPH_FILTER_OPTIONS[type].labels, Constants.GRAPH_FILTER_OPTIONS[type].data);
     this.getAssetHistory(this.selectedGraphType);
   }
 }

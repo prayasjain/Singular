@@ -176,23 +176,33 @@ export class AssetsService {
     let totalNav = 0;
     history.assets.forEach((asset) => (totalNav += Number(asset.nav)));
     graphData.data.push(totalNav);
-    graphData.labels.push(`${new Date(history.date).getDate()} ${Constants.MONTHS[new Date(history.date).getMonth()]}`);
     return graphData;
   }
 
   getDataByFilter(history, filterBy, graphData) {
     if (filterBy === Constants.FILTER_OPTIONS.YEARLY) {
-      graphData = this.calculateValuesByFilter(history, graphData);
-    } else if (filterBy === Constants.FILTER_OPTIONS.ONE_MONTH) {
-      if (new Date().getMonth() === new Date(history.date).getMonth()) {
+      const oneYearFromNow = new Date();
+      oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() - 1);
+      if (new Date(history.date).getTime() > oneYearFromNow.getTime()) {
         graphData = this.calculateValuesByFilter(history, graphData);
       }
-    } else if (filterBy === Constants.FILTER_OPTIONS.SIX_MONTHS &&
-      (Number(moment().subtract(6, 'months').format('M')) < new Date(history.date).getMonth())) {
-      graphData = this.calculateValuesByFilter(history, graphData);
-    } else if (filterBy === Constants.FILTER_OPTIONS.WEEKLY &&
-      (moment().startOf('week')) >= moment(history.date) && moment(history.date) <= moment().endOf('week')) {
-      graphData = this.calculateValuesByFilter(history, graphData);
+    } else if (filterBy === Constants.FILTER_OPTIONS.ONE_MONTH) {
+      const oneMonthBefore = new Date();
+      oneMonthBefore.setMonth(oneMonthBefore.getMonth() - 1);
+      if (new Date(history.date).getTime() > oneMonthBefore.getTime()) {
+        graphData = this.calculateValuesByFilter(history, graphData);
+      }
+    } else if (filterBy === Constants.FILTER_OPTIONS.SIX_MONTHS) {
+      const sixMonthBefore = new Date();
+      sixMonthBefore.setMonth(sixMonthBefore.getMonth() - 6);
+      if (new Date(history.date).getTime() > sixMonthBefore.getTime()) {
+        graphData = this.calculateValuesByFilter(history, graphData);
+      }
+    } else if (filterBy === Constants.FILTER_OPTIONS.WEEKLY) {
+      const oneWeekBefore = new Date(new Date().setDate(new Date().getDate() - 7));
+      if (new Date(history.date).getTime() > oneWeekBefore.getTime()) {
+        graphData = this.calculateValuesByFilter(history, graphData);
+      }
     }
     return graphData;
   }
