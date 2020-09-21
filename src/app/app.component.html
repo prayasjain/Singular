@@ -73,42 +73,9 @@
     </ion-content>
   </ion-menu> -->
 
-  <div class="webnav web-menu">
-    <div class="navhead text-center">
-      <h3>Singular</h3>
-    </div>
-    <div class="navdiv">
-      <ul>
-        <li>
-          <a routerLinkActive="active" routerLink="/home/tabs/assets"> <ion-icon name="card"></ion-icon> Assets </a>
-        </li>
-        <li>
-          <a routerLinkActive="active" routerLink="/home/tabs/goals"> <ion-icon name="trophy"></ion-icon> Debt </a>
-        </li>
-        <li>
-          <a routerLinkActive="active" routerLink="/home/tabs/goals"> <ion-icon name="trophy"></ion-icon> Insurance </a>
-        </li> 
-      </ul>
-    </div>
-  </div>
-  <div class="topright"> 
-    <button mat-flat-button [matMenuTriggerFor]="menuCurrency">
-      <ion-icon name="arrow-down-outline"></ion-icon>
-      {{currencyService.currency | async}}
-    </button>
-<mat-menu #menuCurrency="matMenu">
-  <button mat-menu-item (click)="setCurrency('INR')">INR</button>
-  <button mat-menu-item (click)="setCurrency('SGD')">SGD</button>
-  <button mat-menu-item (click)="setCurrency('USD')">USD</button>
-</mat-menu>
-<button mat-flat-button [matMenuTriggerFor]="menuUser">{{user?.displayName}}</button>
-<mat-menu #menuUser="matMenu">
-  <button mat-menu-item (click)="onLogout()">Logout</button>
-  <button mat-menu-item (click)="exportAssets()">Download Excel</button>
-</mat-menu>
-</div>
+  
   <ion-router-outlet main style="top: 50px;"></ion-router-outlet>
-  <app-export-assets></app-export-assets>
+
   <input type="file" #nsdlFilePicker (change)="onNSDLPicked($event)" />
   <input type="file" #camsFilePicker (change)="onCAMSPicked($event)" />
   <!-- <input type="file" #filePicker (change)="onCAMSPicked($event)" accept=".pdf"> doesnt work with ionic -->

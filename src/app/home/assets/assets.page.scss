@@ -2,13 +2,13 @@
 .pointer { cursor: pointer;}
 .top-header {
   background-color: #fff; height: 160px; display: flex; flex-direction: column; justify-content: center;
-  left: 24%;
-  width: calc(100% - 24%);
+  left: 15%;
+  width: calc(100% - 15%);
 //  align-items: center;  p {text-align: center; position: absolute; left: 0; right: 0;  top: 50%;}
 &::after{background-image: none; background: #dddddd; height: 1px;bottom: 0;}
 p{margin: 0;}
 .assetsTitle { color:#272727;   font-size:1.4rem; margin-bottom:10px;font-weight: 600;}
-.assetsData {  color: #272727;  font-size: 1.4rem;font-weight: 300;}
+.assetsData {  color: #272727;  font-size: 1.4rem;font-weight: 300; margin-top: -10px;}
 .assesstpageTitle{color:#CBCBCB;font-size: 1.2rem;margin-top: 20px; margin-bottom: 1px;
 // .button-ios {  border-radius: 4px;  font-size: 1rem;  color: #fff;  background-color: #4066EA;
 //   padding:.7em;float:right;}
@@ -52,4 +52,8 @@ button{margin-right: 1rem; margin-bottom:1rem; background:none;font-size: 1.3rem
 
 table {
   width: 100%;
+}
+
+.icon {
+  margin-top: 8px;
 }

@@ -6,6 +6,8 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { SharedModule } from './shared.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { ExportAssetsModule } from '../export-assets/export-assets.module';
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { SharedModule } from './shared.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    SharedModule
+    SharedModule,
+    MatMenuModule,
+    ExportAssetsModule
   ],
   declarations: [HomePage]
 })

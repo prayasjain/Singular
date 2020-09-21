@@ -7,9 +7,10 @@
   </ion-fab> -->
   <ion-title id="container" vertical="center">
     <!-- <div><button ion-button><ion-icon name="arrow-back"></ion-icon></button></div>-->
-    <ion-item lines="none" style="max-width: 600px;">
+    <ion-item lines="none" style="max-width: 600px; margin-top: 50px; display: inline-flex;
+    vertical-align: middle;">
       <button slot="start"  mat-icon-button [matMenuTriggerFor]="mainAssetMenu">
-        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+        <ion-icon class="icon" slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </button>
       <mat-menu #mainAssetMenu="matMenu">
         <button mat-menu-item>
@@ -22,10 +23,10 @@
           Download Excel
         </button>
       </mat-menu>
-      <ion-text slot="start"class="assetsTitle">
+      <ion-text slot="start" class="assetsTitle">
         Assets
       </ion-text>
-      <ion-text slot="end"class="assetsData">
+      <ion-text slot="end" class="assetsData">
         {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
           currencyService.currency | async ), {style: 'currency', currency:
           currencyService.currency | async, maximumFractionDigits: 0,
@@ -50,8 +51,8 @@
   </ion-title>
 </ion-header>
 
-<ion-content style="left: 80px;">
-  <div style="max-width: 800px; margin: auto;">
+<ion-content >
+  <div style="max-width: 85%; margin-left: 15%; padding-top: 30px;">
     <div class="col-lg-9">
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentAssetGroup?.assetType === AssetType.Equity || currentAssetGroup?.assetType === AssetType.MutualFunds">

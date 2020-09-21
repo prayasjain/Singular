@@ -156,13 +156,13 @@ actionBegin(args: any) :void {
 
   async changeCurrentSelectedAsset(assetGroup: AssetGroup) {
     this.currentAssetGroup = assetGroup;
-    await this.mapDataFromAsset();
+    this.data = await this.mapDataFromAsset();
   }
 
-  async mapDataFromAsset() {
-    this.data = [];
+  async mapDataFromAsset() : Promise<Object[]> {
+    let data = [];
     if (!this.currentAssetGroup || !this.userAssets) {
-      return;
+      return [];
     }
     let currentAssetType = this.currentAssetGroup.assetType;
     let filteredAssets = this.userAssets.filter(asset => asset.assetType === currentAssetType);
@@ -175,7 +175,7 @@ actionBegin(args: any) :void {
         let totalcost: number = units*price;
         let currentprice : number = asset.currentValue;
         let change = 100 * (amount - (units*price) )/ (units*price);
-        this.data = this.data.concat({name: name, change: change, units: units, totalcost : totalcost, currentprice: currentprice, currentvalue: units*currentprice});
+        data = data.concat({name: name, change: change, units: units, totalcost : totalcost, currentprice: currentprice, currentvalue: units*currentprice});
       })
     }
 
@@ -188,7 +188,7 @@ actionBegin(args: any) :void {
           price = amount;
         }
         let change = 100 * (amount - price)/ price;
-        this.data = this.data.concat({name: name, change: change, totalcost : price, currentvalue: amount});
+        data = data.concat({name: name, change: change, totalcost : price, currentvalue: amount});
       })
     }
 
@@ -207,7 +207,7 @@ actionBegin(args: any) :void {
           maturityDate = new Date(asset.maturityDate);
         }
         
-        this.data = this.data.concat({name: name, change: change, totalcost : price, currentvalue: amount, depositdate: depositDate, maturitydate: maturityDate});
+        data = data.concat({name: name, change: change, totalcost : price, currentvalue: amount, depositdate: depositDate, maturitydate: maturityDate});
       })
     }
 
@@ -221,8 +221,9 @@ actionBegin(args: any) :void {
         }
         let units : number = asset.units;
         let change = 100 * (amount - price) / (price);
-        this.data = this.data.concat({name: name, change: change, units: units, totalcost : price, currentvalue: amount});
+        data = data.concat({name: name, change: change, units: units, totalcost : price, currentvalue: amount});
       })
     }
+    return data;
   }
 }
