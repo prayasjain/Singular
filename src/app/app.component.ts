@@ -134,6 +134,10 @@ export class AppComponent implements OnDestroy {
       });
   }
 
+  async setCurrency(currency) {
+    this.currencyService.setCurrency(currency);
+  }
+
   onCAMSPicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     const reader = new FileReader();

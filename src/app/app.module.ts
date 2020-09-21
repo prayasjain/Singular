@@ -18,6 +18,7 @@ import { AvatarModule } from "ngx-avatar";
 
 import {GooglePlus} from "@ionic-native/google-plus/ngx";
 import { ExportAssetsModule } from './export-assets/export-assets.module';
+import { MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import { ExportAssetsModule } from './export-assets/export-assets.module';
     NoopAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AvatarModule
+    AvatarModule,
+    MatMenuModule
   ],
   providers: [
     StatusBar,
