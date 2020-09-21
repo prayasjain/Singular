@@ -9,6 +9,10 @@ import { AssetsPageRoutingModule } from './assets-routing.module';
 import { AssetsPage } from './assets.page';
 import { SharedModule } from '../shared.module';
 import { AssetComponent } from './asset/asset.component';
+import { MatMenuModule} from '@angular/material/menu';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   imports: [
@@ -16,7 +20,11 @@ import { AssetComponent } from './asset/asset.component';
     FormsModule,
     IonicModule,
     AssetsPageRoutingModule,
-    SharedModule
+    SharedModule,
+    MatMenuModule,
+    DropDownListModule,
+    GridModule,
+    MatTableModule
   ],
   declarations: [AssetsPage, AssetComponent],
   exports: [AssetsPage]

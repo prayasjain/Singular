@@ -9,9 +9,13 @@
 p{margin: 0;}
 .assetsTitle { color:#272727;   font-size:1.4rem; margin-bottom:10px;font-weight: 600;}
 .assetsData {  color: #272727;  font-size: 1.4rem;font-weight: 300;}
-.assesstpageTitle{color:#CBCBCB;font-size: 1.2rem;margin-top: 20px; margin-bottom: 15px;
+.assesstpageTitle{color:#CBCBCB;font-size: 1.2rem;margin-top: 20px; margin-bottom: 1px;
 // .button-ios {  border-radius: 4px;  font-size: 1rem;  color: #fff;  background-color: #4066EA;
 //   padding:.7em;float:right;}
+}
+.assetsSheet {
+  color:#CBCBCB;
+  font-size: 1.2rem
 }
 button{margin-right: 1rem; margin-bottom:1rem; background:none;font-size: 1.3rem;padding: 0;}
 }
@@ -35,4 +39,17 @@ button{margin-right: 1rem; margin-bottom:1rem; background:none;font-size: 1.3rem
   .assesstpageTitle{display: none;}
   button{color:#fff;}
   }
+}
+
+.list-horizontal {
+  padding: 0;
+  ion-item {
+    display: inline-block;
+    height: auto;
+    width: auto;
+  }
+}
+
+table {
+  width: 100%;
 }

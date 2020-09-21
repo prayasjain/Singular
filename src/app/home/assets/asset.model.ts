@@ -295,6 +295,12 @@ export class Asset {
     if (this.assetType === AssetType.PPF) {
       return this.pPf.price;
     }
+    if (this.assetType === AssetType.SavingsAccount) {
+      return this.savingsAccount.amount;
+    }
+    if (this.assetType === AssetType.Deposits) {
+      return this.deposits.amount;
+    }
   }
 
   get currentValue() {

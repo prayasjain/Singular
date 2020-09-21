@@ -23,7 +23,7 @@ interface AssetGroup {
 })
 export class ExportAssetsComponent implements OnInit {
   user: firebase.User;
-  userAssets: Asset[] = [];
+  userAssets;
   assetsSub: Subscription;
   assetGroups: AssetGroup[] = [];
   totalAmount: number;

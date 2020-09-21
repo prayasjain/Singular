@@ -1,32 +1,110 @@
 <ion-header class="top-header">
-  <ion-buttons horizontal="start" vertical="top">
+  <!-- <ion-buttons horizontal="start" vertical="top">
     <ion-menu-button class="white" menu="mainMenu"></ion-menu-button>
-  </ion-buttons>
+  </ion-buttons> -->
   <!-- <ion-fab class="pointer white" horizontal="end" vertical="top">
     <ion-icon name="notifications-outline" class="assetsIcon"> </ion-icon>
   </ion-fab> -->
   <ion-title id="container" vertical="center">
     <!-- <div><button ion-button><ion-icon name="arrow-back"></ion-icon></button></div>-->
-    <p class="assetsTitle"> Total Networth </p>
-    <p class="assetsData"> {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
-    currencyService.currency | async ), {style: 'currency', currency:
-    currencyService.currency | async, maximumFractionDigits: 0,
-    minimumFractionDigits: 0})}}</p>
-
-    <div class="assesstpageTitle">Assests Details 
-      <!-- <button  class="button-ios" ion-button> <ion-icon name="add"></ion-icon> Add Asset</button> -->
+    <ion-item lines="none" style="max-width: 600px;">
+      <button slot="start"  mat-icon-button [matMenuTriggerFor]="mainAssetMenu">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </button>
+      <mat-menu #mainAssetMenu="matMenu">
+        <button mat-menu-item>
+          View Archive
+        </button>
+        <button mat-menu-item disabled>
+          Add New Sheet
+        </button>
+        <button mat-menu-item>
+          Download Excel
+        </button>
+      </mat-menu>
+      <ion-text slot="start"class="assetsTitle">
+        Assets
+      </ion-text>
+      <ion-text slot="end"class="assetsData">
+        {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
+          currencyService.currency | async ), {style: 'currency', currency:
+          currencyService.currency | async, maximumFractionDigits: 0,
+          minimumFractionDigits: 0})}}
+      </ion-text>
+    </ion-item>
+    <div class="assesstpageTitle">
+      <ion-list class="list-horizontal">
+        <ion-item button lines="none" class="ion-padding-start" *ngFor="let assetGroup of assetGroups; let i = index"
+        (click)="changeCurrentSelectedAsset(assetGroup)"
+        >
+          <ion-label [ngClass]="currentAssetGroup.assetType !== assetGroup.assetType ? 'assetsSheet' : ''"> 
+            <h3>{{assetGroup.assetType}}</h3>
+            <h3>{{assetGroup.amount?.toLocaleString(currencyService.getLocaleForCurrency(
+              currencyService.currency | async ), {style: 'currency', currency:
+              currencyService.currency | async, maximumFractionDigits: 0,
+              minimumFractionDigits: 0})}}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </div>
   </ion-title>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-grid class="grid-top-space">
-  
-    <ion-row *ngFor="let assetGroup of assetGroups; let i = index">
-      <ion-col size-md="5" offset-md="3">
-        <app-asset [title]="assetGroup.assetType" [value]="assetGroup.amount" [assetType]="assetGroup.assetType"
-          [itemLink]="'/home/tabs/assets/asset-detail/' + getSlug(assetGroup.assetType)"></app-asset>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content style="left: 80px;">
+  <div style="max-width: 800px; margin: auto;">
+    <div class="col-lg-9">
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      *ngIf="currentAssetGroup?.assetType === AssetType.Equity || currentAssetGroup?.assetType === AssetType.MutualFunds">
+        <e-columns>
+          <e-column field='name' headerText='Name' textAlign='Center'></e-column>
+          <e-column field='change' headerText='Change' textAlign='Center'></e-column>
+          <e-column field='units' headerText='Units' textAlign='Center'></e-column>
+          <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
+          <e-column field='currentprice' headerText='Current Price' textAlign='Center'></e-column>
+          <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
+        </e-columns>    
+      </ejs-grid>
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      *ngIf="currentAssetGroup?.assetType === AssetType.SavingsAccount || currentAssetGroup?.assetType === AssetType.RealEstate || currentAssetGroup?.assetType === AssetType.Others">
+      <e-columns >
+        <e-column field='name' headerText='Name' textAlign='Center'></e-column>
+        <e-column field='change' headerText='Change' textAlign='Center'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
+      </e-columns>    
+      </ejs-grid>
+
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      *ngIf="currentAssetGroup?.assetType === AssetType.Deposits">
+      <e-columns >
+        <e-column field='name' headerText='Name' textAlign='Center'></e-column>
+        <e-column field='change' headerText='Change' textAlign='Center'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
+        <e-column field='depositdate' headerText='Deposit Date' editType='datetimepickeredit' [format]='formatoptions' textAlign='Center'></e-column>
+        <e-column field='maturitydate' headerText='Maturity Date' editType='datetimepickeredit' [format]='formatoptions' textAlign='Center'></e-column>
+      </e-columns>   
+      </ejs-grid>
+
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      *ngIf="currentAssetGroup?.assetType === AssetType.Gold">
+      <e-columns >
+        <e-column field='name' headerText='Name' textAlign='Center'></e-column>
+        <e-column field='change' headerText='Change' textAlign='Center'></e-column>
+        <e-column field='units' headerText='Units' textAlign='Center'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
+      </e-columns>    
+      </ejs-grid>
+          
+          
+              <!-- <e-column field='id' headerText='Id' textAlign='Right' isPrimaryKey='true' [validationRules]='orderidrules'></e-column>
+               <e-column field='percentUnallocated' headerText='Percentage' [validationRules]='customeridrules'></e-column> -->
+              <!--<e-column field='Freight' headerText='Freight' width='50' format='C2' textAlign='Right' editType='numericedit' [validationRules]='freightrules'></e-column>
+              <e-column field='OrderDate' headerText='Order Date' width='50' editType='datetimepickeredit' [format]='formatoptions' textAlign='Right'></e-column>
+              <e-column field='ShipCountry' headerText='Ship Country' width='100' editType='dropdownedit' [edit]='editparams'></e-column> -->
+  </div>
+
+</div>
+    
 </ion-content>
