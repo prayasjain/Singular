@@ -175,7 +175,7 @@ actionBegin(args: any) :void {
         let totalcost: number = units*price;
         let currentprice : number = asset.currentValue;
         let change = 100 * (amount - (units*price) )/ (units*price);
-        data = data.concat({name: name, change: change, units: units, totalcost : totalcost, currentprice: currentprice, currentvalue: units*currentprice});
+        data = data.concat({id: asset.id, name: name, change: change, units: units, totalcost : totalcost, currentprice: currentprice, currentvalue: units*currentprice});
       })
     }
 
@@ -188,7 +188,7 @@ actionBegin(args: any) :void {
           price = amount;
         }
         let change = 100 * (amount - price)/ price;
-        data = data.concat({name: name, change: change, totalcost : price, currentvalue: amount});
+        data = data.concat({id: asset.id, name: name, change: change, totalcost : price, currentvalue: amount});
       })
     }
 
@@ -207,7 +207,7 @@ actionBegin(args: any) :void {
           maturityDate = new Date(asset.maturityDate);
         }
         
-        data = data.concat({name: name, change: change, totalcost : price, currentvalue: amount, depositdate: depositDate, maturitydate: maturityDate});
+        data = data.concat({id: asset.id, name: name, change: change, totalcost : price, currentvalue: amount, depositdate: depositDate, maturitydate: maturityDate});
       })
     }
 
@@ -221,9 +221,101 @@ actionBegin(args: any) :void {
         }
         let units : number = asset.units;
         let change = 100 * (amount - price) / (price);
-        data = data.concat({name: name, change: change, units: units, totalcost : price, currentvalue: amount});
+        data = data.concat({id: asset.id, name: name, change: change, units: units, totalcost : price, currentvalue: amount});
       })
     }
     return data;
+  }
+
+  updateGrid(event) {
+    console.log(event);
+    if (event.requestType === "delete") {
+      let data : Object[] = event.data;
+      if (!event.data || event.data.length === 0) {
+        return;
+      }
+      let obsList = [];
+      event.data.forEach(data => {
+        if (data.id) {
+          obsList.push(this.assetsService.deleteAsset(data.id));
+        }
+      });
+      if (obsList.length > 0) {
+        zip(...obsList).subscribe(() => {
+          console.log("asset deleted");
+        });
+      }
+    }
+    if (event.requestType === "save") {
+      if (!event.data) {
+        return;
+      }
+      let updatedAsset : Asset = this.userAssets.find(asset => asset.id === event.data.id);
+      if (!updatedAsset) {
+        return;
+      }
+      updatedAsset = this.updateAsset(updatedAsset, event.data);
+      this.assetsService.updateUserAssets([updatedAsset]).subscribe(() => {
+        console.log("updated asset");
+        console.log(updatedAsset);
+      });
+    }
+  }
+
+  updateAsset(asset : Asset, data) : Asset {
+    let assetType = asset.assetType;
+    if (assetType === AssetType.Equity || assetType === AssetType.MutualFunds) {
+      if (assetType === AssetType.Equity) {
+        asset.equity.stockName = data.name;
+        asset.equity.units = data.units;
+        asset.equity.price = data.totalcost / data.units;
+        asset.equity.currentValue = data.currentvalue / data.units;
+      }
+      else if (assetType === AssetType.MutualFunds) {
+        asset.mutualFunds.fundName = data.name;
+        asset.mutualFunds.units = data.units;
+        asset.mutualFunds.price = data.totalcost / data.units;
+        asset.mutualFunds.currentValue = data.currentvalue / data.units;
+      }
+    }
+    else if (assetType === AssetType.SavingsAccount || assetType === AssetType.RealEstate || assetType === AssetType.Others) {
+      if (assetType === AssetType.SavingsAccount) {
+        asset.savingsAccount.bankName = data.name;
+        asset.savingsAccount.amount = data.totalcost;
+      }
+      else if (assetType === AssetType.RealEstate) {
+        asset.realEstate.name = data.name;
+        asset.realEstate.price = data.totalcost;
+        asset.realEstate.currentValue = data.currentvalue;
+      } else if (assetType === AssetType.Others) {
+        asset.others.name = data.name;
+        asset.others.amount = data.currentvalue;
+      }
+    }
+    else if (assetType === AssetType.Deposits) {
+      asset.deposits.bankName = data.name;
+      asset.deposits.amount = data.totalcost;
+      asset.deposits.depositDate = data.depositdate;
+      asset.deposits.maturityDate = data.maturitydate;
+    }
+    else if (assetType === AssetType.Gold) {
+      asset.gold.name = data.name;
+      asset.gold.price = data.totalcost;
+      asset.gold.units = data.units;
+      asset.gold.currentValue = data.currentvalue;
+    }
+    return asset;
+  }
+
+  isObjectEqual(obj1, obj2) {
+    if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+      return false;
+    }
+    for (let key in obj1) { 
+      if(obj1[key] !== obj2[key]) {
+          return false;
+      }
+    }
+    return true;
   }
 }

@@ -55,8 +55,10 @@
   <div style="max-width: 85%; margin-left: 15%; padding-top: 30px;">
     <div class="col-lg-9">
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
-      *ngIf="currentAssetGroup?.assetType === AssetType.Equity || currentAssetGroup?.assetType === AssetType.MutualFunds">
+      *ngIf="currentAssetGroup?.assetType === AssetType.Equity || currentAssetGroup?.assetType === AssetType.MutualFunds"
+      (actionComplete)='updateGrid($event)'>
         <e-columns>
+          <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true'></e-column>
           <e-column field='name' headerText='Name' textAlign='Center'></e-column>
           <e-column field='change' headerText='Change' textAlign='Center'></e-column>
           <e-column field='units' headerText='Units' textAlign='Center'></e-column>
@@ -66,8 +68,10 @@
         </e-columns>    
       </ejs-grid>
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
-      *ngIf="currentAssetGroup?.assetType === AssetType.SavingsAccount || currentAssetGroup?.assetType === AssetType.RealEstate || currentAssetGroup?.assetType === AssetType.Others">
+      *ngIf="currentAssetGroup?.assetType === AssetType.SavingsAccount || currentAssetGroup?.assetType === AssetType.RealEstate || currentAssetGroup?.assetType === AssetType.Others"
+      (actionComplete)='updateGrid($event)'>
       <e-columns >
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true'></e-column>
         <e-column field='name' headerText='Name' textAlign='Center'></e-column>
         <e-column field='change' headerText='Change' textAlign='Center'></e-column>
         <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
@@ -76,8 +80,10 @@
       </ejs-grid>
 
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
-      *ngIf="currentAssetGroup?.assetType === AssetType.Deposits">
+      *ngIf="currentAssetGroup?.assetType === AssetType.Deposits"
+      (actionComplete)='updateGrid($event)'>
       <e-columns >
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true'></e-column>
         <e-column field='name' headerText='Name' textAlign='Center'></e-column>
         <e-column field='change' headerText='Change' textAlign='Center'></e-column>
         <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
@@ -88,8 +94,10 @@
       </ejs-grid>
 
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
-      *ngIf="currentAssetGroup?.assetType === AssetType.Gold">
+      *ngIf="currentAssetGroup?.assetType === AssetType.Gold"
+      (actionComplete)='updateGrid($event)'>
       <e-columns >
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true'></e-column>
         <e-column field='name' headerText='Name' textAlign='Center'></e-column>
         <e-column field='change' headerText='Change' textAlign='Center'></e-column>
         <e-column field='units' headerText='Units' textAlign='Center'></e-column>
@@ -97,13 +105,6 @@
         <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
       </e-columns>    
       </ejs-grid>
-          
-          
-              <!-- <e-column field='id' headerText='Id' textAlign='Right' isPrimaryKey='true' [validationRules]='orderidrules'></e-column>
-               <e-column field='percentUnallocated' headerText='Percentage' [validationRules]='customeridrules'></e-column> -->
-              <!--<e-column field='Freight' headerText='Freight' width='50' format='C2' textAlign='Right' editType='numericedit' [validationRules]='freightrules'></e-column>
-              <e-column field='OrderDate' headerText='Order Date' width='50' editType='datetimepickeredit' [format]='formatoptions' textAlign='Right'></e-column>
-              <e-column field='ShipCountry' headerText='Ship Country' width='100' editType='dropdownedit' [edit]='editparams'></e-column> -->
   </div>
 
 </div>
