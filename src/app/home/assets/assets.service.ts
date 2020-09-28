@@ -54,6 +54,34 @@ export class AssetsService {
     return this._assetHistory.asObservable();
   }
 
+  async getMutualFunds() {
+    let data = await this.http.get('assets/mutualfunds-all.csv', {responseType: 'text'}).toPromise();
+    let mfArray = [];
+    for (let d of data.split("\n").slice(1)) {
+      let fields = d.split(",");
+      // storing all mutual funds. some dont have valid isin, but all have mstarid
+      if (fields[2]) {
+        let mf = {id: fields[0].trim(), mstarId: fields[1].trim(), name: fields[2].trim(), isin: fields[3].trim()};
+        mfArray.push(mf);
+      }
+    }
+    return mfArray;
+  }
+
+  async getEquities() {
+    let data = await this.http.get('assets/stocks-all.csv', {responseType: 'text'}).toPromise();
+    let stockArray = [];
+    for (let d of data.split("\n").slice(1)) {
+      let fields = d.split(",");
+      // only storing stocks with valid isin, as we search using isin
+      if (fields[3] && fields[3].trim() !== "") {
+        let stock = {id: fields[0].trim(), symbol: fields[1].trim(), name: fields[2].trim(), isin: fields[3].trim()};
+        stockArray.push(stock);
+      }
+    }
+    return stockArray;
+  }
+
   fetchUserAssets() {
     let auth;
     return this.authService.authInfo.pipe(

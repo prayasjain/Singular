@@ -6,7 +6,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: '/home/tabs/dashboard',
+    redirectTo: '/home/tabs/assets',
     pathMatch: 'full',
   },
   {

@@ -1,16 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { AssetsService } from "./assets.service";
-import { Asset, AssetType, AssetTypeUtils } from "./asset.model";
+import { Asset, AssetType, AssetTypeUtils, MutualFunds, Equity, SavingsAccount, Deposits, Gold, Others, RealEstate } from "./asset.model";
 import { Subscription, zip, of } from "rxjs";
 import { take, tap, switchMap, map } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { LoadingController } from "@ionic/angular";
 import { CurrencyService } from "../currency/currency.service";
-import { MarketDataService, PriceData } from "./market-data.service";
+import { MarketDataService, PriceData, AutoCompleteData } from "./market-data.service";
 import { StateService, AddType } from "../state.service";
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
-import { EditService, ToolbarService, PageService, NewRowPosition } from '@syncfusion/ej2-angular-grids';
+import { EditService, ToolbarService, PageService, NewRowPosition, IEditCell } from '@syncfusion/ej2-angular-grids';
+import { Query, DataManager } from '@syncfusion/ej2-data';
 import { ChangeEventArgs, DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
+import { PdfService } from 'src/app/pdf/pdf.service';
+import {setCulture, setCurrencyCode} from '@syncfusion/ej2-base';
+import { } from '@syncfusion/ej2-base';
 
 interface AssetGroup {
   assetType: AssetType;
@@ -27,6 +31,7 @@ export class AssetsPage implements OnInit, OnDestroy {
   user: firebase.User;
   userAssets: Asset[] = [];
   assetsSub: Subscription;
+  currencySub: Subscription;
   assetGroups: AssetGroup[] = [];
   totalAmount: number;
   currentDate: Date;
@@ -37,34 +42,64 @@ export class AssetsPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     public currencyService: CurrencyService,
-    private stateService: StateService
+    private stateService: StateService,
+    private pdfService: PdfService,
+    private marketDataService: MarketDataService
   ) {}
 
   colorNo = 0;
   AssetType = AssetType;
+  @ViewChild("camsFilePicker", { static: false }) camsFilePicker: ElementRef;
+  @ViewChild("nsdlFilePicker", { static: false }) nsdlFilepicker: ElementRef;
 
   @ViewChild('ddsample')
     public dropDown: DropDownListComponent;
     public data: Object[] = [];
     public editSettings: Object;
     public toolbar: string[];
-    public orderidrules: Object;
-    public customeridrules: Object;
-    public freightrules: Object;
     public editparams: Object;
     public pageSettings: Object;
     public formatoptions: Object;
+    public equityParams: IEditCell;
+    public mfParams: IEditCell;
+    public equities: object[] = [];
+    public mutualFunds: object[] = [];
+  
+    currentCurrency: string;
 
   async ngOnInit() {
+    let stockArray = await this.assetsService.getEquities();
+    let mfArray = await this.assetsService.getMutualFunds();
+    this.equityParams = {
+      params: {
+          allowFiltering: true,
+          dataSource: stockArray,
+          fields: { text: 'name', value: 'name' },
+          query: new Query(),
+          actionComplete: (data) => {console.log(data)}
+      }
+    };
+    this.mfParams = {
+      params: {
+          allowFiltering: true,
+          dataSource: mfArray,
+          fields: { text: 'name', value: 'name' },
+          query: new Query(),
+          actionComplete: (data) => {console.log(data)}
+      }
+    };
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true , newRowPosition: 'Top' };
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
-    this.orderidrules = { required: true };//{ required: true, number: true };
-    this.customeridrules = { required: true };
-    this.freightrules = { required: true };
     this.editparams = { params: { popupHeight: '300px' } };
     this.pageSettings = { pageCount: 5 };
-    this.formatoptions = { type: 'dateTime', format: 'M/d/y hh:mm a' }
+    this.formatoptions = {type: 'date', format: 'dd/MM/yyyy'}
     this.currentDate = new Date();
+    this.currencySub = this.currencyService.currency.subscribe(c => {
+      this.currentCurrency = c;
+      this.changeCurrentSelectedAsset(this.currentAssetGroup).then(() => {
+        console.log("done")
+      })
+    })
     this.assetsSub = this.authService.authInfo
       .pipe(
         take(1),
@@ -101,21 +136,15 @@ export class AssetsPage implements OnInit, OnDestroy {
           this.totalAmount += Number(assetGroup.amount);
         });
         if (this.assetGroups && this.assetGroups.length > 0) {
-          await this.changeCurrentSelectedAsset(this.assetGroups[0]);
+          if (this.currentAssetGroup) {
+            await this.changeCurrentSelectedAsset(this.currentAssetGroup);
+          } else {
+            await this.changeCurrentSelectedAsset(this.assetGroups[0]);
+          }
         }
       });
   }
 
-public newRowPosition: { [key: string]: Object }[] = [
-    { id: 'Top', newRowPosition: 'Top' },
-    { id: 'Bottom', newRowPosition: 'Bottom' }
-];
-public localFields: Object = { text: 'newRowPosition', value: 'id' };
-
-public onChange(e: ChangeEventArgs): void {
-    let gridInstance: any = (<any>document.getElementById('Normalgrid')).ej2_instances[0];
-    (gridInstance.editSettings as any).newRowPosition = <NewRowPosition>this.dropDown.value;
-}
 
 actionBegin(args: any) :void {
     let gridInstance: any = (<any>document.getElementById('Normalgrid')).ej2_instances[0];
@@ -152,6 +181,31 @@ actionBegin(args: any) :void {
     if (this.assetsSub) {
       this.assetsSub.unsubscribe();
     }
+    if (this.currencySub) {
+      this.currencySub.unsubscribe();
+    }
+  }
+
+  public percentFormatter = (field: string, data, column: Object) => {
+    return ((Number(data.currentvalue) - Number(data.totalcost) )/ Number(data.totalcost)).toFixed(2) + "%";
+  }
+
+  public unitFormatter = (field: string, data: object, column: object) => {
+    let value = +data[field];
+    if (!value) {
+      return;
+    }
+    return value.toFixed(2);
+  }
+  
+  public currencyFormatter = (field: string, data: object, column: object) => {
+    let value = +data[field];
+    if (!value) {
+      return;
+    }
+    
+    return value.toLocaleString(this.currencyService.getLocaleForCurrency(this.currentCurrency), 
+      { style: 'currency', currency: this.currentCurrency, maximumFractionDigits: 0, minimumFractionDigits: 0 })
   }
 
   async changeCurrentSelectedAsset(assetGroup: AssetGroup) {
@@ -227,7 +281,7 @@ actionBegin(args: any) :void {
     return data;
   }
 
-  updateGrid(event) {
+  async updateGrid(event) {
     console.log(event);
     if (event.requestType === "delete") {
       let data : Object[] = event.data;
@@ -251,7 +305,14 @@ actionBegin(args: any) :void {
         return;
       }
       let updatedAsset : Asset = this.userAssets.find(asset => asset.id === event.data.id);
+      // this is a new record
       if (!updatedAsset) {
+        updatedAsset = await this.createAsset(event.data, this.currentAssetGroup.assetType);
+        console.log(updatedAsset);
+        this.assetsService.addUserAsset(updatedAsset).subscribe((asset) => {
+          console.log("added asset");
+          console.log(asset)
+        })
         return;
       }
       updatedAsset = this.updateAsset(updatedAsset, event.data);
@@ -307,6 +368,84 @@ actionBegin(args: any) :void {
     return asset;
   }
 
+  async createAsset(data, assetType) {
+    let assetId = Math.random().toString();
+    let asset : Asset;
+    let percentUnAlloc = 1;
+    if (assetType === AssetType.SavingsAccount) {
+      asset = new Asset(
+        assetId,
+        new SavingsAccount(data.name, +data.totalcost, "", new Date(), 0),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.Deposits) {
+      asset = new Asset(
+        assetId,
+        new Deposits(
+          data.name,
+          +data.totalcost,
+          "",
+          data.depositdate,
+          data.maturitydate,
+          0
+        ),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.MutualFunds) {
+      let mstarId;
+      let autoCompleteData : AutoCompleteData[] = await this.marketDataService.getData(data.name.trim().toLowerCase(), assetType).toPromise();
+      if (autoCompleteData.length === 1) {
+        mstarId = autoCompleteData[0].mutualfund.mstarId;
+      }
+      
+      asset = new Asset(
+        assetId,
+        new MutualFunds(data.name, +data.units, +data.totalcost / +data.units, +data.currentvalue / +data.units, "", mstarId),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.Equity) {
+      let isin
+      let autoCompleteData : AutoCompleteData[] = await this.marketDataService.getData(data.name.trim().toLowerCase(), assetType).toPromise();
+      if (autoCompleteData.length === 1) {
+          isin = autoCompleteData[0].equity.isin;
+      }
+      asset = new Asset(
+        assetId,
+        new Equity( data.name, +data.units, +data.totalcost / +data.units, +data.currentvalue / +data.units, isin),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.Gold) {
+      asset = new Asset(
+        assetId,
+        new Gold(
+          data.name,
+          new Date(),
+          +data.totalcost,
+          +data.currentvalue,
+          new Date(),
+          +data.units
+        ),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.RealEstate) {
+      asset = new Asset(
+        assetId,
+        new RealEstate(data.name, new Date(), +data.totalcost, +data.currentvalue, new Date()),
+        percentUnAlloc
+      );
+    }
+    if (assetType === AssetType.Others) {
+      asset = new Asset(assetId, new Others(data.name, +data.currentvalue), percentUnAlloc);
+      console.log(asset);
+    }
+    return asset;
+  }
+
   isObjectEqual(obj1, obj2) {
     if (Object.keys(obj1).length !== Object.keys(obj2).length) {
       return false;
@@ -317,5 +456,96 @@ actionBegin(args: any) :void {
       }
     }
     return true;
+  }
+
+  onCAMSPicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+
+    this.loadingCtrl
+      .create({ message: "Updating your Mutual Funds" })
+      .then((loadingEl) => {
+        reader.onload = () => {
+          this.camsFilePicker.nativeElement.value = ""; //reset the input
+          this.pdfService
+            .readPdf(reader.result)
+            .then((data) => {
+              loadingEl.present();
+              let mutualFunds: MutualFunds[] = this.pdfService.parseCAMSStatement(
+                data
+              );
+              if (!mutualFunds || mutualFunds.length == 0) {
+                loadingEl.dismiss();
+                return;
+              }
+              this.pdfService.saveMutualFunds(mutualFunds).subscribe(
+                (data) => {
+                  loadingEl.dismiss();
+                },
+                (err) => {
+                  console.log(err);
+                  loadingEl.dismiss();
+                }
+              );
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+      });
+  }
+
+  onNSDLPicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+
+    this.loadingCtrl
+      .create({ message: "Updating your Equities Funds" })
+      .then((loadingEl) => {
+        reader.onload = () => {
+          this.nsdlFilepicker.nativeElement.value = ""; //reset the input
+          this.pdfService
+            .readPdf(reader.result)
+            .then((data) => {
+              loadingEl.present();
+              let equities: Equity[] = this.pdfService.parseNSDLStatement(
+                data
+              );
+              if (!equities || equities.length == 0) {
+                loadingEl.dismiss();
+                return;
+              }
+              this.pdfService.saveEquities(equities).subscribe(
+                (data) => {
+                  loadingEl.dismiss();
+                },
+                (err) => {
+                  console.log(err);
+                  loadingEl.dismiss();
+                }
+              );
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+      });
+  }
+
+  assetGroupPresent(assetType : AssetType) {
+    return this.assetGroups.filter(ag => ag.assetType === assetType).length !== 0;
+  }
+
+  assetGroupAdd(assetType : AssetType) {
+    let assetGroup: AssetGroup = {
+      assetType: assetType,
+      amount: 0,
+    };
+    
+    this.assetGroups.push(assetGroup);
+    this.currentAssetGroup = assetGroup;
+    this.data = [];
   }
 }

@@ -13,14 +13,37 @@
         <ion-icon class="icon" slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </button>
       <mat-menu #mainAssetMenu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item disabled>
           View Archive
         </button>
-        <button mat-menu-item disabled>
+        <button mat-menu-item [matMenuTriggerFor]="assetClassMenu">
           Add New Sheet
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item disabled>
           Download Excel
+        </button>
+      </mat-menu>
+      <mat-menu #assetClassMenu="matMenu">
+        <button mat-menu-item [disabled]="assetGroupPresent(AssetType.Equity)" (click)="assetGroupAdd(AssetType.Equity)">
+          Equities
+        </button>
+        <button mat-menu-item [disabled]="assetGroupPresent(AssetType.MutualFunds)" (click)="assetGroupAdd(AssetType.MutualFunds)">
+          Mutual Funds
+        </button>
+        <button mat-menu-item [disabled]="assetGroupPresent(AssetType.SavingsAccount)" (click)="assetGroupAdd(AssetType.SavingsAccount)">
+          Savings Account
+        </button>
+        <button mat-menu-item [disabled]="assetGroupPresent(AssetType.Deposits)" (click)="assetGroupAdd(AssetType.Deposits)">
+          Deposits
+        </button>
+        <button mat-menu-item [disabled]="assetGroupPresent(AssetType.Gold)" (click)="assetGroupAdd(AssetType.Gold)">
+          Gold
+        </button>
+        <button mat-menu-item [disabled]="assetGroupPresent(AssetType.RealEstate)" (click)="assetGroupAdd(AssetType.RealEstate)">
+          Real Estate
+        </button>
+        <button mat-menu-item [disabled]="assetGroupPresent(AssetType.Others)" (click)="assetGroupAdd(AssetType.Others)">
+          Others
         </button>
       </mat-menu>
       <ion-text slot="start" class="assetsTitle">
@@ -55,27 +78,52 @@
   <div style="max-width: 85%; margin-left: 15%; padding-top: 30px;">
     <div class="col-lg-9">
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
-      *ngIf="currentAssetGroup?.assetType === AssetType.Equity || currentAssetGroup?.assetType === AssetType.MutualFunds"
+      *ngIf="currentAssetGroup?.assetType === AssetType.Equity"
       (actionComplete)='updateGrid($event)'>
         <e-columns>
-          <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true'></e-column>
-          <e-column field='name' headerText='Name' textAlign='Center'></e-column>
-          <e-column field='change' headerText='Change' textAlign='Center'></e-column>
-          <e-column field='units' headerText='Units' textAlign='Center'></e-column>
-          <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
-          <e-column field='currentprice' headerText='Current Price' textAlign='Center'></e-column>
-          <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
+          <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
+          <e-column field='name' headerText='Name' editType= 'dropdownedit' [edit]='equityParams' textAlign='Center' type='string'></e-column>
+          <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+          <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
+          <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+          <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+          <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
         </e-columns>    
       </ejs-grid>
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
-      *ngIf="currentAssetGroup?.assetType === AssetType.SavingsAccount || currentAssetGroup?.assetType === AssetType.RealEstate || currentAssetGroup?.assetType === AssetType.Others"
+      *ngIf="currentAssetGroup?.assetType === AssetType.MutualFunds"
+      (actionComplete)='updateGrid($event)'>
+        <e-columns>
+          <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
+          <e-column field='name' headerText='Name' editType= 'dropdownedit' [edit]='mfParams' textAlign='Center' type='string'></e-column>
+          <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+          <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
+          <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+          <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+          <e-column field='currentvalue' headerText='Current Value' textAlign='Center'  type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
+        </e-columns>    
+      </ejs-grid>
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      *ngIf="currentAssetGroup?.assetType === AssetType.RealEstate || currentAssetGroup?.assetType === AssetType.Others"
       (actionComplete)='updateGrid($event)'>
       <e-columns >
-        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true'></e-column>
-        <e-column field='name' headerText='Name' textAlign='Center'></e-column>
-        <e-column field='change' headerText='Change' textAlign='Center'></e-column>
-        <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
-        <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
+        <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+      </e-columns>    
+      </ejs-grid>
+
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      *ngIf="currentAssetGroup?.assetType === AssetType.SavingsAccount"
+      (actionComplete)='updateGrid($event)'>
+      <e-columns >
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
+        <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
       </e-columns>    
       </ejs-grid>
 
@@ -83,13 +131,13 @@
       *ngIf="currentAssetGroup?.assetType === AssetType.Deposits"
       (actionComplete)='updateGrid($event)'>
       <e-columns >
-        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true'></e-column>
-        <e-column field='name' headerText='Name' textAlign='Center'></e-column>
-        <e-column field='change' headerText='Change' textAlign='Center'></e-column>
-        <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
-        <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
-        <e-column field='depositdate' headerText='Deposit Date' editType='datetimepickeredit' [format]='formatoptions' textAlign='Center'></e-column>
-        <e-column field='maturitydate' headerText='Maturity Date' editType='datetimepickeredit' [format]='formatoptions' textAlign='Center'></e-column>
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
+        <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
+        <e-column field='depositdate' headerText='Deposit Date' editType='datepickeredit' [format]='formatoptions' textAlign='Center' type='date'></e-column>
+        <e-column field='maturitydate' headerText='Maturity Date' editType='datepickeredit' [format]='formatoptions' textAlign='Center' type='date'></e-column>
       </e-columns>   
       </ejs-grid>
 
@@ -97,16 +145,27 @@
       *ngIf="currentAssetGroup?.assetType === AssetType.Gold"
       (actionComplete)='updateGrid($event)'>
       <e-columns >
-        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true'></e-column>
-        <e-column field='name' headerText='Name' textAlign='Center'></e-column>
-        <e-column field='change' headerText='Change' textAlign='Center'></e-column>
-        <e-column field='units' headerText='Units' textAlign='Center'></e-column>
-        <e-column field='totalcost' headerText='Total Cost' textAlign='Center'></e-column>
-        <e-column field='currentvalue' headerText='Current Value' textAlign='Center'></e-column>
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
+        <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+        <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
       </e-columns>    
       </ejs-grid>
+      
+      <ion-button lines="none" (click)="camsFilePicker.click()" button *ngIf="currentAssetGroup?.assetType === AssetType.MutualFunds">
+        <ion-icon name="document-outline" slot="start"></ion-icon>
+        <ion-label>Upload CAMS Statement</ion-label>
+      </ion-button>
+      <ion-button lines="none" (click)="nsdlFilePicker.click()" button *ngIf="currentAssetGroup?.assetType === AssetType.Equity">
+        <ion-icon name="document-outline" slot="start"></ion-icon>
+        <ion-label>Upload NSDL Statement</ion-label>
+      </ion-button>
   </div>
 
 </div>
-    
+
+<input type="file" style="display: none;" #nsdlFilePicker (change)="onNSDLPicked($event)" accept=".pdf"/>
+<input type="file" style="display: none;" #camsFilePicker (change)="onCAMSPicked($event)" accept=".pdf"/>
 </ion-content>
