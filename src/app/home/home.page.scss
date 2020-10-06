@@ -52,7 +52,7 @@ input[type="file"] {
 }
 
 .webnav {
-  width: 15%;
+  width: 10%;
 
   position: fixed;
   left: 0;
@@ -69,7 +69,7 @@ input[type="file"] {
     }
     h3 {
       color: #4066ea;
-      font-size: 24px;
+      font-size: large;
       font-weight: 500;
     }
     .userpic {
@@ -151,3 +151,13 @@ input[type="file"] {
   }
 }
 
+.sidenav {
+  ul {
+    li {
+      a {
+        font-size: medium;
+      }
+    }
+  }
+  
+}

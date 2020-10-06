@@ -68,42 +68,89 @@
           minimumFractionDigits: 0})}}
       </ion-text>
     </ion-item>
-    <div class="assesstpageTitle">
-      <ion-list class="list-horizontal">
-        <ion-item button lines="none" class="ion-padding-start" *ngFor="let assetGroup of assetGroups; let i = index"
-        (click)="changeCurrentSelectedAsset(assetGroup)"
-        >
-          <ion-label [ngClass]="currentAssetGroup.assetType !== assetGroup.assetType ? 'assetsSheet' : ''"> 
-            <h3>{{assetGroup.assetType}}</h3>
-            <h3>{{assetGroup.amount?.toLocaleString(currencyService.getLocaleForCurrency(
-              currencyService.currency | async ), {style: 'currency', currency:
-              currencyService.currency | async, maximumFractionDigits: 0,
-              minimumFractionDigits: 0})}}</h3>
-          </ion-label>
-        </ion-item>
-      </ion-list>
+    <div style="display: flex;">
+      <div class="assesstpageTitle">
+        <ion-list class="list-horizontal">
+          <ion-item button lines="none" class="ion-padding-start" *ngFor="let assetGroup of assetGroups; let i = index"
+          (click)="changeCurrentSelectedAsset(assetGroup)"
+          >
+            <ion-label [ngClass]="currentAssetGroup.assetType !== assetGroup.assetType ? 'assetsSheet' : ''"> 
+              <h3>{{assetGroup.assetType}}</h3>
+              <h3>{{assetGroup.amount?.toLocaleString(currencyService.getLocaleForCurrency(
+                currencyService.currency | async ), {style: 'currency', currency:
+                currencyService.currency | async, maximumFractionDigits: 0,
+                minimumFractionDigits: 0})}}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div>
+        <ion-button lines="none" (click)="camsFilePicker.click()" button *ngIf="currentAssetGroup?.assetType === AssetType.MutualFunds">
+          <ion-icon name="document-outline" slot="start"></ion-icon>
+          <ion-label>Upload CAMS Statement</ion-label>
+        </ion-button>
+        <ion-button lines="none" (click)="nsdlFilePicker.click()" button *ngIf="currentAssetGroup?.assetType === AssetType.Equity">
+          <ion-icon name="document-outline" slot="start"></ion-icon>
+          <ion-label>Upload NSDL Statement</ion-label>
+        </ion-button>
+      </div>
     </div>
   </ion-title>
 </ion-header>
 
 <ion-content *ngIf="userAssets.length !== 0 || assetGroups.length !== 0">
-  <div style="max-width: 85%; margin-left: 15%; padding-top: 30px;">
+  <div style="width: 80%; margin-left: 15%; padding-top: 30px;">
     <div class="col-lg-9">
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentAssetGroup?.assetType === AssetType.Equity"
       (actionComplete)='updateGrid($event)'>
         <e-columns>
           <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
-          <e-column field='name' headerText='Name' editType= 'dropdownedit' [edit]='equityParams' textAlign='Center' type='string'></e-column>
-          <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <e-column field='name' editType= 'dropdownedit' [edit]='equityParams' textAlign='left' type='string' width='40%'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Name</span> 
+              </div>
+          </ng-template>
+          </e-column>
+          <e-column textAlign='Center' type='string' [allowEditing]='false'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Change</span> 
+              </div>
+          </ng-template>
             <ng-template #template let-data>
               <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
             </ng-template>
           </e-column>
-          <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
-          <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
-          <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' [valueAccessor]='currencyFormatter' [allowEditing]='false'></e-column>
-          <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
+          <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Units</span> 
+              </div>
+          </ng-template>
+          </e-column>
+          <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Total Cost</span> 
+              </div>
+          </ng-template>
+          </e-column>
+          <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' [valueAccessor]='currencyFormatter' [allowEditing]='false'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Current Price</span> 
+              </div>
+          </ng-template>
+          </e-column>
+          <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Current Value</span> 
+              </div>
+          </ng-template>
+          </e-column>
         </e-columns>    
       </ejs-grid>
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
@@ -111,16 +158,51 @@
       (actionComplete)='updateGrid($event)'>
         <e-columns>
           <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
-          <e-column field='name' headerText='Name' editType= 'dropdownedit' [edit]='mfParams' textAlign='Center' type='string'></e-column>
+          <e-column field='name' headerText='Name' editType= 'dropdownedit' [edit]='mfParams' textAlign='left' type='string' width='40%'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Name</span> 
+              </div>
+          </ng-template>
+          </e-column>
           <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Change</span> 
+              </div>
+          </ng-template>
             <ng-template #template let-data>
               <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
             </ng-template>
           </e-column>
-          <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
-          <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
-          <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
-          <e-column field='currentvalue' headerText='Current Value' textAlign='Center'  type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
+          <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Units</span> 
+              </div>
+          </ng-template>
+          </e-column>
+          <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Total Cost</span> 
+              </div>
+          </ng-template>
+          </e-column>
+          <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Current Price</span> 
+              </div>
+          </ng-template>
+          </e-column>
+          <e-column field='currentvalue' headerText='Current Value' textAlign='Center'  type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'>
+            <ng-template #headerTemplate let-data>
+              <div>
+              <span style="font-size: medium; color: black;">Current Value</span> 
+              </div>
+          </ng-template>
+          </e-column>
         </e-columns>    
       </ejs-grid>
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
@@ -128,14 +210,37 @@
       (actionComplete)='updateGrid($event)'>
       <e-columns >
         <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
-        <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='left' type='string' width='40%'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Name</span> 
+            </div>
+        </ng-template>
+        </e-column>
         <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Change</span> 
+            </div>
+        </ng-template>
           <ng-template #template let-data>
             <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
           </ng-template>
         </e-column>
-        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
-        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Total Cost</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Current Value</span> 
+            </div>
+        </ng-template>
+        </e-column>
       </e-columns>    
       </ejs-grid>
 
@@ -144,14 +249,37 @@
       (actionComplete)='updateGrid($event)'>
       <e-columns >
         <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
-        <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='left' type='string' width='40%'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Name</span> 
+            </div>
+        </ng-template>
+        </e-column>
         <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Change</span> 
+            </div>
+        </ng-template>
           <ng-template #template let-data>
             <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
           </ng-template>
         </e-column>
-        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
-        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Total Cost</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Current Value</span> 
+            </div>
+        </ng-template>
+        </e-column>
       </e-columns>    
       </ejs-grid>
 
@@ -160,16 +288,51 @@
       (actionComplete)='updateGrid($event)'>
       <e-columns >
         <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
-        <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='left' type='string' width='40%'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Name</span> 
+            </div>
+        </ng-template>
+        </e-column>
         <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Change</span> 
+            </div>
+        </ng-template>
           <ng-template #template let-data>
             <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
           </ng-template>
         </e-column>
-        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
-        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
-        <e-column field='depositdate' headerText='Deposit Date' editType='datepickeredit' [format]='formatoptions' textAlign='Center' type='date'></e-column>
-        <e-column field='maturitydate' headerText='Maturity Date' editType='datepickeredit' [format]='formatoptions' textAlign='Center' type='date'></e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Total Cost</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Current Value</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='depositdate' headerText='Deposit Date' editType='datepickeredit' [format]='formatoptions' textAlign='Center' type='date'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Deposit Date</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='maturitydate' headerText='Maturity Date' editType='datepickeredit' [format]='formatoptions' textAlign='Center' type='date'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Maturity Date</span> 
+            </div>
+        </ng-template>
+        </e-column>
       </e-columns>   
       </ejs-grid>
 
@@ -178,26 +341,46 @@
       (actionComplete)='updateGrid($event)'>
       <e-columns >
         <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
-        <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='left' type='string' width='40%'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Name</span> 
+            </div>
+        </ng-template>
+        </e-column>
         <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Change</span> 
+            </div>
+        </ng-template>
           <ng-template #template let-data>
             <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
           </ng-template>
         </e-column>
-        <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
-        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
-        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+        <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Units</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Total Cost</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Current Value</span> 
+            </div>
+        </ng-template>
+        </e-column>
       </e-columns>    
       </ejs-grid>
-      
-      <ion-button lines="none" (click)="camsFilePicker.click()" button *ngIf="currentAssetGroup?.assetType === AssetType.MutualFunds">
-        <ion-icon name="document-outline" slot="start"></ion-icon>
-        <ion-label>Upload CAMS Statement</ion-label>
-      </ion-button>
-      <ion-button lines="none" (click)="nsdlFilePicker.click()" button *ngIf="currentAssetGroup?.assetType === AssetType.Equity">
-        <ion-icon name="document-outline" slot="start"></ion-icon>
-        <ion-label>Upload NSDL Statement</ion-label>
-      </ion-button>
   </div>
 
 </div>
