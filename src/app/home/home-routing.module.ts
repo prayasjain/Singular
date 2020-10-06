@@ -33,12 +33,22 @@ const routes: Routes = [
           import('./profile/profile.module').then((m) => m.ProfilePageModule),
       },
       {
+        path: 'debt',
+        loadChildren: () =>
+          import('./debt/debt.module').then((m) => m.DebtPageModule),
+      },
+      {
+        path: 'insurance',
+        loadChildren: () =>
+          import('./insurance/insurance.module').then((m) => m.InsurancePageModule),
+      },
+      {
         path: '',
         redirectTo: '/home/tabs/assets',
         pathMatch: 'full',
       },
     ],
-  }
+  },
 ];
 
 @NgModule({

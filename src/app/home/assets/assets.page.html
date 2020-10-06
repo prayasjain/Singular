@@ -85,6 +85,8 @@
         </ion-list>
       </div>
       <div>
+        <input type="file" style="display: none;" #nsdlFilePicker (change)="onNSDLPicked($event)" accept=".pdf"/>
+        <input type="file" style="display: none;" #camsFilePicker (change)="onCAMSPicked($event)" accept=".pdf"/>
         <ion-button lines="none" (click)="camsFilePicker.click()" button *ngIf="currentAssetGroup?.assetType === AssetType.MutualFunds">
           <ion-icon name="document-outline" slot="start"></ion-icon>
           <ion-label>Upload CAMS Statement</ion-label>
@@ -384,7 +386,4 @@
   </div>
 
 </div>
-
-<input type="file" style="display: none;" #nsdlFilePicker (change)="onNSDLPicked($event)" accept=".pdf"/>
-<input type="file" style="display: none;" #camsFilePicker (change)="onCAMSPicked($event)" accept=".pdf"/>
 </ion-content>

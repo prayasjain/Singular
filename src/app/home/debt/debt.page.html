@@ -1,0 +1,104 @@
+<div *ngIf="userDebts.length === 0 && debtGroups.length === 0" class="intro-div">
+  <div class="intro-heading">
+    <div class="intro-heading-text">All your debts in one place</div>
+    <div class="intro-heading-image"> <img src="assets/icon/icon.png"></div>
+  </div>
+  <div class="intro-content">
+    Never forget to pay back the money you owe!
+    <br><br>
+    Be on top of your credit card payments, loan EMIs and any other dues by managing all your debt on a single platform. Keeping your liabilities under control is a critical step for financial freedom.
+  </div>
+  <ion-button class="intro-button" (click)="getStarted()">Get Started</ion-button>
+</div>
+<ion-header class="top-header" *ngIf="userDebts.length !== 0 || debtGroups.length !== 0">
+  <ion-title id="container" vertical="center">
+    <ion-item lines="none" style="max-width: 600px; margin-top: 50px; display: inline-flex;
+    vertical-align: middle;">
+      <button slot="start"  mat-icon-button [matMenuTriggerFor]="mainAssetMenu">
+        <ion-icon class="icon" slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </button>
+      <mat-menu #mainAssetMenu="matMenu">
+        <button mat-menu-item disabled>
+          View Archive
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="assetClassMenu">
+          Add New Sheet
+        </button>
+        <button mat-menu-item disabled>
+          Download Excel
+        </button>
+      </mat-menu>
+      <mat-menu #assetClassMenu="matMenu">
+        <button mat-menu-item [disabled]="debtGroupPresent(DebtType.Loan)" (click)="debtGroupAdd(DebtType.Loan)">
+          Loans
+        </button>
+        <button mat-menu-item [disabled]="debtGroupPresent(DebtType.CreditCard)" (click)="debtGroupAdd(DebtType.CreditCard)">
+          Credit Cards
+        </button>
+      </mat-menu>
+      <ion-text slot="start" class="assetsTitle">
+        Debts
+      </ion-text>
+      <ion-text slot="end" class="assetsData">
+        {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
+          currencyService.currency | async ), {style: 'currency', currency:
+          currencyService.currency | async, maximumFractionDigits: 0,
+          minimumFractionDigits: 0})}}
+      </ion-text>
+    </ion-item>
+    <div style="display: flex;">
+      <div class="assesstpageTitle">
+        <ion-list class="list-horizontal">
+          <ion-item button lines="none" class="ion-padding-start" *ngFor="let debtGroup of debtGroups; let i = index"
+          (click)="changeCurrentSelectedDebt(debtGroup)"
+          >
+            <ion-label [ngClass]="currentDebtGroup.debtType !== debtGroup.debtType ? 'assetsSheet' : ''"> 
+              <h3>{{debtGroup.debtType}}</h3>
+              <h3>{{debtGroup.amount?.toLocaleString(currencyService.getLocaleForCurrency(
+                currencyService.currency | async ), {style: 'currency', currency:
+                currencyService.currency | async, maximumFractionDigits: 0,
+                minimumFractionDigits: 0})}}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </ion-title>
+</ion-header>
+
+<ion-content *ngIf="userDebts.length !== 0 || debtGroups.length !== 0">
+  <div style="width: 80%; margin-left: 15%; padding-top: 30px;">
+    <div class="col-lg-9">
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      *ngIf="currentDebtGroup?.debtType === DebtType.Loan || currentDebtGroup?.debtType === DebtType.CreditCard"
+      (actionComplete)='updateGrid($event)'>
+      <e-columns >
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
+        <e-column field='name' headerText='Name' textAlign='left' type='string' width='40%'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Name</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        
+        <e-column field='amount' headerText='Balance' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Total Cost</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='maturitydate' headerText='Maturity Date' editType='datepickeredit' [format]='formatoptions' textAlign='Center' type='date'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Maturity Date</span> 
+            </div>
+        </ng-template>
+        </e-column>
+      </e-columns> 
+      </ejs-grid>
+  </div>
+
+</div>
+</ion-content>

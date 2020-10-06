@@ -1,0 +1,108 @@
+<div *ngIf="userInsurances.length === 0 && insuranceGroups.length === 0" class="intro-div">
+  <div class="intro-heading">
+    <div class="intro-heading-text">Track all your Insurances</div>
+    <div class="intro-heading-image"> <img src="assets/icon/icon.png"></div>
+  </div>
+  <div class="intro-content">
+    Insurance is a fundamental part of having a sound financial plan
+    <br><br>
+    List down your insurance policies so that you have a clear picture of your total coverage as of today. Also helps to pass on the information to your family if something unexpected happens to you.
+  </div>
+  <ion-button class="intro-button" (click)="getStarted()">Get Started</ion-button>
+</div>
+<ion-header class="top-header" *ngIf="userInsurances.length !== 0 || insuranceGroups.length !== 0">
+  <ion-title id="container" vertical="center">
+    <ion-item lines="none" style="max-width: 600px; margin-top: 50px; display: inline-flex;
+    vertical-align: middle;">
+      <button slot="start"  mat-icon-button [matMenuTriggerFor]="mainAssetMenu">
+        <ion-icon class="icon" slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </button>
+      <mat-menu #mainAssetMenu="matMenu">
+        <button mat-menu-item disabled>
+          View Archive
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="assetClassMenu">
+          Add New Sheet
+        </button>
+        <button mat-menu-item disabled>
+          Download Excel
+        </button>
+      </mat-menu>
+      <mat-menu #assetClassMenu="matMenu">
+        <button mat-menu-item [disabled]="insuranceGroupPresent(InsuranceType.LifeInsurance)" (click)="insuranceGroupAdd(InsuranceType.LifeInsurance)">
+          Life Insurance
+        </button>
+      </mat-menu>
+      <ion-text slot="start" class="assetsTitle">
+        Insurances
+      </ion-text>
+      <ion-text slot="end" class="assetsData">
+        {{totalAmount?.toLocaleString(currencyService.getLocaleForCurrency(
+          currencyService.currency | async ), {style: 'currency', currency:
+          currencyService.currency | async, maximumFractionDigits: 0,
+          minimumFractionDigits: 0})}}
+      </ion-text>
+    </ion-item>
+    <div style="display: flex;">
+      <div class="assesstpageTitle">
+        <ion-list class="list-horizontal">
+          <ion-item button lines="none" class="ion-padding-start" *ngFor="let insuranceGroup of insuranceGroups; let i = index"
+          (click)="changeCurrentSelectedInsurance(insuranceGroup)"
+          >
+            <ion-label [ngClass]="currentInsuranceGroup.insuranceType !== insuranceGroup.insuranceType ? 'assetsSheet' : ''"> 
+              <h3>{{insuranceGroup.insuranceType}}</h3>
+              <h3>{{insuranceGroup.amount?.toLocaleString(currencyService.getLocaleForCurrency(
+                currencyService.currency | async ), {style: 'currency', currency:
+                currencyService.currency | async, maximumFractionDigits: 0,
+                minimumFractionDigits: 0})}}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </ion-title>
+</ion-header>
+
+<ion-content *ngIf="userInsurances.length !== 0 || insuranceGroups.length !== 0">
+  <div style="width: 80%; margin-left: 15%; padding-top: 30px;">
+    <div class="col-lg-9">
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      *ngIf="currentInsuranceGroup?.insuranceType === InsuranceType.LifeInsurance"
+      (actionComplete)='updateGrid($event)'>
+      <e-columns >
+        <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
+        <e-column field='policyname' headerText='Policy Name' textAlign='left' type='string' width='40%'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Policy Name</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='policynumber' headerText='Policy Number' textAlign='center' type='string'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Policy Number</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        
+        <e-column field='annualpremium' headerText='Annual Premium' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Annual Premium</span> 
+            </div>
+        </ng-template>
+        </e-column>
+        <e-column field='insuredvalue' headerText='Insured Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'>
+          <ng-template #headerTemplate let-data>
+            <div>
+            <span style="font-size: medium; color: black;">Insured Value</span> 
+            </div>
+        </ng-template>
+        </e-column>
+      </e-columns> 
+      </ejs-grid>
+  </div>
+
+</div>
+</ion-content>
