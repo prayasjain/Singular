@@ -1,4 +1,16 @@
-<ion-header class="top-header">
+<div *ngIf="userAssets.length === 0 && assetGroups.length === 0" class="intro-div">
+  <div class="intro-heading">
+    <div class="intro-heading-text">All your assets in one place</div>
+    <div class="intro-heading-image"> <img src="assets/icon/icon.png"></div>
+  </div>
+  <div class="intro-content">
+    Get a bird's eye view of all your assets like stocks, mutual funds, deposits, bank balance, real estate in one place!
+    <br><br>
+    A well-balanced portfolio as per your risk profile and financial goals is key to acheiving financial freedom. We enable you to be on top of your asset tracking at all times.
+  </div>
+  <ion-button class="intro-button" (click)="getStarted()">Get Started</ion-button>
+</div>
+<ion-header class="top-header" *ngIf="userAssets.length !== 0 || assetGroups.length !== 0">
   <!-- <ion-buttons horizontal="start" vertical="top">
     <ion-menu-button class="white" menu="mainMenu"></ion-menu-button>
   </ion-buttons> -->
@@ -74,7 +86,7 @@
   </ion-title>
 </ion-header>
 
-<ion-content >
+<ion-content *ngIf="userAssets.length !== 0 || assetGroups.length !== 0">
   <div style="max-width: 85%; margin-left: 15%; padding-top: 30px;">
     <div class="col-lg-9">
       <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
@@ -83,10 +95,14 @@
         <e-columns>
           <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
           <e-column field='name' headerText='Name' editType= 'dropdownedit' [edit]='equityParams' textAlign='Center' type='string'></e-column>
-          <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+          <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+            <ng-template #template let-data>
+              <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
+            </ng-template>
+          </e-column>
           <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
           <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
-          <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
+          <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' [valueAccessor]='currencyFormatter' [allowEditing]='false'></e-column>
           <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
         </e-columns>    
       </ejs-grid>
@@ -96,7 +112,11 @@
         <e-columns>
           <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
           <e-column field='name' headerText='Name' editType= 'dropdownedit' [edit]='mfParams' textAlign='Center' type='string'></e-column>
-          <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+          <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+            <ng-template #template let-data>
+              <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
+            </ng-template>
+          </e-column>
           <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
           <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
           <e-column field='currentprice' headerText='Current Price' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
@@ -109,7 +129,11 @@
       <e-columns >
         <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
         <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
-        <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+        <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <ng-template #template let-data>
+            <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
+          </ng-template>
+        </e-column>
         <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
         <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
       </e-columns>    
@@ -121,7 +145,11 @@
       <e-columns >
         <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
         <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
-        <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+        <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <ng-template #template let-data>
+            <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
+          </ng-template>
+        </e-column>
         <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
         <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
       </e-columns>    
@@ -133,7 +161,11 @@
       <e-columns >
         <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
         <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
-        <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+        <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <ng-template #template let-data>
+            <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
+          </ng-template>
+        </e-column>
         <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
         <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' [allowEditing]='false' [valueAccessor]='currencyFormatter'></e-column>
         <e-column field='depositdate' headerText='Deposit Date' editType='datepickeredit' [format]='formatoptions' textAlign='Center' type='date'></e-column>
@@ -147,7 +179,11 @@
       <e-columns >
         <e-column field='id' headerText='Id' [visible]='false' isPrimaryKey='true' type='string'></e-column>
         <e-column field='name' headerText='Name' textAlign='Center' type='string'></e-column>
-        <e-column [valueAccessor]='percentFormatter' headerText='Change' textAlign='Center' type='string' [allowEditing]='false'></e-column>
+        <e-column headerText='Change' textAlign='Center' type='string' [allowEditing]='false'>
+          <ng-template #template let-data>
+            <ion-text [color]="getColor(data.currentvalue, data.totalcost)"> {{percentFormatter(data)}}</ion-text>
+          </ng-template>
+        </e-column>
         <e-column field='units' headerText='Units' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='unitFormatter'></e-column>
         <e-column field='totalcost' headerText='Total Cost' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>
         <e-column field='currentvalue' headerText='Current Value' textAlign='Center' type='number' editType= 'numericedit' [valueAccessor]='currencyFormatter'></e-column>

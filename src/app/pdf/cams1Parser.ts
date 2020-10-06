@@ -64,6 +64,11 @@ export class CAMS1Parser {
       fundName = jsonData[j].str + fundName;
       j = j - 1;
     }
+    let code = fundName.split('-')[0].trim();
+    if (code.length < 5) {
+      let splits = fundName.split('-');
+      fundName = splits.slice(1, splits.length).join('-');
+    }
     return fundName;
   }
 

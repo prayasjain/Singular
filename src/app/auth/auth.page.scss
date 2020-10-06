@@ -43,3 +43,62 @@
   .loginBtn--google:focus {
     background: #E74B37;
   }
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+  }
+
+  .singular-box {
+    height: 100%;
+    width: 50%;
+    background-color: #264e86;
+  }
+  .form-box {
+    height: 100%;
+    width: 50%;
+    background-color:white;
+  }
+
+  .heading {
+    color: white;
+    text-align: center;
+    padding: 60px;
+    font-size: 500%;
+  }
+
+  .subtext {
+    color: white;
+    text-align: center;
+    padding: 60px;
+    font-size: 150%;
+  }
+
+  .inside-form-box {
+    margin: 5%;
+    background-color: #ecf0f1;
+    height: 90%;
+    padding: 20px
+  }
+
+  .standard-text {
+    color: black;
+    padding: 8px;
+    font-size: 150%;
+  }
+
+  .singular-btn {
+    background-color: #264e86;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: large;
+    border-radius: 5px;
+    margin-left: 25%;
+    margin-top: 10%;
+    width: 50%;
+  }

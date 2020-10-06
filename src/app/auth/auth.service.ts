@@ -45,19 +45,24 @@ export class AuthService {
   }
 
   login() {
-    if (this.platform.is("desktop")) {
-      this.afAuth.auth
+    this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then((user) => {
           this.router.navigateByUrl("/home/tabs/assets");
         });
-    } else {
-      this.nativeGoogleLogin().then((data) => {
-        if (data) {
-          this.router.navigateByUrl("/home/tabs/assets");
-        }
-      });
-    }
+    // if (this.platform.is("desktop")) {
+    //   this.afAuth.auth
+    //     .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    //     .then((user) => {
+    //       this.router.navigateByUrl("/home/tabs/assets");
+    //     });
+    // } else {
+    //   this.nativeGoogleLogin().then((data) => {
+    //     if (data) {
+    //       this.router.navigateByUrl("/home/tabs/assets");
+    //     }
+    //   });
+    // }
   }
 
   async nativeGoogleLogin() {

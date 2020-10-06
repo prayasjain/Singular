@@ -57,3 +57,43 @@ table {
 .icon {
   margin-top: 8px;
 }
+
+.intro-div {
+  margin-left: 25%;
+  margin-top: 5%;
+  width: 50%;
+  height: 80%;
+  border-style: solid;
+}
+
+.intro-heading {
+  display: flex;
+}
+
+.intro-heading-text {
+  margin-top: 2%;
+  margin-left: 5%;
+  font-size: xx-large;
+  border-style: solid;
+  padding: 40px;
+}
+
+.intro-heading-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+  padding-top: 20px;
+}
+
+.intro-content {
+  margin-top: 2%;
+  margin-left: 5%;
+  font-size: large;
+}
+.intro-button {
+  margin-left: 5%;
+  
+  margin-top: 2%;
+
+}

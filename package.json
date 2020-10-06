@@ -39,7 +39,6 @@
     "@types/chart.js": "^2.9.23",
     "angularfire2": "^5.4.2",
     "chart.js": "^2.9.3",
-    "cldr-data": "^36.0.0",
     "cordova-plugin-googleplus": "^8.5.0",
     "cordova-sms-reader": "0.0.3",
     "file-saver": "^2.0.2",

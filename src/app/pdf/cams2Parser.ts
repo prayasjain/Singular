@@ -158,6 +158,11 @@ export class CAMS2Parser {
       start += 1;
     }
     if (schemeName !== "") {
+      let code = schemeName.split('-')[0].trim();
+      if (code.length < 5) {
+        let splits = schemeName.split('-');
+        schemeName = splits.slice(1, splits.length).join('-');
+      }
       return {
         schemeName: schemeName,
         schemeExtraFields: start - folioIndex - nameOffset - 1,

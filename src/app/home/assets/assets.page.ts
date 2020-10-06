@@ -13,7 +13,6 @@ import { EditService, ToolbarService, PageService, NewRowPosition, IEditCell } f
 import { Query, DataManager } from '@syncfusion/ej2-data';
 import { ChangeEventArgs, DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
 import { PdfService } from 'src/app/pdf/pdf.service';
-import {setCulture, setCurrencyCode} from '@syncfusion/ej2-base';
 import { } from '@syncfusion/ej2-base';
 
 interface AssetGroup {
@@ -76,7 +75,7 @@ export class AssetsPage implements OnInit, OnDestroy {
           dataSource: stockArray,
           fields: { text: 'name', value: 'name' },
           query: new Query(),
-          actionComplete: (data) => {console.log(data)}
+          actionComplete: (data) => {console.log("dropdown")}
       }
     };
     this.mfParams = {
@@ -89,7 +88,7 @@ export class AssetsPage implements OnInit, OnDestroy {
       }
     };
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true , newRowPosition: 'Top' };
-    this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
+    this.toolbar = ['Add', 'Delete', 'Cancel'];
     this.editparams = { params: { popupHeight: '300px' } };
     this.pageSettings = { pageCount: 5 };
     this.formatoptions = {type: 'date', format: 'dd/MM/yyyy'}
@@ -186,9 +185,28 @@ actionBegin(args: any) :void {
     }
   }
 
-  public percentFormatter = (field: string, data, column: Object) => {
-    return ((Number(data.currentvalue) - Number(data.totalcost) )/ Number(data.totalcost)).toFixed(2) + "%";
+  public percentFormatter = (data) => {
+    return (100 * (Number(data.currentvalue) - Number(data.totalcost) )/ Number(data.totalcost)).toFixed(2) + "%";
   }
+
+  // public equityValueFormatter = (data) => {
+    
+  //   if (data.identifier) {
+  //     return this.marketDataService.getPrice([data.identifier], this.currentAssetGroup.assetType).pipe(take(1), map((priceData : PriceData[]) => {
+  //       let currentPrice = priceData.find(priceData => priceData.key === data.identifier);
+  //       if (currentPrice) {
+  //         let amount = Number(currentPrice.nav).toLocaleString(this.currencyService.getLocaleForCurrency(this.currentCurrency), 
+  //         { style: 'currency', currency: this.currentCurrency, maximumFractionDigits: 0, minimumFractionDigits: 0 });
+  //         console.log(amount)
+  //         return amount
+  //       }
+  //     }));
+      
+      
+  //   } else {
+  //     return of("");
+  //   }
+  // }
 
   public unitFormatter = (field: string, data: object, column: object) => {
     let value = +data[field];
@@ -224,12 +242,18 @@ actionBegin(args: any) :void {
       await filteredAssets.forEach(async asset => {
         let amount : number = await asset.getAmountForAsset(this.currentDate).toPromise();
         let name = asset.assetTitle;
+        let identifier;
+        if (asset.assetType === AssetType.MutualFunds) {
+          identifier = asset.mstarId;
+        } else if (asset.assetType === AssetType.Equity) {
+          identifier = asset.isin;
+        }
         let units : number = asset.units;
         let price : number = asset.price;
         let totalcost: number = units*price;
         let currentprice : number = asset.currentValue;
         let change = 100 * (amount - (units*price) )/ (units*price);
-        data = data.concat({id: asset.id, name: name, change: change, units: units, totalcost : totalcost, currentprice: currentprice, currentvalue: units*currentprice});
+        data = data.concat({id: asset.id, name: name, change: change, units: units, totalcost : totalcost, currentprice: currentprice, currentvalue: units*currentprice, identifier: identifier});
       })
     }
 
@@ -315,7 +339,7 @@ actionBegin(args: any) :void {
         })
         return;
       }
-      updatedAsset = this.updateAsset(updatedAsset, event.data);
+      updatedAsset = await this.updateAsset(updatedAsset, event.data);
       this.assetsService.updateUserAssets([updatedAsset]).subscribe(() => {
         console.log("updated asset");
         console.log(updatedAsset);
@@ -323,20 +347,53 @@ actionBegin(args: any) :void {
     }
   }
 
-  updateAsset(asset : Asset, data) : Asset {
+  async updateAsset(asset : Asset, data) : Promise<Asset> {
     let assetType = asset.assetType;
     if (assetType === AssetType.Equity || assetType === AssetType.MutualFunds) {
       if (assetType === AssetType.Equity) {
         asset.equity.stockName = data.name;
+        let isin
+        let autoCompleteData : AutoCompleteData[] = await this.marketDataService.getData(data.name.trim().toLowerCase(), assetType).toPromise();
+        if (autoCompleteData.length === 1) {
+          isin = autoCompleteData[0].equity.isin;
+          asset.equity.isin = isin
+        }
         asset.equity.units = data.units;
         asset.equity.price = data.totalcost / data.units;
-        asset.equity.currentValue = data.currentvalue / data.units;
+        if (asset.equity.isin) {
+          let priceData : PriceData[] = await this.marketDataService.getPrice([asset.equity.isin], AssetType.Equity).toPromise();
+          let currentPrice = priceData.find(p => p.key === isin);
+          if (currentPrice) {
+            asset.equity.currentValue = currentPrice.nav;
+          } else {
+            asset.equity.currentValue = data.currentvalue / data.units;
+          }
+        } else {
+          asset.equity.currentValue = data.currentvalue / data.units;
+        }
+        
       }
       else if (assetType === AssetType.MutualFunds) {
         asset.mutualFunds.fundName = data.name;
+        let mstarId;
+        let autoCompleteData : AutoCompleteData[] = await this.marketDataService.getData(data.name.trim().toLowerCase(), assetType).toPromise();
+        if (autoCompleteData.length === 1) {
+          mstarId = autoCompleteData[0].mutualfund.mstarId;
+          asset.mutualFunds.mstarId = mstarId;
+        }
         asset.mutualFunds.units = data.units;
         asset.mutualFunds.price = data.totalcost / data.units;
-        asset.mutualFunds.currentValue = data.currentvalue / data.units;
+        if (asset.mutualFunds.mstarId) {
+          let priceData : PriceData[] = await this.marketDataService.getPrice([mstarId], AssetType.MutualFunds).toPromise();
+          let currentPrice = priceData.find(p => p.key === mstarId);
+          if (currentPrice) {
+            asset.mutualFunds.currentValue = currentPrice.nav;
+          } else {
+            asset.mutualFunds.currentValue = data.currentvalue / data.units;
+          }
+        } else {
+          asset.mutualFunds.currentValue = data.currentvalue / data.units;
+        }
       }
     }
     else if (assetType === AssetType.SavingsAccount || assetType === AssetType.RealEstate || assetType === AssetType.Others) {
@@ -399,10 +456,12 @@ actionBegin(args: any) :void {
       if (autoCompleteData.length === 1) {
         mstarId = autoCompleteData[0].mutualfund.mstarId;
       }
-      
+      let priceData : PriceData[] = await this.marketDataService.getPrice([mstarId], AssetType.MutualFunds).toPromise();
+      let currentPrice = priceData.find(p => p.key === mstarId);
+
       asset = new Asset(
         assetId,
-        new MutualFunds(data.name, +data.units, +data.totalcost / +data.units, +data.currentvalue / +data.units, "", mstarId),
+        new MutualFunds(data.name, +data.units, +data.totalcost / +data.units, +currentPrice?.nav, "", mstarId),
         percentUnAlloc
       );
     }
@@ -412,9 +471,11 @@ actionBegin(args: any) :void {
       if (autoCompleteData.length === 1) {
           isin = autoCompleteData[0].equity.isin;
       }
+      let priceData : PriceData[] = await this.marketDataService.getPrice([isin], AssetType.Equity).toPromise();
+      let currentPrice = priceData.find(p => p.key === isin);
       asset = new Asset(
         assetId,
-        new Equity( data.name, +data.units, +data.totalcost / +data.units, +data.currentvalue / +data.units, isin),
+        new Equity( data.name, +data.units, +data.totalcost / +data.units, +currentPrice?.nav, isin),
         percentUnAlloc
       );
     }
@@ -547,5 +608,30 @@ actionBegin(args: any) :void {
     this.assetGroups.push(assetGroup);
     this.currentAssetGroup = assetGroup;
     this.data = [];
+  }
+
+  getColor(currentValue, totalCost) {
+    if (Number(currentValue) > Number(totalCost)) {
+      return "success"
+    } else if (Number(currentValue) < Number(totalCost)) {
+      return "danger";
+    }
+    return "warning";
+  }
+  getStarted() {
+    let assetGroup : AssetGroup= {
+      assetType: AssetType.MutualFunds,
+      amount: 0,
+    };
+    this.assetGroups.push(assetGroup);
+    this.assetGroups.push({
+      assetType: AssetType.Equity,
+      amount: 0,
+    })
+    this.assetGroups.push({
+      assetType: AssetType.Others,
+      amount: 0,
+    })
+    this.currentAssetGroup = assetGroup;
   }
 }
