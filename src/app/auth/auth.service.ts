@@ -7,6 +7,9 @@ import { Router } from "@angular/router";
 import { Platform } from "@ionic/angular";
 import { GooglePlus } from "@ionic-native/google-plus/ngx";
 import { environment } from "../../environments/environment";
+import { AssetsService } from '../home/assets/assets.service';
+import { DebtService } from '../home/debt/debt.service';
+import { InsuranceService } from '../home/insurance/insurance.service';
 
 @Injectable({
   providedIn: "root",
@@ -81,6 +84,10 @@ export class AuthService {
   }
 
   logout() {
+    AssetsService.initializedAssets = false;
+    AssetsService.initializedAssetHistory = false;
+    DebtService.initializedDebts = false;
+    InsuranceService.initializedInsurances = false;
     if (this.platform.is("desktop")) {
       this.afAuth.auth.signOut().then(() => {
         this.router.navigateByUrl("/auth");

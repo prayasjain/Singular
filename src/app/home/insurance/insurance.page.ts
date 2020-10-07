@@ -78,7 +78,6 @@ export class InsurancePage implements OnInit, OnDestroy {
     })
     this.insuranceSub = this.authService.authInfo
       .pipe(
-        take(1),
         switchMap((user) => {
           this.user = user;
           return this.insuranceService.userInsurances;

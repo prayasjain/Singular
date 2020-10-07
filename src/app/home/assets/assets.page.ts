@@ -71,19 +71,41 @@ export class AssetsPage implements OnInit, OnDestroy {
     let mfArray = await this.assetsService.getMutualFunds();
     this.equityParams = {
       params: {
+          popupHeight: '300',
+          popupWidth: '600',
           allowFiltering: true,
           dataSource: stockArray,
           fields: { text: 'name', value: 'name' },
-          query: new Query(),
+          query: new Query().take(7),
+          filtering : (e) => {
+            if (e.text === '') {
+              e.updateData(stockArray);
+            } else {
+              // set limit as 4 to search result
+              let query: Query = new Query().where('name', 'startswith', e.text, true).take(7);
+              e.updateData(stockArray, query);
+            }
+          },
           actionComplete: (data) => {console.log("dropdown")}
       }
     };
     this.mfParams = {
       params: {
+          popupHeight: '300',
+          popupWidth: '600',
           allowFiltering: true,
           dataSource: mfArray,
           fields: { text: 'name', value: 'name' },
-          query: new Query(),
+          query: new Query().take(7),
+          filtering : (e) => {
+            if (e.text === '') {
+              e.updateData(mfArray);
+            } else {
+              // set limit as 4 to search result
+              let query: Query = new Query().where('name', 'startswith', e.text, true).take(7);
+              e.updateData(mfArray, query);
+            }
+          },
           actionComplete: (data) => {console.log(data)}
       }
     };
@@ -101,7 +123,6 @@ export class AssetsPage implements OnInit, OnDestroy {
     })
     this.assetsSub = this.authService.authInfo
       .pipe(
-        take(1),
         switchMap((user) => {
           this.user = user;
           return this.assetsService.userAssets;

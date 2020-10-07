@@ -18,15 +18,15 @@ import { Constants } from 'src/app/config/constants';
 })
 export class DebtService {
   private _userDebts = new BehaviorSubject<Debt[]>([]);
-  private initializedDebts: boolean = false;
+  public static initializedDebts: boolean = false;
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   get userDebts(): Observable<Debt[]> {
-    if (!this.initializedDebts) {
+    if (!DebtService.initializedDebts) {
       this.fetchUserDebts()
         .pipe(take(1))
         .subscribe(() => {
-          this.initializedDebts = true;
+          DebtService.initializedDebts = true;
         });
     }
     return this._userDebts.asObservable();
@@ -35,12 +35,10 @@ export class DebtService {
   fetchUserDebts() {
     let auth;
     return this.authService.authInfo.pipe(
-      take(1),
       switchMap((authInfo) => {
         auth = authInfo;
         return authInfo.getIdToken();
       }),
-      take(1),
       switchMap((token) => {
         return this.http.get(`https://moneyapp-63c7a.firebaseio.com/${auth.uid}-debts.json?auth=${token}`);
       }),

@@ -28,27 +28,27 @@ import { Constants } from 'src/app/config/constants';
 export class AssetsService {
   private _userAssets = new BehaviorSubject<Asset[]>([]);
   private _assetHistory = new BehaviorSubject<any[]>([]);
-  private initializedAssets: boolean = false;
-  private initializedAssetHistory: boolean = false;
+  public static initializedAssets: boolean = false;
+  public static initializedAssetHistory: boolean = false;
   constructor(private http: HttpClient, private authService: AuthService, private marketDataService: MarketDataService) { }
 
   get userAssets(): Observable<Asset[]> {
-    if (!this.initializedAssets) {
+    if (!AssetsService.initializedAssets) {
       this.fetchUserAssets()
         .pipe(take(1))
         .subscribe(() => {
-          this.initializedAssets = true;
+          AssetsService.initializedAssets = true;
         });
     }
     return this._userAssets.asObservable();
   }
 
   get assetHistory() {
-    if (!this.initializedAssetHistory) {
+    if (!AssetsService.initializedAssetHistory) {
       this.fetchAssetHistory()
         .pipe(take(1))
         .subscribe(() => {
-          this.initializedAssetHistory = true;
+          AssetsService.initializedAssetHistory = true;
         });
     }
     return this._assetHistory.asObservable();
@@ -85,12 +85,13 @@ export class AssetsService {
   fetchUserAssets() {
     let auth;
     return this.authService.authInfo.pipe(
-      take(1),
+      //take(1),
       switchMap((authInfo) => {
+        console.log("here")
         auth = authInfo;
         return authInfo.getIdToken();
       }),
-      take(1),
+      //take(1),
       switchMap((token) => {
         return this.http.get(`https://moneyapp-63c7a.firebaseio.com/${auth.uid}-assets.json?auth=${token}`);
       }),
@@ -163,7 +164,7 @@ export class AssetsService {
   fetchAssetHistory() {
     let auth;
     return this.authService.authInfo.pipe(
-      take(1),
+      //take(1),
       switchMap((authInfo) => {
         auth = authInfo;
         return authInfo.getIdToken();

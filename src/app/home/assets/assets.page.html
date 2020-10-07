@@ -103,7 +103,7 @@
 <ion-content *ngIf="userAssets.length !== 0 || assetGroups.length !== 0">
   <div style="width: 80%; margin-left: 15%; padding-top: 30px;">
     <div class="col-lg-9">
-      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowTextWrap='true' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentAssetGroup?.assetType === AssetType.Equity"
       (actionComplete)='updateGrid($event)'>
         <e-columns>
@@ -155,7 +155,7 @@
           </e-column>
         </e-columns>    
       </ejs-grid>
-      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      <ejs-grid #normalgrid id='Normalgrid' allowTextWrap='true' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentAssetGroup?.assetType === AssetType.MutualFunds"
       (actionComplete)='updateGrid($event)'>
         <e-columns>
@@ -207,7 +207,7 @@
           </e-column>
         </e-columns>    
       </ejs-grid>
-      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowTextWrap='true' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentAssetGroup?.assetType === AssetType.RealEstate || currentAssetGroup?.assetType === AssetType.Others"
       (actionComplete)='updateGrid($event)'>
       <e-columns >
@@ -246,7 +246,7 @@
       </e-columns>    
       </ejs-grid>
 
-      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowTextWrap='true' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentAssetGroup?.assetType === AssetType.SavingsAccount"
       (actionComplete)='updateGrid($event)'>
       <e-columns >
@@ -285,7 +285,7 @@
       </e-columns>    
       </ejs-grid>
 
-      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowTextWrap='true' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentAssetGroup?.assetType === AssetType.Deposits"
       (actionComplete)='updateGrid($event)'>
       <e-columns >
@@ -338,7 +338,7 @@
       </e-columns>   
       </ejs-grid>
 
-      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowTextWrap='true' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentAssetGroup?.assetType === AssetType.Gold"
       (actionComplete)='updateGrid($event)'>
       <e-columns >

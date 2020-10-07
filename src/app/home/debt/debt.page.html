@@ -69,7 +69,7 @@
 <ion-content *ngIf="userDebts.length !== 0 || debtGroups.length !== 0">
   <div style="width: 80%; margin-left: 15%; padding-top: 30px;">
     <div class="col-lg-9">
-      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
+      <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowTextWrap='true' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)'
       *ngIf="currentDebtGroup?.debtType === DebtType.Loan || currentDebtGroup?.debtType === DebtType.CreditCard"
       (actionComplete)='updateGrid($event)'>
       <e-columns >

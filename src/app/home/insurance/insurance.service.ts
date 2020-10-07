@@ -16,15 +16,15 @@ import { AuthService } from "src/app/auth/auth.service";
 })
 export class InsuranceService {
   private _userInsurances = new BehaviorSubject<Insurance[]>([]);
-  private initializedInsurances: boolean = false;
+  public static initializedInsurances: boolean = false;
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   get userInsurances(): Observable<Insurance[]> {
-    if (!this.initializedInsurances) {
+    if (!InsuranceService.initializedInsurances) {
       this.fetchUserInsurances()
         .pipe(take(1))
         .subscribe(() => {
-          this.initializedInsurances = true;
+          InsuranceService.initializedInsurances = true;
         });
     }
     return this._userInsurances.asObservable();

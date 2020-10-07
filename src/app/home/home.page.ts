@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
   constructor(public stateService: StateService, public currencyService: CurrencyService, private authService: AuthService) {}
   
   ngOnInit() {
-    this.authSub = this.authService.authInfo.pipe(take(1)).subscribe((user) => {
+    this.authSub = this.authService.authInfo.subscribe((user) => {
       this.user = user;
     });
   }
